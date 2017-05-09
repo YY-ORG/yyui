@@ -1,0 +1,11 @@
+<h3 class="login-title form-title font-green">找回密码</h3>
+<!-- ngDefaultControl -->
+
+<ngl-form-element label="请输入注册邮箱" [error]="v.result.email" class="slds-m-top--small mgt30">
+	<input nglFormControl type="text" placeholder="" [(ngModel)]="email" (keyup)="checkValue('email')">
+</ngl-form-element>
+
+<div class="login-button-box mgt30">
+	<button type="button" routerLink="/login/" nglButton="inverse">回退</button>
+	<button type="button" nglButton="brand" class="float-right">登录</button>
+</div>

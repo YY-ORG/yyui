@@ -1,0 +1,7 @@
+<div class="btn-group input-step-compontent" style="width: 130px;">
+    <button type="button" class="btn btn-default col-md-3" [ngClass]="{'clickable':value != min}" (click)="subtract()" [disabled]="disabled || value == min"><span class="glyphicon glyphicon-minus"></span></button>
+    <input type="text" class="form-control" (change)="valueChange()" [(ngModel)]="value" name="editValue" #box [disabled]="disabled">
+    <button type="button" class="btn btn-default" (click)="add()" [ngClass]="{'clickable':value != max}" [disabled]="disabled || value == max">
+		<span class="glyphicon glyphicon-plus"></span>
+	</button>
+</div>
