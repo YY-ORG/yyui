@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
 import { SiteComponent } from './site/site.component'
+import { SiteService } from './site/site.service'
 
 import { CountBarComponent } from './countBar/component/count-bar.component';
 import { MyDatePickerModule } from './date-picker/my-date-picker.module';
@@ -37,10 +38,10 @@ import { NglModule } from 'ng-lightning/ng-lightning';
         HttpModule,
         SiteComponent,
         NglModule
-        
     ],
     providers : [
-        Validation
+        Validation,
+        SiteService
     ]
 })
 export class CommonComponentModule { }

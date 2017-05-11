@@ -34,148 +34,24 @@
 	</div>
 	<div class="menu-box">
 		<ul class="nav-item-ul">
-			<li class="nav-item open">
+			<ng-container *ngFor="let menu1 of meunList">
+			<li *ngIf="menu1.isShow" (click)="changeMenu(menu1)" class="nav-item {{menu1.isOpen ? 'open' : ''}}">
 				<a href="javascript:;" class="nav-link nav-toggle">
-					<i class="iconfont icon-lockopen"></i>
-					<span class="nav-title">权限管理</span>
-					<i class="iconfont icon-arrow open"></i>
+					<i class="iconfont {{menu1.icon}}"></i>
+					<span class="nav-title">{{menu1.label}}</span>
+					<i class="iconfont icon-arrow1"></i>
 				</a>
-				<ul class="sub-menu" style="display: block;">
-					<li class="nav-item  ">
+				<ul class="sub-menu" *ngIf="menu1.top2_menu && menu1.top2_menu.length">
+					<ng-container *ngFor="let menu2 of menu1.top2_menu">
+					<li class="nav-item" *ngIf="menu2.isShow" routerLinkActive="active" routerLink="{{menu2.routing}}">
 						<a href="javascript:" class="nav-link ">
-							<span class="nav-title">系统人员管理</span>
+							<span class="nav-title">{{menu2.label}}</span>
 						</a>
 					</li>
-					<li class="nav-item  ">
-						<a href="javascript:" class="nav-link ">
-							<span class="nav-title">系统账号管理</span>
-						</a>
-					</li>
-					<li class="nav-item  ">
-						<a href="javascript:" class="nav-link ">
-							<span class="nav-title">系统模块管理</span>
-						</a>
-					</li>
-					<li class="nav-item  ">
-						<a href="javascript:" class="nav-link ">
-							<span class="nav-title">考核内容管理</span>
-						</a>
-					</li>
-					<li class="nav-item  ">
-						<a href="javascript:" class="nav-link ">
-							<span class="nav-title">考核角色管理</span>
-						</a>
-					</li>
-					<li class="nav-item  ">
-						<a href="javascript:" class="nav-link ">
-							<span class="nav-title">考核权限管理</span>
-						</a>
-					</li>
-					<li class="nav-item  ">
-						<a href="javascript:" class="nav-link ">
-							<span class="nav-title">考核时限管理</span>
-						</a>
-					</li>
+					</ng-container>
 				</ul>
 			</li>
-			<li class="nav-item">
-				<a href="javascript:;" class="nav-link nav-toggle">
-					<i class="iconfont icon-lockopen"></i>
-					<span class="nav-title">内容管理</span>
-					<i class="iconfont icon-arrow open"></i>
-				</a>
-				<ul class="sub-menu" style="display: none;">
-					<li class="nav-item  ">
-						<a href="javascript:" class="nav-link ">
-							<span class="nav-title">系统人员管理</span>
-						</a>
-					</li>
-				</ul>
-			</li>
-			<li class="nav-item">
-				<a href="javascript:;" class="nav-link nav-toggle">
-					<i class="iconfont icon-lockopen"></i>
-					<span class="nav-title">内容管理</span>
-					<i class="iconfont icon-arrow open"></i>
-				</a>
-				<ul class="sub-menu" style="display: none;">
-					<li class="nav-item  ">
-						<a href="javascript:" class="nav-link ">
-							<span class="nav-title">系统人员管理</span>
-						</a>
-					</li>
-				</ul>
-			</li>
-			<li class="nav-item">
-				<a href="javascript:;" class="nav-link nav-toggle">
-					<i class="iconfont icon-lockopen"></i>
-					<span class="nav-title">内容管理</span>
-					<i class="iconfont icon-arrow open"></i>
-				</a>
-				<ul class="sub-menu" style="display: none;">
-					<li class="nav-item  ">
-						<a href="javascript:" class="nav-link ">
-							<span class="nav-title">系统人员管理</span>
-						</a>
-					</li>
-				</ul>
-			</li>
-			<li class="nav-item">
-				<a href="javascript:;" class="nav-link nav-toggle">
-					<i class="iconfont icon-lockopen"></i>
-					<span class="nav-title">内容管理</span>
-					<i class="iconfont icon-arrow open"></i>
-				</a>
-				<ul class="sub-menu" style="display: none;">
-					<li class="nav-item  ">
-						<a href="javascript:" class="nav-link ">
-							<span class="nav-title">系统人员管理</span>
-						</a>
-					</li>
-				</ul>
-			</li>
-			<li class="nav-item">
-				<a href="javascript:;" class="nav-link nav-toggle">
-					<i class="iconfont icon-lockopen"></i>
-					<span class="nav-title">内容管理</span>
-					<i class="iconfont icon-arrow open"></i>
-				</a>
-				<ul class="sub-menu" style="display: none;">
-					<li class="nav-item  ">
-						<a href="javascript:" class="nav-link ">
-							<span class="nav-title">系统人员管理</span>
-						</a>
-					</li>
-				</ul>
-			</li>
-			<li class="nav-item">
-				<a href="javascript:;" class="nav-link nav-toggle">
-					<i class="iconfont icon-lockopen"></i>
-					<span class="nav-title">内容管理</span>
-					<i class="iconfont icon-arrow open"></i>
-				</a>
-				<ul class="sub-menu" style="display: none;">
-					<li class="nav-item  ">
-						<a href="javascript:" class="nav-link ">
-							<span class="nav-title">系统人员管理</span>
-						</a>
-					</li>
-				</ul>
-			</li>
-			<li class="nav-item">
-				<a href="javascript:;" class="nav-link nav-toggle">
-					<i class="iconfont icon-lockopen"></i>
-					<span class="nav-title">内容管理</span>
-					<i class="iconfont icon-arrow open"></i>
-				</a>
-				<ul class="sub-menu" style="display: none;">
-					<li class="nav-item  ">
-						<a href="javascript:" class="nav-link ">
-							<span class="nav-title">系统人员管理</span>
-						</a>
-					</li>
-				</ul>
-			</li>
+			</ng-container>
 		</ul>
 	</div>
 	<div class="content-box">
