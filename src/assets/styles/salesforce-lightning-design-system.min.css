@@ -4835,7 +4835,7 @@ a.slds-button--inverse:focus {
 
 .slds-popover {
     position: relative;
-    border-radius: .25rem;
+    border-radius: .1rem;
     width: 20rem;
     min-height: 2rem;
     z-index: 6000;
@@ -4927,27 +4927,27 @@ a.slds-button--inverse:focus {
 }
 
 .slds-nubbin--top:before {
-    width: 1rem;
-    height: 1rem;
+    width: .5rem;
+    height: .5rem;
     position: absolute;
     transform: rotate(45deg);
     content: '';
     background-color: inherit;
     left: 50%;
-    top: -.5rem;
-    margin-left: -.5rem
+    top: -.25rem;
+    margin-left: -.25rem
 }
 
 .slds-nubbin--top:after {
-    width: 1rem;
-    height: 1rem;
+    width: .5rem;
+    height: .5rem;
     position: absolute;
     transform: rotate(45deg);
     content: '';
     background-color: inherit;
     left: 50%;
-    top: -.5rem;
-    margin-left: -.5rem
+    top: -.25rem;
+    margin-left: -.25rem
 }
 
 .slds-nubbin--top:after {
@@ -4956,27 +4956,27 @@ a.slds-button--inverse:focus {
 }
 
 .slds-nubbin--top-left:before {
-    width: 1rem;
-    height: 1rem;
+    width: .5rem;
+    height: .5rem;
     position: absolute;
     transform: rotate(45deg);
     content: '';
     background-color: inherit;
     left: 50%;
-    top: -.5rem;
-    margin-left: -.5rem
+    top: -.25rem;
+    margin-left: -.25rem
 }
 
 .slds-nubbin--top-left:after {
-    width: 1rem;
-    height: 1rem;
+    width: .5rem;
+    height: .5rem;
     position: absolute;
     transform: rotate(45deg);
     content: '';
     background-color: inherit;
     left: 50%;
-    top: -.5rem;
-    margin-left: -.5rem
+    top: -.25rem;
+    margin-left: -.25rem
 }
 
 .slds-nubbin--top-left:after {
@@ -4987,31 +4987,31 @@ a.slds-button--inverse:focus {
 .slds-nubbin--top-left:after,
 .slds-nubbin--top-left:before {
     left: 1.5rem;
-    top: -.5rem
+    top: -.25rem
 }
 
 .slds-nubbin--top-right:before {
-    width: 1rem;
-    height: 1rem;
+    width: .5rem;
+    height: .5rem;
     position: absolute;
     transform: rotate(45deg);
     content: '';
     background-color: inherit;
     left: 50%;
-    top: -.5rem;
-    margin-left: -.5rem
+    top: -.25rem;
+    margin-left: -.25rem
 }
 
 .slds-nubbin--top-right:after {
-    width: 1rem;
-    height: 1rem;
+    width: .5rem;
+    height: .5rem;
     position: absolute;
     transform: rotate(45deg);
     content: '';
     background-color: inherit;
     left: 50%;
-    top: -.5rem;
-    margin-left: -.5rem
+    top: -.25rem;
+    margin-left: -.25rem
 }
 
 .slds-nubbin--top-right:after {
@@ -5023,32 +5023,32 @@ a.slds-button--inverse:focus {
 .slds-nubbin--top-right:before {
     left: auto;
     right: 1.5rem;
-    top: -.5rem;
+    top: -.25rem;
     margin-right: -.5rem
 }
 
 .slds-nubbin--bottom:before {
-    width: 1rem;
-    height: 1rem;
+    width: .5rem;
+    height: .5rem;
     position: absolute;
     transform: rotate(45deg);
     content: '';
     background-color: inherit;
     left: 50%;
-    bottom: -.5rem;
-    margin-left: -.5rem
+    bottom: -.25rem;
+    margin-left: -.25rem
 }
 
 .slds-nubbin--bottom:after {
-    width: 1rem;
-    height: 1rem;
+    width: .5rem;
+    height: .5rem;
     position: absolute;
     transform: rotate(45deg);
     content: '';
     background-color: inherit;
     left: 50%;
-    bottom: -.5rem;
-    margin-left: -.5rem
+    bottom: -.25rem;
+    margin-left: -.25rem
 }
 
 .slds-nubbin--bottom:after {
@@ -5057,27 +5057,27 @@ a.slds-button--inverse:focus {
 }
 
 .slds-nubbin--bottom-left:before {
-    width: 1rem;
-    height: 1rem;
+    width: .5rem;
+    height: .5rem;
     position: absolute;
     transform: rotate(45deg);
     content: '';
     background-color: inherit;
     left: 50%;
-    bottom: -.5rem;
-    margin-left: -.5rem
+    bottom: -.25rem;
+    margin-left: -.25rem
 }
 
 .slds-nubbin--bottom-left:after {
-    width: 1rem;
-    height: 1rem;
+    width: .5rem;
+    height: .5rem;
     position: absolute;
     transform: rotate(45deg);
     content: '';
     background-color: inherit;
     left: 50%;
-    bottom: -.5rem;
-    margin-left: -.5rem
+    bottom: -.25rem;
+    margin-left: -.25rem
 }
 
 .slds-nubbin--bottom-left:after {
@@ -5093,27 +5093,27 @@ a.slds-button--inverse:focus {
 }
 
 .slds-nubbin--bottom-right:before {
-    width: 1rem;
-    height: 1rem;
+    width: .5rem;
+    height: .5rem;
     position: absolute;
     transform: rotate(45deg);
     content: '';
     background-color: inherit;
     left: 50%;
-    bottom: -.5rem;
-    margin-left: -.5rem
+    bottom: -.25rem;
+    margin-left: -.25rem
 }
 
 .slds-nubbin--bottom-right:after {
-    width: 1rem;
-    height: 1rem;
+    width: .5rem;
+    height: .5rem;
     position: absolute;
     transform: rotate(45deg);
     content: '';
     background-color: inherit;
     left: 50%;
-    bottom: -.5rem;
-    margin-left: -.5rem
+    bottom: -.25rem;
+    margin-left: -.25rem
 }
 
 .slds-nubbin--bottom-right:after {
@@ -5131,27 +5131,27 @@ a.slds-button--inverse:focus {
 }
 
 .slds-nubbin--left:before {
-    width: 1rem;
-    height: 1rem;
+    width: .5rem;
+    height: .5rem;
     position: absolute;
     transform: rotate(45deg);
     content: '';
     background-color: inherit;
     top: 50%;
-    left: -.5rem;
-    margin-top: -.5rem
+    left: -.25rem;
+    margin-top: -.25rem
 }
 
 .slds-nubbin--left:after {
-    width: 1rem;
-    height: 1rem;
+    width: .5rem;
+    height: .5rem;
     position: absolute;
     transform: rotate(45deg);
     content: '';
     background-color: inherit;
     top: 50%;
-    left: -.5rem;
-    margin-top: -.5rem
+    left: -.25rem;
+    margin-top: -.25rem
 }
 
 .slds-nubbin--left:after {
@@ -5160,27 +5160,27 @@ a.slds-button--inverse:focus {
 }
 
 .slds-nubbin--left-top:before {
-    width: 1rem;
-    height: 1rem;
+    width: .5rem;
+    height: .5rem;
     position: absolute;
     transform: rotate(45deg);
     content: '';
     background-color: inherit;
     top: 50%;
-    left: -.5rem;
-    margin-top: -.5rem
+    left: -.25rem;
+    margin-top: -.25rem
 }
 
 .slds-nubbin--left-top:after {
-    width: 1rem;
-    height: 1rem;
+    width: .5rem;
+    height: .5rem;
     position: absolute;
     transform: rotate(45deg);
     content: '';
     background-color: inherit;
     top: 50%;
-    left: -.5rem;
-    margin-top: -.5rem
+    left: -.25rem;
+    margin-top: -.25rem
 }
 
 .slds-nubbin--left-top:after {
@@ -5194,27 +5194,27 @@ a.slds-button--inverse:focus {
 }
 
 .slds-nubbin--left-bottom:before {
-    width: 1rem;
-    height: 1rem;
+    width: .5rem;
+    height: .5rem;
     position: absolute;
     transform: rotate(45deg);
     content: '';
     background-color: inherit;
     top: 50%;
-    left: -.5rem;
-    margin-top: -.5rem
+    left: -.25rem;
+    margin-top: -.25rem
 }
 
 .slds-nubbin--left-bottom:after {
-    width: 1rem;
-    height: 1rem;
+    width: .5rem;
+    height: .5rem;
     position: absolute;
     transform: rotate(45deg);
     content: '';
     background-color: inherit;
     top: 50%;
-    left: -.5rem;
-    margin-top: -.5rem
+    left: -.25rem;
+    margin-top: -.25rem
 }
 
 .slds-nubbin--left-bottom:before {
@@ -5233,27 +5233,27 @@ a.slds-button--inverse:focus {
 }
 
 .slds-nubbin--right:before {
-    width: 1rem;
-    height: 1rem;
+    width: .5rem;
+    height: .5rem;
     position: absolute;
     transform: rotate(45deg);
     content: '';
     background-color: inherit;
     top: 50%;
-    right: -.5rem;
-    margin-top: -.5rem
+    right: -.25rem;
+    margin-top: -.25rem
 }
 
 .slds-nubbin--right:after {
-    width: 1rem;
-    height: 1rem;
+    width: .5rem;
+    height: .5rem;
     position: absolute;
     transform: rotate(45deg);
     content: '';
     background-color: inherit;
     top: 50%;
-    right: -.5rem;
-    margin-top: -.5rem
+    right: -.25rem;
+    margin-top: -.25rem
 }
 
 .slds-nubbin--right:after {
@@ -5262,27 +5262,27 @@ a.slds-button--inverse:focus {
 }
 
 .slds-nubbin--right-top:before {
-    width: 1rem;
-    height: 1rem;
+    width: .5rem;
+    height: .5rem;
     position: absolute;
     transform: rotate(45deg);
     content: '';
     background-color: inherit;
     top: 50%;
-    right: -.5rem;
-    margin-top: -.5rem
+    right: -.25rem;
+    margin-top: -.25rem
 }
 
 .slds-nubbin--right-top:after {
-    width: 1rem;
-    height: 1rem;
+    width: .5rem;
+    height: .5rem;
     position: absolute;
     transform: rotate(45deg);
     content: '';
     background-color: inherit;
     top: 50%;
-    right: -.5rem;
-    margin-top: -.5rem
+    right: -.25rem;
+    margin-top: -.25rem
 }
 
 .slds-nubbin--right-top:after {
@@ -5296,27 +5296,27 @@ a.slds-button--inverse:focus {
 }
 
 .slds-nubbin--right-bottom:before {
-    width: 1rem;
-    height: 1rem;
+    width: .5rem;
+    height: .5rem;
     position: absolute;
     transform: rotate(45deg);
     content: '';
     background-color: inherit;
     top: 50%;
-    right: -.5rem;
-    margin-top: -.5rem
+    right: -.25rem;
+    margin-top: -.25rem
 }
 
 .slds-nubbin--right-bottom:after {
-    width: 1rem;
-    height: 1rem;
+    width: .5rem;
+    height: .5rem;
     position: absolute;
     transform: rotate(45deg);
     content: '';
     background-color: inherit;
     top: 50%;
-    right: -.5rem;
-    margin-top: -.5rem
+    right: -.25rem;
+    margin-top: -.25rem
 }
 
 .slds-nubbin--right-bottom:before {
@@ -5450,7 +5450,7 @@ a.slds-button--inverse:focus {
     max-width: 20rem;
     margin-top: .125rem;
     border: 1px solid #d8dde6;
-    border-radius: .25rem;
+    // border-radius: .25rem;
     padding: .25rem 0;
     font-size: .75rem;
     background: #fff;
@@ -5557,11 +5557,11 @@ a.slds-button--inverse:focus {
 }
 
 .slds-dropdown[class*=slds-nubbin--top] {
-    margin-top: .5rem
+    margin-top: .25rem
 }
 
 .slds-dropdown[class*=slds-nubbin--bottom] {
-    margin-bottom: .5rem
+    margin-bottom: .25rem
 }
 
 .slds-dropdown--nubbin-top {

@@ -1,19 +1,19 @@
 .header {
-    background-color: #2b3643;
-    height: 50px;
+    background-color: #3B3F51;
+    height: 75px;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     color: #c6cfda;
     .header-logo {
-        width: 220px;
-        margin: 8px 0 0 10px;
+        width: 260px;
+        margin: 20px 0 0 20px;
     }
     .header-right {
         float: right;
-        height: 50px;
-        line-height: 50px;
+        height: 75px;
+        line-height: 75px;
         padding-right: 30px;
         .loginOut {
             font-size: 18px;
@@ -26,33 +26,89 @@
             padding: 0 20px;
             vertical-align: top;
             img {
-                width: 35px;
+                width: 40px;
                 vertical-align: top;
-                margin-top: 5px;
+                margin-top: 17px;
                 border-radius: 50%;
-                height: 35px;
+                height: 40px;
                 margin-right: 15px;
             }
             &:hover {
-                background: #3f4f62;
+                background: #4f5469;
             }
             .icon-xiangxiajiantou {
-				font-size: 14px;
+                font-size: 14px;
             }
         }
     }
-    .user-name-line {
-		width: 150px;
-
+    .slds-dropdown__item a {
+        padding: .5rem 4rem .5rem 1.2rem
     }
+    .user-name-line {
+        width: 150px;
+    }
+}
+
+.nav-item-ul {
+    margin-top: 20px;
 }
 
 .menu-box {
     position: fixed;
     height: 100%;
     width: 240px;
-    background: #364150;
-    top: 50px;
+    background: #f4f6f9;
+    top: 75px;
+    font-size: 15px;
+    .open {
+        .nav-toggle {
+            background: #e5ebf5;
+            border-left: 3px solid #5C9ACF;
+            color: #5b9bd1;
+        }
+    }
+    .nav-toggle {
+        display: block;
+        padding: 10px;
+        text-decoration: none;
+        .iconfont:first-child {
+            font-size: 26px;
+            color: #6b788b;
+            padding-right: 5px;
+        }
+        .iconfont:last-child {
+            color: #909db1;
+            float: right;
+            font-size: 18px;
+            margin: 5px 8px 0 0;
+        }
+        >.nav-title {
+            color: #16325c;
+            font-size: 15px;
+            vertical-align: top;
+            line-height: 16px;
+            padding-top: 6px;
+            display: inline-block;
+        }
+    }
+    .sub-menu {
+        padding: 10px 0;
+        .nav-item {
+            color: #16325c;
+            display: block;
+            position: relative;
+            padding: 12px 15px 12px 43px;
+            .nav-title {
+                color: #5e7686;
+            }
+            &:hover {
+                background-color: #eceff5;
+                .nav-link {
+                    text-decoration: none;
+                }
+            }
+        }
+    }
 }
 
 .content-box {

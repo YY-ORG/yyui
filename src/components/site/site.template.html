@@ -1,17 +1,182 @@
 <div class="site">
 	<div class="header">
 		<a routerLink="/index"><img class="header-logo" src="/assets/img/logo-text.png"></a>
-		<div class="header-right">
-			<div class="user-name">
+		<div class="header-right" nglDropdown [(open)]="userMenuPopverOpen">
+			<div class="user-name" nglDropdownTrigger>
 				<img src="http://tva3.sinaimg.cn/crop.0.0.639.639.180/7804de18jw8f1ib18k2ivj20hr0hs40u.jpg">韧青子
 				<i class="iconfont icon-xiangxiajiantou"></i>
 			</div>
-			<i  mdTooltip="退出"  class="loginOut iconfont icon-SignOut"></i>
+			<div class="slds-dropdown slds-dropdown--left slds-nubbin--top">
+				<ul class="slds-dropdown__list" role="menu">
+					<li class="slds-dropdown__item" role="presentation">
+						<a href="javascript:void(0);" role="menuitem" tabindex="0">
+							<span class="slds-truncate">个人资料</span>
+						</a>
+					</li>
+					<li class="slds-dropdown__item" role="presentation">
+						<a href="javascript:void(0);" role="menuitem" tabindex="-1">
+							<span class="slds-truncate">密码修改</span>
+						</a>
+					</li>
+					<li class="slds-has-divider--top-space" role="separator"></li>
+					<li class="slds-dropdown__item" role="presentation">
+						<a href="javascript:void(0);" role="menuitem" tabindex="-1">
+							<span class="slds-truncate">退出登录</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<i [nglPopover]="interactive" nglPopoverTheme="info" nglPopoverPlacement="bottom" nglInteractive="true" nglPopoverDelay="500" nglPopoverBehavior nglTooltip class="loginOut iconfont icon-SignOut"></i>
+			<ng-template #interactive>
+				<font style="font-size: 12px;">退出</font>
+			</ng-template>
 		</div>
-
 	</div>
 	<div class="menu-box">
-		
+		<ul class="nav-item-ul">
+			<li class="nav-item open">
+				<a href="javascript:;" class="nav-link nav-toggle">
+					<i class="iconfont icon-lockopen"></i>
+					<span class="nav-title">权限管理</span>
+					<i class="iconfont icon-arrow open"></i>
+				</a>
+				<ul class="sub-menu" style="display: block;">
+					<li class="nav-item  ">
+						<a href="javascript:" class="nav-link ">
+							<span class="nav-title">系统人员管理</span>
+						</a>
+					</li>
+					<li class="nav-item  ">
+						<a href="javascript:" class="nav-link ">
+							<span class="nav-title">系统账号管理</span>
+						</a>
+					</li>
+					<li class="nav-item  ">
+						<a href="javascript:" class="nav-link ">
+							<span class="nav-title">系统模块管理</span>
+						</a>
+					</li>
+					<li class="nav-item  ">
+						<a href="javascript:" class="nav-link ">
+							<span class="nav-title">考核内容管理</span>
+						</a>
+					</li>
+					<li class="nav-item  ">
+						<a href="javascript:" class="nav-link ">
+							<span class="nav-title">考核角色管理</span>
+						</a>
+					</li>
+					<li class="nav-item  ">
+						<a href="javascript:" class="nav-link ">
+							<span class="nav-title">考核权限管理</span>
+						</a>
+					</li>
+					<li class="nav-item  ">
+						<a href="javascript:" class="nav-link ">
+							<span class="nav-title">考核时限管理</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li class="nav-item">
+				<a href="javascript:;" class="nav-link nav-toggle">
+					<i class="iconfont icon-lockopen"></i>
+					<span class="nav-title">内容管理</span>
+					<i class="iconfont icon-arrow open"></i>
+				</a>
+				<ul class="sub-menu" style="display: none;">
+					<li class="nav-item  ">
+						<a href="javascript:" class="nav-link ">
+							<span class="nav-title">系统人员管理</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li class="nav-item">
+				<a href="javascript:;" class="nav-link nav-toggle">
+					<i class="iconfont icon-lockopen"></i>
+					<span class="nav-title">内容管理</span>
+					<i class="iconfont icon-arrow open"></i>
+				</a>
+				<ul class="sub-menu" style="display: none;">
+					<li class="nav-item  ">
+						<a href="javascript:" class="nav-link ">
+							<span class="nav-title">系统人员管理</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li class="nav-item">
+				<a href="javascript:;" class="nav-link nav-toggle">
+					<i class="iconfont icon-lockopen"></i>
+					<span class="nav-title">内容管理</span>
+					<i class="iconfont icon-arrow open"></i>
+				</a>
+				<ul class="sub-menu" style="display: none;">
+					<li class="nav-item  ">
+						<a href="javascript:" class="nav-link ">
+							<span class="nav-title">系统人员管理</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li class="nav-item">
+				<a href="javascript:;" class="nav-link nav-toggle">
+					<i class="iconfont icon-lockopen"></i>
+					<span class="nav-title">内容管理</span>
+					<i class="iconfont icon-arrow open"></i>
+				</a>
+				<ul class="sub-menu" style="display: none;">
+					<li class="nav-item  ">
+						<a href="javascript:" class="nav-link ">
+							<span class="nav-title">系统人员管理</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li class="nav-item">
+				<a href="javascript:;" class="nav-link nav-toggle">
+					<i class="iconfont icon-lockopen"></i>
+					<span class="nav-title">内容管理</span>
+					<i class="iconfont icon-arrow open"></i>
+				</a>
+				<ul class="sub-menu" style="display: none;">
+					<li class="nav-item  ">
+						<a href="javascript:" class="nav-link ">
+							<span class="nav-title">系统人员管理</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li class="nav-item">
+				<a href="javascript:;" class="nav-link nav-toggle">
+					<i class="iconfont icon-lockopen"></i>
+					<span class="nav-title">内容管理</span>
+					<i class="iconfont icon-arrow open"></i>
+				</a>
+				<ul class="sub-menu" style="display: none;">
+					<li class="nav-item  ">
+						<a href="javascript:" class="nav-link ">
+							<span class="nav-title">系统人员管理</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li class="nav-item">
+				<a href="javascript:;" class="nav-link nav-toggle">
+					<i class="iconfont icon-lockopen"></i>
+					<span class="nav-title">内容管理</span>
+					<i class="iconfont icon-arrow open"></i>
+				</a>
+				<ul class="sub-menu" style="display: none;">
+					<li class="nav-item  ">
+						<a href="javascript:" class="nav-link ">
+							<span class="nav-title">系统人员管理</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
 	</div>
 	<div class="content-box">
 		<router-outlet></router-outlet>
