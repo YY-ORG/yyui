@@ -1,0 +1,21 @@
+<h1 class="content-title">考核人员管理</h1>
+
+<table ngl-datatable [data]="data" trackByKey="rank" [loading]="loading" [(sort)]="sort" (sortChange)="onSort($event)" (onRowClick)="onRowClick($event)" class="slds-max-medium-table--stacked-horizontal">
+    <ngl-datatable-column heading="Rank" key="rank" ></ngl-datatable-column>
+    <ngl-datatable-column heading="Name" key="name" *ngIf="!hideName" cellClass="slds-truncate" ></ngl-datatable-column>
+    <ngl-datatable-column heading="Surname" key="surname" cellClass="slds-truncate" >
+        <template nglDatatableCell let-row="row"><b>{{row.surname}}</b></template>
+    </ngl-datatable-column>
+    <ngl-datatable-column heading="Points" key="points">
+        <template nglDatatableHeading><strong>Points</strong></template>
+        <template nglDatatableCell let-value>
+            <ngl-badge>{{value | number}}</ngl-badge>
+        </template>
+    </ngl-datatable-column>
+    <!-- Loading overlay -->
+    <template nglLoadingOverlay>
+        <div class="slds-box slds-box--small slds-theme--shade slds-text-align--center">Loading...</div>
+    </template>
+    <!-- No rows overlay -->
+    <template nglNoRowsOverlay>No data available in table!</template>
+</table>
