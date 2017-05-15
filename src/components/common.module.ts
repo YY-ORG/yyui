@@ -10,6 +10,7 @@ import { SiteService } from './site/site.service'
 
 import { CountBarComponent } from './countBar/component/count-bar.component';
 import { MyDatePickerModule } from './date-picker/my-date-picker.module';
+import { PaginationComponent } from './pagination/pagination.component';
 
 import { Validation } from './validators';
 import { NglModule } from 'ng-lightning/ng-lightning';
@@ -27,7 +28,8 @@ import { NglModule } from 'ng-lightning/ng-lightning';
     ],
     declarations: [
         CountBarComponent,
-        SiteComponent
+        SiteComponent,
+        PaginationComponent
     ],
     exports: [
         CommonModule,
@@ -37,7 +39,8 @@ import { NglModule } from 'ng-lightning/ng-lightning';
         ClickOutsideModule,
         HttpModule,
         SiteComponent,
-        NglModule
+        NglModule,
+        PaginationComponent
     ],
     providers : [
         Validation,
