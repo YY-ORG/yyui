@@ -1,6 +1,8 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChange, OnInit } from '@angular/core';
 
 import { INglDatatableSort, INglDatatableRowClick } from 'ng-lightning/ng-lightning';
+import { SpinnerComponent } from '../../../components'
+import { PageClass } from '../../../class/page/page.class'
 
 const DATA = [
 	{ rank: 1, name: 'Kareem', surname: 'Abdul-Jabbar', points: 38387 },
@@ -14,41 +16,16 @@ const DATA = [
 	selector: 'index',
 	templateUrl: "./index.template.html"
 })
-export class IndexComponent implements OnInit {
-	constructor() {
-
+export class IndexComponent extends PageClass implements OnInit {
+	constructor(
+	) {
+		super()
 	}
 
 	ngOnInit() {
-
+		console.log(this.spinner)
 	}
-	data = DATA;
-
-	// Initial sort
-	sort: INglDatatableSort = { key: 'rank', order: 'asc' };
-
-	// Show loading overlay
-	loading = false;
-
-	// Toggle name column
-	hideName = false;
-
-	// Custom sort function
-	onSort($event: INglDatatableSort) {
-		const { key, order } = $event;
-		this.data.sort((a: any, b: any) => {
-			return (key === 'rank' ? b[key] - a[key] : b[key].localeCompare(a[key])) * (order === 'desc' ? 1 : -1);
-		});
-	}
-
-	toggleData() {
-		this.data = this.data ? null : DATA;
-	}
-
-	onRowClick($event: INglDatatableRowClick) {
-		console.log('clicked row', $event.data);
-	}
-
+	
 	pageChanged($event) {
 		console.log($event)
 	}

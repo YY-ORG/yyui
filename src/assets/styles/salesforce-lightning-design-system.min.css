@@ -8189,7 +8189,7 @@ a.slds-button--inverse:focus {
 .slds-spinner__dot-b:before {
     position: absolute;
     content: '';
-    background: #9faab5;
+    background: rgba(255, 255, 255, .5);
     border-radius: 50%;
     animation-duration: 1s;
     animation-iteration-count: infinite
@@ -9444,13 +9444,18 @@ a.slds-button--inverse:focus {
 
 .slds-table td,
 .slds-table th {
-    padding: .5rem;
+    padding: .7rem .5rem;
     white-space: nowrap;
-    position: relative
+    position: relative;
+    border: 1px solid #d8dde6;
+}
+.slds-table td {
+    font-size: 14px;
 }
 
 .slds-table th {
-    font-weight: 400
+    font-weight: 400;
+    background: #f4f6f9;
 }
 
 .slds-table th:focus {

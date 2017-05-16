@@ -1,23 +1,83 @@
 <h1 class="content-title">考核人员管理</h1>
-
-<table ngl-datatable [data]="data" trackByKey="rank" [loading]="loading" [(sort)]="sort" (sortChange)="onSort($event)" (onRowClick)="onRowClick($event)" class="slds-max-medium-table--stacked-horizontal">
-    <ngl-datatable-column heading="Rank" key="rank" ></ngl-datatable-column>
-    <ngl-datatable-column heading="Name" key="name" *ngIf="!hideName" cellClass="slds-truncate" ></ngl-datatable-column>
-    <ngl-datatable-column heading="Surname" key="surname" cellClass="slds-truncate" >
-        <ng-template nglDatatableCell let-row="row"><b>{{row.surname}}</b></ng-template>
-    </ngl-datatable-column>
-    <ngl-datatable-column heading="Points" key="points">
-        <ng-template nglDatatableHeading><strong>Points</strong></ng-template>
-        <ng-template nglDatatableCell let-value>
-            <ngl-badge>{{value | number}}</ngl-badge>
-        </ng-template>
-    </ngl-datatable-column>
-    <!-- Loading overlay -->
-    <ng-template nglLoadingOverlay>
-        <div class="slds-box slds-box--small slds-theme--shade slds-text-align--center">Loading...</div>
-    </ng-template>
-    <!-- No rows overlay -->
-    <ng-template nglNoRowsOverlay>No data available in table!</ng-template>
+<table class="slds-table">
+    <tr>
+        <th>
+            Opportunity Name
+        </th>
+        <th>
+            <div class="slds-truncate" title="Account Name">Account Name</div>
+        </th>
+        <th>
+            <div class="slds-truncate" title="Close Date">Close Date</div>
+        </th>
+        <th>
+            <div class="slds-truncate" title="Stage">Stage</div>
+        </th>
+        <th>
+            <div class="slds-truncate" title="Confidence">Confidence</div>
+        </th>
+        <th>
+            <div class="slds-truncate" title="Amount">Amount</div>
+        </th>
+        <th>
+            <div class="slds-truncate" title="Contact">Contact</div>
+        </th>
+    </tr>
+    <tr>
+        <td scope="row" data-label="Opportunity Name">
+            <div class="slds-truncate" title="Cloudhub">
+                <a href="javascript:void(0);">Cloudhub</a>
+            </div>
+        </td>
+        <td data-label="Account Name">
+            Cloudhub
+        </td>
+        <td data-label="Close Date">
+            <div class="slds-truncate" title="4/14/2015">4/14/2015</div>
+        </td>
+        <td data-label="Prospecting">
+            <div class="slds-truncate" title="Prospecting">Prospecting</div>
+        </td>
+        <td data-label="Confidence">
+            <div class="slds-truncate" title="20%">20%</div>
+        </td>
+        <td data-label="Amount">
+            <div class="slds-truncate" title="$25k">$25k</div>
+        </td>
+        <td data-label="Contact">
+            <div class="slds-truncate" title="jrogers@cloudhub.com">
+                <a href="javascript:void(0);">jrogers@cloudhub.com</a>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td scope="row" data-label="Opportunity Name">
+            <div class="slds-truncate" title="Cloudhub + Anypoint Connectors">
+                <a href="javascript:void(0);">Cloudhub + Anypoint Connectors</a>
+            </div>
+        </td>
+        <td data-label="Account Name">
+            <div class="slds-truncate" title="Cloudhub">Cloudhub</div>
+        </td>
+        <td data-label="Close Date">
+            <div class="slds-truncate" title="4/14/2015">4/14/2015</div>
+        </td>
+        <td data-label="Prospecting">
+            <div class="slds-truncate" title="Prospecting">Prospecting</div>
+        </td>
+        <td data-label="Confidence">
+            <div class="slds-truncate" title="20%">20%</div>
+        </td>
+        <td data-label="Amount">
+            <div class="slds-truncate" title="$25k">$25k</div>
+        </td>
+        <td data-label="Contact">
+            <div class="slds-truncate" title="jrogers@cloudhub.com">
+                <a href="javascript:void(0);">jrogers@cloudhub.com</a>
+            </div>
+        </td>
+    </tr>
 </table>
-
 <pagination maxSize=70 currentPage=5 (pageChanged)="pageChanged($event)"></pagination>
+
+<spinner #spinner></spinner>
