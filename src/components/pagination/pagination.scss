@@ -1,0 +1,33 @@
+.pagination {
+    margin-top: 30px;
+    float: right;
+    li {
+        float: left;
+        border: 1px solid #d8dde6;
+        margin-left: -1px;
+        a {
+            display: inline-block;
+            padding: 13px 18px;
+            color: #16325c;
+            &:hover {
+                background: #f4f6f9;
+                text-decoration: none
+            }
+        }
+    }
+    .active {
+        a {
+            background-color: #f4f6f9;
+            color: #517ac7;
+        }
+    }
+    .ellipsis {
+        a {
+        color: #ccc;
+        cursor: default;
+            &:hover {
+                background: #fff;
+            }
+        }
+    }
+}

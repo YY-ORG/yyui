@@ -20,4 +20,4 @@
     <ng-template nglNoRowsOverlay>No data available in table!</ng-template>
 </table>
 
-<pagination maxSize=7 currentPage=1 pageChanged="onRowClick()"></pagination>
+<pagination maxSize=70 currentPage=5 (pageChanged)="pageChanged($event)"></pagination>

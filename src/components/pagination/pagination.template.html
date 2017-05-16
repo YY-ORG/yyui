@@ -1,13 +1,11 @@
 <ul class="pagination">
-    <li *ngIf="previousItemValid" (click)="firstPage()"><a href="#"><<</a></li>
-    <li>
-        <a *ngIf="previousItemValid" (click)="previousPage(nextItem)" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> </a>
+    <li *ngIf="minPage != 1" class="pre-page">
+        <a (click)="previousPage()" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> </a>
     </li>
-    <li *ngFor="let pageNo of pageList" [ngClass]="{'active':currentpage === pageNo}">
-        <a (click)="setCurrentPage(pageNo)">{{pageNo}}</a>
+    <li *ngFor="let pageNo of pageList" [ngClass]="{'active':currentpage == pageNo, 'ellipsis': pageNo == -1}">
+        <a (click)="goToPage(pageNo)">{{pageNo == -1 ? "..." : pageNo}}</a>
     </li>
-    <li>
-        <a *ngIf="nextItemValid" (click)="nextPage(nextItem)" aria-label="Next"> <span aria-hidden="true">&raquo;</span> </a>
+    <li *ngIf="!isMaxPage" class="next-page">
+        <a (click)="nextPage()" aria-label="Next"> <span aria-hidden="true">&raquo;</span> </a>
     </li>
-    <li><a *ngIf="nextItemValid" (click)="lastPage()">>></a></li>
 </ul>

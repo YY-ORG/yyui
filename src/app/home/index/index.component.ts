@@ -1,52 +1,56 @@
-import {Component, Input, Output,EventEmitter,OnChanges,SimpleChange,OnInit} from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChange, OnInit } from '@angular/core';
 
-import {INglDatatableSort, INglDatatableRowClick} from 'ng-lightning/ng-lightning';
+import { INglDatatableSort, INglDatatableRowClick } from 'ng-lightning/ng-lightning';
 
 const DATA = [
-  { rank: 1, name: 'Kareem', surname: 'Abdul-Jabbar', points: 38387 },
-  { rank: 2, name: 'Karl', surname: 'Malone', points: 36928 },
-  { rank: 3, name: 'Kobe', surname: 'Bryant', points: 33643 },
-  { rank: 4, name: 'Michael', surname: 'Jordan', points: 32292 },
-  { rank: 5, name: 'Wilt', surname: 'Chamberlain', points: 31419 },
+	{ rank: 1, name: 'Kareem', surname: 'Abdul-Jabbar', points: 38387 },
+	{ rank: 2, name: 'Karl', surname: 'Malone', points: 36928 },
+	{ rank: 3, name: 'Kobe', surname: 'Bryant', points: 33643 },
+	{ rank: 4, name: 'Michael', surname: 'Jordan', points: 32292 },
+	{ rank: 5, name: 'Wilt', surname: 'Chamberlain', points: 31419 },
 ];
 
 @Component({
-    selector: 'index',
-    templateUrl: "./index.template.html"
+	selector: 'index',
+	templateUrl: "./index.template.html"
 })
-export class IndexComponent implements OnInit{
-    constructor() {
+export class IndexComponent implements OnInit {
+	constructor() {
 
-    }
-    
-    ngOnInit (){
+	}
 
-    }  
-      data = DATA;
+	ngOnInit() {
 
-	  // Initial sort
-	  sort: INglDatatableSort = { key: 'rank', order: 'asc' };
+	}
+	data = DATA;
 
-	  // Show loading overlay
-	  loading = false;
+	// Initial sort
+	sort: INglDatatableSort = { key: 'rank', order: 'asc' };
 
-	  // Toggle name column
-	  hideName = false;
+	// Show loading overlay
+	loading = false;
 
-	  // Custom sort function
-	  onSort($event: INglDatatableSort) {
-	    const { key, order } = $event;
-	    this.data.sort((a: any, b: any) => {
-	      return (key === 'rank' ? b[key] - a[key] : b[key].localeCompare(a[key])) * (order === 'desc' ? 1 : -1);
-	    });
-	  }
+	// Toggle name column
+	hideName = false;
 
-	  toggleData() {
-	    this.data = this.data ? null : DATA;
-	  }
+	// Custom sort function
+	onSort($event: INglDatatableSort) {
+		const { key, order } = $event;
+		this.data.sort((a: any, b: any) => {
+			return (key === 'rank' ? b[key] - a[key] : b[key].localeCompare(a[key])) * (order === 'desc' ? 1 : -1);
+		});
+	}
 
-	  onRowClick($event: INglDatatableRowClick) {
-	    console.log('clicked row', $event.data);
-	  }
+	toggleData() {
+		this.data = this.data ? null : DATA;
+	}
+
+	onRowClick($event: INglDatatableRowClick) {
+		console.log('clicked row', $event.data);
+	}
+
+	pageChanged($event) {
+		console.log($event)
+	}
 }
 
