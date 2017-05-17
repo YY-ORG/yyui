@@ -1,14 +1,18 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { SpinnerComponent } from '../../components'
+import { SpinnerComponent, AlertComponent } from '../../components'
 
 @Component({
 	selector: 'page-class',
-	styleUrls: ["./page.scss"]
+	template: `
+		<spinner #spinner></spinner>
+		<alert #alert></alert>
+	  `
 })
 
 export class PageClass {
 
-	@ViewChild('spinner') spinner;
+	@ViewChild('spinner') spinner: SpinnerComponent;
+	@ViewChild('alert') alert: AlertComponent;
 
 	constructor() {
 	}

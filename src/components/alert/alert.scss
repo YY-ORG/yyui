@@ -1,0 +1,37 @@
+.slds-modal__container {
+    width: 34%;
+}
+
+.slds-modal__content {
+    border-right: 1px solid #d8dde6;
+    border-left: 1px solid #d8dde6;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.slds-modal__header {
+    border: 1px solid #d8dde6;
+    .icon-close {
+		position: absolute;
+		top: 14px;
+		right: 20px;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        cursor: pointer;
+        font-size: 18px;
+        &:hover {
+			background: #f3f3f3
+        }
+    }
+}
+
+.slds-modal__footer {
+    border-right: 1px solid #d8dde6;
+    border-left: 1px solid #d8dde6;
+}
+
+.container {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1)
+}

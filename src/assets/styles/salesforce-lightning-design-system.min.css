@@ -7260,10 +7260,10 @@ a.slds-button--inverse:focus {
 }
 
 .slds-modal__footer {
-    border-top: 2px solid #d8dde6;
-    border-bottom-right-radius: .25rem;
-    border-bottom-left-radius: .25rem;
-    padding: .75rem 1rem;
+    border-top: 1px solid #d8dde6;
+    // border-bottom-right-radius: .25rem;
+    // border-bottom-left-radius: .25rem;
+    padding: .5rem 1rem;
     background-color: #f4f6f9;
     text-align: right;
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .16)

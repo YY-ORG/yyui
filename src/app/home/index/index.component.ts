@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnChanges, SimpleChange, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChange, OnInit,  } from '@angular/core';
 
 import { INglDatatableSort, INglDatatableRowClick } from 'ng-lightning/ng-lightning';
 import { SpinnerComponent } from '../../../components'
@@ -23,7 +23,7 @@ export class IndexComponent extends PageClass implements OnInit {
 	}
 
 	ngOnInit() {
-		console.log(this.spinner)
+		this.alert.open("真的假的")
 	}
 	
 	pageChanged($event) {

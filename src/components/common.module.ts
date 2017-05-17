@@ -12,6 +12,8 @@ import { CountBarComponent } from './countBar/component/count-bar.component';
 import { MyDatePickerModule } from './date-picker/my-date-picker.module';
 import { PaginationComponent } from './pagination/pagination.component';
 import { SpinnerComponent } from './spinner/spinner.component'
+import { AlertComponent } from './alert/alert.component'
+
 
 import { Validation } from './validators';
 import { NglModule } from 'ng-lightning/ng-lightning';
@@ -31,7 +33,8 @@ import { NglModule } from 'ng-lightning/ng-lightning';
         CountBarComponent,
         SiteComponent,
         SpinnerComponent,
-        PaginationComponent
+        AlertComponent,
+        PaginationComponent,
     ],
     exports: [
         CommonModule,
@@ -43,7 +46,8 @@ import { NglModule } from 'ng-lightning/ng-lightning';
         SiteComponent,
         NglModule,
         SpinnerComponent,
-        PaginationComponent
+        AlertComponent,
+        PaginationComponent,
     ],
     providers : [
         Validation,

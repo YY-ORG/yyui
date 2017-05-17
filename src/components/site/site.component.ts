@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnChanges, SimpleChange, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChange, OnInit, ViewChild } from '@angular/core';
 import { SiteService } from './site.service'
 
 @Component({
