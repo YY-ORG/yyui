@@ -11,6 +11,9 @@ export class SpinnerComponent implements OnInit {
 	type: string = null;
 	size: string = 'medium';
 
+	isShow: boolean = false;
+	counter: number = 0;
+
 	constructor(
 	) {
 		
@@ -18,6 +21,18 @@ export class SpinnerComponent implements OnInit {
 
 	ngOnInit() {
 
+	}
+
+	show() {
+		this.counter++
+		this.isShow = true
+	}
+
+	hide() {
+		this.counter--
+		if(!this.counter) {
+			this.isShow = false
+		}
 	}
 
 }

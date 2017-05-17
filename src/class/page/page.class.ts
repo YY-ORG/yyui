@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { SpinnerComponent } from '../../components'
 
 @Component({
@@ -11,7 +11,6 @@ export class PageClass {
 	@ViewChild('spinner') spinner;
 
 	constructor() {
-		console.log(this.spinner)
 	}
 
 }
