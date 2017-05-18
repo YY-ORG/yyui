@@ -1,84 +1,79 @@
 <h1 class="content-title">考核人员管理</h1>
-<table class="slds-table">
+
+    <h2 class="h2-title ">考核人员列表</h2>
+    <table class="slds-table mgt30">
+        <tr>
+            <th style="width: 70px">选择</th>
+            <th style="width: 70px">序号</th>
+            <th>姓名</th>
+            <th>岗位类别</th>
+            <th>职称</th>
+            <th>部门</th>
+            <th>行政职务</th>
+        </tr>
+        <tr *ngFor="let d of datas; let i = index">
+            <td class="no-padding">
+                <ngl-form-checkbox [error]="hasError ? error : null" class="">
+                    <input nglFormControl type="checkbox" [required]="required" />
+                </ngl-form-checkbox>
+            </td>
+            <td>{{i+1}}</td>
+            <td>{{d.name}}</td>
+            <td>{{d.surname}}</td>
+            <td>{{d.points}}</td>
+            <td>编辑部门</td>
+            <td>部长</td>
+        </tr>
+    </table>
+
+    <pagination maxSize=70 currentPage=5 (pageChanged)="pageChanged($event)"></pagination>
+
+
+<div style="width: 35%; display: inline-block; float: left; ">
+    <h2 class="h2-title ">待加入考核人员</h2>
+    <table class="slds-table mgt30">
+        <tr>
+            <th style="width: 15%">序号</th>
+            <th style="width: 25%">姓名</th>
+            <th style="width: 25%">岗位类别</th>
+            <th style="width: 25%">职称</th>
+        </tr>
+    </table>
+    <div style="max-height: 431px; overflow: scroll;">
+        <table class="slds-table" style="margin-top: -1px">
+            <tr *ngFor="let d of datas.concat(datas); let i = index"> <!-- "" -->
+                <td style="width: 15%">{{i+1}}</td>
+                <td style="width: 25%">{{d.name}}</td>
+                <td style="width: 25%">{{d.surname}}</td>
+                <td style="width: 25%">{{d.points}}</td>
+            </tr>
+        </table>
+    </div>
+    
+</div>
+
+<div style="width: 63%; display: inline-block; float: right;">
+<h2 class="h2-title ">以选取参加考核人员</h2>
+<table class="slds-table mgt30">
     <tr>
-        <th>
-            Opportunity Name
-        </th>
-        <th>
-            <div class="slds-truncate" title="Account Name">Account Name</div>
-        </th>
-        <th>
-            <div class="slds-truncate" title="Close Date">Close Date</div>
-        </th>
-        <th>
-            <div class="slds-truncate" title="Stage">Stage</div>
-        </th>
-        <th>
-            <div class="slds-truncate" title="Confidence">Confidence</div>
-        </th>
-        <th>
-            <div class="slds-truncate" title="Amount">Amount</div>
-        </th>
-        <th>
-            <div class="slds-truncate" title="Contact">Contact</div>
-        </th>
+        <th style="width: 70px">序号</th>
+        <th>姓名</th>
+        <th>岗位类别</th>
+        <th>职称</th>
+        <th>部门</th>
+        <th>行政职务</th>
     </tr>
-    <tr>
-        <td scope="row" data-label="Opportunity Name">
-            <div class="slds-truncate" title="Cloudhub">
-                <a href="javascript:void(0);">Cloudhub</a>
-            </div>
-        </td>
-        <td data-label="Account Name">
-            Cloudhub
-        </td>
-        <td data-label="Close Date">
-            <div class="slds-truncate" title="4/14/2015">4/14/2015</div>
-        </td>
-        <td data-label="Prospecting">
-            <div class="slds-truncate" title="Prospecting">Prospecting</div>
-        </td>
-        <td data-label="Confidence">
-            <div class="slds-truncate" title="20%">20%</div>
-        </td>
-        <td data-label="Amount">
-            <div class="slds-truncate" title="$25k">$25k</div>
-        </td>
-        <td data-label="Contact">
-            <div class="slds-truncate" title="jrogers@cloudhub.com">
-                <a href="javascript:void(0);">jrogers@cloudhub.com</a>
-            </div>
-        </td>
-    </tr>
-    <tr>
-        <td scope="row" data-label="Opportunity Name">
-            <div class="slds-truncate" title="Cloudhub + Anypoint Connectors">
-                <a href="javascript:void(0);">Cloudhub + Anypoint Connectors</a>
-            </div>
-        </td>
-        <td data-label="Account Name">
-            <div class="slds-truncate" title="Cloudhub">Cloudhub</div>
-        </td>
-        <td data-label="Close Date">
-            <div class="slds-truncate" title="4/14/2015">4/14/2015</div>
-        </td>
-        <td data-label="Prospecting">
-            <div class="slds-truncate" title="Prospecting">Prospecting</div>
-        </td>
-        <td data-label="Confidence">
-            <div class="slds-truncate" title="20%">20%</div>
-        </td>
-        <td data-label="Amount">
-            <div class="slds-truncate" title="$25k">$25k</div>
-        </td>
-        <td data-label="Contact">
-            <div class="slds-truncate" title="jrogers@cloudhub.com">
-                <a href="javascript:void(0);">jrogers@cloudhub.com</a>
-            </div>
-        </td>
+
+    <tr *ngFor="let d of datas; let i = index"> <!-- "" -->
+        <td>{{i+1}}</td>
+        <td>{{d.name}}</td>
+        <td>{{d.surname}}</td>
+        <td>{{d.points}}</td>
+        <td>编辑部门</td>
+        <td>部长</td>
     </tr>
 </table>
-<pagination maxSize=70 currentPage=5 (pageChanged)="pageChanged($event)"></pagination>
-
+<pagination maxSize=40 currentPage=5 (pageChanged)="pageChanged($event)"></pagination>
+</div>
 <spinner #spinner></spinner>
 <alert #alert></alert>

@@ -3938,7 +3938,7 @@ a.slds-button--inverse:focus {
 .slds-form-element .slds-checkbox [type=checkbox]+.slds-checkbox--faux,
 .slds-form-element .slds-checkbox [type=checkbox]+.slds-checkbox__label .slds-checkbox--faux,
 .slds-form-element .slds-checkbox [type=checkbox]~.slds-checkbox--faux {
-    margin-right: .5rem
+    // margin-right: .5rem
 }
 
 .slds-checkbox--toggle {
@@ -9448,6 +9448,7 @@ a.slds-button--inverse:focus {
     white-space: nowrap;
     position: relative;
     border: 1px solid #d8dde6;
+    text-align: center;
 }
 .slds-table td {
     font-size: 14px;
