@@ -675,7 +675,7 @@ img {
     border: 1px solid transparent;
     // border-radius: .25rem;
     font-size: .75rem;
-    line-height: 1.875rem;
+    line-height: 1.7rem;
     text-decoration: none;
     color: #0070d2;
     -webkit-appearance: none;
@@ -886,6 +886,65 @@ a.slds-button:focus {
 }
 
 a.slds-button--inverse:focus {
+    outline: 0;
+    box-shadow: 0 0 3px #E0E5EE
+}
+
+
+.slds-button--green {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid #1c861c;
+    background-color: #3aa53a;
+    color: #fff!important;
+}
+
+.slds-button--green:focus,
+.slds-button--green:hover {
+    background-color: #39ad39;
+}
+
+.slds-button--green:active {
+    background-color: #1c861c
+}
+
+.slds-button--green[disabled] {
+    background-color: transparent;
+    border-color: rgba(255, 255, 255, .15)
+}
+
+.slds-button--green,
+.slds-button--green:link,
+.slds-button--green:visited,
+.slds-button-group .slds-button--icon-green,
+.slds-button-group .slds-button--icon-green:link,
+.slds-button-group .slds-button--icon-green:visited {
+    color: #a9b0bd
+}
+
+.slds-button--green:active,
+.slds-button--green:focus,
+.slds-button--green:hover,
+.slds-button-group .slds-button--icon-green:active,
+.slds-button-group .slds-button--icon-green:focus,
+.slds-button-group .slds-button--icon-green:hover {
+    color: #0070d2
+}
+
+.slds-button--green:focus,
+.slds-button-group .slds-button--icon-green:focus {
+    outline: 0;
+    box-shadow: 0 0 3px #E0E5EE
+}
+
+.slds-button--green[disabled],
+.slds-button-group .slds-button--icon-green[disabled] {
+    color: rgba(255, 255, 255, .15)
+}
+
+a.slds-button--green:focus {
     outline: 0;
     box-shadow: 0 0 3px #E0E5EE
 }
