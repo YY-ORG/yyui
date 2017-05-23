@@ -27,13 +27,13 @@ export class SiteService {
 							"label": "系统人员管理",
 							"isOpen": true,
 							"isShow": true,
-							"routing": "/test"
+							"routing": "/authority/user"
 						},
 						{
 							"label": "系统账号管理",
 							"isOpen": true,
 							"isShow": true,
-							"routing": "/index"
+							"routing": "/authority/account"
 						},
 						{
 							"label": "系统模块管理",

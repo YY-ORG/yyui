@@ -4163,8 +4163,8 @@ a.slds-button--green:focus {
     // border-radius: .25rem;
     width: 100%;
     transition: border .1s linear, background-color .1s linear;
-    height: 36px
-
+    height: 36px;
+    font-size: 14px;
 }
 
 .slds-select:active,
@@ -9503,7 +9503,9 @@ a.slds-button--green:focus {
 
 .slds-table td,
 .slds-table th {
-    padding: .7rem .5rem;
+    padding: 13px .5rem;
+    line-height: 24px;
+
     white-space: nowrap;
     position: relative;
     border: 1px solid #d8dde6;
@@ -12247,7 +12249,7 @@ a.slds-button--green:focus {
 
 .slds-text-heading--medium {
     font-weight: 300;
-    font-size: 1.25rem;
+    font-size: 1rem;
     line-height: 1.25
 }
 

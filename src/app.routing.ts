@@ -10,6 +10,7 @@ export const routes: Routes = [
         pathMatch: 'full'
     },
     { path: 'login', loadChildren: 'app/login/login.module#LoginModule' },
+    { path: 'authority', loadChildren: 'app/authority/authority.module#AuthorityModule' },
     { path: '', loadChildren: 'app/home/home.module#HomeModule' },
     // { path: 'cloud-host-service', loadChildren: 'module/cloud-host-service/cloud-host-service.module#CloudHostService' },
     // { path: 'mng-console', loadChildren: 'module/mng-console/mng-console.module#MngConsoleModule' },

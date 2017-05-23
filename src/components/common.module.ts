@@ -13,6 +13,7 @@ import { MyDatePickerModule } from './date-picker/my-date-picker.module';
 import { PaginationComponent } from './pagination/pagination.component';
 import { SpinnerComponent } from './spinner/spinner.component'
 import { AlertComponent } from './alert/alert.component'
+import { ConfirmComponent } from './confirm/confirm.component'
 
 
 import { Validation } from './validators';
@@ -34,6 +35,7 @@ import { NglModule } from 'ng-lightning/ng-lightning';
         SiteComponent,
         SpinnerComponent,
         AlertComponent,
+        ConfirmComponent,
         PaginationComponent,
     ],
     exports: [
@@ -47,6 +49,7 @@ import { NglModule } from 'ng-lightning/ng-lightning';
         NglModule,
         SpinnerComponent,
         AlertComponent,
+        ConfirmComponent,
         PaginationComponent,
     ],
     providers : [

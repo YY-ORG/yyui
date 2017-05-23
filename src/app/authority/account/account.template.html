@@ -1,0 +1,38 @@
+<h1 class="content-title">账号管理</h1>
+<table class="slds-table mgt30">
+    <tr>
+        <th style="width: 70px">序号</th>
+        <th>账号</th>
+        <th>名称</th>
+        <th>账号类型</th>
+        <th style="width: 300px">操作</th>
+    </tr>
+    <tr *ngFor="let d of datas; let i = index">
+        <td>{{i+1}}</td>
+        <td>
+            <font class="color-neutral">{{d.name}}</font>
+        </td>
+        <td>{{d.surname}}</td>
+        <td>{{d.points}}</td>
+        <td>
+            <span (click)="editUser(d)" class="operate-button primary mgr10"><i class="icon-edit1 iconfont"></i>编辑</span>
+            <span (click)="deleteUser(d)" class="operate-button red"><i class="icon-delete1 iconfont"></i>删除</span>
+        </td>
+    </tr>
+</table>
+<pagination maxSize=70 currentPage=5 (pageChanged)="pageChanged($event)"></pagination>
+
+<ngl-modal header="编辑账号" [(open)]="editModalOpen">
+    <div body>
+        <p>Sit nulla est ex deserunt exercitation anim occaecat. Tempor cupidatat consequat elit dolor adipisicing.</p>
+        <p>Dolor eiusmod sunt ex incididunt cillum quis nostrud velit duis sit officia.</p>
+        <p>Labore esse esse cupidatat amet velit id elit consequat minim ullamco mollit enim excepteur ea.</p>
+    </div>
+    <template ngl-modal-footer *ngIf="!noFooter">
+        <button class="slds-button slds-button--neutral" (click)="editModalOpen = false">取消</button>
+        <button class="slds-button slds-button--brand">确定</button>
+    </template>
+</ngl-modal>
+
+<alert #alert></alert>
+<confirm (onConfirm)="onConfirm()" #confirm></confirm>
