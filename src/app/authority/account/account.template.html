@@ -15,18 +15,29 @@
         <td>{{d.surname}}</td>
         <td>{{d.points}}</td>
         <td>
-            <span (click)="editUser(d)" class="operate-button primary mgr10"><i class="icon-edit1 iconfont"></i>编辑</span>
-            <span (click)="deleteUser(d)" class="operate-button red"><i class="icon-delete1 iconfont"></i>删除</span>
+            <my-button button="radius" (onClick)="editUser(d)" [disable]="true" color="primary" className="mgr10" icon="icon-edit1">编辑</my-button>
+            <my-button button="radius" (onClick)="editUser(d)" [disable]="true" color="red" className="mgr10" icon="icon-edit1">删除</my-button>
         </td>
     </tr>
 </table>
 <pagination maxSize=70 currentPage=5 (pageChanged)="pageChanged($event)"></pagination>
 
 <ngl-modal header="编辑账号" [(open)]="editModalOpen">
-    <div body>
-        <p>Sit nulla est ex deserunt exercitation anim occaecat. Tempor cupidatat consequat elit dolor adipisicing.</p>
-        <p>Dolor eiusmod sunt ex incididunt cillum quis nostrud velit duis sit officia.</p>
-        <p>Labore esse esse cupidatat amet velit id elit consequat minim ullamco mollit enim excepteur ea.</p>
+    <div body class="width65 mgb30button" style="margin:0 auto">
+        <ngl-form-element label="账号：" [error]="hasError ? error : null" class="slds-m-top--small">
+            <input nglFormControl type="text" placeholder="" [required]="required">
+        </ngl-form-element>
+        <ngl-form-element label="密码：" [error]="hasError ? error : null" class="slds-m-top--small">
+            <input nglFormControl type="password" placeholder="" [required]="required">
+        </ngl-form-element>
+        <ngl-form-element label="名称：" [error]="hasError ? error : null" class="slds-m-top--small">
+            <input nglFormControl type="text" placeholder="" [required]="required">
+        </ngl-form-element>
+        <ngl-form-element label="类别" class="slds-m-top--small">
+          <select nglFormControl class="slds-select">
+            <option *ngFor="let sex of [{viewValue:'男', value:'0'},{viewValue:'女', value: '1'}]" [value]="sex.value">{{sex.viewValue}}</option>
+          </select>
+        </ngl-form-element>
     </div>
     <template ngl-modal-footer *ngIf="!noFooter">
         <button class="slds-button slds-button--neutral" (click)="editModalOpen = false">取消</button>

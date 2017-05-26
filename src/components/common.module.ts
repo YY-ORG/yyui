@@ -14,6 +14,7 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { SpinnerComponent } from './spinner/spinner.component'
 import { AlertComponent } from './alert/alert.component'
 import { ConfirmComponent } from './confirm/confirm.component'
+import { ButtonComponent } from './button/button.component'
 
 
 import { Validation } from './validators';
@@ -36,6 +37,7 @@ import { NglModule } from 'ng-lightning/ng-lightning';
         SpinnerComponent,
         AlertComponent,
         ConfirmComponent,
+        ButtonComponent,
         PaginationComponent,
     ],
     exports: [
@@ -50,6 +52,7 @@ import { NglModule } from 'ng-lightning/ng-lightning';
         SpinnerComponent,
         AlertComponent,
         ConfirmComponent,
+        ButtonComponent,
         PaginationComponent,
     ],
     providers : [

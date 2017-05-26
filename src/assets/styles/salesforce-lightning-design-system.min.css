@@ -3436,7 +3436,10 @@ a.slds-button--green:focus {
 }
 
 .slds-form-element {
-    position: relative
+    position: relative;
+}
+
+.slds-form-element .slds-form-element__control {
 }
 
 .slds-form-element__helper {
