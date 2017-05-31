@@ -10,13 +10,13 @@
         <td>
             <font class="color-neutral">{{d.name}}</font>
         </td>
-        <td class="width75">
-            <ul>
-                <li *ngFor="let o of datas.concat(datas)" style="text-align: left;" class="inline-block">
-                    <span class="inline-block">述职报告：</span>
-                    <ngl-form-checkbox [error]="hasError ? error : null" class="inline-block">
+        <td class="width80 text-align-left">
+            <ul class="checkbox-list-box">
+                <li *ngFor="let o of datas.concat(datas)" class="inline-block">
+                    <ngl-form-checkbox [error]="hasError ? error : null" class="inline-block no-lable checkbox-lisl-checkbox">
                         <input nglFormControl type="checkbox" [required]="required" />
                     </ngl-form-checkbox>
+                    <span class="inline-block checkbox-list-text">{{d.surname}}</span>
                 </li>
             </ul>
         </td>

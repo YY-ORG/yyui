@@ -7,6 +7,7 @@ import { PageClass } from '../../../class/page/page.class'
 
 @Component({
 	selector: 'role',
+	styleUrls: ['./role.scss'],
 	templateUrl: "./role.template.html"
 })
 export class RoleComponent extends PageClass implements OnInit {
