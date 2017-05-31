@@ -9509,7 +9509,7 @@ a.slds-button--green:focus {
     padding: 13px .5rem;
     line-height: 24px;
 
-    white-space: nowrap;
+    // white-space: nowrap;
     position: relative;
     border: 1px solid #d8dde6;
     text-align: center;

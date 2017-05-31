@@ -11,6 +11,9 @@ import { AuthorityRouting } from './authority.routing';
 //component
 import { UserComponent } from './user/user.component';
 import { AccountComponent } from "./account/account.component"
+import { ModuleComponent } from "./module/module.component"
+import { ContentComponent } from "./content/content.component"
+import { RoleComponent } from "./role/role.component"
 //service
 
 
@@ -22,7 +25,10 @@ import { AccountComponent } from "./account/account.component"
     ],
     declarations: [
         UserComponent,
-        AccountComponent
+        AccountComponent,
+        ModuleComponent,
+        ContentComponent,
+        RoleComponent
     ],
     exports: [
     ],

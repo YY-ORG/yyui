@@ -1,22 +1,24 @@
-<h1 class="content-title">账号管理</h1>
+<h1 class="content-title">考核角色管理</h1>
 <table class="slds-table mgt30">
     <tr>
         <th style="width: 70px">序号</th>
-        <th>账号</th>
         <th>名称</th>
-        <th>账号类型</th>
-        <th style="width: 300px">操作</th>
+        <th>内容</th>
     </tr>
     <tr *ngFor="let d of datas; let i = index">
         <td>{{i+1}}</td>
         <td>
             <font class="color-neutral">{{d.name}}</font>
         </td>
-        <td>{{d.surname}}</td>
-        <td>{{d.points}}</td>
-        <td>
-            <my-button button="radius" (onClick)="editUser(d)" color="primary" className="mgr10" icon="icon-edit1">编辑</my-button>
-            <my-button button="radius" (onClick)="editUser(d)" color="red" className="mgr10" icon="icon-edit1">删除</my-button>
+        <td class="width75">
+            <ul>
+                <li *ngFor="let o of datas.concat(datas)" style="text-align: left;" class="inline-block">
+                    <span class="inline-block">述职报告：</span>
+                    <ngl-form-checkbox [error]="hasError ? error : null" class="inline-block">
+                        <input nglFormControl type="checkbox" [required]="required" />
+                    </ngl-form-checkbox>
+                </li>
+            </ul>
         </td>
     </tr>
 </table>

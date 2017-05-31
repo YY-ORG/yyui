@@ -44,3 +44,15 @@
         background-color: #3f51b5;
     }
 }
+
+.operate-button.disable {
+    border-color: #c1c1c1;
+    color: #c1c1c1;
+    background: 0 0;
+    cursor: not-allowed;
+    &:hover {
+        border-color: #c1c1c1;
+        color: #c1c1c1;
+        background-color: #fff;
+    }
+}

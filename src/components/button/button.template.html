@@ -1,3 +1,3 @@
-<span (click)="editUser(d)" class="operate-button {{color}} {{className}}" [ngClass]="{'disable':disable}"><i *ngIf="icon" class="{{icon}} iconfont"></i>
+<span (click)="buttonClick($event)" class="operate-button {{color}} {{className}}" [ngClass]="{'disable':disable}"><i *ngIf="icon" class="{{icon}} iconfont"></i>
 	<ng-content></ng-content>
 </span>

@@ -39,19 +39,19 @@ export class SiteService {
 							"label": "系统模块管理",
 							"isOpen": true,
 							"isShow": true,
-							"routing": "image-mng/image-mng"
+							"routing": "/authority/module"
 						},
 						{
 							"label": "考核内容管理",
 							"isOpen": true,
 							"isShow": true,
-							"routing": "/test"
+							"routing": "/authority/content"
 						},
 						{
 							"label": "考核角色管理",
 							"isOpen": true,
 							"isShow": true,
-							"routing": "/test"
+							"routing": "/authority/role"
 						},
 						{
 							"label": "考核权限管理",
