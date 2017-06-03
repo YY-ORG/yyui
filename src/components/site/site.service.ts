@@ -57,13 +57,13 @@ export class SiteService {
 							"label": "考核权限管理",
 							"isOpen": true,
 							"isShow": true,
-							"routing": "/test"
+							"routing": "/authority/authority"
 						},
 						{
 							"label": "考核时限管理",
 							"isOpen": true,
 							"isShow": true,
-							"routing": "/test"
+							"routing": "/authority/time"
 						}
 					]
 				},

@@ -1,0 +1,21 @@
+.content-title {
+    padding: 5px 0 4px 15px;
+    font-size: 20px;
+    border-left: 4px solid #E26A6A;
+    margin-bottom: 30px;
+}
+.h2-title {
+    // border-bottom: 1px solid #E26A6A;
+    // text-decoration: underline;
+}
+.checkbox-list-box {
+	li {
+		margin: 5px 40px 6px 0;
+		.checkbox-list-text {
+			padding-top: 2px;
+		}
+		.checkbox-lisl-checkbox {
+			margin-right: 5px;
+		}
+	}
+}

@@ -14,6 +14,8 @@ import { AccountComponent } from "./account/account.component"
 import { ModuleComponent } from "./module/module.component"
 import { ContentComponent } from "./content/content.component"
 import { RoleComponent } from "./role/role.component"
+import { AuthorityComponent } from "./authority/authority.component"
+import { TimeComponent } from "./time/time.component"
 //service
 
 
@@ -28,7 +30,9 @@ import { RoleComponent } from "./role/role.component"
         AccountComponent,
         ModuleComponent,
         ContentComponent,
-        RoleComponent
+        RoleComponent,
+        AuthorityComponent,
+        TimeComponent
     ],
     exports: [
     ],
