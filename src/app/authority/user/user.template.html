@@ -34,7 +34,7 @@
         </tr>
         <tr *ngFor="let d of datas; let i = index">
             <td class="no-padding">
-                <ngl-form-checkbox [error]="hasError ? error : null" class="">
+                <ngl-form-checkbox [error]="hasError ? error : null" class="no-lable">
                     <input nglFormControl type="checkbox" [required]="required" />
                 </ngl-form-checkbox>
             </td>

@@ -3919,6 +3919,10 @@ a.slds-button--green:focus {
     position: absolute
 }
 
+.slds-checkbox--faux {
+    margin-right: 10px;
+}
+
 .slds-checkbox [type=checkbox]:checked+.slds-checkbox--faux:after,
 .slds-checkbox [type=checkbox]:checked+.slds-checkbox__label .slds-checkbox--faux:after,
 .slds-checkbox [type=checkbox]:checked~.slds-checkbox--faux:after {

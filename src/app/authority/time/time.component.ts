@@ -7,6 +7,7 @@ import { PageClass } from '../../../class/page/page.class'
 
 @Component({
 	selector: 'time',
+	styleUrls: ["./time.scss"],
 	templateUrl: "./time.template.html"
 })
 export class TimeComponent extends PageClass implements OnInit {

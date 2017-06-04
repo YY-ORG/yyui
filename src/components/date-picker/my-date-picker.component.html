@@ -1,11 +1,11 @@
 <div class="input-group data-picker" [ngStyle]="{'height': height, 'width': width}">
     <div class="selectiongroup" *ngIf="!inline" has-warning>
-        <ngl-form-element label="{{placeholder}}" [error]="invalidDate&&indicateInvalidDate ? '请输入正确的日期格式' : null" class="slds-m-top--small">
+        <ngl-form-element label="{{placeholder}}" [error]="invalidDate&&indicateInvalidDate ? '请输入正确的日期格式' : null" class="slds-m-top--small {{formClass}}">
             <input nglFormControl type="text" class="form-control" maxlength="10" [disabled]="disabled" placeholder=""
                 [ngStyle]="{'height': height, 'line-height': height, 'font-size': selectionTxtFontSize, 'padding-right': selectionDayTxt.length>0 ? '60px' : '30px'}"
                 (keyup)="userDateInput($event)" [value]="selectionDayTxt" />
         </ngl-form-element>
-        <span class="selbtngroup" [style.height]="height">
+        <span class="selbtngroup {{formClass}}" [style.height]="height">
             <button type="button" class="btnclear" [ngClass]="{'buttion-disabled':disabled}" *ngIf="selectionDayTxt.length>0" (click)="removeBtnClicked()">
                 <span class="icon icon-cross" [ngStyle]="{'line-height': height}"></span>
             </button>

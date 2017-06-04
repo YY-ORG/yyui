@@ -2,6 +2,9 @@
     .slds-form-element__label {
         display: none
     }
+    .slds-checkbox--faux {
+		margin-right: 0;
+    }
     margin-top: 0;
 }
 
@@ -9,7 +12,7 @@
     display: flex !important;
     margin-top: 1rem;
     .slds-form-element__label {
-        width: 60px;
+        // width: 60px;
         height: 36px;
         margin-bottom: 0;
         line-height: 36px;

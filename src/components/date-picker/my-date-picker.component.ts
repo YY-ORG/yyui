@@ -23,6 +23,7 @@ export class MyDatePicker implements OnChanges ,OnInit {
     @Input() initDate:string;
     @Input() disabled:boolean = false;
     @Input() placeholder:string = "请选择日期";
+    @Input() formClass: string = "";
     @Output() dateChanged:EventEmitter<Object> = new EventEmitter();
 
     showSelector: boolean = false;
