@@ -30,6 +30,7 @@ export class PageClass {
 	@ViewChild('confirm') confirm: ConfirmComponent;
 
 	datas = DATA
+	days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
 
 	constructor() {
 	}

@@ -19,7 +19,7 @@ export class SiteService {
 			resolve([
 				{
 					"label": "权限管理",
-					"isOpen": true,
+					"isOpen": false,
 					"isShow": true,
 					"icon": "icon-quanxian",
 					"top2_menu": [
@@ -27,43 +27,43 @@ export class SiteService {
 							"label": "系统人员管理",
 							"isOpen": true,
 							"isShow": true,
-							"routing": "/authority/user"
+							"routing": "/mgmt-authority/user"
 						},
 						{
 							"label": "系统账号管理",
 							"isOpen": true,
 							"isShow": true,
-							"routing": "/authority/account"
+							"routing": "/mgmt-authority/account"
 						},
 						{
 							"label": "系统模块管理",
 							"isOpen": true,
 							"isShow": true,
-							"routing": "/authority/module"
+							"routing": "/mgmt-authority/module"
 						},
 						{
 							"label": "考核内容管理",
 							"isOpen": true,
 							"isShow": true,
-							"routing": "/authority/content"
+							"routing": "/mgmt-authority/content"
 						},
 						{
 							"label": "考核角色管理",
 							"isOpen": true,
 							"isShow": true,
-							"routing": "/authority/role"
+							"routing": "/mgmt-authority/role"
 						},
 						{
 							"label": "考核权限管理",
 							"isOpen": true,
 							"isShow": true,
-							"routing": "/authority/authority"
+							"routing": "/mgmt-authority/authority"
 						},
 						{
 							"label": "考核时限管理",
 							"isOpen": true,
 							"isShow": true,
-							"routing": "/authority/time"
+							"routing": "/mgmt-authority/time"
 						}
 					]
 				},
@@ -77,13 +77,13 @@ export class SiteService {
 							"label": "考核表项管理",
 							"isOpen": true,
 							"isShow": true,
-							"routing": "/test"
+							"routing": "/mgmt-content/tablebody"
 						},
 						{
 							"label": "考核表目管理",
 							"isOpen": true,
 							"isShow": true,
-							"routing": "/test"
+							"routing": "/mgmt-content/table-structure"
 						}
 					]
 				},
@@ -97,7 +97,7 @@ export class SiteService {
 							"label": "来源期刊名录",
 							"isOpen": true,
 							"isShow": true,
-							"routing": "/test"
+							"routing": "/mgmt-directory/source"
 						},
 						{
 							"label": "核心期刊名录",

@@ -1,0 +1,17 @@
+<h1 class="content-title">来源期刊名录</h1>
+
+<div class="flex-box">
+    <div>来源类别：</div>
+    <div class="flex1">asd <br>asd<br>asd<br>asd<br>asd<br>asd<br>asd<br>asd<br>asd<br>asd<br>asd</div>
+</div>
+<div class="flex-box">
+    <div>学科：</div>
+    <div class="flex1">
+        <fieldset ngl-form-group-alt [required]="required" [error]="hasError ? error : null" class="slds-m-top--small no-lable">
+            <ngl-form-group-element *ngFor="let day of days"><template nglFormLabel>{{day}}</template><input nglFormControl type="radio" /></ngl-form-group-element>
+        </fieldset>
+    </div>
+</div>
+
+<alert #alert></alert>
+<confirm (onConfirm)="onConfirm()" #confirm></confirm>
