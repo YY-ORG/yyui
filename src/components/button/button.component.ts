@@ -5,7 +5,6 @@ import { Component, Input, Output, EventEmitter, OnChanges, SimpleChange, OnInit
 @Component({
 	selector: 'my-button',
 	templateUrl: "./button.template.html",
-	styleUrls: ["./button.scss"],
 })
 
 export class ButtonComponent implements OnInit {

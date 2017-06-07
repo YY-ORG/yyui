@@ -56,3 +56,51 @@
         background-color: #fff;
     }
 }
+
+.tag-button {
+    padding: 8px 20px;
+    display: inline-block;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 14px;
+    transition-duration: 200ms;
+    cursor: pointer;
+}
+
+.tag-button.primary {
+    background: #3f51b5;
+    &:hover { 
+        background-color: #2135a2;
+    }
+}
+.tag-button.purple {
+    background: #8E44AD;
+    &:hover { 
+        background-color: #762598;
+    }
+}
+.tag-button.red {
+    background: #e7505a;
+    &:hover { 
+        background-color: #ce343e;
+    }
+}
+.tag-button.green {
+    background: #45b36c;
+    &:hover { 
+        background-color: #219e4e;
+    }
+}
+.tag-button.blue {
+    background: #45a9ff;
+    &:hover { 
+        background-color: #3387ce;
+    }
+}
+.tag-button.disable {
+    background: #e7505a;
+    cursor: not-allowed;
+    &:hover { 
+        // background-color: #2135a2;
+    }
+}

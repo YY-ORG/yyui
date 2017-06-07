@@ -1,15 +1,38 @@
 <h1 class="content-title">来源期刊名录</h1>
 
-<div class="flex-box">
-    <div>来源类别：</div>
-    <div class="flex1">asd <br>asd<br>asd<br>asd<br>asd<br>asd<br>asd<br>asd<br>asd<br>asd<br>asd</div>
+<div class="flex-box mgt30">
+    <div class="ST-line-normal mgr20 text-align-right" style="width: 100px">来源类别：</div>
+    <div class="flex1">
+		<tag-button [colorIndex]="i" className="mgr5" *ngFor="let day of days.concat(days); let i = index">{{day}}</tag-button>
+    </div>
 </div>
-<div class="flex-box">
-    <div>学科：</div>
+<div class="flex-box mgt20">
+    <div class="ST-line-normal mgr20 text-align-right" style="width: 100px">学科：</div>
     <div class="flex1">
         <fieldset ngl-form-group-alt [required]="required" [error]="hasError ? error : null" class="slds-m-top--small no-lable">
             <ngl-form-group-element *ngFor="let day of days"><template nglFormLabel>{{day}}</template><input nglFormControl type="radio" /></ngl-form-group-element>
         </fieldset>
+        <table class="slds-table mgt30 width80">
+		    <tr>
+		        <th style="width: 70px">序号</th>
+		        <th>考核项名称</th>
+		        <th>父项</th>
+		        <th>是否终顶</th>
+		        <th style="width: 300px">操作</th>
+		    </tr>
+		    <tr *ngFor="let d of datas; let i = index">
+		        <td>{{i+1}}</td>
+		        <td>
+		            <font class="color-neutral">{{d.name}}</font>
+		        </td>
+		        <td>{{d.surname}}</td>
+		        <td><font class="color-red">{{d.isAny ? "是" : "否"}}</font></td>
+		        <td>
+		            <my-button button="radius" (onClick)="editUser(d)" color="primary" className="mgr10" icon="icon-edit1">编辑</my-button>
+		            <my-button button="radius" (onClick)="deleteUser(d)" color="red" className="mgr10" icon="icon-edit1">删除</my-button>
+		        </td>
+		    </tr>
+		</table>
     </div>
 </div>
 
