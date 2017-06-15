@@ -1,19 +1,19 @@
-/****************** /authsec/user/account ******************/
+/****************** /noauth/user/account ******************/
 //POST
 class UserProfile {
-	administrativePost : string = "";  //, optional): 行政职务 ,
-	administrativeRank : string = "";  //, optional): 行政级别 ,
+	administrativePost : string = "0";  //, optional): 行政职务 ,
+	administrativeRank : string = "0";  //, optional): 行政级别 ,
 	birthday : string = "";  //, optional),
 	description : string = "";  //, optional): 描述 ,
 	email : string = "";  //, optional),
-	gender : string = "";  //, optional),
+	gender : string = "0";  //, optional),
 	id : string = "";  //, optional),
 	loginName : string = "";  //, optional): 账号 ,
-	occupationType : string = "";  //, optional): 岗位系列 ,
+	occupationType : string = "0";  //, optional): 岗位系列 ,
 	orgId : string = "";  //, optional): 部门Id ,
 	password : string = "";  //, optional),
 	phone : string = "";  //, optional),
-	professionalTitle : string = "";  //, optional): 职称 ,
+	professionalTitle : string = "0";  //, optional): 职称 ,
 	roles : RoleProfile[] = [];  //[RoleProfile], optional): 绑定角色 ,
 	userName : string = "";  //, optional): 姓名
 }
@@ -23,7 +23,7 @@ class RoleProfile {
 	name : string = "";  //, optional)
 }
 
-/****************** /authsec/organizations ******************/
+/****************** /noauth/organizations ******************/
 
 //FETCH
 class OrganizationItem {
@@ -35,7 +35,7 @@ class OrganizationItem {
 	status : string = "";  //, optional): 机构状态
 }
 
-/****************** /authsec/user/currentuser ******************/
+/****************** /noauth/user/currentuser ******************/
 
 //FETCH
 class UserDetailsItem {

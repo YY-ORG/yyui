@@ -5,7 +5,7 @@
                 [ngStyle]="{'height': height, 'line-height': height, 'font-size': selectionTxtFontSize, 'padding-right': selectionDayTxt.length>0 ? '60px' : '30px'}"
                 (keyup)="userDateInput($event)" [value]="selectionDayTxt" />
         </ngl-form-element>
-        <span class="selbtngroup {{formClass}}" [style.height]="height">
+        <span class="selbtngroup {{formClass == 'no-lable' ? 'no-lable' : ''}}" [style.height]="height">
             <button type="button" class="btnclear" [ngClass]="{'buttion-disabled':disabled}" *ngIf="selectionDayTxt.length>0" (click)="removeBtnClicked()">
                 <span class="icon icon-cross" [ngStyle]="{'line-height': height}"></span>
             </button>

@@ -14,7 +14,8 @@ import { LoginBoxComponent } from './loginBox/loginBox.component';
 import { RegisterComponent } from './register/register.component';
 import { ForgetComponent } from './forget/forget.component';
 
-//service
+//service\
+import { RegisterService } from "./register/register.service"
 
 
 @NgModule({
@@ -27,12 +28,13 @@ import { ForgetComponent } from './forget/forget.component';
         LoginComponent,
         LoginBoxComponent,
         RegisterComponent,
-        ForgetComponent
+        ForgetComponent,
     ],
     exports: [
+        
     ],
     providers: [
-        // MngConsoleService
+        RegisterService
     ]
 
 })

@@ -16,9 +16,6 @@ export class SystemDictionaryService {
         const api = this.restApiCfg.getRestApi("sysdic");
 
         dicPromise = dicPromise ? dicPromise : this.restApi.request(api.method, api.url, undefined, undefined, undefined)
-            .then(res => {
-                return res.resultContent;
-            })  
             .catch(error => {
                 console.log("获取全部数据词典的服务器错误")
             });

@@ -1,72 +1,59 @@
-<h3 class="login-title form-title font-green">注册</h3>
-<!-- ngDefaultControl -->
-
-<ngl-form-element label="用户名" [error]="v.result.username" class="slds-m-top--small">
-	<input nglFormControl type="text" placeholder="" [(ngModel)]="username" (keyup)="checkValue('username')">
-</ngl-form-element>
-
-<ngl-form-element label="密码" [error]="v.result.password" class="slds-m-top--small">
-	<input nglFormControl type="password" placeholder="" [(ngModel)]="password" (keyup)="checkValue('password')">
-</ngl-form-element>
-
-<ngl-form-element label="再次输入密码" [error]="v.result.checkPassword" class="slds-m-top--small">
-	<input nglFormControl type="password" placeholder="" [(ngModel)]="checkPassword" (keyup)="checkValue('checkPassword')">
-</ngl-form-element>
-
-<ngl-form-element label="用户邮箱" [error]="v.result.email" class="slds-m-top--small">
-	<input nglFormControl type="text" placeholder="" [(ngModel)]="email" (keyup)="checkValue('email')">
-</ngl-form-element>
-
-<ngl-form-element label="姓名" [error]="v.result.name" class="slds-m-top--small">
-	<input nglFormControl type="text" placeholder="" [(ngModel)]="name" (keyup)="checkValue('name')">
-</ngl-form-element>
-
-<ngl-form-element label="性别" class="slds-m-top--small">
-  <select nglFormControl [(ngModel)]="sex" class="slds-select">
-    <option *ngFor="let sex of [{viewValue:'男', value:'0'},{viewValue:'女', value: '1'}]" [value]="sex.value">{{sex.viewValue}}</option>
-  </select>
-</ngl-form-element>
-
-<ngl-form-element label="手机号" [error]="v.result.phone" class="slds-m-top--small">
-	<input nglFormControl type="text" placeholder="" [(ngModel)]="phone" (keyup)="checkValue('phone')">
-</ngl-form-element>
-
-<date-picker [options]="myDatePickerOptions"  
-			 placeholder="出生日期"
-             (dateChanged)="onDateChanged($event)"></date-picker>
-
-<ngl-form-element label="岗位系列" class="slds-m-top--small">
-  <select nglFormControl [(ngModel)]="sex" class="slds-select">
-    <option *ngFor="let sex of [{viewValue:'男', value:'0'},{viewValue:'女', value: '1'}]" [value]="sex.value">{{sex.viewValue}}</option>
-  </select>
-</ngl-form-element>
-
-<ngl-form-element label="职称" class="slds-m-top--small">
-  <select nglFormControl [(ngModel)]="sex" class="slds-select">
-    <option *ngFor="let sex of [{viewValue:'男', value:'0'},{viewValue:'女', value: '1'}]" [value]="sex.value">{{sex.viewValue}}</option>
-  </select>
-</ngl-form-element>
-
-<ngl-form-element label="行政级别" class="slds-m-top--small">
-  <select nglFormControl [(ngModel)]="sex" class="slds-select">
-    <option *ngFor="let sex of [{viewValue:'男', value:'0'},{viewValue:'女', value: '1'}]" [value]="sex.value">{{sex.viewValue}}</option>
-  </select>
-</ngl-form-element>
-
-<ngl-form-element label="行政职务" class="slds-m-top--small">
-  <select nglFormControl [(ngModel)]="sex" class="slds-select">
-    <option *ngFor="let sex of [{viewValue:'男', value:'0'},{viewValue:'女', value: '1'}]" [value]="sex.value">{{sex.viewValue}}</option>
-  </select>
-</ngl-form-element>
-
-<ngl-form-element label="部门" class="slds-m-top--small">
-  <select nglFormControl [(ngModel)]="sex" class="slds-select">
-    <option *ngFor="let sex of [{viewValue:'男', value:'0'},{viewValue:'女', value: '1'}]" [value]="sex.value">{{sex.viewValue}}</option>
-  </select>
-</ngl-form-element>
-
-
-<div class="login-button-box mgt30">
-	<button type="button" routerLink="/login/" nglButton="inverse">回退</button>
-	<button type="button" nglButton="brand" class="float-right">登录</button>
+<div class="register-box">
+    <h3 class="register-login-title form-title font-green">注册</h3>
+    <!-- ngDefaultControl -->
+    <ngl-form-element label="用户名:" [error]="v.result.username" class="slds-m-top--small left-lable">
+        <input nglFormControl type="text" placeholder="" [(ngModel)]="userProfile.loginName" (keyup)="checkValue('username')">
+    </ngl-form-element>
+    <ngl-form-element label="密码:" [error]="v.result.password" class="slds-m-top--small left-lable">
+        <input nglFormControl type="password" placeholder="" [(ngModel)]="userProfile.password" (keyup)="checkValue('password')">
+    </ngl-form-element>
+    <ngl-form-element label="确认密码:" [error]="v.result.checkPassword" class="slds-m-top--small left-lable">
+        <input nglFormControl type="password" placeholder="" [(ngModel)]="checkPassword" (keyup)="checkValue('checkPassword')">
+    </ngl-form-element>
+    <ngl-form-element label="用户邮箱:" [error]="v.result.email" class="slds-m-top--small left-lable">
+        <input nglFormControl type="text" placeholder="" [(ngModel)]="userProfile.email" (keyup)="checkValue('email')">
+    </ngl-form-element>
+    <ngl-form-element label="姓名:" [error]="v.result.name" class="slds-m-top--small left-lable">
+        <input nglFormControl type="text" placeholder="" [(ngModel)]="userProfile.userName" (keyup)="checkValue('name')">
+    </ngl-form-element>
+    <ngl-form-element label="性别:" class="slds-m-top--small left-lable">
+        <select nglFormControl [(ngModel)]="userProfile.gender" class="slds-select">
+            <option *ngFor="let sex of service.gender | async" [value]="sex.value">{{sex.displayValue}}</option>
+        </select>
+    </ngl-form-element>
+    <ngl-form-element label="手机号:" [error]="v.result.phone" class="slds-m-top--small left-lable">
+        <input nglFormControl type="text" placeholder="" [(ngModel)]="userProfile.phone" (keyup)="checkValue('phone')">
+    </ngl-form-element>
+    <date-picker [options]="myDatePickerOptions" formClass="left-lable" placeholder="出生日期" (dateChanged)="onDateChanged($event)"></date-picker>
+    <ngl-form-element label="岗位系列:" class="slds-m-top--small left-lable">
+        <select nglFormControl [(ngModel)]="userProfile.occupationType" class="slds-select">
+            <option *ngFor="let occupationType of service.occupationType | async" [value]="occupationType.value">{{occupationType.displayValue}}</option>
+        </select>
+    </ngl-form-element>
+    <ngl-form-element label="职称:" class="slds-m-top--small left-lable">
+        <select nglFormControl [(ngModel)]="userProfile.professionalTitle" class="slds-select">
+            <option *ngFor="let professionalTitle of service.professionalTitle | async" [value]="professionalTitle.value">{{professionalTitle.displayValue}}</option>
+        </select>
+    </ngl-form-element>
+    <ngl-form-element label="行政级别:" class="slds-m-top--small left-lable">
+        <select nglFormControl [(ngModel)]="userProfile.administrativeRank" class="slds-select">
+            <option *ngFor="let rank of service.administrativeRank | async" [value]="rank.value">{{rank.displayValue}}</option>
+        </select>
+    </ngl-form-element>
+    <ngl-form-element label="行政职务:" class="slds-m-top--small left-lable">
+        <select nglFormControl [(ngModel)]="userProfile.administrativePost" class="slds-select">
+            <option *ngFor="let post of service.administrativePost | async" [value]="post.value">{{post.displayValue}}</option>
+        </select>
+    </ngl-form-element>
+    <ngl-form-element label="部门:" class="slds-m-top--small left-lable">
+        <select nglFormControl [(ngModel)]="sex" class="slds-select">
+            <option *ngFor="let sex of [{viewValue:'男', value:'0'},{viewValue:'女', value: '1'}]" [value]="sex.value">{{sex.viewValue}}</option>
+        </select>
+    </ngl-form-element>
+    <div class="login-button-box mgt30">
+        <button type="button" routerLink="/login/" nglButton="inverse">回退</button>
+        <button type="button" nglButton="brand" (click)="submitForm()" class="float-right">提交</button>
+    </div>
 </div>
+<spinner #spinner></spinner>
+<alert #alert></alert>

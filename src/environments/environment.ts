@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  baseIp: "localhost",
-  basePort: "8080",
-  jwt: "asdasdree"
+  baseIp: "61.178.80.84",
+  basePort: "10000",
+  jwt: ""
 };

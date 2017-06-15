@@ -3490,7 +3490,10 @@ a.slds-button--green:focus {
 }
 
 .slds-has-error .slds-form-element__help {
-    color: #c23934
+    color: #c23934;
+    position: absolute;
+    bottom: -14px;
+    right: 0;
 }
 
 .slds-input {
