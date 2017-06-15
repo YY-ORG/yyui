@@ -1,7 +1,7 @@
 import {Component, Input, Output,EventEmitter,OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Validation, ValidationRegs, SpinnerComponent, AlertComponent} from '../../../components'
 
-import { UserProfile, RoleProfile } from '../../../core';
+import { UserProfile, RoleProfile, OrganizationItem } from '../../../core';
 
 import { RegisterService } from "./register.service"
 
@@ -25,13 +25,17 @@ export class RegisterComponent implements OnInit{
 
 	userProfile: UserProfile = new UserProfile;
     checkPassword: string;
+    organizationList:OrganizationItem[] = []
 
     ngOnInit (){
 		console.log(this.userProfile)
-		this.fetchDict();
+		this.fetchOrganizations();
     }  
 
-    private fetchDict() {
+    private fetchOrganizations() {
+		this.service.fetchOrganizations().then(res => {
+			this.organizationList = res;
+		})
     }
 
 	checkValue(key?:string){
@@ -41,8 +45,14 @@ export class RegisterComponent implements OnInit{
 			checkPassword: [this.checkPassword, [this.v.isUnBlank, this.v.equalTo(this.userProfile.password)], "两次密码输入不一致"],
 			email: [this.userProfile.email, [this.v.isUnBlank, this.v.isEmail], "email格式不正确"],
 			name: [this.userProfile.userName, [this.v.isUnBlank, this.v.isBase], "姓名输入不正确"],
-			birthday: [this.userProfile.birthday, [this.v.isUnBlank, this.v.isBase], "请填写正确的出生日期"],
+			gender: [this.userProfile.gender, [this.v.isUnBlank], "请选择性别"],
 			phone: [this.userProfile.phone, [this.v.isUnBlank, this.v.isMoblie], "手机号格式不正确"],
+			birthday: [this.userProfile.birthday, [this.v.isUnBlank, this.v.isBase], "请填写正确的出生日期"],
+			occupationType: [this.userProfile.occupationType, [this.v.isUnBlank], "请选择岗位系列"],
+			professionalTitle: [this.userProfile.professionalTitle, [this.v.isUnBlank], "请选择职称"],
+			administrativeRank: [this.userProfile.administrativeRank, [this.v.isUnBlank], "请选择行政级别"],
+			administrativePost: [this.userProfile.administrativePost, [this.v.isUnBlank], "请选择行政职务"],
+			orgId: [this.userProfile.orgId, [this.v.isUnBlank], "请选择部门"],
 		}
 
 		return this.v.check(key, regs);

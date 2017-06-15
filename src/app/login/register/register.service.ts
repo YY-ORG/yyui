@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { UserProfile, RoleProfile, SystemDictionaryService, RestApiCfg, RestApi } from '../../../core';
+import { UserProfile, RoleProfile, OrganizationItem, SystemDictionaryService, RestApiCfg, RestApi } from '../../../core';
 
 @Injectable()
 export class RegisterService {
@@ -10,11 +10,18 @@ export class RegisterService {
                 private restApi:RestApi) {
     }
     
-    submitRegister (postData: UserProfile) : Promise<string>{
+    submitRegister(postData: UserProfile) : Promise<string>{
         const api = this.restApiCfg.getRestApi("creat.user.account");
 
         return this.restApi.request(api.method, api.url, undefined, undefined, postData)
     }
+    
+    fetchOrganizations() : Promise<OrganizationItem[]>{
+        const api = this.restApiCfg.getRestApi("user.organizations");
+
+        return this.restApi.request(api.method, api.url)
+    }
+
 
     //岗位系列
     occupationType = this.dict.get({ 

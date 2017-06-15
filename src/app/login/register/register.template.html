@@ -16,8 +16,9 @@
     <ngl-form-element label="姓名:" [error]="v.result.name" class="slds-m-top--small left-lable">
         <input nglFormControl type="text" placeholder="" [(ngModel)]="userProfile.userName" (keyup)="checkValue('name')">
     </ngl-form-element>
-    <ngl-form-element label="性别:" class="slds-m-top--small left-lable">
-        <select nglFormControl [(ngModel)]="userProfile.gender" class="slds-select">
+    <ngl-form-element [error]="v.result.gender" label="性别:" class="slds-m-top--small left-lable">
+        <select nglFormControl [(ngModel)]="userProfile.gender" (ngModelChange)="checkValue('gender')" class="slds-select">
+			<option value="">--- 请选择 ---</option>
             <option *ngFor="let sex of service.gender | async" [value]="sex.value">{{sex.displayValue}}</option>
         </select>
     </ngl-form-element>
@@ -25,29 +26,34 @@
         <input nglFormControl type="text" placeholder="" [(ngModel)]="userProfile.phone" (keyup)="checkValue('phone')">
     </ngl-form-element>
     <date-picker [options]="myDatePickerOptions" formClass="left-lable" placeholder="出生日期" (dateChanged)="onDateChanged($event)"></date-picker>
-    <ngl-form-element label="岗位系列:" class="slds-m-top--small left-lable">
-        <select nglFormControl [(ngModel)]="userProfile.occupationType" class="slds-select">
+    <ngl-form-element [error]="v.result.occupationType" label="岗位系列:" class="slds-m-top--small left-lable">
+        <select nglFormControl [(ngModel)]="userProfile.occupationType" (ngModelChange)="checkValue('occupationType')" class="slds-select">
+			<option value="">--- 请选择 ---</option>
             <option *ngFor="let occupationType of service.occupationType | async" [value]="occupationType.value">{{occupationType.displayValue}}</option>
         </select>
     </ngl-form-element>
-    <ngl-form-element label="职称:" class="slds-m-top--small left-lable">
-        <select nglFormControl [(ngModel)]="userProfile.professionalTitle" class="slds-select">
+    <ngl-form-element [error]="v.result.professionalTitle" label="职称:" class="slds-m-top--small left-lable">
+        <select nglFormControl [(ngModel)]="userProfile.professionalTitle" (ngModelChange)="checkValue('professionalTitle')" class="slds-select">
+			<option value="">--- 请选择 ---</option>
             <option *ngFor="let professionalTitle of service.professionalTitle | async" [value]="professionalTitle.value">{{professionalTitle.displayValue}}</option>
         </select>
     </ngl-form-element>
-    <ngl-form-element label="行政级别:" class="slds-m-top--small left-lable">
-        <select nglFormControl [(ngModel)]="userProfile.administrativeRank" class="slds-select">
+    <ngl-form-element [error]="v.result.administrativeRank" label="行政级别:" class="slds-m-top--small left-lable">
+        <select nglFormControl [(ngModel)]="userProfile.administrativeRank" (ngModelChange)="checkValue('administrativeRank')" class="slds-select">
+			<option value="">--- 请选择 ---</option>
             <option *ngFor="let rank of service.administrativeRank | async" [value]="rank.value">{{rank.displayValue}}</option>
         </select>
     </ngl-form-element>
-    <ngl-form-element label="行政职务:" class="slds-m-top--small left-lable">
-        <select nglFormControl [(ngModel)]="userProfile.administrativePost" class="slds-select">
+    <ngl-form-element [error]="v.result.administrativePost" label="行政职务:" class="slds-m-top--small left-lable">
+        <select nglFormControl [(ngModel)]="userProfile.administrativePost" (ngModelChange)="checkValue('administrativePost')" class="slds-select">
+			<option value="">--- 请选择 ---</option>
             <option *ngFor="let post of service.administrativePost | async" [value]="post.value">{{post.displayValue}}</option>
         </select>
     </ngl-form-element>
-    <ngl-form-element label="部门:" class="slds-m-top--small left-lable">
-        <select nglFormControl [(ngModel)]="sex" class="slds-select">
-            <option *ngFor="let sex of [{viewValue:'男', value:'0'},{viewValue:'女', value: '1'}]" [value]="sex.value">{{sex.viewValue}}</option>
+    <ngl-form-element [error]="v.result.orgId" label="部门:" class="slds-m-top--small left-lable">
+        <select nglFormControl [(ngModel)]="userProfile.orgId" (ngModelChange)="checkValue('orgId')" class="slds-select">
+			<option value="">--- 请选择 ---</option>
+            <option *ngFor="let organization of organizationList" [value]="organization.id">{{organization.organizitionName}}</option>
         </select>
     </ngl-form-element>
     <div class="login-button-box mgt30">
