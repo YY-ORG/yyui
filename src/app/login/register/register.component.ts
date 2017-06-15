@@ -2,6 +2,7 @@ import {Component, Input, Output,EventEmitter,OnInit, ViewChild, ViewEncapsulati
 import {Validation, ValidationRegs, SpinnerComponent, AlertComponent} from '../../../components'
 
 import { UserProfile, RoleProfile, OrganizationItem } from '../../../core';
+import { Router } from "@angular/router";
 
 import { RegisterService } from "./register.service"
 
@@ -15,6 +16,7 @@ export class RegisterComponent implements OnInit{
 
     constructor(
 		private v:Validation,
+        private router: Router,
 		private service: RegisterService
 	) {
 		this.v.result = {}
@@ -67,9 +69,10 @@ export class RegisterComponent implements OnInit{
 		this.spinner.show()
 		this.service.submitRegister(this.userProfile).then(res => {
 			this.spinner.hide()
-			console.log(res)
+			this.alert.open("注册成功!", () => {
+				this.router.navigate([`login`]);
+			});
 		}).catch(e => this.spinner.hide())
-		console.log(errorMessage, this.userProfile)
 	}
 
 	onDateChanged(event) {

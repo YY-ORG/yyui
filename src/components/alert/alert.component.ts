@@ -16,6 +16,7 @@ export class AlertComponent implements OnInit {
 
 	message: string;
 	title: string;
+	fun: Function;
 
 	constructor(
 	) {
@@ -25,14 +26,19 @@ export class AlertComponent implements OnInit {
 	ngOnInit() {
 	}
 
-	open(message, title="提示") {
+	open(message, fun?, title="提示") {
 		this.message = message
 		this.title = title
 		this.isShow = true
+
+		this.fun = fun
 	}
 
 	close() {
 		this.isShow = false
+
+		this.fun && this.fun();
+		this.fun = undefined
 	}
 
 }
