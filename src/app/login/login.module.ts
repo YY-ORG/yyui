@@ -16,6 +16,7 @@ import { ForgetComponent } from './forget/forget.component';
 
 //service\
 import { RegisterService } from "./register/register.service"
+import { LoginService } from "./login/login.service"
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { RegisterService } from "./register/register.service"
         
     ],
     providers: [
-        RegisterService
+        RegisterService,
+        LoginService
     ]
 
 })

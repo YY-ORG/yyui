@@ -35,6 +35,12 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "uaa/logout"
     },
+    {
+        "desc": "登录",
+        "id": "uaa.login",
+        "method": "POST",
+        "url": "uaa/oauth/token?grant_type=password&username={username}&password={password}&client_id=ui&client_secret=12345&login_type=backend"
+    },
     /*
      * Cloud-Host Instance List
      */

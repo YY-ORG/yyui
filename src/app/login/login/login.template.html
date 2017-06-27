@@ -1,19 +1,21 @@
 <h3 class="login-title form-title font-green">登录</h3>
 <!-- ngDefaultControl -->
 <ngl-form-element label="用户名" [error]="hasError ? error : null" class="slds-m-top--small">
-  <input nglFormControl type="text" placeholder="" [required]="required">
+  <input nglFormControl type="text" [(ngModel)]="username" placeholder="" [required]="required">
 </ngl-form-element>
 
 <ngl-form-element label="密码" [error]="hasError ? error : null" class="slds-m-top--small">
-  <input nglFormControl type="password" placeholder="" [required]="required">
+  <input nglFormControl type="password" [(ngModel)]="password" placeholder="" [required]="required">
 </ngl-form-element>
 
 
 <div class="login-button-box">
-	<button type="button" nglButton="brand">登录</button>
+	<button type="button" (click)="login()" nglButton="brand">登录</button>
 	<a href="javascript:" routerLink="/login/forget" class="float-right mgt10">忘记密码?</a>
 </div>
 
 <div class="login-botton-box">
 	<a href="javascript:" routerLink="/login/register">注册新用户</a>
 </div>
+<spinner #spinner></spinner>
+<alert #alert></alert>
