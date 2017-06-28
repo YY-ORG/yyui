@@ -8,7 +8,7 @@ import {Validation, ValidationRegs} from '../../../components'
 })
 export class ForgetComponent implements OnInit {
 	constructor(
-		private v:Validation
+		public v:Validation
 	) {
 		this.v.result = {}
     }

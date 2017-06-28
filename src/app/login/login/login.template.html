@@ -1,11 +1,11 @@
 <h3 class="login-title form-title font-green">登录</h3>
 <!-- ngDefaultControl -->
-<ngl-form-element label="用户名" [error]="hasError ? error : null" class="slds-m-top--small">
-  <input nglFormControl type="text" [(ngModel)]="username" placeholder="" [required]="required">
+<ngl-form-element label="用户名" class="slds-m-top--small">
+  <input nglFormControl type="text" [(ngModel)]="username" placeholder="">
 </ngl-form-element>
 
-<ngl-form-element label="密码" [error]="hasError ? error : null" class="slds-m-top--small">
-  <input nglFormControl type="password" [(ngModel)]="password" placeholder="" [required]="required">
+<ngl-form-element label="密码" class="slds-m-top--small">
+  <input nglFormControl type="password" [(ngModel)]="password" placeholder="">
 </ngl-form-element>
 
 

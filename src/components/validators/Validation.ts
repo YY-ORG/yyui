@@ -13,7 +13,7 @@ interface ValidationRegs {
 
 @Injectable()
 class Validation {
-    result = {};   //验证的实时结果
+    result: any = {};   //验证的实时结果
 
     isBase     = (v:any):boolean => /(^[a-zA-Z\u4e00-\u9fa5-_\d]*$)/.test(v);   //基本的验证 不含特殊字符 可为空
     isUnBlank  = (v:any):boolean => !(v === undefined || v === '' || v === null);   //非空验证

@@ -15,9 +15,9 @@ import { RegisterService } from "./register.service"
 export class RegisterComponent implements OnInit{
 
     constructor(
-		private v:Validation,
+		public v:Validation,
         private router: Router,
-		private service: RegisterService
+		public service: RegisterService
 	) {
 		this.v.result = {}
     }

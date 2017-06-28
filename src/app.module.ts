@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { NglModule } from 'ng-lightning/ng-lightning';
 
+import { PageClass } from './class/page/page.class';
+
 import { routing } from './app.routing';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -19,7 +21,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
         CommonComponentModule,
         routing,
     ],
-    declarations: [AppComponent],
+    declarations: [AppComponent, PageClass],
     providers: [],
     bootstrap: [AppComponent]
 })

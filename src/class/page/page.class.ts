@@ -30,10 +30,18 @@ export class PageClass {
 	@ViewChild('confirm') confirm: ConfirmComponent;
 
 	datas = DATA
+	hasError: boolean = false
+	error: string = ""
+	required: string = ""
 	days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+	myDatePickerOptions = {}
 
 	constructor() {
 	}
+
+	pageChanged($event){}
+	onDateChanged($event){}
+	onConfirm(){}
 
 }
 

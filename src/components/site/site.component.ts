@@ -9,6 +9,7 @@ import { SiteService } from './site.service'
 export class SiteComponent implements OnInit {
 
 	meunList: any;
+	userMenuPopverOpen: boolean = false
 
 	constructor(
 		private service: SiteService
