@@ -12,11 +12,16 @@ import 'rxjs/add/operator/timeout';
 export class RestApi {
 
 	public defaultHeaders: Headers;
+	private jwt: string;
 
 	constructor(
 		private http: Http
 		// private jsonp: Jsonp
 	) { }
+
+	setJwt(jwt: string){
+		this.jwt = jwt
+	}
 
 	get(url: string, pathParams?: Object, queryParams?: any, jwt: string = undefined): Promise<any> {
 		return this.httpRequest('GET', url, jwt, pathParams, queryParams, undefined);
@@ -34,8 +39,8 @@ export class RestApi {
 		return this.httpRequest('DELETE', url, jwt, pathParams, queryParams, body);
 	}
 
-	request(type: string, url: string, pathParams?: Object, queryParams?: Array<any>, body: any = undefined): Promise<any> {
-		return this.httpRequest(type, url, undefined, pathParams, queryParams, body);
+	request(type: string, url: string, pathParams?: Object, queryParams?: Array<any>, body: any = undefined, jwt: string = undefined): Promise<any> {
+		return this.httpRequest(type, url, jwt, pathParams, queryParams, body);
 	}
 
 	downloadFile(method: string, url: string, fileName: string = new Date().getTime().toString(), pathParams: Array<any> = undefined, queryParams: Array<any> = undefined, body = undefined): Promise<any> {
@@ -86,7 +91,7 @@ export class RestApi {
 			requestOptions.body = isOriginBody ? body : JSON.stringify(body);
 		}
 
-		headerParams.append('Authorization', environment.jwt);
+		headerParams.append('Authorization', jwt || this.jwt);
 
 		return this.http.request(path, requestOptions)
 			.toPromise()

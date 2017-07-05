@@ -13,7 +13,7 @@ export class LoginService {
     submitLogin(username, password) : Promise<string>{
         const api = this.restApiCfg.getRestApi("uaa.login");
 
-        return this.restApi.request(api.method, api.url, { username, password })
+        return this.restApi.request(api.method, api.url, { username, password }, undefined, undefined, "Basic")
     }
 
 }
