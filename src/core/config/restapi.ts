@@ -39,7 +39,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "登录",
         "id": "uaa.login",
         "method": "POST",
-        "url": "uaa/oauth/token?grant_type=password&username={username}&password={password}&client_id=ui&client_secret=12345&login_type=backend"
+        "url": "uaa/oauth/token?grant_type=password&username={username}&password={password}&client_id=ui&client_secret=secret&login_type=backend"
     },
     /*
      * Cloud-Host Instance List
@@ -54,7 +54,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取当前用户信息",
         "method": "GET",
         "id": "user.currentuser",
-        "url": "adminui/noauth/user/currentuser"
+        "url": "adminui/authsec/user/currentuser"
     },
     {
         "desc": "用户中心-获取部门",

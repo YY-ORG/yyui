@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { UserProfile, RoleProfile, OrganizationItem, SystemDictionaryService, RestApiCfg, RestApi } from '../../../core';
+import { UserProfile, RoleProfile, OrganizationItem, SystemDictionaryService, RestApiCfg, RestApi, UserDetailsItem } from '../../../core';
 
 @Injectable()
 export class LoginService {
@@ -10,10 +10,20 @@ export class LoginService {
                 private restApi:RestApi) {
     }
     
-    submitLogin(username, password) : Promise<string>{
+    submitLogin(username, password) : Promise<any>{
         const api = this.restApiCfg.getRestApi("uaa.login");
 
-        return this.restApi.request(api.method, api.url, { username, password }, undefined, undefined, "Basic")
+        return this.restApi.request(api.method, api.url, { username, password }, undefined, undefined, "Basic " + btoa("ui:secret"))
+    }
+
+    getUserInfo(): Promise<UserDetailsItem> {
+		const api = this.restApiCfg.getRestApi("user.currentuser");
+
+        return this.restApi.request(api.method, api.url).then(this.restApi.setUserInfo)
+    }
+
+    setJwt( jwt: string ) {
+		this.restApi.setJwt("bearer " + jwt)
     }
 
 }

@@ -5,12 +5,12 @@
 </ngl-form-element>
 
 <ngl-form-element label="密码" class="slds-m-top--small">
-  <input nglFormControl type="password" [(ngModel)]="password" placeholder="">
+  <input nglFormControl type="password" (keyup)="loginKeyup($event)" [(ngModel)]="password" placeholder="">
 </ngl-form-element>
 
 
 <div class="login-button-box">
-	<button type="button" (click)="login()" nglButton="brand">登录</button>
+	<button type="button" (click)="login()" nglButton="brand">{{loginText}}</button>
 	<a href="javascript:" routerLink="/login/forget" class="float-right mgt10">忘记密码?</a>
 </div>
 

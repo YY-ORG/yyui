@@ -35,7 +35,7 @@ class OrganizationItem {
 	status : string = "";  //, optional): 机构状态
 }
 
-/****************** /noauth/user/currentuser ******************/
+/****************** /authsec/user/currentuser ******************/
 
 //FETCH
 class UserDetailsItem {

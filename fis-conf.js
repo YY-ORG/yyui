@@ -1,6 +1,6 @@
-fis.set('project.ignore', ['*/node_modules/**','node_modules/**','fis-conf.js', '**/README.md', '*/e2e/**', '*/src/module/**', '*/src/architecture/components/**', '*/src/architecture/assets/**', '*/src/architecture/core/**', '*/src/architecture/pipe/**', '*/src/architecture/environments/**', '*/foxcloud-dist/**']);
+fis.set('project.ignore', ['*/node_modules/**','node_modules/**','fis-conf.js', '**/README.md', 'e2e/**', 'src/**']);
 
-const RegDefault = /(?:dist\/(.*)\.*)/i;
+const RegDefault = /(?:dist\/(.*))/i;
 
 const releaseToLocal = (name, path, reg) =>    //发布到本地
 	fis.media(name).match(reg, {
@@ -20,4 +20,4 @@ const releaseServer = (name, path, reg, ip, fileName = "receiver") =>    //发�
 	});
 
 //发布到开发环境
-releaseServer("backendDev", "/root/yyui", RegDefault, "61.178.80.85:8999");
+releaseServer("default", "/root/yyui", RegDefault, "61.178.80.85:8999");

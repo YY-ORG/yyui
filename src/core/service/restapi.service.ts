@@ -2,6 +2,7 @@ import { Injectable, Optional, ViewChild } from '@angular/core';
 import { Http, Headers, RequestOptionsArgs, Response, Jsonp, URLSearchParams, ResponseContentType } from '@angular/http';
 
 import { SpinnerComponent, AlertComponent, ConfirmComponent } from '../../components'
+import { UserDetailsItem } from '../'
 
 import { environment } from '../../environments/environment';
 
@@ -13,6 +14,7 @@ export class RestApi {
 
 	public defaultHeaders: Headers;
 	private jwt: string;
+	private userInfo: UserDetailsItem
 
 	constructor(
 		private http: Http
@@ -21,6 +23,13 @@ export class RestApi {
 
 	setJwt(jwt: string){
 		this.jwt = jwt
+	}
+
+	setUserInfo(userInfo: UserDetailsItem ) {
+		if(!userInfo) throw "userInfo error"
+		
+		this.userInfo = userInfo
+		console.log(this)
 	}
 
 	get(url: string, pathParams?: Object, queryParams?: any, jwt: string = undefined): Promise<any> {
@@ -104,6 +113,9 @@ export class RestApi {
 				}
 			})
 			.then((res:any) => {
+				if ( res.access_token ) {
+					return res;
+				}
 				if (res.resultCode && res.resultCode !== "100") {
 					throw "";
 				}
