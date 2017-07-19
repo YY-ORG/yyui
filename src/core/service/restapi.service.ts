@@ -117,8 +117,10 @@ export class RestApi {
 					return res;
 				}
 				if (res.resultCode && res.resultCode !== "100") {
-					throw "";
+					throw "状态吗不匹配";
 				}
+
+				console.log(res)
 				return res.resultContent;
 			})
 			.catch(error => {

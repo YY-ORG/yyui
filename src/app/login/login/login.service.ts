@@ -19,7 +19,9 @@ export class LoginService {
     getUserInfo(): Promise<UserDetailsItem> {
 		const api = this.restApiCfg.getRestApi("user.currentuser");
 
-        return this.restApi.request(api.method, api.url).then(this.restApi.setUserInfo)
+        return this.restApi.request(api.method, api.url).then(res => {
+            this.restApi.setUserInfo(res)
+        })
     }
 
     setJwt( jwt: string ) {

@@ -46,10 +46,11 @@ export class LoginComponent implements OnInit {
 			.then( res =>
 				this.alert.open("登录成功！", () => {
 					this.loginText = "登录"
-					console.log("confirmed")
+					this.router.navigateByUrl("/index");
 				})
 			)
 			.catch(e => {
+				console.log(e)
 				this.loginText = "登录"
 
 				let message = e === "userInfo error" ? "获取用户信息失败，请稍后再试" : "登录失败，请检查用户名与密码"
