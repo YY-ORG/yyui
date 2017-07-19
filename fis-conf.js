@@ -20,4 +20,4 @@ const releaseServer = (name, path, reg, ip, fileName = "receiver") =>    //发�
 	});
 
 //发布到开发环境
-releaseServer("default", "/root/yyui", RegDefault, "61.178.80.85:8999");
+releaseServer("default", "/root/yyui", RegDefault, "61.178.80.86:8999");
