@@ -1,0 +1,25 @@
+<h1 class="content-title">平时考核</h1>
+<div class="ordinary-times">
+    <ngl-form-element label="集体成绩：" [error]="hasError ? error : null" class="slds-m-top--small left-lable">
+        <input disabled nglFormControl type="text" placeholder="" [required]="required">
+    </ngl-form-element>
+    <ngl-form-element label="得分：" [error]="hasError ? error : null" class="slds-m-top--small left-lable">
+        <input disabled nglFormControl type="text" placeholder="" [required]="required">
+    </ngl-form-element>
+    <ngl-form-element label="复核得分：" class="slds-m-top--small left-lable">
+        <input disabled nglFormControl type="text" placeholder="" [required]="required">
+    </ngl-form-element>
+    <ngl-form-element label="说明：" [error]="hasError ? error : null" class="slds-m-top--small left-lable">
+        <textarea disabled nglFormControl placeholder="" [required]="required"></textarea>
+    </ngl-form-element>
+</div>
+
+<div class="ordinary-times-poiont">
+    本项满分100分
+</div>
+<div class="ordinary-times-instruction">
+    <p>部门考核小组根据个人全年工作表现量化打分。</p>
+</div>
+
+<alert #alert></alert>
+<confirm (onConfirm)="onConfirm()" #confirm></confirm>

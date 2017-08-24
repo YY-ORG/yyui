@@ -1,0 +1,31 @@
+<h1 class="content-title">民主测评</h1>
+<div class="democratic-test">
+    <ngl-form-element label="部门测评成绩：" [error]="hasError ? error : null" class="slds-m-top--small left-lable">
+        <input disabled nglFormControl type="text" placeholder="" [required]="required">
+    </ngl-form-element>
+    <ngl-form-element label="参评人数：" class="slds-m-top--small left-lable">
+        <input disabled nglFormControl type="text" placeholder="" [required]="required">
+    </ngl-form-element>
+    <ngl-form-element label="排列名次：" [error]="hasError ? error : null" class="slds-m-top--small left-lable">
+        <input disabled nglFormControl type="text" placeholder="" [required]="required">
+    </ngl-form-element>
+    <ngl-form-element label="得分：" class="slds-m-top--small left-lable">
+        <input disabled nglFormControl type="text" placeholder="" [required]="required">
+    </ngl-form-element>
+    <ngl-form-element label="复核得分：" class="slds-m-top--small left-lable">
+        <input disabled nglFormControl type="text" placeholder="" [required]="required">
+    </ngl-form-element>
+    <ngl-form-element label="说明：" [error]="hasError ? error : null" class="slds-m-top--small left-lable">
+        <textarea disabled nglFormControl placeholder="" [required]="required"></textarea>
+    </ngl-form-element>
+</div>
+
+<div class="democratic-test-poiont">
+    本项满分100分
+</div>
+<div class="democratic-test-instruction">
+    <p>部门考核小组量化打分后取平均分。</p>
+</div>
+
+<alert #alert></alert>
+<confirm (onConfirm)="onConfirm()" #confirm></confirm>

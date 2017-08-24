@@ -1,0 +1,29 @@
+.ordinary-times {
+	max-width: 500px;
+	margin: 0 auto;
+	.slds-form-element__label {
+		width: 100px;
+	}
+}
+.ordinary-times-instruction {
+	line-height: 26px;
+	font-size: 14px;
+	color: #999;
+	border-top: 1px solid #ccc;
+	margin: 20px auto 0;
+	width: 90%;
+	padding-top: 30px;
+	padding-left: 30%;
+	&::before {
+		content: "说明：";
+		float: left;
+		margin-left: -50px;
+	}
+}
+.ordinary-times-poiont {
+	font-size: 16px;
+	color: #666;
+	width: 90%;
+	text-align: right;
+	margin-top: 50px;
+}

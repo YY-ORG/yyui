@@ -1,0 +1,66 @@
+<h1 class="content-title">争取项目</h1>
+<table class="slds-table mgt30">
+    <tr>
+        <th style="width: 70px">序号</th>
+        <th>部门</th>
+        <th>姓名</th>
+        <th>职称</th>
+        <th>后续名称</th>
+        <th>内容提要</th>
+        <th>职称</th>
+        <th>备注</th>
+        <th>得分</th>
+        <th>得分复核</th>
+        <th>说明</th>
+        <th style="width: 130px">操作</th>
+    </tr>
+    <tr *ngFor="let d of datas; let i = index">
+        <td>{{i+1}}</td>
+        <td>
+            <font class="color-neutral">{{d.name}}</font>
+        </td>
+        <td>历史所</td>
+        <td><font class="color-red">王五</font></td>
+        <td>高级</td>
+        <td>情况预测</td>
+        <td>一般课题</td>
+        <td>无</td>
+        <td>90</td>
+        <td>90</td>
+        <td>无</td>
+        <td>
+            <my-button button="radius" (onClick)="editUser(d)" color="primary" className="mgr10" icon="icon-edit1">编辑</my-button>
+        </td>
+    </tr>
+</table>
+<pagination maxSize=70 currentPage=5 (pageChanged)="pageChanged($event)"></pagination>
+
+<ngl-modal header="权限分配" class="for-project-box" [(open)]="editModalOpen">
+    <div body class="width65 mgb30button" style="margin:0 auto">
+        <ngl-form-element label="项目名称：" [error]="hasError ? error : null" class="slds-m-top--small left-lable">
+            <input nglFormControl type="text" placeholder="" [required]="required">
+        </ngl-form-element>
+        <ngl-form-element label="内容提要：" class="slds-m-top--small left-lable">
+            <textarea nglFormControl placeholder="" [required]="required"></textarea>
+        </ngl-form-element>
+        <ngl-form-element label="备注：" class="slds-m-top--small left-lable">
+            <input nglFormControl type="text" placeholder="" [required]="required">
+        </ngl-form-element>
+        <ngl-form-element label="得分：" class="slds-m-top--small left-lable">
+            <input nglFormControl type="text" placeholder="" [required]="required">
+        </ngl-form-element>
+        <ngl-form-element label="复核得分：" class="slds-m-top--small left-lable">
+            <input nglFormControl type="text" placeholder="" [required]="required">
+        </ngl-form-element>
+        <ngl-form-element label="说明：" class="slds-m-top--small left-lable">
+            <textarea nglFormControl placeholder="申报国家项目，通过全是筛选，10分" [required]="required"></textarea>
+        </ngl-form-element>
+    </div>
+    <template ngl-modal-footer>
+        <button class="slds-button slds-button--neutral" (click)="editModalOpen = false">取消</button>
+        <button class="slds-button slds-button--brand">确定</button>
+    </template>
+</ngl-modal>
+
+<alert #alert></alert>
+<confirm (onConfirm)="onConfirm()" #confirm></confirm>

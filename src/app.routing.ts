@@ -13,6 +13,7 @@ export const routes: Routes = [
     { path: 'mgmt-authority', loadChildren: 'app/mgmt-authority/authority.module#AuthorityModule' },
     { path: 'mgmt-content', loadChildren: 'app/mgmt-content/content.module#ContentModule' },
     { path: 'mgmt-directory', loadChildren: 'app/mgmt-directory/directory.module#MgmtDirectoryModule' },
+    { path: 'mgmt-assessment', loadChildren: 'app/mgmt-assessment/assessment.module#AssessmentModule' },
     { path: '', loadChildren: 'app/home/home.module#HomeModule' },
     // { path: 'cloud-host-service', loadChildren: 'module/cloud-host-service/cloud-host-service.module#CloudHostService' },
     // { path: 'mng-console', loadChildren: 'module/mng-console/mng-console.module#MngConsoleModule' },

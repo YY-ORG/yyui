@@ -1,0 +1,29 @@
+<h1 class="content-title">能项考核</h1>
+<div class="can-review">
+    <ngl-form-element label="领导评分：" [error]="hasError ? error : null" class="slds-m-top--small left-lable">
+        <input disabled nglFormControl type="text" placeholder="" [required]="required">
+    </ngl-form-element>
+    <ngl-form-element label="集体评分：" class="slds-m-top--small left-lable">
+        <input disabled nglFormControl type="text" placeholder="" [required]="required">
+    </ngl-form-element>
+    <ngl-form-element label="得分：" [error]="hasError ? error : null" class="slds-m-top--small left-lable">
+        <input disabled nglFormControl type="text" placeholder="" [required]="required">
+    </ngl-form-element>
+    <ngl-form-element label="复核得分：" class="slds-m-top--small left-lable">
+        <input disabled nglFormControl type="text" placeholder="" [required]="required">
+    </ngl-form-element>
+    <ngl-form-element label="说明：" [error]="hasError ? error : null" class="slds-m-top--small left-lable">
+        <textarea disabled nglFormControl placeholder="" [required]="required"></textarea>
+    </ngl-form-element>
+</div>
+
+<div class="can-review-poiont">
+    本项满分100分
+</div>
+<div class="can-review-instruction">
+    <p>1. 部门领导打分不超过30分；</p>
+    <p>2. 部门集体打分不超过80分；</p>
+</div>
+
+<alert #alert></alert>
+<confirm (onConfirm)="onConfirm()" #confirm></confirm>

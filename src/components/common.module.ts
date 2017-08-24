@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ClickOutsideModule } from 'ng2-click-outside';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { QuillEditorModule } from 'ngx-quill-editor';
 
 import { SiteComponent } from './site/site.component'
 import { SiteService } from './site/site.service'
@@ -57,6 +58,7 @@ import { NglModule } from 'ng-lightning/ng-lightning';
         ButtonComponent,
         TagButtonComponent,
         PaginationComponent,
+        QuillEditorModule
     ],
     providers : [
         Validation,

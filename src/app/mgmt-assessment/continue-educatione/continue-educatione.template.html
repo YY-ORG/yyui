@@ -1,0 +1,30 @@
+<h1 class="content-title">继续教育</h1>
+<div class="continue-education">
+    <ngl-form-element label="考试成绩：" [error]="hasError ? error : null" class="slds-m-top--small left-lable">
+        <input disabled nglFormControl type="text" placeholder="" [required]="required">
+    </ngl-form-element>
+    <ngl-form-element label="学时扣分：" class="slds-m-top--small left-lable">
+        <input disabled nglFormControl type="text" placeholder="" [required]="required">
+    </ngl-form-element>
+    <ngl-form-element label="得分：" [error]="hasError ? error : null" class="slds-m-top--small left-lable">
+        <input disabled nglFormControl type="text" placeholder="" [required]="required">
+    </ngl-form-element>
+    <ngl-form-element label="复核得分：" class="slds-m-top--small left-lable">
+        <input disabled nglFormControl type="text" placeholder="" [required]="required">
+    </ngl-form-element>
+    <ngl-form-element label="说明：" [error]="hasError ? error : null" class="slds-m-top--small left-lable">
+        <textarea disabled nglFormControl placeholder="" [required]="required"></textarea>
+    </ngl-form-element>
+</div>
+
+<div class="continue-education-poiont">
+    本项满分100分
+</div>
+<div class="continue-education-instruction">
+    <p>1. 未参加继续教育活动者扣30分；</p>
+    <p>2. 参加继续教育活动但未完成学时者扣15分；</p>
+    <p>3. 未参加考试，但参加了教育活动或完成了学时者分别按30分，15分计；</p>
+</div>
+
+<alert #alert></alert>
+<confirm (onConfirm)="onConfirm()" #confirm></confirm>

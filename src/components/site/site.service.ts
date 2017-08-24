@@ -88,6 +88,62 @@ export class SiteService {
 					]
 				},
 				{
+					"label": "考核管理",
+					"isOpen": false,
+					"isShow": true,
+					"icon": "icon-neirong",
+					"top2_menu": [
+						{
+							"label": "个人述职",
+							"isOpen": true,
+							"isShow": true,
+							"routing": "/mgmt-assessment/personal-description"
+						},
+						{
+							"label": "继续教育",
+							"isOpen": true,
+							"isShow": true,
+							"routing": "/mgmt-assessment/continue-educatione"
+						},
+						{
+							"label": "平时考核",
+							"isOpen": true,
+							"isShow": true,
+							"routing": "/mgmt-assessment/ordinary-times"
+						},
+						{
+							"label": "民主测试",
+							"isOpen": true,
+							"isShow": true,
+							"routing": "/mgmt-assessment/democratic-test"
+						},
+						{
+							"label": "能项考核",
+							"isOpen": true,
+							"isShow": true,
+							"routing": "/mgmt-assessment/can-review"
+						},
+						{
+							"label": "德项考核",
+							"isOpen": true,
+							"isShow": true,
+							"routing": "/mgmt-assessment/de-educatione"
+						},
+						{
+							"label": "争夺项目",
+							"isOpen": true,
+							"isShow": true,
+							"routing": "/mgmt-assessment/for-project"
+						},
+						{
+							"label": "约发稿件",
+							"isOpen": true,
+							"isShow": true,
+							"routing": "/mgmt-assessment/sending-manuscript"
+						}
+					]
+				},
+				{
 					"label": "名录管理",
 					"isOpen": false,
 					"isShow": true,

@@ -1,0 +1,26 @@
+<h1 class="content-title">个人述职</h1>
+
+<div class="personal-description">
+    <quill-editor [(ngModel)]="editorContent"
+        [options]="editorOptions"
+        (blur)="onEditorBlured($event)"
+        (focus)="onEditorFocused($event)"
+        (ready)="onEditorCreated($event)"
+        (change)="onContentChanged($event)"></quill-editor>
+
+    <div class="text-align-right">
+        <button type="button" class="mgt20" nglButton="brand">提交</button>
+    </div>
+    
+    <div class="instruction mgt30">
+        <p>1.履行岗位职责情况</p>
+        <p>2.工作完成情况</p>
+        <p>3.工作业绩自我评价</p>
+        <p>4.存在的问题和改进措施</p>
+        <p>5.本项必填，但不计分</p>
+    </div>
+</div>
+
+
+<alert #alert></alert>
+<confirm (onConfirm)="onConfirm()" #confirm></confirm>
