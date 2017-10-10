@@ -62,4 +62,10 @@ export let RestApis: RestApiModel[] = [
         "id": "user.organizations",
         "url": "adminui/noauth/organizations"
     },
+    {
+        "desc": "依据考题ID，获取考题",
+        "method": "GET",
+        "id": "authsec.assess",
+        "url": "/assess/authsec/assess/{id}"
+    }
 ]

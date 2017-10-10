@@ -94,6 +94,12 @@ export class SiteService {
 					"icon": "icon-neirong",
 					"top2_menu": [
 						{
+							"label": "考题设置",
+							"isOpen": true,
+							"isShow": true,
+							"routing": "/mgmt-assessment/examination-paper"
+						},
+						{
 							"label": "个人述职",
 							"isOpen": true,
 							"isShow": true,

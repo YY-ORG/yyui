@@ -21,6 +21,7 @@ import { TagButtonComponent } from './button/tag-button.component'
 
 import { Validation } from './validators';
 import { NglModule } from 'ng-lightning/ng-lightning';
+import { ArchwizardModule } from 'ng2-archwizard';
 // import {MdInputModule, MdCheckboxModule, MdProgressSpinnerModule, MdButtonModule, MdSelectModule, MdTooltipModule, MdMenuModule} from '@angular/material';
 
 
@@ -31,7 +32,8 @@ import { NglModule } from 'ng-lightning/ng-lightning';
         ClickOutsideModule,
         HttpModule,
         RouterModule,
-        NglModule.forRoot()
+        NglModule.forRoot(),
+        ArchwizardModule
     ],
     declarations: [
         CountBarComponent,
@@ -47,6 +49,7 @@ import { NglModule } from 'ng-lightning/ng-lightning';
         CommonModule,
         MyDatePickerModule,
         FormsModule,
+        ArchwizardModule,
         CountBarComponent,
         ClickOutsideModule,
         HttpModule,

@@ -15,6 +15,7 @@ import {
   PersonalDescriptionComponent
 } from './personal-description/personal-description.component'
 import { DeEducationeComponent } from './de-educatione/de-educatione.component'
+import { ExaminationPaperComponent } from './examination-paper/examination-paper.component'
 import { CanReviewComponent } from './can-review/can-review.component'
 import { DemocraticTestComponent } from './democratic-test/democratic-test.component'
 import { OrdinaryTimesComponent } from './ordinary-times/ordinary-times.component'
@@ -31,6 +32,9 @@ export const AssessmentRouting: ModuleWithProviders = RouterModule.forChild([{
     {
       path: 'personal-description',
       component: PersonalDescriptionComponent
+    },{
+      path: 'examination-paper',
+      component: ExaminationPaperComponent
     },{
       path: 'de-educatione',
       component: DeEducationeComponent
