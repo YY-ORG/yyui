@@ -54,9 +54,29 @@ class TemplateItemItem {
   visible : boolean //, optional)
 }
 
+class AssessMenuItem {
+  assessCode: string //, optional),
+  assessId: string //, optional),
+  assessName: string //, optional),
+  seqNo: number //, optional)
+}
+
+class AssessPaperItem {
+  code: string //, optional),
+  createDate: Timestamp //, optional),
+  creatorId: string //, optional),
+  id: string //, optional),
+  name: string //, optional),
+  orgId: string //, optional),
+  status: string //, optional)
+}
+
+
 export {
   AssessItem,
   Timestamp,
   TemplateItem,
-  TemplateItemItem
+  TemplateItemItem,
+  AssessMenuItem,
+  AssessPaperItem
 }

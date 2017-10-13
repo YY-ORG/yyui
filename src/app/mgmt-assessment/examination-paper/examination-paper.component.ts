@@ -22,9 +22,40 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 
 	willDeleteUser;
 	editModalOpen: boolean = false;
+	selectedTab: any = 'sum';
+	type: string = 'default';
+  id: number = 0;
+  details: number[] = [];
+
+  change() {
+    this.type = this.type === 'scoped' ? 'default' : 'scoped';
+  }
+
+  addDetail() {
+    this.details.push(this.id++);
+  }
+
+  isDisabled() {
+    return this.selectedTab === 'sum' || this.selectedTab.id === 'sum';
+  }
+
+  protected tabChange(detail: number, event: string) {
+    console.log('detail', detail, event);
+  }
+
+  protected removeDetail(detail: Object) {
+    this.details = this.details.filter((d) => d !== detail);
+    setTimeout(() => this.selectedTab = 'sum');
+  }
 
 	ngOnInit() {
-		this.getItem()
+		this.getPaper()
+	}
+
+	getPaper () {
+		this.service.fetchAssesspaperlist().then(res => {
+			console.log(res)
+		})
 	}
 
 	getItem() {

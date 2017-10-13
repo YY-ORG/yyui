@@ -67,5 +67,23 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "id": "authsec.assess",
         "url": "/assess/authsec/assess/{id}"
+    },
+    {
+        "desc": "依据登录用户所属部门/组织机构来检索该部门下的考题",
+        "method": "GET",
+        "id": "assesslist.orgnization",
+        "url": "/assess/authsec/assesslist/orgnization"
+    },
+    {
+        "desc": "依据考卷ID来检索该考卷下的试题列表",
+        "method": "GET",
+        "id": "assesspaper.assesslist",
+        "url": "/assess/authsec/assesspaper/{id}/assesslist"
+    },
+    {
+        "desc": "依据登录用户所属部门/组织机构来检索该部门下的考卷",
+        "method": "GET",
+        "id": "assesspaperlist.orgnization",
+        "url": "/assess/authsec/assesspaperlist/orgnization"
     }
 ]

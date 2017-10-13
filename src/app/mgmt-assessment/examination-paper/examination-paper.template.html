@@ -1,49 +1,11 @@
 <h1 class="content-title">考题设置</h1>
 
-<wizard>
-    <wizard-step stepTitle="Title of step 1">
-      Content of Step 1
-      <button type="button" nextStep>Next Step</button>
-      <button type="button" goToStep="2">Go directly to third Step</button>
-    </wizard-step>
-    <wizard-step stepTitle="Title of step 2" optionalStep>
-      Content of Step 2
-      <button type="button" previousStep>Go to previous step</button>
-      <button type="button" nextStep>Go to next step</button>
-    </wizard-step>
-    <wizard-step stepTitle="Title of step 3">
-      Content of Step 3
-      <button type="button" previousStep>Previous Step</button>
-      <button type="button" (click)="finishFunction()">Finish</button>
-    </wizard-step>
-  </wizard>
-
-<div class="examination-paper">
-    <ngl-form-element label="考试成绩：" [error]="hasError ? error : null" class="slds-m-top--small left-lable">
-        <input disabled nglFormControl type="text" placeholder="" [required]="required">
-    </ngl-form-element>
-    <ngl-form-element label="学时扣分：" class="slds-m-top--small left-lable">
-        <input disabled nglFormControl type="text" placeholder="" [required]="required">
-    </ngl-form-element>
-    <ngl-form-element label="得分：" [error]="hasError ? error : null" class="slds-m-top--small left-lable">
-        <input disabled nglFormControl type="text" placeholder="" [required]="required">
-    </ngl-form-element>
-    <ngl-form-element label="复核得分：" class="slds-m-top--small left-lable">
-        <input disabled nglFormControl type="text" placeholder="" [required]="required">
-    </ngl-form-element>
-    <ngl-form-element label="说明：" [error]="hasError ? error : null" class="slds-m-top--small left-lable">
-        <textarea disabled nglFormControl placeholder="" [required]="required"></textarea>
-    </ngl-form-element>
-</div>
-
-<div class="examination-paper-poiont">
-    本项满分100分
-</div>
-<div class="examination-paper-instruction">
-    <p>1. 未参加继续教育活动者扣30分；</p>
-    <p>2. 参加继续教育活动但未完成学时者扣15分；</p>
-    <p>3. 未参加考试，但参加了教育活动或完成了学时者分别按30分，15分计；</p>
-</div>
-
+<ngl-tabs>
+    <ngl-tab heading="Overview">
+        You have {{details.length}} details.
+    </ng-tab>
+</ngl-tabs>
+    
+      
 <alert #alert></alert>
 <confirm (onConfirm)="onConfirm()" #confirm></confirm>
