@@ -1,5 +1,6 @@
 ﻿import { Injectable } from "@angular/core";
-import { RestApiCfg, RestApi } from "../";
+import { RestApi } from "./restapi.service";
+import { RestApiCfg } from "./restapicfg.service";
 
 let dicPromise : Promise<Array<any>>;
 
