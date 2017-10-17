@@ -1,22 +1,53 @@
 <h1 class="content-title">考题设置</h1>
 
-<ngl-tabs [(selected)]="selectedTab" [type]="type">
-    <ng-template ngl-tab heading="Overview">
-    You have {{details.length}} details.
-    </ng-template>
-    <ngl-tab *ngFor="let detail of details" (onActivate)="tabChange(detail, 'active')" (onDeactivate)="tabChange(detail, 'inactive')">
-    <ng-template ngl-tab-heading>Detail <i>{{ detail }}</i></ng-template>
-    <ng-template ngl-tab-content>
-        <p>Some detail text for <b>{{detail}}</b>.</p>
-        <button type="button" nglButton="destructive" (click)="removeDetail(detail)">Remove</button>
-    </ng-template>
-    </ngl-tab>
-    <ng-template #heading>Summary</ng-template>
-    <ng-template ngl-tab nglTabId="sum" #summaryTab="nglTab" [heading]="heading">
-    Next last ID is {{id}}.
-    </ng-template>
+<ngl-tabs [(selected)]="selectedTab">
+  <ng-template ngl-tab *ngFor="let assessPaper of assesspaperlist" [nglTabId]="index" [heading]="assessPaper.name">
+    <p class="mgt20"></p> 
+    <wizard *ngIf="!!assesslist.length">
+      <wizard-step stepTitle="{{assess.assessName}}" *ngFor="let assess of assesslist; index as i;" #wizard>
+        <ng-container *ngFor="let templateItem of templateItemList">
+          <ng-container *ngFor="let template of templateItem.templateItemItemList;">
+            <ng-container [ngSwitch]="template.type">
+              <div *ngSwitchCase="'6'" class="label-box">
+                <ngl-form-element label="{{template.label}}：" class="slds-m-top--small left-lable">
+                    <input [disabled]="!template.editable" nglFormControl type="text" type="password" placeholder="{{template.placeholderTip}}" [required]="required">
+                </ngl-form-element>
+              </div>
+              <div *ngSwitchCase="'5' || '0'" class="label-box">
+                <ngl-form-element label="{{template.label}}：" class="slds-m-top--small left-lable{{template.visible ? ' display-none' : ''}}">
+                    <input [disabled]="!template.editable" nglFormControl type="text" placeholder="{{template.placeholderTip}}" [required]="required">
+                </ngl-form-element>
+              </div>
+              <div *ngSwitchCase="'16'" class="label-box">
+                <ngl-form-element 
+                  label="{{template.label}}：" 
+                  [error]="hasError ? error : null" 
+                  class="slds-m-top--small left-lable">
+                    <textarea [disabled]="!template.editable" nglFormControl placeholder="{{template.placeholderTip}}" [required]="required"></textarea>
+                </ngl-form-element>
+              </div>
+              <div *ngSwitchCase="'17'" class="personal-description mgt30">
+                <quill-editor 
+                  [(ngModel)]="editorContent" 
+                  [options]="editorOptions" 
+                  (blur)="onEditorBlured($event)" 
+                  (focus)="onEditorFocused($event)"
+                  (ready)="onEditorCreated($event)" 
+                  (change)="onContentChanged($event)"></quill-editor>
+              </div>
+              
+            </ng-container>
+          </ng-container>
+        </ng-container>
+        <div class="step-button-box">
+          <button type="button" nglButton="inverse" (click)="goToStep(i - 1)" class="mgr30">上一步</button>
+          <button type="button" nglButton="brand" (click)="goToStep(i + 1)">下一步</button>
+        </div>
+      </wizard-step>
+    </wizard>
+  </ng-template>
 </ngl-tabs>
-    
-      
+
+
 <alert #alert></alert>
 <confirm (onConfirm)="onConfirm()" #confirm></confirm>

@@ -5,6 +5,13 @@
 		width: 100px;
 	}
 }
+.label-box {
+	max-width: 500px;
+	margin: 0 auto;
+	.slds-form-element__label {
+		width: 100px;
+	}
+}
 .examination-paper-instruction {
 	line-height: 26px;
 	font-size: 14px;
@@ -25,5 +32,29 @@
 	color: #666;
 	width: 90%;
 	text-align: right;
+	margin-top: 50px;
+}
+
+.personal-description {
+	width: 80%;
+	margin: 0 auto;
+	.ql-container .ql-editor {
+		min-height: 500px;
+	}
+	.instruction {
+		line-height: 26px;
+		font-size: 14px;
+		color: #999;
+		margin-left: 50px;
+		&::before {
+			content: "说明：";
+			float: left;
+			margin-left: -50px;
+		}
+	}
+}
+
+.step-button-box {
+	text-align: center;
 	margin-top: 50px;
 }

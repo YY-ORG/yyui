@@ -428,6 +428,10 @@
     display: flex;
 }
 
+.display-none {
+    display: none !important;
+}
+
 .flex1 {
     flex:1;
 }

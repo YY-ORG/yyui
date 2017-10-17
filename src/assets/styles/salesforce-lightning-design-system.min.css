@@ -3496,7 +3496,10 @@ a.slds-button--green:focus {
     bottom: -14px;
     right: 0;
 }
-
+::placeholder {
+    color: #ABB2BB;
+    font-size: 13px;
+}
 .slds-input {
     background-color: #fff;
     color: #16325c;
@@ -3650,7 +3653,7 @@ a.slds-button--green:focus {
     background-color: #fff;
     color: #16325c;
     border: 1px solid #d8dde6;
-    border-radius: .25rem;
+    /* border-radius: .25rem; */
     width: 100%;
     transition: border .1s linear, background-color .1s linear;
     resize: vertical;

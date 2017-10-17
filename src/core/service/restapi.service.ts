@@ -23,13 +23,13 @@ export class RestApi {
 
 	setJwt(jwt: string){
 		this.jwt = jwt
+		localStorage['jwt'] = jwt
 	}
 
 	setUserInfo(userInfo: UserDetailsItem ) {
 		if(!userInfo) throw "userInfo error"
 		
 		this.userInfo = userInfo
-		console.log(this)
 	}
 
 	get(url: string, pathParams?: Object, queryParams?: any, jwt: string = undefined): Promise<any> {
@@ -100,7 +100,7 @@ export class RestApi {
 			requestOptions.body = isOriginBody ? body : JSON.stringify(body);
 		}
 
-		headerParams.append('Authorization', jwt || this.jwt);
+		headerParams.append('Authorization', jwt || this.jwt || localStorage['jwt']);
 
 		return this.http.request(path, requestOptions)
 			.toPromise()
@@ -120,7 +120,6 @@ export class RestApi {
 					throw "状态吗不匹配";
 				}
 
-				console.log(res)
 				return res.resultContent;
 			})
 			.catch(error => {

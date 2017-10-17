@@ -1,10 +1,13 @@
-import { Component,  OnInit, ViewEncapsulation  } from '@angular/core';
+import { Component,  OnInit, ViewEncapsulation, ChangeDetectorRef, ViewChild  } from '@angular/core';
 
 import { INglDatatableSort, INglDatatableRowClick } from 'ng-lightning/ng-lightning';
 import { SpinnerComponent } from '../../../components'
 import { PageClass } from '../../../class/page/page.class'
 
+import { AssessItem, AssessPaperItem, AssessMenuItem, TemplateItem } from '../../../core';
+
 import { ExaminationPaperService } from './examination-paper.service'
+import { WizardComponent } from 'ng2-archwizard'
 
 
 @Component({
@@ -14,39 +17,43 @@ import { ExaminationPaperService } from './examination-paper.service'
 	encapsulation: ViewEncapsulation.None
 })
 export class ExaminationPaperComponent extends PageClass implements OnInit {
+	@ViewChild(WizardComponent) public wizard: WizardComponent;
+
 	constructor(
-		private service: ExaminationPaperService
+		private service: ExaminationPaperService,
+		private cdr: ChangeDetectorRef
 	) {
 		super()
 	}
-
 	willDeleteUser;
 	editModalOpen: boolean = false;
-	selectedTab: any = 'sum';
-	type: string = 'default';
-  id: number = 0;
-  details: number[] = [];
+	selectedTab: any;
+	assesspaperlist: AssessPaperItem[] = []
+	assesslist: AssessMenuItem[] = []
+	examination: AssessItem
+	templateItemList: TemplateItem[] = []
 
-  change() {
-    this.type = this.type === 'scoped' ? 'default' : 'scoped';
-  }
-
-  addDetail() {
-    this.details.push(this.id++);
-  }
-
-  isDisabled() {
-    return this.selectedTab === 'sum' || this.selectedTab.id === 'sum';
-  }
-
-  protected tabChange(detail: number, event: string) {
-    console.log('detail', detail, event);
-  }
-
-  protected removeDetail(detail: Object) {
-    this.details = this.details.filter((d) => d !== detail);
-    setTimeout(() => this.selectedTab = 'sum');
-  }
+	public editor;
+  public editorContent: string;
+  public editorOptions = {
+		placeholder: "请输入个人述职...",
+		modules: {
+			toolbar: [
+				['bold', 'italic', 'underline'],
+				['code-block'],
+				[{ 'list': 'ordered'}, { 'list': 'bullet' }],
+				[{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+				[{ 'direction': 'rtl' }],                         // text direction
+				[{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+				[{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+			
+				[{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+				[{ 'align': [] }],
+			
+				['clean']                                         // remove formatting button
+			]
+		},
+  };
 
 	ngOnInit() {
 		this.getPaper()
@@ -54,32 +61,74 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 
 	getPaper () {
 		this.service.fetchAssesspaperlist().then(res => {
-			console.log(res)
+			this.assesspaperlist = res
+			setTimeout(() => {
+				(document.querySelector('.slds-tabs--default__link') as HTMLElement).click()
+				if (res.length) {
+					this.getAssesslist(res[0].id)
+				}
+			})
 		})
 	}
 
-	getItem() {
-		this.service.fetchExamination('9dc74b3e-a4f4-11e7-b65e-0cc47a669986').then(res => {
-			console.log(res)
+	getAssesslist (id: string) {
+		this.service.fetchAssesslist(id).then(res => {
+			if (!res.length) {
+				return
+			}
+			this.assesslist = res
+			this.getItem(res[0].assessId)
+			this.cdr.detectChanges()
+			setTimeout(() => {
+				// this.wizard.model.navigationMode.goToNextStep()
+			}, 4000)
+			
+		})
+	}
+
+	goToStep (index: number) {
+		let preFinalize = {
+			emit: () => {
+				this.getItem(this.assesslist[index].assessId)
+			}
+		}
+		this.wizard.model.navigationMode.goToStep(index, preFinalize)
+	}
+
+	send (ddd) {
+		console.log(ddd)
+	}
+
+	getItem(id: string) {
+		this.service.fetchExamination(id).then(res => {
+			this.examination = res
+			this.templateItemList = this.examination.templateItemList
 		})
 	}
 	
-	deleteUser(d) {
-		this.willDeleteUser = d;
-		this.confirm.open("确定要删除此用户吗？")
-	}
+  onEditorBlured(quill) {
+    console.log('editor blur!', quill);
+  }
 
-	editUser(d) {
-		this.editModalOpen = true
-	}
+  onEditorFocused(quill) {
+    console.log('editor focus!', quill);
+  }
 
+  onEditorCreated(quill) {
+    this.editor = quill;
+    console.log('quill is ready! this is current quill instance object', quill);
+  }
+
+  onContentChanged({ quill, html, text }) {
+    console.log('quill content is changed!', quill, html, text);
+	}
+	
 	onConfirm() {
 		this.confirm.close()
 
 		setTimeout(() => {
 			this.alert.open("删除成功")
 		}, 1000)
-		console.log("23")
 	}
 
 }
