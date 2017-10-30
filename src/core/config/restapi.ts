@@ -63,6 +63,60 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/noauth/organizations"
     },
     {
+        "desc": "获得所有菜单",
+        "method": "GET",
+        "id": "mpp.menu.tree",
+        "url": "adminui/authsec/mpp/menu/tree"
+    },
+    {
+        "desc": "根据一个角色获得菜单--view",
+        "method": "GET",
+        "id": "user.mpp.menu.tree",
+        "url": "adminui/authsec/mpp/menu/tree/{role_id}"
+    },
+    {
+        "desc": "角色管理--分配权限",
+        "method": "POST",
+        "id": "role.tree",
+        "url": "adminui/authsec/adm/role/menu"
+    },
+    {
+        "desc": "用户中心-账户管理，获得属于指定机构下所有用户",
+        "method": "GET",
+        "id": "users.organization",
+        "url": "adminui/authsec/adm/users/organization/{organization_id}/page/{page}/size/{size}"
+    },
+    {
+        "desc": "用户中心-账户管理，获取所有账户",
+        "method": "GET",
+        "id": "users.all",
+        "url": "adminui/authsec/adm/users/page/{page}/size/{size}"
+    },
+    {
+        "desc": "用户中心-账户管理，查询单个账户",
+        "method": "GET",
+        "id": "users.all",
+        "url": "adminui/authsec/adm/user/{user_id}"
+    },
+    {
+        "desc": "角色管理--根据一个角色获得已经选择和未选择的菜单--edit",
+        "method": "GET",
+        "id": "menu.role",
+        "url": "adminui/authsec/mpp/menu/{role_id}"
+    },
+    {
+        "desc": "用户中心-角色管理，获取所有角色",
+        "method": "GET",
+        "id": "roles",
+        "url": "adminui/authsec/adm/roles/page/{page}/size/{size}"
+    },
+    {
+        "desc": "根据多个角色获得菜单",
+        "method": "POST",
+        "id": "menu.roles",
+        "url": "adminui/authsec/mpp/tree/roles"
+    },
+    {
         "desc": "依据考题ID，获取考题",
         "method": "GET",
         "id": "authsec.assess",

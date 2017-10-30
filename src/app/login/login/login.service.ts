@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { UserProfile, RoleProfile, OrganizationItem, SystemDictionaryService, RestApiCfg, RestApi, UserDetailsItem } from '../../../core';
+import { Adminui, Assess, SystemDictionaryService, RestApiCfg, RestApi } from '../../../core';
 
 @Injectable()
 export class LoginService {
@@ -16,10 +16,10 @@ export class LoginService {
         return this.restApi.request(api.method, api.url, { username, password }, undefined, undefined, "Basic " + btoa("ui:secret"))
     }
 
-    getUserInfo(): Promise<UserDetailsItem> {
+    getUserInfo(): Promise<Adminui.UserDetailsItem> {
 		const api = this.restApiCfg.getRestApi("user.currentuser");
 
-        return this.restApi.request(api.method, api.url).then((res: UserDetailsItem) => {
+        return this.restApi.request(api.method, api.url).then((res: Adminui.UserDetailsItem) => {
             this.restApi.setUserInfo(res)
             return res
         })

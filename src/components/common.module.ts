@@ -17,7 +17,7 @@ import { AlertComponent } from './alert/alert.component'
 import { ConfirmComponent } from './confirm/confirm.component'
 import { ButtonComponent } from './button/button.component'
 import { TagButtonComponent } from './button/tag-button.component'
-
+import { PipeModule } from '../pipe/pipe.module'
 
 import { Validation } from './validators';
 import { NglModule } from 'ng-lightning/ng-lightning';
@@ -33,6 +33,7 @@ import { ArchwizardModule } from 'ng2-archwizard';
         HttpModule,
         RouterModule,
         NglModule.forRoot(),
+        PipeModule,
         ArchwizardModule
     ],
     declarations: [
@@ -61,6 +62,7 @@ import { ArchwizardModule } from 'ng2-archwizard';
         ButtonComponent,
         TagButtonComponent,
         PaginationComponent,
+        PipeModule,
         QuillEditorModule
     ],
     providers : [

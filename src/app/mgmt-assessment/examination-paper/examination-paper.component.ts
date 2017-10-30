@@ -4,7 +4,7 @@ import { INglDatatableSort, INglDatatableRowClick } from 'ng-lightning/ng-lightn
 import { SpinnerComponent } from '../../../components'
 import { PageClass } from '../../../class/page/page.class'
 
-import { AssessItem, AssessPaperItem, AssessMenuItem, TemplateItem } from '../../../core';
+import { Adminui, Assess } from '../../../core';
 
 import { ExaminationPaperService } from './examination-paper.service'
 import { WizardComponent } from 'ng2-archwizard'
@@ -28,10 +28,10 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 	willDeleteUser;
 	editModalOpen: boolean = false;
 	selectedTab: any;
-	assesspaperlist: AssessPaperItem[] = []
-	assesslist: AssessMenuItem[] = []
-	examination: AssessItem
-	templateItemList: TemplateItem[] = []
+	assesspaperlist: Assess.AssessPaperItem[] = []
+	assesslist: Assess.AssessMenuItem[] = []
+	examination: Assess.AssessItem
+	templateItemList: Assess.TemplateItem[] = []
 
 	public editor;
   public editorContent: string;

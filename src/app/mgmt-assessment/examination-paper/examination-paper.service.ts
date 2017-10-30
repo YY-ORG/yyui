@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { SystemDictionaryService, RestApiCfg, RestApi, AssessItem, AssessPaperItem, AssessMenuItem } from '../../../core';
+import { SystemDictionaryService, RestApiCfg, RestApi, Adminui, Assess } from '../../../core';
 
 @Injectable()
 export class ExaminationPaperService {
@@ -10,25 +10,25 @@ export class ExaminationPaperService {
               private restApi:RestApi) {
   }
   
-  fetchExamination (id: string): Promise<AssessItem> {
+  fetchExamination (id: string): Promise<Assess.AssessItem> {
     const api = this.restApiCfg.getRestApi("authsec.assess");
     
     return this.restApi.request(api.method, api.url, { id })
   }
 
-  fetchAssesspaperlist (): Promise<AssessPaperItem[]> {
+  fetchAssesspaperlist (): Promise<Assess.AssessPaperItem[]> {
     const api = this.restApiCfg.getRestApi("assesspaperlist.orgnization");
     
     return this.restApi.request(api.method, api.url)
   }
   
-  fetchAssesslist (id: string): Promise<AssessMenuItem[]> {
+  fetchAssesslist (id: string): Promise<Assess.AssessMenuItem[]> {
     const api = this.restApiCfg.getRestApi("assesspaper.assesslist");
     
     return this.restApi.request(api.method, api.url, { id })
   }
 
-  fetchoOrgAssesslist (): Promise<AssessPaperItem[]> {
+  fetchoOrgAssesslist (): Promise<Assess.AssessPaperItem[]> {
     const api = this.restApiCfg.getRestApi("assesslist.orgnization");
     
     return this.restApi.request(api.method, api.url)

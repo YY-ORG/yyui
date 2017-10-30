@@ -37,9 +37,9 @@ export class OrderByPipe implements PipeTransform {
             // console.log("orderByValue", orderByValue);
 
             array.sort((a: any, b: any) => {
-                if (a[orderByValue] < b[orderByValue]) {
+                if (+a[orderByValue] < +b[orderByValue]) {
                     return -1 * byVal;
-                } else if (a[orderByValue] > b[orderByValue]) {
+                } else if (+a[orderByValue] > +b[orderByValue]) {
                     return 1 * byVal;
                 } else {
                     return 0;

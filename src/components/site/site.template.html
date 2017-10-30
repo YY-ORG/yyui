@@ -21,12 +21,12 @@
 					<li class="slds-has-divider--top-space" role="separator"></li>
 					<li class="slds-dropdown__item" role="presentation">
 						<a href="javascript:void(0);" role="menuitem" tabindex="-1">
-							<span class="slds-truncate">退出登录</span>
+							<span (click)='logout()' class="slds-truncate">退出登录</span>
 						</a>
 					</li>
 				</ul>
 			</div>
-			<i [nglPopover]="interactive" nglPopoverTheme="info" nglPopoverPlacement="bottom" nglInteractive="true" nglPopoverDelay="500" nglPopoverBehavior nglTooltip class="loginOut iconfont icon-SignOut"></i>
+			<i (click)='logout()' [nglPopover]="interactive" nglPopoverTheme="info" nglPopoverPlacement="bottom" nglInteractive="true" nglPopoverDelay="500" nglPopoverBehavior nglTooltip class="loginOut iconfont icon-SignOut"></i>
 			<ng-template #interactive>
 				<font style="font-size: 12px;">退出</font>
 			</ng-template>
@@ -34,19 +34,19 @@
 	</div>
 	<div class="menu-box">
 		<ul class="nav-item-ul">
-			<ng-container *ngFor="let menu1 of meunList">
-			<li *ngIf="menu1.isShow" class="nav-item {{menu1.isOpen ? 'open' : 'close'}}">
+			<ng-container *ngFor="let menu1 of meunList | orderBy: 'orderBy';">
+			<li *ngIf="menu1.status" class="nav-item {{menu1.isOpen ? 'open' : 'close'}}">
 				<div routerLinkActive="isopen">
 					<a href="javascript:;"  (click)="changeMenu(menu1)" class="nav-link nav-toggle">
-						<i class="iconfont {{menu1.icon}}"></i>
-						<span class="nav-title">{{menu1.label}}</span>
+						<i class="iconfont {{menu1.iclass || ''}}"></i>
+						<span class="nav-title">{{menu1.name}}</span>
 						<i class="iconfont icon-arrow1"></i>
 					</a>
-					<ul class="sub-menu" *ngIf="menu1.top2_menu && menu1.top2_menu.length">
-						<ng-container *ngFor="let menu2 of menu1.top2_menu">
-						<li class="nav-item" *ngIf="menu2.isShow" routerLinkActive="active" routerLink="{{menu2.routing}}">
+					<ul class="sub-menu" *ngIf="menu1.children && menu1.children.length">
+						<ng-container *ngFor="let menu2 of menu1.children | orderBy: 'orderBy';">
+						<li class="nav-item" *ngIf="menu2.status" routerLinkActive="active" routerLink="{{menu2.routing || '/null'}}">
 							<a href="javascript:" class="nav-link ">
-								<span class="nav-title">{{menu2.label}}</span>
+								<span class="nav-title">{{menu2.name}}</span>
 							</a>
 						</li>
 						</ng-container>

@@ -16,7 +16,10 @@ import { ContentComponent } from "./content/content.component"
 import { RoleComponent } from "./role/role.component"
 import { AuthorityComponent } from "./authority/authority.component"
 import { TimeComponent } from "./time/time.component"
+
 //service
+import { AccountService } from "./account/account.service"
+import { RoleService } from "./role/role.service"
 
 
 @NgModule({
@@ -37,7 +40,8 @@ import { TimeComponent } from "./time/time.component"
     exports: [
     ],
     providers: [
-        // MngConsoleService
+        AccountService,
+        RoleService
     ]
 
 })

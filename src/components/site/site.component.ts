@@ -23,11 +23,22 @@ export class SiteComponent implements OnInit {
 		})
 	}
 
+	logout() {
+		window.localStorage['jwt'] = ''
+		window.localStorage['userInfo'] = ''
+		window.location.href = "/login";
+	}
+
 	changeMenu(menu) {
 		let currentMenuIsOpen = menu.isOpen
 		this.meunList.forEach(m => m.isOpen = false)
 
 		if(!currentMenuIsOpen) menu.isOpen = true
+	}
+
+	trackByFn(index, item) {
+		console.log(item.orderBy)
+		return +item.orderBy || 0;
 	}
 }
 

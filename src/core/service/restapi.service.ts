@@ -2,7 +2,7 @@ import { Injectable, Optional, ViewChild } from '@angular/core';
 import { Http, Headers, RequestOptionsArgs, Response, Jsonp, URLSearchParams, ResponseContentType } from '@angular/http';
 
 import { SpinnerComponent, AlertComponent, ConfirmComponent } from '../../components'
-import { UserDetailsItem } from '../'
+import { Adminui } from '../'
 
 import { environment } from '../../environments/environment';
 
@@ -14,7 +14,7 @@ export class RestApi {
 
 	public defaultHeaders: Headers;
 	private jwt: string;
-	private userInfo: UserDetailsItem
+	private userInfo: Adminui.UserDetailsItem
 
 	constructor(
 		private http: Http
@@ -26,10 +26,11 @@ export class RestApi {
 		localStorage['jwt'] = jwt
 	}
 
-	setUserInfo(userInfo: UserDetailsItem ) {
+	setUserInfo(userInfo: Adminui.UserDetailsItem ) {
 		if(!userInfo) throw "userInfo error"
 		
 		this.userInfo = userInfo
+		localStorage["userInfo"] = JSON.stringify(userInfo)
 	}
 
 	get(url: string, pathParams?: Object, queryParams?: any, jwt: string = undefined): Promise<any> {
@@ -70,12 +71,12 @@ export class RestApi {
 
 	}
 
-	getLoginInfo(): { userInfo: any } {   //获取当前的登陆信息
-		if (!sessionStorage["userInfo"] || !sessionStorage["token"]) {
+	getLoginInfo(): { userInfo: Adminui.UserDetailsItem } {   //获取当前的登陆信息
+		if (!localStorage["userInfo"] || !localStorage["jwt"]) {
 			window.location.href = "/login.html";
 		}
 		return {
-			userInfo: JSON.parse(sessionStorage["userInfo"]) || {}
+			userInfo: JSON.parse(localStorage["userInfo"]) || {}
 			// userEnterpriseId : JSON.parse(sessionStorage["userEnterpriseId"])
 		}
 	}

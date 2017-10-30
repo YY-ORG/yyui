@@ -1,25 +1,56 @@
-import { Component,  OnInit,  } from '@angular/core';
+import { Component,  OnInit, ViewEncapsulation  } from '@angular/core';
 
 import { INglDatatableSort, INglDatatableRowClick } from 'ng-lightning/ng-lightning';
 import { SpinnerComponent } from '../../../components'
 import { PageClass } from '../../../class/page/page.class'
 
+import { RoleService } from './role.service'
+import { Adminui } from '../../../core'
 
 @Component({
-	selector: 'role',
+	selector: 'roles',
 	styleUrls: ['./role.scss'],
-	templateUrl: "./role.template.html"
+	templateUrl: "./role.template.html",
+	encapsulation: ViewEncapsulation.None
 })
 export class RoleComponent extends PageClass implements OnInit {
 	constructor(
+		private service: RoleService,
 	) {
 		super()
 	}
 
 	willDeleteUser;
 	editModalOpen: boolean = false;
+	currentPage: number = 1
+	roleList: Adminui.RoleItem[] = []
+	menuItem: Adminui.MenuItem[] = []
+	cacheRoleList: Adminui.MenuItem[] = []
+	userMenuTree: Adminui.RoleDetailsItem
 
 	ngOnInit() {
+		this.getRoleList()
+		this.getMenuTree()
+	}
+
+	getMenuTree() {
+		this.spinner.show()
+		
+		this.service.fetchMenuTree().then(res => {
+			this.menuItem = res
+			this.cacheRoleList = res
+
+			this.spinner.hide()
+		})
+	}
+
+	getRoleList() {
+		this.spinner.show()
+		this.service.fetchRoleList(this.currentPage , 10)
+			.then(res => {
+				this.roleList = res
+				this.spinner.hide()
+			})
 	}
 	
 	deleteUser(d) {
@@ -27,8 +58,49 @@ export class RoleComponent extends PageClass implements OnInit {
 		this.confirm.open("确定要删除此用户吗？")
 	}
 
-	editUser(d) {
+	editUser(role: Adminui.RoleItem) {
+		this.spinner.show()
+		this.menuItem = this.cacheRoleList
+		this.service.fetchUserMenuTree(role.id).then(res => {
+			this.userMenuTree = res
+			res.menus.forEach(hasMenu => {
+				this.menuItem.forEach(menu => {
+					if (hasMenu.id !== menu.id) return false;
+
+					menu.isSelected = true
+					hasMenu.children.forEach(hasMenuChildren => {
+						menu.children.forEach(m => {
+							if (m.id === hasMenuChildren.id) {
+								m.isSelected = true
+							}
+						})
+					})
+				})
+			})
+			this.spinner.hide()
+		})
 		this.editModalOpen = true
+	}
+
+	submit() {
+		this.spinner.show()
+
+		this.userMenuTree.menus = this.menuItem.filter(topMenu => {
+			if (!topMenu.isSelected) return false
+			topMenu.children = topMenu.children.filter(menu => menu.isSelected)
+			return true
+		})
+
+		this.service.postUserMenuTree(this.userMenuTree).then(res => {
+			this.spinner.hide()
+			console.log(res)
+		})
+	}
+
+	topCheck(topMenu: Adminui.MenuItem) {
+		topMenu.children.forEach(meun => {
+			meun.isSelected = topMenu.isSelected
+		})
 	}
 
 	onConfirm() {

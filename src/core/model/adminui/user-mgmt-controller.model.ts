@@ -70,7 +70,6 @@ class RoleItem {
 	status : string = "";  //, optional): 状态
 }
 
-
 export {
 	UserProfile,
 	RoleProfile,

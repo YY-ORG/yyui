@@ -1,7 +1,7 @@
 import {Component, Input, Output,EventEmitter,OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Validation, ValidationRegs, SpinnerComponent, AlertComponent} from '../../../components'
 
-import { UserProfile, RoleProfile, OrganizationItem } from '../../../core';
+import { Adminui, Assess } from '../../../core';
 import { Router } from "@angular/router";
 
 import { RegisterService } from "./register.service"
@@ -16,7 +16,7 @@ export class RegisterComponent implements OnInit{
 
     constructor(
 		public v:Validation,
-        private router: Router,
+    private router: Router,
 		public service: RegisterService
 	) {
 		this.v.result = {}
@@ -25,9 +25,9 @@ export class RegisterComponent implements OnInit{
 	@ViewChild('spinner') spinner: SpinnerComponent;
 	@ViewChild('alert') alert: AlertComponent;
 
-	userProfile: UserProfile = new UserProfile;
+	userProfile: Adminui.UserProfile = new Adminui.UserProfile;
     checkPassword: string;
-    organizationList:OrganizationItem[] = []
+    organizationList:Adminui.OrganizationItem[] = []
 
     ngOnInit (){
 		console.log(this.userProfile)

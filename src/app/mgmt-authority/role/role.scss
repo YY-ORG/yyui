@@ -1,0 +1,19 @@
+
+.role___component {
+  .role-title {
+    .slds-form-element__label {
+      font-size: 18px;
+      color: #1a2e9a;
+    }
+  }
+  .menu-children {
+    padding: 5px 0 15px;
+    border-bottom: 1px solid #e8e8e8;
+    width: 100%;
+    margin-bottom: 15px;
+    .slds-form-element__label {
+      font-size: 14px;
+      color: #666
+    }
+  }
+}
