@@ -6,6 +6,7 @@ import { formatDatePipe } from './formatDate.pipe';
 import { decimalPlacesPipe } from './decimalPlaces.pipe';
 import { ObjectToArrPipe } from './objectToArr.pipe';
 import { formatCapacity } from './formatCapacity.pipe';
+import { getArrValuePipe } from './getArrValue.pip';
 
 @NgModule({
     imports: [
@@ -17,7 +18,8 @@ import { formatCapacity } from './formatCapacity.pipe';
         formatDatePipe,
         decimalPlacesPipe,
         ObjectToArrPipe,
-        formatCapacity
+        formatCapacity,
+        getArrValuePipe
     ],
     exports: [
         OrderByPipe,
@@ -25,14 +27,16 @@ import { formatCapacity } from './formatCapacity.pipe';
         formatDatePipe,
         decimalPlacesPipe,
         ObjectToArrPipe,
-        formatCapacity
+        formatCapacity,
+        getArrValuePipe
     ],
     providers: [OrderByPipe,
         dictPipe,
         formatDatePipe,
         decimalPlacesPipe,
         ObjectToArrPipe,
-        formatCapacity
+        formatCapacity,
+        getArrValuePipe
     ]
 })
 export class PipeModule { }

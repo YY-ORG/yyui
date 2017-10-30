@@ -22,33 +22,37 @@ export class RoleComponent extends PageClass implements OnInit {
 
 	willDeleteUser;
 	editModalOpen: boolean = false;
-	currentPage: number = 1
+	currentPage: number = 0
 	roleList: Adminui.RoleItem[] = []
 	menuItem: Adminui.MenuItem[] = []
 	cacheRoleList: Adminui.MenuItem[] = []
 	userMenuTree: Adminui.RoleDetailsItem
+	maxPage: number = 1
 
 	ngOnInit() {
 		this.getRoleList()
-		this.getMenuTree()
+		// this.getMenuTree()
 	}
 
-	getMenuTree() {
-		this.spinner.show()
+	// getMenuTree() {
+	// 	this.spinner.show()
 		
-		this.service.fetchMenuTree().then(res => {
-			this.menuItem = res
-			this.cacheRoleList = res
+	// 	this.service.fetchMenuTree().then(res => {
+	// 		this.menuItem = res
+	// 		this.cacheRoleList = res
 
-			this.spinner.hide()
-		})
-	}
+	// 		this.spinner.hide()
+	// 	})
+	// }
 
 	getRoleList() {
 		this.spinner.show()
 		this.service.fetchRoleList(this.currentPage , 10)
 			.then(res => {
-				this.roleList = res
+				let [pageList, roleList] = res
+				this.currentPage = pageList.currentPage
+				this.maxPage = pageList.totalPage
+				this.roleList = roleList
 				this.spinner.hide()
 			})
 	}
@@ -62,32 +66,37 @@ export class RoleComponent extends PageClass implements OnInit {
 		this.spinner.show()
 		this.menuItem = this.cacheRoleList
 		this.service.fetchUserMenuTree(role.id).then(res => {
-			this.userMenuTree = res
-			res.menus.forEach(hasMenu => {
-				this.menuItem.forEach(menu => {
-					if (hasMenu.id !== menu.id) return false;
+			this.menuItem = res.menus
+			// res.menus.forEach(hasMenu => {
+			// 	this.menuItem.forEach(menu => {
+			// 		if (hasMenu.id !== menu.id) return false;
 
-					menu.isSelected = true
-					hasMenu.children.forEach(hasMenuChildren => {
-						menu.children.forEach(m => {
-							if (m.id === hasMenuChildren.id) {
-								m.isSelected = true
-							}
-						})
-					})
-				})
-			})
+			// 		menu.selected = true
+			// 		hasMenu.children.forEach(hasMenuChildren => {
+			// 			menu.children.forEach(m => {
+			// 				if (m.id === hasMenuChildren.id) {
+			// 					m.selected = true
+			// 				}
+			// 			})
+			// 		})
+			// 	})
+			// })
 			this.spinner.hide()
 		})
 		this.editModalOpen = true
+	}
+
+	pageChanged (pageEvent: any) {
+		this.currentPage = pageEvent.currentpage
+		this.getRoleList()
 	}
 
 	submit() {
 		this.spinner.show()
 
 		this.userMenuTree.menus = this.menuItem.filter(topMenu => {
-			if (!topMenu.isSelected) return false
-			topMenu.children = topMenu.children.filter(menu => menu.isSelected)
+			if (!topMenu.selected) return false
+			topMenu.children = topMenu.children.filter(menu => menu.selected)
 			return true
 		})
 
@@ -99,7 +108,7 @@ export class RoleComponent extends PageClass implements OnInit {
 
 	topCheck(topMenu: Adminui.MenuItem) {
 		topMenu.children.forEach(meun => {
-			meun.isSelected = topMenu.isSelected
+			meun.selected = topMenu.selected
 		})
 	}
 

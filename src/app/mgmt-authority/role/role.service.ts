@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Adminui, SystemDictionaryService, RestApiCfg, RestApi } from '../../../core';
+import { Adminui, SystemDictionaryService, RestApiCfg, RestApi, Common } from '../../../core';
 
 @Injectable()
 export class RoleService {
@@ -12,11 +12,13 @@ export class RoleService {
     
     userInfo = this.restApi.getLoginInfo().userInfo;
 
-    fetchRoleList (page: number, size: number) : Promise<Adminui.RoleItem[]> {
+    fetchRoleList (page: number, size: number) : Promise<[Common.PageInfo, Adminui.RoleItem[]]> {
 
       const api = this.restApiCfg.getRestApi("roles");
       
-      return this.restApi.request(api.method, api.url, { page, size })
+      return this.restApi.request(api.method, api.url, { page, size }).then((res: any) => {
+        return [res.pageInfo, res.resultContent]
+      }) as Promise<[Common.PageInfo, Adminui.RoleItem[]]>
     }
     
     fetchMenuTree (): Promise<Adminui.MenuItem[]> {
@@ -26,7 +28,7 @@ export class RoleService {
     }
 
     fetchUserMenuTree (role_id: string): Promise<Adminui.RoleDetailsItem> {
-      const api = this.restApiCfg.getRestApi("user.mpp.menu.tree");
+      const api = this.restApiCfg.getRestApi("menu.role");
       
       return this.restApi.request(api.method, api.url, { role_id })
     }

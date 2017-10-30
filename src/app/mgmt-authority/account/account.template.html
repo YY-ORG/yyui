@@ -3,47 +3,61 @@
     <tr>
         <th style="width: 70px">序号</th>
         <th>账号</th>
-        <th>名称</th>
-        <th>账号类型</th>
+        <th>描述</th>
+        <th>邮箱</th>
+        <th>手机</th>
+        <th>角色</th>
         <th style="width: 300px">操作</th>
     </tr>
-    <tr *ngFor="let d of datas; let i = index">
+    <tr *ngFor="let user of userList; let i = index">
         <td>{{i+1}}</td>
         <td>
-            <font class="color-neutral">{{d.name}}</font>
+            <font class="color-neutral">{{user.userName}}</font>
         </td>
-        <td>{{d.surname}}</td>
-        <td>{{d.points}}</td>
+        <td>{{user.description}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.phone}}</td>
+        <td>{{user.roles | getArrValue : 'roleName'}}</td>
         <td>
-            <my-button button="radius" (onClick)="editUser(d)" color="primary" className="mgr10" icon="icon-edit1">编辑</my-button>
-            <my-button button="radius" (onClick)="deleteUser(d)" color="red" className="mgr10" icon="icon-edit1">删除</my-button>
+            <my-button button="radius" (onClick)="editUser(user)" color="primary" className="mgr10" icon="icon-edit1">编辑</my-button>
+            <my-button button="radius" (onClick)="deleteUser(user)" color="red" className="mgr10" icon="icon-edit1">删除</my-button>
         </td>
     </tr>
 </table>
-<pagination maxSize=70 currentPage=5 (pageChanged)="pageChanged($event)"></pagination>
+<pagination *ngIf="maxSize > 1" maxSize=1 [currentPage]="currentPage + 1" (pageChanged)="pageChanged($event)"></pagination>
 
 <ngl-modal header="编辑账号" [(open)]="editModalOpen">
     <div body class="width65 mgb30button" style="margin:0 auto">
         <ngl-form-element label="账号：" [error]="hasError ? error : null" class="slds-m-top--small">
-            <input nglFormControl type="text" placeholder="" [required]="required">
-        </ngl-form-element>
-        <ngl-form-element label="密码：" [error]="hasError ? error : null" class="slds-m-top--small">
-            <input nglFormControl type="password" placeholder="" [required]="required">
+            <input nglFormControl type="text" placeholder="" [(ngModel)]="currentUser.loginName" [required]="required">
         </ngl-form-element>
         <ngl-form-element label="名称：" [error]="hasError ? error : null" class="slds-m-top--small">
-            <input nglFormControl type="text" placeholder="" [required]="required">
+            <input nglFormControl type="text" placeholder="" [(ngModel)]="currentUser.userName" [required]="required">
         </ngl-form-element>
-        <ngl-form-element label="类别" class="slds-m-top--small">
+        <ngl-form-element label="描述：" [error]="hasError ? error : null" class="slds-m-top--small">
+            <input nglFormControl type="text" placeholder="" [(ngModel)]="currentUser.description" [required]="required">
+        </ngl-form-element>
+        <!-- <ngl-form-element label="性别" class="slds-m-top--small">
           <select nglFormControl class="slds-select">
             <option *ngFor="let sex of [{viewValue:'男', value:'0'},{viewValue:'女', value: '1'}]" [value]="sex.value">{{sex.viewValue}}</option>
           </select>
+        </ngl-form-element> -->
+        <ngl-form-element label="邮箱：" [error]="hasError ? error : null" class="slds-m-top--small">
+            <input nglFormControl type="text" placeholder="" [(ngModel)]="currentUser.email" [required]="required">
+        </ngl-form-element>
+        <ngl-form-element label="手机：" [error]="hasError ? error : null" class="slds-m-top--small">
+            <input nglFormControl type="text" placeholder="" [(ngModel)]="currentUser.phone" [required]="required">
+        </ngl-form-element>
+        <ngl-form-element label="角色：" [error]="hasError ? error : null" class="slds-m-top--small">
+            <input nglFormControl type="text" placeholder="" [(ngModel)]="currentUser.phone" [required]="required">
         </ngl-form-element>
     </div>
     <template ngl-modal-footer>
         <button class="slds-button slds-button--neutral" (click)="editModalOpen = false">取消</button>
-        <button class="slds-button slds-button--brand">确定</button>
+        <button class="slds-button slds-button--brand" (click)="saveUser()">确定</button>
     </template>
 </ngl-modal>
 
 <alert #alert></alert>
 <confirm (onConfirm)="onConfirm()" #confirm></confirm>
+<spinner #spinner></spinner>

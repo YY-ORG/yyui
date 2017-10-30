@@ -1,5 +1,5 @@
 <h1 class="content-title">考核角色管理</h1>
-<table class="slds-table mgt30">
+<table class="slds-table mgt30 role___component">
     <tr>
         <th style="width: 70px">序号</th>
         <th>名称</th>
@@ -13,8 +13,9 @@
         </td>
         <td class="width65 text-align-left">
             <ul class="checkbox-list-box">
-                <li *ngFor="let menu of role.roleDetailsItem.menus" class="inline-block">
-                    <span class="inline-block checkbox-list-text">{{menu.name}}</span>
+                <li *ngFor="let menu of role.roleDetailsItem.menus">
+                    <span class="inline-block list-title">{{menu.name}}</span>
+                    <span *ngFor="let m of menu.children" class="inline-block list-children">{{m.name}}</span>
                 </li>
             </ul>
         </td>
@@ -24,17 +25,17 @@
         </td>
     </tr>
 </table>
-<pagination maxSize=70 currentPage=5 (pageChanged)="pageChanged($event)"></pagination>
+<pagination *ngIf="maxPage>1" [maxSize]="maxPage" [currentPage]="currentPage + 1" (pageChanged)="pageChanged($event)"></pagination>
 
 <ngl-modal header="编辑账号" [(open)]="editModalOpen">
     <div body class="width90 mgb30button role___component" style="margin:0 auto">
         <div class="menu-box" *ngFor="let menuTop of menuItem | orderBy: 'orderBy';">
             <ngl-form-checkbox [label]="menuTop.name" [error]="hasError ? error : null" class="inline-block checkbox-lisl-checkbox role-title">
-                <input nglFormControl type="checkbox" [(ngModel)]="menuTop.isSelected" (ngModelChange)="topCheck(menuTop)" />
+                <input nglFormControl type="checkbox" [(ngModel)]="menuTop.selected" (ngModelChange)="topCheck(menuTop)" />
             </ngl-form-checkbox>
             <div class="menu-children">
                 <ngl-form-checkbox  *ngFor="let menu of menuTop.children | orderBy: 'orderBy';" [label]="menu.name" [error]="hasError ? error : null" class="inline-block checkbox-lisl-checkbox">
-                    <input nglFormControl type="checkbox" [(ngModel)]="menu.isSelected" />
+                    <input nglFormControl type="checkbox" [(ngModel)]="menu.selected" />
                 </ngl-form-checkbox>
             </div>
         </div>

@@ -6,7 +6,7 @@ export namespace Adminui {
 		name: string = ""; //, optional),
 		routing: string = ""; //, optional),
 		status: string = ""; //, optional)
-		isSelected: boolean = false;
+		selected: boolean = false;
 	}
 	export class UserItem {
 		description: string; //, optional): 描述 ,

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Adminui, SystemDictionaryService, RestApiCfg, RestApi } from '../../../core';
+import { Adminui, SystemDictionaryService, RestApiCfg, RestApi, Common } from '../../../core';
 
 @Injectable()
 export class AccountService {
@@ -17,12 +17,30 @@ export class AccountService {
 
         return this.restApi.request(api.method, api.url, { organization_id, page, size })
     }
-
+    
     fetchAccountList (page: number, size: number) : Promise<Adminui.UserItem[]> {
 
-      const api = this.restApiCfg.getRestApi("users.all");
+        const api = this.restApiCfg.getRestApi("users.all");
+        
+        return this.restApi.request(api.method, api.url, { page, size })
+    }
+
+    putEditAccount (data: Adminui.UserProfile) {
+
+      const api = this.restApiCfg.getRestApi("edit.account");
       
-      return this.restApi.request(api.method, api.url, { page, size })
+      return this.restApi.request(api.method, api.url, null, null, data)
+    }
+    
+    queryAccountList (userName: string, page: number, size: number): Promise<[Common.PageInfo, Adminui.UserProfile[]]> {
+        const api = this.restApiCfg.getRestApi("query.users.all");
+
+        let pro = userName ? this.restApi.request(api.method, api.url, { page, size }, [{key: 'userName', value: userName}])
+            : this.restApi.request(api.method, api.url, { page, size })
+
+        return pro.then((res: any) => {
+            return [res.pageInfo, res.resultContent]
+        }) as Promise<[Common.PageInfo, Adminui.UserProfile[]]>
     }
 
 }

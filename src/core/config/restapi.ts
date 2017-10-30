@@ -95,14 +95,26 @@ export let RestApis: RestApiModel[] = [
     {
         "desc": "用户中心-账户管理，查询单个账户",
         "method": "GET",
-        "id": "users.all",
+        "id": "user",
         "url": "adminui/authsec/adm/user/{user_id}"
+    },
+    {
+        "desc": "用户中心-账户管理，通过用户名模糊查询账户",
+        "method": "GET",
+        "id": "query.users.all",
+        "url": "adminui/authsec/adm/users/search/page/{page}/size/{size} "
     },
     {
         "desc": "角色管理--根据一个角色获得已经选择和未选择的菜单--edit",
         "method": "GET",
         "id": "menu.role",
         "url": "adminui/authsec/mpp/menu/{role_id}"
+    },
+    {
+        "desc": "用户中心-账户管理，编辑账号，本地",
+        "method": "PUT",
+        "id": "edit.account",
+        "url": "adminui/authsec/adm/user/{user_id}  "
     },
     {
         "desc": "用户中心-角色管理，获取所有角色",

@@ -89,7 +89,6 @@ export class RestApi {
 		console.debug(`START ${type} ${new Date().toLocaleString()}: ${path}`);
 
 		let queryParameters = this.createQueryParams(queryParams);
-
 		let requestOptions: RequestOptionsArgs = {
 			method: type,
 			headers: headerParams,
@@ -114,7 +113,7 @@ export class RestApi {
 				}
 			})
 			.then((res:any) => {
-				if ( res.access_token ) {
+				if ( res.access_token || res.pageInfo ) {
 					return res;
 				}
 				if (res.resultCode && res.resultCode !== "100") {
