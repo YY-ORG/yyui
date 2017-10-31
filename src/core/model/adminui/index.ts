@@ -33,7 +33,7 @@ export namespace Adminui {
 		description : string = "";  //, optional): 描述 ,
 		email : string = "";  //, optional),
 		gender : string = "";  //, optional),
-		id : string = "";  //, optional),
+		userId : string = "";  //, optional),
 		loginName : string = "";  //, optional): 账号 ,
 		occupationType : string = "";  //, optional): 岗位系列 ,
 		orgId : string = "";  //, optional): 部门Id ,
@@ -47,8 +47,7 @@ export namespace Adminui {
 		description : string = "";  //, optional),
 		id : string = "";  //, optional),
 		name : string = "";  //, optional)
-		roleDetailsItem: string = '';
-		roleName: string = '';
+		selected : boolean = false
 	}
 
 	export class OrganizationItem {
@@ -90,6 +89,7 @@ export namespace Adminui {
 		name : string = "";  //, optional): 角色名 ,
 		roleName : string = "";  //, optional): 角色权限名 ,
 		status : string = "";  //, optional): 状态
+		selected : boolean = false;
 	}
 
 	export class RoleDetailsItem {

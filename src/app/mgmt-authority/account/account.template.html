@@ -48,9 +48,12 @@
         <ngl-form-element label="手机：" [error]="hasError ? error : null" class="slds-m-top--small">
             <input nglFormControl type="text" placeholder="" [(ngModel)]="currentUser.phone" [required]="required">
         </ngl-form-element>
-        <ngl-form-element label="角色：" [error]="hasError ? error : null" class="slds-m-top--small">
-            <input nglFormControl type="text" placeholder="" [(ngModel)]="currentUser.phone" [required]="required">
-        </ngl-form-element>
+        <label _ngcontent-c2="" class="slds-form-element__label role-title mgt15" for="ngl_form_element_6">
+            <abbr _ngcontent-c2="" class="slds-required" title="required">*</abbr><span _ngcontent-c2="" ng-reflect-ngl-internal-outlet="角色：">角色：</span>
+        </label>
+        <ngl-form-checkbox  *ngFor="let role of allRoles" [label]="role.name" [error]="hasError ? error : null" class="inline-block checkbox-lisl-checkbox">
+            <input nglFormControl type="checkbox" [(ngModel)]="role.selected" />
+        </ngl-form-checkbox>
     </div>
     <template ngl-modal-footer>
         <button class="slds-button slds-button--neutral" (click)="editModalOpen = false">取消</button>

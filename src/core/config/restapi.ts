@@ -99,6 +99,12 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/adm/user/{user_id}"
     },
     {
+        "desc": "用户中心-角色管理，获取所有角色",
+        "method": "GET",
+        "id": "user.all.roles",
+        "url": "adminui/authsec/adm/roles/page/0/size/100"
+    }, 
+    {
         "desc": "用户中心-账户管理，通过用户名模糊查询账户",
         "method": "GET",
         "id": "query.users.all",
@@ -114,7 +120,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "用户中心-账户管理，编辑账号，本地",
         "method": "PUT",
         "id": "edit.account",
-        "url": "adminui/authsec/adm/user/{user_id}  "
+        "url": "adminui/authsec/adm/user/{user_id}"
     },
     {
         "desc": "用户中心-角色管理，获取所有角色",

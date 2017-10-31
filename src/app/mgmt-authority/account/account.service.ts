@@ -25,11 +25,11 @@ export class AccountService {
         return this.restApi.request(api.method, api.url, { page, size })
     }
 
-    putEditAccount (data: Adminui.UserProfile) {
+    putEditAccount (user_id: string, data: Adminui.UserProfile) {
 
       const api = this.restApiCfg.getRestApi("edit.account");
       
-      return this.restApi.request(api.method, api.url, null, null, data)
+      return this.restApi.request(api.method, api.url, { user_id }, null, data)
     }
     
     queryAccountList (userName: string, page: number, size: number): Promise<[Common.PageInfo, Adminui.UserProfile[]]> {
@@ -41,6 +41,16 @@ export class AccountService {
         return pro.then((res: any) => {
             return [res.pageInfo, res.resultContent]
         }) as Promise<[Common.PageInfo, Adminui.UserProfile[]]>
+    }
+
+    fetchAllRoles (): Promise<Adminui.RoleItem[]> { 
+        const api = this.restApiCfg.getRestApi("user.all.roles");
+
+        let pro = this.restApi.request(api.method, api.url )
+
+        return pro.then((res: any) => {
+            return res.resultContent
+        })
     }
 
 }

@@ -10,6 +10,7 @@ import { Adminui, Common } from '../../../core';
 
 @Component({
 	selector: 'account',
+	styleUrls: ['./account.scss'],
 	templateUrl: "./account.template.html"
 })
 export class AccountComponent extends PageClass implements OnInit {
@@ -25,6 +26,7 @@ export class AccountComponent extends PageClass implements OnInit {
 	currentPage = 0
 	maxSize = 1
 	userList: Adminui.UserProfile[] = []
+	allRoles: Adminui.RoleItem[] = []
 
 	currentUser: Adminui.UserProfile = new Adminui.UserProfile
 
@@ -42,6 +44,13 @@ export class AccountComponent extends PageClass implements OnInit {
 		// 		})
 		// }
 		this.getAccountList()
+		this.getAllRoles()
+	}
+
+	getAllRoles () {
+		this.service.fetchAllRoles().then(res => {
+			this.allRoles = res
+		})
 	}
 
 	getAccountList () {
@@ -63,7 +72,13 @@ export class AccountComponent extends PageClass implements OnInit {
 
 	saveUser() {
 		this.spinner.show()
-		this.service.putEditAccount(this.currentUser).then(res => {
+		this.currentUser.roles = this.allRoles.filter(role => role.selected).map(r => ({
+			description: r.description,
+			id: r.id,
+			name: r.name,
+			selected: r.selected
+		}))
+		this.service.putEditAccount(this.currentUser.userId, this.currentUser).then(res => {
 			this.spinner.hide()
 			this.editModalOpen = false
 		})
@@ -71,8 +86,17 @@ export class AccountComponent extends PageClass implements OnInit {
 
 	editUser(user: Adminui.UserProfile) {
 		this.editModalOpen = true
-
+		
 		this.currentUser = user
+		this.allRoles.forEach(role => role.selected = false)
+
+		this.allRoles.forEach(role => {
+			this.currentUser.roles.forEach(r => {
+				if( r.id === role.id ) {
+					role.selected = true
+				}
+			})
+		})
 	}
 
 	onConfirm() {
