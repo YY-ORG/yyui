@@ -71,4 +71,16 @@ export namespace Assess {
     orgId: string //, optional),
     status: string //, optional)
   }
+
+  export class AssessTemplateReq {
+    itemList: AssessTIItemReq[]; //[AssessTIItemReq], optional),
+    seqNo: number; //, optional),
+    templateId: string; //, optional)
+  }
+  export class AssessTIItemReq {
+    code: string; //, optional),
+    id: string; //, optional),
+    name: string; //, optional),
+    value: string; //, optional)
+  }
 }
