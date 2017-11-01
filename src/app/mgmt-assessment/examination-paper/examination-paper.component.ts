@@ -29,7 +29,9 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 	editModalOpen: boolean = false;
 	selectedTab: any;
 	assesspaperlist: Assess.AssessPaperItem[] = []
+	currentAssessPaper: Assess.AssessPaperItem
 	assesslist: Assess.AssessMenuItem[] = []
+	currentAssesst: Assess.AssessMenuItem
 	examination: Assess.AssessItem
 	templateItemList: Assess.TemplateItem[] = []
 
@@ -65,19 +67,20 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 			setTimeout(() => {
 				(document.querySelector('.slds-tabs--default__link') as HTMLElement).click()
 				if (res.length) {
-					this.getAssesslist(res[0].id)
+					this.getAssesslist(res[0])
 				}
 			})
 		})
 	}
 
-	getAssesslist (id: string) {
-		this.service.fetchAssesslist(id).then(res => {
+	getAssesslist (paper: Assess.AssessPaperItem) {
+		this.currentAssessPaper = paper
+		this.service.fetchAssesslist(paper.id).then(res => {
 			if (!res.length) {
 				return
 			}
 			this.assesslist = res
-			this.getItem(res[0].assessId)
+			this.getItem(res[0])
 			this.cdr.detectChanges()
 			setTimeout(() => {
 				// this.wizard.model.navigationMode.goToNextStep()
@@ -87,9 +90,10 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 	}
 
 	goToStep (index: number) {
+		console.log(this.templateItemList)
 		let preFinalize = {
 			emit: () => {
-				this.getItem(this.assesslist[index].assessId)
+				this.getItem(this.assesslist[index])
 			}
 		}
 		this.wizard.model.navigationMode.goToStep(index, preFinalize)
@@ -99,10 +103,22 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 		console.log(ddd)
 	}
 
-	getItem(id: string) {
-		this.service.fetchExamination(id).then(res => {
+	getItem(assesst: Assess.AssessMenuItem) {
+		this.currentAssesst = assesst
+		this.service.fetchExamination(assesst.assessId).then(res => {
 			this.examination = res
 			this.templateItemList = this.examination.templateItemList
+			this.templateItemList.forEach(templateItem =>{
+				templateItem.templateItemItemList.forEach(tem => {
+					tem.reqDate = {
+						code: tem.code,
+						id: tem.id,
+						name: tem.name,
+						value: ""
+					}
+				})
+			})
+			console.log(this.templateItemList)
 		})
 	}
 	

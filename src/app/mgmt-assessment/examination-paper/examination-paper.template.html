@@ -10,12 +10,12 @@
             <ng-container [ngSwitch]="template.type">
               <div *ngSwitchCase="'6'" class="label-box">
                 <ngl-form-element label="{{template.label}}：" class="slds-m-top--small left-lable">
-                    <input [disabled]="!template.editable" nglFormControl type="text" type="password" placeholder="{{template.placeholderTip}}" [required]="required">
+                    <input [(ngModel)]="template.reqDate.value" [disabled]="!template.editable" nglFormControl type="text" type="password" placeholder="{{template.placeholderTip}}" [required]="required">
                 </ngl-form-element>
               </div>
               <div *ngSwitchCase="'5' || '0'" class="label-box">
                 <ngl-form-element label="{{template.label}}：" class="slds-m-top--small left-lable{{template.visible ? ' display-none' : ''}}">
-                    <input [disabled]="!template.editable" nglFormControl type="text" placeholder="{{template.placeholderTip}}" [required]="required">
+                    <input [(ngModel)]="template.reqDate.value" [disabled]="!template.editable" nglFormControl type="text" placeholder="{{template.placeholderTip}}" [required]="required">
                 </ngl-form-element>
               </div>
               <div *ngSwitchCase="'16'" class="label-box">

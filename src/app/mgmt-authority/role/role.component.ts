@@ -95,11 +95,11 @@ export class RoleComponent extends PageClass implements OnInit {
 	submit() {
 		this.spinner.show()
 
-		this.userMenuTree.menus = this.menuItem.filter(topMenu => {
-			if (!topMenu.selected) return false
-			topMenu.children = topMenu.children.filter(menu => menu.selected)
-			return true
-		})
+		// this.userMenuTree.menus = this.menuItem.filter(topMenu => {
+		// 	if (!topMenu.selected) return false
+		// 	topMenu.children = topMenu.children.filter(menu => menu.selected)
+		// 	return true
+		// })
 
 		this.service.postUserMenuTree(this.userMenuTree).then(res => {
 			this.editModalOpen = false

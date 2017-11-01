@@ -117,6 +117,11 @@ export class AccountComponent extends PageClass implements OnInit {
 		this.addAccount = true
 	}
 
+	pageChanged (pageEvent: any) {
+		this.currentPage = pageEvent.currentpage - 1
+		this.getAccountList()
+	}
+
 	submitNewUser () {
 		this.registration.submitForm().then(res => {
 			this.addAccount = false

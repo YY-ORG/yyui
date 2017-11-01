@@ -25,7 +25,7 @@
         </td>
     </tr>
 </table>
-<pagination *ngIf="maxSize > 1" maxSize=1 [currentPage]="currentPage + 1" (pageChanged)="pageChanged($event)"></pagination>
+<pagination *ngIf="maxSize > 1" [maxSize]="maxSize" [currentPage]="currentPage + 1" (pageChanged)="pageChanged($event)"></pagination>
 
 <ngl-modal header="新增账号" [(open)]="addAccount">
     <div body class="width65 mgb30button" style="margin:0 auto">

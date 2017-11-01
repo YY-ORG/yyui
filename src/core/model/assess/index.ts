@@ -53,6 +53,7 @@ export namespace Assess {
     updateDate : Timestamp = new Timestamp //, optional),
     valueSource : string = '' //, optional),
     visible : boolean //, optional)
+    reqDate: AssessTIItemReq = new AssessTIItemReq
   }
 
   export class AssessMenuItem {
@@ -78,9 +79,9 @@ export namespace Assess {
     templateId: string; //, optional)
   }
   export class AssessTIItemReq {
-    code: string; //, optional),
-    id: string; //, optional),
-    name: string; //, optional),
-    value: string; //, optional)
+    code: string = ""; //, optional),
+    id: string = ""; //, optional),
+    name: string = ""; //, optional),
+    value: string = ""; //, optional)
   }
 }
