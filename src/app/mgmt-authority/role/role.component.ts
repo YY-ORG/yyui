@@ -67,6 +67,7 @@ export class RoleComponent extends PageClass implements OnInit {
 		this.menuItem = this.cacheRoleList
 		this.service.fetchUserMenuTree(role.id).then(res => {
 			this.menuItem = res.menus
+			this.userMenuTree = res
 			// res.menus.forEach(hasMenu => {
 			// 	this.menuItem.forEach(menu => {
 			// 		if (hasMenu.id !== menu.id) return false;
@@ -101,7 +102,9 @@ export class RoleComponent extends PageClass implements OnInit {
 		})
 
 		this.service.postUserMenuTree(this.userMenuTree).then(res => {
+			this.editModalOpen = false
 			this.spinner.hide()
+			this.getRoleList()
 			console.log(res)
 		})
 	}

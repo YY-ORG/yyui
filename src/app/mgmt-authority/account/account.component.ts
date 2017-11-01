@@ -1,8 +1,10 @@
-import { Component,  OnInit,  } from '@angular/core';
+import { Component,  OnInit, ViewChild } from '@angular/core';
 
 import { INglDatatableSort, INglDatatableRowClick } from 'ng-lightning/ng-lightning';
 import { SpinnerComponent } from '../../../components'
 import { PageClass } from '../../../class/page/page.class'
+
+import { RegistrationComponent } from '../../components/registration/registration'
 
 import { AccountService } from './account.service'
 
@@ -19,9 +21,12 @@ export class AccountComponent extends PageClass implements OnInit {
 	) {
 		super()
 	}
+	
+	@ViewChild(RegistrationComponent) public registration: RegistrationComponent;
 
 	willDeleteUser;
 	editModalOpen: boolean = false;
+	addAccount: boolean = false
 	pageSize = 10;
 	currentPage = 0
 	maxSize = 1
@@ -68,6 +73,14 @@ export class AccountComponent extends PageClass implements OnInit {
 	deleteUser(user: Adminui.UserProfile) {
 		this.willDeleteUser = user;
 		this.confirm.open("确定要删除此用户吗？")
+		this.confirm.confirm = () => {
+			this.spinner.show()
+			this.service.deleteAccount(user.userId).then(res => {
+				this.spinner.hide()
+				this.confirm.close()
+				this.getAccountList()
+			}).catch(e => this.spinner.hide())
+		}
 	}
 
 	saveUser() {
@@ -81,6 +94,7 @@ export class AccountComponent extends PageClass implements OnInit {
 		this.service.putEditAccount(this.currentUser.userId, this.currentUser).then(res => {
 			this.spinner.hide()
 			this.editModalOpen = false
+			this.getAccountList()
 		})
 	}
 
@@ -96,6 +110,19 @@ export class AccountComponent extends PageClass implements OnInit {
 					role.selected = true
 				}
 			})
+		})
+	}
+
+	addNewAccount () {
+		this.addAccount = true
+	}
+
+	submitNewUser () {
+		this.registration.submitForm().then(res => {
+			this.addAccount = false
+			this.getAccountList()
+		}).catch(error => {
+			this.alert.open(error)
 		})
 	}
 

@@ -1,9 +1,12 @@
 
-.register-box-component {
+.register-box {
 	.register-login-title {
 		color: #3f51b5;
 		text-align: center;
 		font-size: 26px;
 		margin-top: 20px;
+	}
+	.slds-form-element__label {
+		width: 70px;
 	}
 }

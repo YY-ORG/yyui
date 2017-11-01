@@ -53,4 +53,9 @@ export class AccountService {
         })
     }
 
+    deleteAccount (user_id: string): Promise<string> {
+        const api = this.restApiCfg.getRestApi('user.delete')
+        return this.restApi.request(api.method, api.url, {user_id})
+    }
+
 }

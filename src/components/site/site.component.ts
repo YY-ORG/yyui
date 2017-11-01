@@ -10,11 +10,12 @@ export class SiteComponent implements OnInit {
 
 	meunList: any;
 	userMenuPopverOpen: boolean = false
+	userInfo: any
 
 	constructor(
 		private service: SiteService
 	) {
-
+		this.userInfo = this.service.userInfo
 	}
 
 	ngOnInit() {

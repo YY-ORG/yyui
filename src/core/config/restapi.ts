@@ -99,6 +99,12 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/adm/user/{user_id}"
     },
     {
+        "desc": "用户中心-账号管理，删除",
+        "method": "DELETE",
+        "id": "user.delete",
+        "url": "adminui/authsec/adm/user/{user_id}"
+    },
+    {
         "desc": "用户中心-角色管理，获取所有角色",
         "method": "GET",
         "id": "user.all.roles",

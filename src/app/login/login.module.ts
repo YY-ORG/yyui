@@ -5,6 +5,10 @@ import { NgModule } from '@angular/core';
 import { CommonComponentModule } from '../../components/common.module';
 import { PipeModule } from '../../pipe';
 
+
+// module
+import { RegistrationModule } from '../components/registration/registration.module'
+
 //routing
 import { LoginRouting } from './login.routing';
 
@@ -24,12 +28,13 @@ import { LoginService } from "./login/login.service"
         LoginRouting,
         CommonComponentModule,
         PipeModule,
+        RegistrationModule
     ],
     declarations: [
         LoginComponent,
         LoginBoxComponent,
         RegisterComponent,
-        ForgetComponent,
+        ForgetComponent
     ],
     exports: [
         

@@ -5,6 +5,9 @@ import { NgModule } from '@angular/core';
 import { CommonComponentModule } from '../../components/common.module';
 import { PipeModule } from '../../pipe';
 
+// module
+import { RegistrationModule } from '../components/registration/registration.module'
+
 //routing
 import { AuthorityRouting } from './authority.routing';
 
@@ -26,7 +29,8 @@ import { RoleService } from "./role/role.service"
     imports: [
         AuthorityRouting,
         CommonComponentModule,
-        PipeModule
+        PipeModule,
+        RegistrationModule
     ],
     declarations: [
         UserComponent,

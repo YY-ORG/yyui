@@ -1,4 +1,5 @@
-<h1 class="content-title">账号管理</h1>
+<h1 class="content-title">账号管理<button class="slds-button slds-button--green float-right" (click)="addNewAccount()">新增账号</button></h1>
+
 <table class="slds-table mgt30">
     <tr>
         <th style="width: 70px">序号</th>
@@ -25,6 +26,16 @@
     </tr>
 </table>
 <pagination *ngIf="maxSize > 1" maxSize=1 [currentPage]="currentPage + 1" (pageChanged)="pageChanged($event)"></pagination>
+
+<ngl-modal header="新增账号" [(open)]="addAccount">
+    <div body class="width65 mgb30button" style="margin:0 auto">
+        <registration #registration></registration>
+    </div>
+    <template ngl-modal-footer>
+        <button class="slds-button slds-button--neutral" (click)="addAccount = false">取消</button>
+        <button class="slds-button slds-button--brand" (click)="submitNewUser()">确定</button>
+    </template>
+</ngl-modal>
 
 <ngl-modal header="编辑账号" [(open)]="editModalOpen">
     <div body class="width65 mgb30button" style="margin:0 auto">
