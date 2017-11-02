@@ -33,4 +33,10 @@ export class ExaminationPaperService {
     
     return this.restApi.request(api.method, api.url)
   }
+
+  postAssess (assessPaperId:string, assessId: string, data: any[] = []){
+    const api = this.restApiCfg.getRestApi("assess.assessanswer");
+    
+    return this.restApi.request(api.method, api.url, { assessPaperId, assessId }, null, data)
+  }
 }

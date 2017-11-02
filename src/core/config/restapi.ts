@@ -163,5 +163,11 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "id": "assesspaperlist.orgnization",
         "url": "assess/authsec/assesspaperlist/orgnization"
+    },
+    {
+        "desc": "考生提交某个卷子某个题的答案",
+        "method": "POST",
+        "id": "assess.assessanswer",
+        "url": "assess/authsec/assesspaper/{assessPaperId}/assess/{assessId}/assessanswer "
     }
 ]

@@ -1,7 +1,7 @@
 import { Component,  OnInit, ViewEncapsulation, ChangeDetectorRef, ViewChild  } from '@angular/core';
 
 import { INglDatatableSort, INglDatatableRowClick } from 'ng-lightning/ng-lightning';
-import { SpinnerComponent } from '../../../components'
+import { SpinnerComponent, Validation, ValidationRegs } from '../../../components'
 import { PageClass } from '../../../class/page/page.class'
 
 import { Adminui, Assess } from '../../../core';
@@ -21,9 +21,11 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 
 	constructor(
 		private service: ExaminationPaperService,
+		public v: Validation,
 		private cdr: ChangeDetectorRef
 	) {
 		super()
+		this.v.result = {}
 	}
 	willDeleteUser;
 	editModalOpen: boolean = false;
@@ -35,34 +37,38 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 	examination: Assess.AssessItem
 	templateItemList: Assess.TemplateItem[] = []
 
+	checkValue: Function
+
 	public editor;
-  public editorContent: string;
-  public editorOptions = {
-		placeholder: "请输入个人述职...",
-		modules: {
-			toolbar: [
-				['bold', 'italic', 'underline'],
-				['code-block'],
-				[{ 'list': 'ordered'}, { 'list': 'bullet' }],
-				[{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-				[{ 'direction': 'rtl' }],                         // text direction
-				[{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-				[{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-			
-				[{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-				[{ 'align': [] }],
-			
-				['clean']                                         // remove formatting button
-			]
-		},
-  };
+	public editorContent: string;
+	public editorOptions = {
+			placeholder: "请输入个人述职...",
+			modules: {
+				toolbar: [
+					['bold', 'italic', 'underline'],
+					['code-block'],
+					[{ 'list': 'ordered'}, { 'list': 'bullet' }],
+					[{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+					[{ 'direction': 'rtl' }],                         // text direction
+					[{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+					[{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+				
+					[{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+					[{ 'align': [] }],
+				
+					['clean']                                         // remove formatting button
+				]
+			},
+	};
 
 	ngOnInit() {
 		this.getPaper()
 	}
 
 	getPaper () {
+		this.spinner.show()
 		this.service.fetchAssesspaperlist().then(res => {
+			this.spinner.hide()
 			this.assesspaperlist = res
 			setTimeout(() => {
 				(document.querySelector('.slds-tabs--default__link') as HTMLElement).click()
@@ -70,12 +76,14 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 					this.getAssesslist(res[0])
 				}
 			})
-		})
+		}).catch(e => this.spinner.hide())
 	}
 
 	getAssesslist (paper: Assess.AssessPaperItem) {
 		this.currentAssessPaper = paper
+		this.spinner.show()
 		this.service.fetchAssesslist(paper.id).then(res => {
+			this.spinner.hide()
 			if (!res.length) {
 				return
 			}
@@ -86,11 +94,19 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 				// this.wizard.model.navigationMode.goToNextStep()
 			}, 4000)
 			
-		})
+		}).catch(e => this.spinner.hide())
 	}
 
 	goToStep (index: number) {
-		console.log(this.templateItemList)
+		let data = this.templateItemList.map(itemList => {
+			return {
+				templateId: itemList.id,
+				seqNo: '',
+				itemList: itemList.templateItemItemList.map(item => item.reqDate)
+			}
+		})
+		this.service.postAssess(this.currentAssessPaper.id, this.currentAssesst.assessId, data)
+		
 		let preFinalize = {
 			emit: () => {
 				this.getItem(this.assesslist[index])
@@ -118,7 +134,20 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 					}
 				})
 			})
-			console.log(this.templateItemList)
+			this.checkValue = (index: number, key ? : string) => {
+				let regs: any = {}
+
+				this.templateItemList.forEach(item => {
+					item.templateItemItemList.forEach(temp => {
+						let regExp = temp.regExp || 'isUnBlank'
+						let reg = regExp.split(',').map(val => this.v[val])
+						if (!regs[index]) regs[index] = {}
+						regs[index][temp.code] = [temp.reqDate.value, reg, temp.tip]
+					})
+				})
+
+				return this.v.check(key, regs[index]);
+			}
 		})
 	}
 	

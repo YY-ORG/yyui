@@ -9,26 +9,26 @@
           <ng-container *ngFor="let template of templateItem.templateItemItemList;">
             <ng-container [ngSwitch]="template.type">
               <div *ngSwitchCase="'6'" class="label-box">
-                <ngl-form-element label="{{template.label}}：" class="slds-m-top--small left-lable">
-                    <input [(ngModel)]="template.reqDate.value" [disabled]="!template.editable" nglFormControl type="text" type="password" placeholder="{{template.placeholderTip}}" [required]="required">
+                <ngl-form-element label="{{template.label}}："  [error]="v.result[template.code]" class="slds-m-top--small left-lable">
+                    <input [(ngModel)]="template.reqDate.value" [disabled]="!template.editable" nglFormControl type="text" type="password"  (keyup)="checkValue(i, template.code)" placeholder="{{template.placeholderTip}}">
                 </ngl-form-element>
               </div>
               <div *ngSwitchCase="'5' || '0'" class="label-box">
-                <ngl-form-element label="{{template.label}}：" class="slds-m-top--small left-lable{{template.visible ? ' display-none' : ''}}">
-                    <input [(ngModel)]="template.reqDate.value" [disabled]="!template.editable" nglFormControl type="text" placeholder="{{template.placeholderTip}}" [required]="required">
+                <ngl-form-element label="{{template.label}}："  [error]="v.result[template.code]" class="slds-m-top--small left-lable{{template.visible ? ' display-none' : ''}}">
+                    <input [(ngModel)]="template.reqDate.value" [disabled]="!template.editable" nglFormControl type="text" (keyup)="checkValue(i, template.code)" placeholder="{{template.placeholderTip}}">
                 </ngl-form-element>
               </div>
               <div *ngSwitchCase="'16'" class="label-box">
                 <ngl-form-element 
                   label="{{template.label}}：" 
-                  [error]="hasError ? error : null" 
+                  [error]="v.result[template.code]"
                   class="slds-m-top--small left-lable">
-                    <textarea [disabled]="!template.editable" nglFormControl placeholder="{{template.placeholderTip}}" [required]="required"></textarea>
+                    <textarea [(ngModel)]="template.reqDate.value" [disabled]="!template.editable" (keyup)="checkValue(i, template.code)" nglFormControl placeholder="{{template.placeholderTip}}"></textarea>
                 </ngl-form-element>
               </div>
               <div *ngSwitchCase="'17'" class="personal-description mgt30">
                 <quill-editor 
-                  [(ngModel)]="editorContent" 
+                  [(ngModel)]="template.reqDate.value" 
                   [options]="editorOptions" 
                   (blur)="onEditorBlured($event)" 
                   (focus)="onEditorFocused($event)"
@@ -51,3 +51,4 @@
 
 <alert #alert></alert>
 <confirm (onConfirm)="onConfirm()" #confirm></confirm>
+<spinner #spinner></spinner>

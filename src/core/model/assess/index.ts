@@ -72,7 +72,7 @@ export namespace Assess {
     orgId: string //, optional),
     status: string //, optional)
   }
-
+ 
   export class AssessTemplateReq {
     itemList: AssessTIItemReq[]; //[AssessTIItemReq], optional),
     seqNo: number; //, optional),
