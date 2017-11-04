@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { SiteComponent } from "../../components"
 import { UserComponent } from "./user/user.component"
 import { AccountComponent } from "./account/account.component"
+import { OrganizationComponent } from "./organization/organization.component"
 import { ModuleComponent } from "./module/module.component"
 import { ContentComponent } from "./content/content.component"
 import { RoleComponent } from "./role/role.component"
@@ -22,6 +23,10 @@ export const AuthorityRouting: ModuleWithProviders = RouterModule.forChild([
 			{
 	            path: 'account',
 	            component: AccountComponent
+	        },
+			{
+	            path: 'organization',
+	            component: OrganizationComponent
 	        },
 			{
 	            path: 'module',

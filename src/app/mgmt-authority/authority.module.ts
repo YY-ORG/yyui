@@ -19,10 +19,12 @@ import { ContentComponent } from "./content/content.component"
 import { RoleComponent } from "./role/role.component"
 import { AuthorityComponent } from "./authority/authority.component"
 import { TimeComponent } from "./time/time.component"
+import { OrganizationComponent } from "./organization/organization.component"
 
 //service
 import { AccountService } from "./account/account.service"
 import { RoleService } from "./role/role.service"
+import { OrganizationService } from "./organization/organization.service"
 
 
 @NgModule({
@@ -39,13 +41,15 @@ import { RoleService } from "./role/role.service"
         ContentComponent,
         RoleComponent,
         AuthorityComponent,
+        OrganizationComponent,
         TimeComponent
     ],
     exports: [
     ],
     providers: [
         AccountService,
-        RoleService
+        RoleService,
+        OrganizationService
     ]
 
 })

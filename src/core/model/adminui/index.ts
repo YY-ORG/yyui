@@ -57,6 +57,9 @@ export namespace Adminui {
 		name : string = "";  //, optional): 机构名 ,
 		organizitionName : string = "";  //, optional): 部门名称 ,
 		status : string = "";  //, optional): 机构状态
+		leaderId : string = "" // , optional): 部门leaderID
+		leaderName : string = "" // , optional): 部门leader
+		serial : string = "" // , optional): 部门serial
 	}
 
 	export class UserDetailsItem {
@@ -98,4 +101,11 @@ export namespace Adminui {
 		roleName: string = ""; // , optional)
 	}
 
+	export class OrganizationProfile {
+		description: string = "" //, optional): 描述
+		id: string = "" //, optional): 部门ID
+		leaderId?: string = "" //, optional): 部门负责人ID
+		name: string = "" //, optional): 部门名称
+		serial?: string = "" //, optional): 部门系列
+	} 
 }

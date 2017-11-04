@@ -1,0 +1,70 @@
+<h1 class="content-title">部门管理<button class="slds-button slds-button--green float-right" (click)="addNewOrganization()">新增部门</button></h1>
+
+<table class="slds-table mgt30">
+    <tr>
+        <th style="width: 70px">序号</th>
+        <th>机构名称</th>
+        <th>部门领导</th>
+        <th>描述</th>
+        <th style="width: 300px">操作</th>
+    </tr>
+    <tr *ngFor="let organization of organizationList; let i = index">
+        <td>{{i+1}}</td>
+        <td>
+            <font class="color-neutral">{{organization.organizitionName}}</font>
+        </td>
+        <td>{{organization.leaderName}}</td>
+        <td>{{organization.description}}</td>
+        <td>
+            <my-button button="radius" (onClick)="editOrganization(organization)" color="primary" className="mgr10" icon="icon-edit1">编辑</my-button>
+            <my-button button="radius" (onClick)="deleteOrganization(organization)" color="red" className="mgr10" icon="icon-edit1">删除</my-button>
+        </td>
+    </tr>
+</table>
+<pagination *ngIf="maxSize > 1" [maxSize]="maxSize" [currentPage]="currentPage + 1" (pageChanged)="pageChanged($event)"></pagination>
+
+<ngl-modal header="新增部门" [(open)]="addOrganization">
+    <div body class="width65 mgb30button" style="margin:0 auto">
+        <ngl-form-element label="部门名称：" [error]="hasError ? error : null" class="slds-m-top--small">
+            <input nglFormControl type="text" placeholder="" [(ngModel)]="newOrganization.name" [required]="required">
+        </ngl-form-element>
+        <ngl-form-element label="部门描述：" [error]="hasError ? error : null" class="slds-m-top--small">
+            <input nglFormControl type="text" placeholder="" [(ngModel)]="newOrganization.description" [required]="required">
+        </ngl-form-element>
+        <ngl-form-element label="所属系列:" class="slds-m-top--small left-lable">
+            <select nglFormControl [(ngModel)]="newOrganization.serial" class="slds-select">
+                <option value="">--- 请选择 ---</option>
+                <option *ngFor="let post of service.serrial | async" [value]="post.value">{{post.displayValue}}</option>
+            </select>
+        </ngl-form-element>
+    </div>
+    <template ngl-modal-footer>
+        <button class="slds-button slds-button--neutral" (click)="addOrganization = false">取消</button>
+        <button class="slds-button slds-button--brand" (click)="submitNewOrganization()">确定</button>
+    </template>
+</ngl-modal> 
+
+<ngl-modal header="编辑部门" [(open)]="editModalOpen">
+    <div body class="width65 mgb30button" style="margin:0 auto">
+        <ngl-form-element label="部门名称：" [error]="hasError ? error : null" class="slds-m-top--small">
+            <input nglFormControl type="text" placeholder="" [(ngModel)]="currentOrganization.name" [required]="required">
+        </ngl-form-element>
+        <ngl-form-element label="部门描述：" [error]="hasError ? error : null" class="slds-m-top--small">
+            <input nglFormControl type="text" placeholder="" [(ngModel)]="currentOrganization.description" [required]="required">
+        </ngl-form-element>
+        <ngl-form-element label="所属系列:" class="slds-m-top--small left-lable">
+            <select nglFormControl [(ngModel)]="currentOrganization.serial" class="slds-select">
+                <option value="">--- 请选择 ---</option>
+                <option *ngFor="let post of service.serrial | async" [value]="post.value">{{post.displayValue}}</option>
+            </select>
+        </ngl-form-element>
+    </div>
+    <template ngl-modal-footer>
+        <button class="slds-button slds-button--neutral" (click)="editModalOpen = false">取消</button>
+        <button class="slds-button slds-button--brand" (click)="saveOrganization()">确定</button>
+    </template>
+</ngl-modal>
+
+<alert #alert></alert>
+<confirm (onConfirm)="onConfirm()" #confirm></confirm>
+<spinner #spinner></spinner>

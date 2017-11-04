@@ -81,6 +81,36 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/adm/role/menu"
     },
     {
+        "desc": "用户中心-组织管理，获取所有机构",
+        "method": "GET",
+        "id": "get.organization",
+        "url": "adminui/authsec/organizations"
+    },
+    {
+        "desc": "用户中心-组织管理，状态更新",
+        "method": "PUT",
+        "id": "update.organization",
+        "url": "adminui/authsec/organization/{organization_id}/status"
+    },
+    {
+        "desc": "用户中心-组织管理，修改",
+        "method": "PUT",
+        "id": "modify.organization",
+        "url": "adminui/authsec/organization/{organization_id}"
+    },
+    {
+        "desc": "用户中心-组织管理，删除",
+        "method": "DELETE",
+        "id": "delete.organization",
+        "url": "adminui/authsec/organization/{organization_id}"
+    },
+    {
+        "desc": "用户中心-组织管理，创建",
+        "method": "POST",
+        "id": "add.organization",
+        "url": "adminui/authsec/organization  "
+    },
+    {
         "desc": "用户中心-账户管理，获得属于指定机构下所有用户",
         "method": "GET",
         "id": "users.organization",
