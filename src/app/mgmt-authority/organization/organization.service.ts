@@ -27,6 +27,17 @@ export class OrganizationService {
         return this.restApi.request(api.method, api.url, { organization_id })
     }
 
+    
+    fetchAllUsers (organization_id: string, page: number, size: number): Promise<[Common.PageInfo, Adminui.UserDetailsItem[]]> { 
+        const api = this.restApiCfg.getRestApi("organization.users.all");
+
+        let pro = this.restApi.request(api.method, api.url, {organization_id, page, size})
+
+        return pro.then((res: any) => {
+            return [res.pageInfo, res.resultContent]
+        }) as Promise<[Common.PageInfo, Adminui.UserDetailsItem[]]>
+    }
+
 
     putEditOrganization (organization_id: string, data: Adminui.OrganizationProfile) {
 

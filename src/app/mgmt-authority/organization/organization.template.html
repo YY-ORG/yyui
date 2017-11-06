@@ -14,14 +14,46 @@
             <font class="color-neutral">{{organization.organizitionName}}</font>
         </td>
         <td>{{organization.leaderName}}</td>
-        <td>{{organization.description}}</td>
+        <td>{{organization.desc}}</td>
         <td>
+            <my-button button="radius" (onClick)="openOrganizationDetail(organization)" color="default" className="mgr10" icon="icon-edit1">查看</my-button>
             <my-button button="radius" (onClick)="editOrganization(organization)" color="primary" className="mgr10" icon="icon-edit1">编辑</my-button>
             <my-button button="radius" (onClick)="deleteOrganization(organization)" color="red" className="mgr10" icon="icon-edit1">删除</my-button>
         </td>
     </tr>
 </table>
 <pagination *ngIf="maxSize > 1" [maxSize]="maxSize" [currentPage]="currentPage + 1" (pageChanged)="pageChanged($event)"></pagination>
+
+<ngl-modal header="查看部门" [(open)]="organizationDetail">
+    <div body class="width85 mgb30button" style="margin:0 auto">
+        <ul class="org-info">
+            <li>机构名称：{{currentOrganization.organizitionName}}</li>
+            <li>部门领导：{{currentOrganization.leaderName}}</li>
+            <li>部门系列：{{currentOrganization.serial | dict: service.serrial | async}}</li>
+            <li>描述：{{currentOrganization.desc}}</li>
+        </ul>
+        <table class="slds-table mgt20" *ngIf="allRoles.length > 0">
+            <tr>
+                <th>账号</th>
+                <th>描述</th>
+                <th>邮箱</th>
+                <th>手机</th>
+            </tr>
+            <tr *ngFor="let role of allRoles; let i = index">
+                <td>
+                    <font class="color-neutral">{{role.userName}}</font>
+                </td>
+                <td>{{role.description}}</td>
+                <td>{{role.email}}</td>
+                <td>{{role.phone}}</td>
+            </tr>
+        </table>
+    </div>
+    <pagination *ngIf="rolesMaxSize > 1" [maxSize]="rolesMaxSize" [currentPage]="rolesCurrentPage + 1" (pageChanged)="rolesPageChanged($event)"></pagination>
+    <template ngl-modal-footer>
+        <button class="slds-button slds-button--neutral" (click)="organizationDetail = false">关闭</button>
+    </template>
+</ngl-modal> 
 
 <ngl-modal header="新增部门" [(open)]="addOrganization">
     <div body class="width65 mgb30button" style="margin:0 auto">

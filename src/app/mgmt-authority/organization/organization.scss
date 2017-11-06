@@ -1,6 +1,12 @@
 .role-title {
     display: block;
 }
-.addNewAccount {
-
+.org-info {
+    overflow: hidden;
+    li {
+        float: left;
+        width: 50%;
+        line-height: 40px;
+        border-bottom: 1px solid #eaeaea;
+    }
 }

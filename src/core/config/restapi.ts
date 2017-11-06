@@ -123,6 +123,12 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/adm/users/page/{page}/size/{size}"
     },
     {
+        "desc": "用户中心-账户管理，获得属于指定机构下所有用户 ",
+        "method": "GET",
+        "id": "organization.users.all",
+        "url": "adminui/authsec/adm/users/organization/{organization_id}/page/{page}/size/{size}"
+    },
+    {
         "desc": "用户中心-账户管理，查询单个账户",
         "method": "GET",
         "id": "user",

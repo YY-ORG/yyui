@@ -21,13 +21,18 @@ export class OrganizationComponent extends PageClass implements OnInit {
 	}
 	
 	willDeleteOrganize: Adminui.OrganizationItem;
-	editModalOpen: boolean = false;
+	editModalOpen: boolean = false
 	addOrganization: boolean = false
+	organizationDetail: boolean = false
 	pageSize = 10;
 	currentPage = 0
 	maxSize = 1
+	rolesPageSize = 10;
+	rolesCurrentPage = 0
+	rolesMaxSize = 1
 	organizationList: Adminui.OrganizationItem[] = []
 	allOrganization: Adminui.RoleItem[] = []
+	allRoles: Adminui.UserDetailsItem[] = []
 
 	currentOrganization: Adminui.OrganizationProfile = new Adminui.OrganizationProfile
 	newOrganization: Adminui.OrganizationProfile = new Adminui.OrganizationProfile
@@ -53,6 +58,25 @@ export class OrganizationComponent extends PageClass implements OnInit {
 			this.spinner.hide()
 			this.organizationList = userItem
 		})
+	}
+	
+	openOrganizationDetail(organization: Adminui.OrganizationProfile) {
+		this.currentOrganization = organization
+		this.organizationDetail = true
+		this.spinner.show()
+		this.service.fetchAllUsers(organization.id, this.rolesCurrentPage, this.rolesPageSize).then(res => {
+			let [pageInfo, allRoles] = res
+			this.rolesCurrentPage = pageInfo.currentPage
+			this.rolesMaxSize = pageInfo.totalPage
+
+			this.spinner.hide()
+			this.allRoles = allRoles
+		})
+	}
+
+	rolesPageChanged (pageEvent: any) {
+		this.rolesCurrentPage = pageEvent.currentpage - 1
+		this.openOrganizationDetail(this.currentOrganization)
 	}
 	
 	deleteOrganization(organize: Adminui.OrganizationItem) {
@@ -81,7 +105,7 @@ export class OrganizationComponent extends PageClass implements OnInit {
 	editOrganization(organization: Adminui.OrganizationItem) {
 		this.currentOrganization = {
 			id: organization.id,
-			description: organization.description,
+			description: organization.desc,
 			serial: organization.serial,
 			name: organization.organizitionName,
 			leaderId: organization.leaderId

@@ -30,9 +30,8 @@ export class dictPipe implements PipeTransform {
         return promise.then(arrs => {
 
             if(!arrs) return "";  //如果不是arr返回空
-
+            
             arrs = arrs.filter(arr => arr.value == value); //过滤字典
-
             if(arrs.length) {   //是否取到了值
                 return arrs[0].displayValue;
             }
