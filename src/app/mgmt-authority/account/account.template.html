@@ -8,6 +8,7 @@
         <th>邮箱</th>
         <th>手机</th>
         <th>角色</th>
+        <th>部门</th>
         <th style="width: 300px">操作</th>
     </tr>
     <tr *ngFor="let user of userList; let i = index">
@@ -19,6 +20,7 @@
         <td>{{user.email}}</td>
         <td>{{user.phone}}</td>
         <td>{{user.roles | getArrValue : 'roleName'}}</td>
+        <td>{{user.organizationName}}</td>
         <td>
             <my-button button="radius" (onClick)="editUser(user)" color="primary" className="mgr10" icon="icon-edit1">编辑</my-button>
             <my-button button="radius" (onClick)="deleteUser(user)" color="red" className="mgr10" icon="icon-edit1">删除</my-button>

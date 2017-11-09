@@ -35,7 +35,7 @@
             </ngl-form-checkbox>
             <div class="menu-children">
                 <ngl-form-checkbox  *ngFor="let menu of menuTop.children | orderBy: 'orderBy';" [label]="menu.name" [error]="hasError ? error : null" class="inline-block checkbox-lisl-checkbox">
-                    <input nglFormControl type="checkbox" [(ngModel)]="menu.selected" />
+                    <input nglFormControl type="checkbox" [(ngModel)]="menu.selected"  (ngModelChange)="childCheck(menuTop)" />
                 </ngl-form-checkbox>
             </div>
         </div>
