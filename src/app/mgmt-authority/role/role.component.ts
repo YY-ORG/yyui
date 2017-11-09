@@ -115,6 +115,15 @@ export class RoleComponent extends PageClass implements OnInit {
 		})
 	}
 
+	childCheck(topMenu: Adminui.MenuItem) {
+		let selectedMenu = topMenu.children.filter(menu => menu.selected)
+		if (selectedMenu.length) {
+			topMenu.selected = true
+		} else {
+			topMenu.selected = false
+		}
+	}
+
 	onConfirm() {
 		this.confirm.close()
 
