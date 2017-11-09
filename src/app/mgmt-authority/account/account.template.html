@@ -39,28 +39,9 @@
 
 <ngl-modal header="编辑账号" [(open)]="editModalOpen">
     <div body class="width65 mgb30button" style="margin:0 auto">
-        <ngl-form-element label="账号：" [error]="hasError ? error : null" class="slds-m-top--small">
-            <input nglFormControl type="text" placeholder="" [(ngModel)]="currentUser.loginName" [required]="required">
-        </ngl-form-element>
-        <ngl-form-element label="名称：" [error]="hasError ? error : null" class="slds-m-top--small">
-            <input nglFormControl type="text" placeholder="" [(ngModel)]="currentUser.userName" [required]="required">
-        </ngl-form-element>
-        <ngl-form-element label="描述：" [error]="hasError ? error : null" class="slds-m-top--small">
-            <input nglFormControl type="text" placeholder="" [(ngModel)]="currentUser.description" [required]="required">
-        </ngl-form-element>
-        <!-- <ngl-form-element label="性别" class="slds-m-top--small">
-          <select nglFormControl class="slds-select">
-            <option *ngFor="let sex of [{viewValue:'男', value:'0'},{viewValue:'女', value: '1'}]" [value]="sex.value">{{sex.viewValue}}</option>
-          </select>
-        </ngl-form-element> -->
-        <ngl-form-element label="邮箱：" [error]="hasError ? error : null" class="slds-m-top--small">
-            <input nglFormControl type="text" placeholder="" [(ngModel)]="currentUser.email" [required]="required">
-        </ngl-form-element>
-        <ngl-form-element label="手机：" [error]="hasError ? error : null" class="slds-m-top--small">
-            <input nglFormControl type="text" placeholder="" [(ngModel)]="currentUser.phone" [required]="required">
-        </ngl-form-element>
+        <registration #registration [(userProfile)]="currentUser"></registration>
         <label _ngcontent-c2="" class="slds-form-element__label role-title mgt15" for="ngl_form_element_6">
-            <abbr _ngcontent-c2="" class="slds-required" title="required">*</abbr><span _ngcontent-c2="" ng-reflect-ngl-internal-outlet="角色：">角色：</span>
+            <span _ngcontent-c2="" ng-reflect-ngl-internal-outlet="角色：">角色：</span>
         </label>
         <ngl-form-checkbox  *ngFor="let role of allRoles" [label]="role.name" [error]="hasError ? error : null" class="inline-block checkbox-lisl-checkbox">
             <input nglFormControl type="checkbox" [(ngModel)]="role.selected" />

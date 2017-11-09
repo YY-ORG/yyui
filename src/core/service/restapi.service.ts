@@ -116,6 +116,9 @@ export class RestApi {
 				if ( res.access_token || res.pageInfo ) {
 					return res;
 				}
+				if (res.resultCode && res.resultCode === "10001003") {
+					throw "名称不能重复";
+				}
 				if (res.resultCode && res.resultCode !== "100") {
 					throw "状态吗不匹配";
 				}

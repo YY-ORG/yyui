@@ -1,97 +1,99 @@
-<h1 class="content-title">考核人员管理</h1>
-
-<div class="button-group">
-    <ngl-form-element label="Select Label" [error]="hasError ? error : null" class="slds-m-top--small no-lable width10 mgr10 inline-block">
-        <select nglFormControl class="slds-select" [required]="required">
-            <option>专业技术系列</option>
-            <option>Option Two</option>
-            <option>Option Three</option>
-        </select>
-    </ngl-form-element>
-
-    <ngl-form-element label="Select Label" [error]="hasError ? error : null" class="slds-m-top--small no-lable width10 mgr10 inline-block">
-        <select nglFormControl class="slds-select" [required]="required">
-            <option>正高</option>
-            <option>Option Two</option>
-            <option>Option Three</option>
-        </select>
-    </ngl-form-element>
-
-    <button type="button" nglButton="brand">搜索</button>
-    <button type="button" class="" nglButton="green">读取全部员工</button>
-</div>
-<div style="width: 65%;" class="inline-block pdr30">
-    <h2 class="h2-title mgt30"><i class="icon-justifyall iconfont pdr10"></i>考核人员列表</h2>
-    <table class="slds-table mgt30">
-        <tr>
-            <th style="width: 70px">选择</th>
-            <th style="width: 70px">序号</th>
-            <th>姓名</th>
-            <th>岗位类别</th>
-            <th>职称</th>
-            <th>部门</th>
-            <th>行政职务</th>
-        </tr>
-        <tr *ngFor="let d of datas; let i = index">
-            <td class="no-padding">
-                <ngl-form-checkbox [error]="hasError ? error : null" class="">
-                    <input nglFormControl type="checkbox" [required]="required" />
-                </ngl-form-checkbox>
-            </td>
-            <td>{{i+1}}</td>
-            <td><font class="color-neutral">{{d.name}}</font></td>
-            <td>{{d.surname}}</td>
-            <td>{{d.points}}</td>
-            <td>编辑部门</td>
-            <td>部长</td>
-        </tr>
-    </table>
-    <pagination maxSize=70 currentPage=5 (pageChanged)="pageChanged($event)"></pagination>
-</div><div style="width: 35%;" class="inline-block">
-    <h2 class="h2-title mgt30">待加入考核人员</h2>
-    <table class="slds-table mgt30">
-        <tr>
-            <th style="width: 15%">序号</th>
-            <th style="width: 25%">姓名</th>
-            <th style="width: 25%">岗位类别</th>
-            <th style="width: 25%">职称</th>
-        </tr>
-    </table>
-    <div style="max-height: 431px; overflow: scroll;">
-        <table class="slds-table" style="margin-top: -1px">
-            <tr *ngFor="let d of datas.concat(datas); let i = index">
-                <!-- "" -->
-                <td style="width: 15%">{{i+1}}</td>
-                <td style="width: 25%">{{d.name}}</td>
-                <td style="width: 25%">{{d.surname}}</td>
-                <td style="width: 25%">{{d.points}}</td>
+<div style="display: none">
+    <h1 class="content-title">考核人员管理</h1>
+    
+    <div class="button-group">
+        <ngl-form-element label="Select Label" [error]="hasError ? error : null" class="slds-m-top--small no-lable width10 mgr10 inline-block">
+            <select nglFormControl class="slds-select" [required]="required">
+                <option>专业技术系列</option>
+                <option>Option Two</option>
+                <option>Option Three</option>
+            </select>
+        </ngl-form-element>
+    
+        <ngl-form-element label="Select Label" [error]="hasError ? error : null" class="slds-m-top--small no-lable width10 mgr10 inline-block">
+            <select nglFormControl class="slds-select" [required]="required">
+                <option>正高</option>
+                <option>Option Two</option>
+                <option>Option Three</option>
+            </select>
+        </ngl-form-element>
+    
+        <button type="button" nglButton="brand">搜索</button>
+        <button type="button" class="" nglButton="green">读取全部员工</button>
+    </div>
+    <div style="width: 65%;" class="inline-block pdr30">
+        <h2 class="h2-title mgt30"><i class="icon-justifyall iconfont pdr10"></i>考核人员列表</h2>
+        <table class="slds-table mgt30">
+            <tr>
+                <th style="width: 70px">选择</th>
+                <th style="width: 70px">序号</th>
+                <th>姓名</th>
+                <th>岗位类别</th>
+                <th>职称</th>
+                <th>部门</th>
+                <th>行政职务</th>
+            </tr>
+            <tr *ngFor="let d of datas; let i = index">
+                <td class="no-padding">
+                    <ngl-form-checkbox [error]="hasError ? error : null" class="">
+                        <input nglFormControl type="checkbox" [required]="required" />
+                    </ngl-form-checkbox>
+                </td>
+                <td>{{i+1}}</td>
+                <td><font class="color-neutral">{{d.name}}</font></td>
+                <td>{{d.surname}}</td>
+                <td>{{d.points}}</td>
+                <td>编辑部门</td>
+                <td>部长</td>
             </tr>
         </table>
+        <pagination maxSize=70 currentPage=5 (pageChanged)="pageChanged($event)"></pagination>
+    </div><div style="width: 35%;" class="inline-block">
+        <h2 class="h2-title mgt30">待加入考核人员</h2>
+        <table class="slds-table mgt30">
+            <tr>
+                <th style="width: 15%">序号</th>
+                <th style="width: 25%">姓名</th>
+                <th style="width: 25%">岗位类别</th>
+                <th style="width: 25%">职称</th>
+            </tr>
+        </table>
+        <div style="max-height: 431px; overflow: scroll;">
+            <table class="slds-table" style="margin-top: -1px">
+                <tr *ngFor="let d of datas.concat(datas); let i = index">
+                    <!-- "" -->
+                    <td style="width: 15%">{{i+1}}</td>
+                    <td style="width: 25%">{{d.name}}</td>
+                    <td style="width: 25%">{{d.surname}}</td>
+                    <td style="width: 25%">{{d.points}}</td>
+                </tr>
+            </table>
+        </div>
+        <button type="button" class="mgt30" nglButton="brand">加入到参加考核人员</button>
     </div>
-    <button type="button" class="mgt30" nglButton="brand">加入到参加考核人员</button>
-</div>
-<div>
-    <h2 class="h2-title ">以选取参加考核人员</h2>
-    <table class="slds-table mgt30">
-        <tr>
-            <th style="width: 70px">序号</th>
-            <th>姓名</th>
-            <th>岗位类别</th>
-            <th>职称</th>
-            <th>部门</th>
-            <th>行政职务</th>
-        </tr>
-        <tr *ngFor="let d of datas; let i = index">
-            <!-- "" -->
-            <td>{{i+1}}</td>
-            <td>{{d.name}}</td>
-            <td>{{d.surname}}</td>
-            <td>{{d.points}}</td>
-            <td>编辑部门</td>
-            <td>部长</td>
-        </tr>
-    </table>
-    <pagination maxSize=40 currentPage=5 (pageChanged)="pageChanged($event)"></pagination>
+    <div>
+        <h2 class="h2-title ">以选取参加考核人员</h2>
+        <table class="slds-table mgt30">
+            <tr>
+                <th style="width: 70px">序号</th>
+                <th>姓名</th>
+                <th>岗位类别</th>
+                <th>职称</th>
+                <th>部门</th>
+                <th>行政职务</th>
+            </tr>
+            <tr *ngFor="let d of datas; let i = index">
+                <!-- "" -->
+                <td>{{i+1}}</td>
+                <td>{{d.name}}</td>
+                <td>{{d.surname}}</td>
+                <td>{{d.points}}</td>
+                <td>编辑部门</td>
+                <td>部长</td>
+            </tr>
+        </table>
+        <pagination maxSize=40 currentPage=5 (pageChanged)="pageChanged($event)"></pagination>
+    </div>
 </div>
 <spinner #spinner></spinner>
 <alert #alert></alert>

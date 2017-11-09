@@ -85,6 +85,7 @@ export class AccountComponent extends PageClass implements OnInit {
 
 	saveUser() {
 		this.spinner.show()
+		this.currentUser.password = null
 		this.currentUser.roles = this.allRoles.filter(role => role.selected).map(r => ({
 			description: r.description,
 			id: r.id,

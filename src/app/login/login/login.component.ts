@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
 	ngOnInit() {
 
 	}
-
+  
 	loginKeyup($event) {
 		if ($event.key === "Enter"  ) this.login()
 	}
@@ -43,12 +43,10 @@ export class LoginComponent implements OnInit {
 				this.service.setJwt(res.access_token)
 			})
 			.then( res => this.service.getUserInfo() )
-			.then( res =>
-				this.alert.open("登录成功！", () => {
-					this.loginText = "登录"
-					this.router.navigateByUrl("/index");
-				})
-			)
+			.then( res => {
+				this.loginText = "登录"
+				this.router.navigateByUrl("/index");
+			})
 			.catch(e => {
 				console.log(e)
 				this.loginText = "登录"

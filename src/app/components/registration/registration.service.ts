@@ -16,6 +16,13 @@ export class RegistrationService {
         return this.restApi.request(api.method, api.url, undefined, undefined, postData)
     
     }
+
+    putEditAccount (user_id: string, data: Adminui.UserProfile) {
+
+      const api = this.restApiCfg.getRestApi("edit.account");
+      
+      return this.restApi.request(api.method, api.url, { user_id }, null, data)
+    }
     
     fetchOrganizations() : Promise<Adminui.OrganizationItem[]>{
         const api = this.restApiCfg.getRestApi("user.organizations");

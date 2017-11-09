@@ -1,0 +1,13 @@
+<h1 class="content-title">用户信息</h1>
+
+
+<div class="user-detail">
+	<p>用户名：{{userInfo.userName}}</p>
+	<p>描述：{{userInfo.description}}</p>
+	<p>登录名：{{userInfo.loginName}}</p>
+	<p>手机：{{userInfo.phone}}</p>
+	<p>部门名称：{{userInfo.organizationName}}</p>
+</div>
+
+<alert #alert></alert>
+<confirm (onConfirm)="onConfirm()" #confirm></confirm>

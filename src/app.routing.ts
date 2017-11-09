@@ -14,6 +14,7 @@ export const routes: Routes = [
     { path: 'mgmt-content', loadChildren: 'app/mgmt-content/content.module#ContentModule' },
     { path: 'mgmt-directory', loadChildren: 'app/mgmt-directory/directory.module#MgmtDirectoryModule' },
     { path: 'mgmt-assessment', loadChildren: 'app/mgmt-assessment/assessment.module#AssessmentModule' },
+    { path: 'other-page', loadChildren: 'app/other-page/other-page.module#OtherPageModule' },
     { path: '', loadChildren: 'app/home/home.module#HomeModule' },
     // { path: 'cloud-host-service', loadChildren: 'module/cloud-host-service/cloud-host-service.module#CloudHostService' },
     // { path: 'mng-console', loadChildren: 'module/mng-console/mng-console.module#MngConsoleModule' },
