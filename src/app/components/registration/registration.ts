@@ -46,7 +46,6 @@ export class RegistrationComponent implements OnInit {
       this.userProfile = new Adminui.UserProfile
       this.isEdit = false
     }
-
     this.fetchOrganizations();
   }
 

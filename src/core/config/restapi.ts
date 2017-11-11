@@ -210,7 +210,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "分页检索当前登录用户所在部门的考卷列表",
         "method": "GET",
         "id": "assesspaper.assesspaperlist",
-        "url": "assess/authsec/org/{orgId}/assesspaper/assesspaperlist"
+        "url": "assess/authsec/org/assesspaper/assesspaperlist"
     },
     {
         "desc": "分页检索某个考卷的试题",
@@ -237,9 +237,39 @@ export let RestApis: RestApiModel[] = [
         "url": "assess/authsec/assess/template"
     },
     {
+        "desc": "删除某个考题的某个模板",
+        "method": "DELETE",
+        "id": "delete.template",
+        "url": "assess/authsec/assess/template/{id}"
+    },
+    {
+        "desc": "分页检索所有的某个类型的考题模板",
+        "method": "GET",
+        "id": "assess.templatelist",
+        "url": "assess/authsec/template/templatelist"
+    },
+    {
         "desc": "创建考题的元素项",
         "method": "POST",
         "id": "template.templateitem",
         "url": "assess/authsec/assess/template/templateitem"
+    },
+    {
+        "desc": "分页检索所有的考题模板元素",
+        "method": "GET",
+        "id": "templateitem.templateitemlist",
+        "url": "assess/authsec/templateitem/templateitemlist"
+    },
+    {
+        "desc": "获取某个模板的模板元素",
+        "method": "GET",
+        "id": "templateitem.id.templateitemlist",
+        "url": "assess/authsec/template/{id}/templateitemlist"
+    },
+    {
+        "desc": "更新考题的模板",
+        "method": "PUT",
+        "id": "update.template",
+        "url": "assess/authsec/assess/template"
     }
 ]

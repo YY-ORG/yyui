@@ -21,6 +21,9 @@ import { DemocraticTestComponent } from './democratic-test/democratic-test.compo
 import { OrdinaryTimesComponent } from './ordinary-times/ordinary-times.component'
 import { ForProjectComponent } from './for-project/for-project.component'
 import { SendingManuscriptComponent } from './sending-manuscript/sending-manuscript.component'
+import { ExaminationAssessComponent } from './examination-assess/examination-assess.component'
+import { ExaminationTemplateComponent } from './examination-template/examination-template.component'
+import { ExaminationAssesspaperComponent } from './examination-assesspaper/examination-assesspaper.component'
 
 export const AssessmentRouting: ModuleWithProviders = RouterModule.forChild([{
   path: '',
@@ -54,6 +57,15 @@ export const AssessmentRouting: ModuleWithProviders = RouterModule.forChild([{
     },{
       path: 'sending-manuscript',
       component: SendingManuscriptComponent
+    },{
+      path: 'assess',
+      component: ExaminationAssessComponent
+    },{
+      path: 'template',
+      component: ExaminationTemplateComponent
+    },{
+      path: 'assess-paper',
+      component: ExaminationAssesspaperComponent
     }
   ]
 }]);

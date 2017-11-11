@@ -12,6 +12,7 @@ import { AssessmentRouting } from './assessment.routing';
 //component
 import { ContinueEducationeComponent } from './continue-educatione/continue-educatione.component'
 import { ExaminationPaperComponent } from './examination-paper/examination-paper.component'
+import { ExaminationAssessComponent } from './examination-assess/examination-assess.component'
 import { PersonalDescriptionComponent } from './personal-description/personal-description.component'
 import { DeEducationeComponent } from './de-educatione/de-educatione.component'
 import { CanReviewComponent } from './can-review/can-review.component'
@@ -19,16 +20,25 @@ import { DemocraticTestComponent } from './democratic-test/democratic-test.compo
 import { OrdinaryTimesComponent } from './ordinary-times/ordinary-times.component'
 import { ForProjectComponent } from './for-project/for-project.component'
 import { SendingManuscriptComponent } from './sending-manuscript/sending-manuscript.component'
+import { ExaminationTemplateComponent } from './examination-template/examination-template.component'
+import { ExaminationAssesspaperComponent } from './examination-assesspaper/examination-assesspaper.component'
 
 //service
 import { ExaminationPaperService } from './examination-paper/examination-paper.service'
+import { ExaminationAssessService } from './examination-assess/examination-assess.service'
+import { ExaminationTemplateService } from './examination-template/examination-template.service'
+import { ExaminationAssesspaperService } from './examination-assesspaper/examination-assesspaper.service'
+
+// module
+import { AssessTemplateModule } from '../components/assess-template/assess-template.module'
 
 
 @NgModule({
     imports: [
         AssessmentRouting,
         CommonComponentModule,
-        PipeModule
+        PipeModule,
+        AssessTemplateModule
     ],
     declarations: [
         ContinueEducationeComponent,
@@ -39,12 +49,18 @@ import { ExaminationPaperService } from './examination-paper/examination-paper.s
         DemocraticTestComponent,
         OrdinaryTimesComponent,
         ForProjectComponent,
-        SendingManuscriptComponent
+        SendingManuscriptComponent,
+        ExaminationAssessComponent,
+        ExaminationTemplateComponent,
+        ExaminationAssesspaperComponent
     ],
     exports: [
     ],
     providers: [
-        ExaminationPaperService
+        ExaminationPaperService,
+        ExaminationAssessService,
+        ExaminationTemplateService,
+        ExaminationAssesspaperService
     ]
 
 })

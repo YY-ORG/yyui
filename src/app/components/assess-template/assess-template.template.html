@@ -1,0 +1,56 @@
+<ngl-form-element label="模板名称：" [error]="v.result.name" class="slds-m-top--small">
+    <input nglFormControl type="text" placeholder="" [(ngModel)]="templateProfileReq.name" (ngModelChange)="checkValue('name')" [required]="required">
+</ngl-form-element>
+<ngl-form-element label="CODE：" [error]="v.result.code" class="slds-m-top--small">
+    <input nglFormControl type="text" placeholder="" [(ngModel)]="templateProfileReq.code" (ngModelChange)="checkValue('code')" [required]="required">
+</ngl-form-element>
+<ngl-form-element [error]="v.result.type" label="类型:" class="slds-m-top--small left-lable">
+    <select nglFormControl [required]="required" [(ngModel)]="templateProfileReq.type" (ngModelChange)="checkValue('type')" class="slds-select">
+        <option value="">--- 请选择 ---</option>
+        <option *ngFor="let type of service.type | async" [value]="type.value">{{type.displayValue}}</option>
+    </select>
+</ngl-form-element>
+<h2 class="mgt30"><abbr class="slds-required" title="required">*</abbr>请选择考题模板元素</h2>
+<table class="slds-table mgt30">
+    <tr>
+        <th>选择</th>
+        <th>名称</th>
+        <th>类型</th>
+        <th>状态</th>
+        <th>可见</th>
+        <th>可编辑</th>
+        <th>必填</th>
+    </tr>
+    <tr *ngFor="let templateitem of templateitemList; let i = index">
+        <td class="no-padding">
+            <ngl-form-checkbox [error]="hasError ? error : null" class="">
+                <input nglFormControl [(ngModel)]="templateitem.isSelect" (ngModelChange)="seletChanged(templateitem)" type="checkbox" />
+            </ngl-form-checkbox>
+        </td>
+        <td>
+            <font class="color-neutral">{{templateitem.name}}</font>
+        </td>
+        <td>{{templateitem.type | dict: service.itemType | async}}</td>
+        <td>{{templateitem.status | dict: service.status | async}}</td>
+        <td>
+            <ngl-form-checkbox-toggle [error]="hasError ? error : null" class="slds-m-top--small">
+                <input nglFormControl [(ngModel)]="templateitem.visible" (ngModelChange)="seletChanged(templateitem)" type="checkbox" />
+            </ngl-form-checkbox-toggle>
+        </td>
+        <td>
+            <ngl-form-checkbox-toggle [error]="hasError ? error : null" class="slds-m-top--small">
+                <input nglFormControl [(ngModel)]="templateitem.editable" (ngModelChange)="seletChanged(templateitem)" type="checkbox" />
+            </ngl-form-checkbox-toggle>
+        </td>
+        <td>
+            <ngl-form-checkbox-toggle [error]="hasError ? error : null" class="slds-m-top--small">
+                <input nglFormControl [(ngModel)]="templateitem.mandatory" (ngModelChange)="seletChanged(templateitem)" type="checkbox" />
+            </ngl-form-checkbox-toggle>
+        </td>
+    </tr>
+</table>
+<pagination *ngIf="maxPage>1" [maxSize]="maxPage" [currentPage]="currentPage + 1" (pageChanged)="pageChanged($event)"></pagination>
+
+<spinner #spinner></spinner>
+<alert #alert></alert>
+<confirm (onConfirm)="onConfirm()" #confirm></confirm>
