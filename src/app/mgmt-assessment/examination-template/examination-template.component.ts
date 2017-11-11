@@ -62,6 +62,7 @@ export class ExaminationTemplateComponent extends PageClass implements OnInit {
 
 	addNewTemplate () {
 		this.templateProfileReq = new Assess.TemplateProfileReq
+		this.newAssessTemplate.refreshList()
 		this.addModalOpen = true
 	}
 
@@ -113,22 +114,25 @@ export class ExaminationTemplateComponent extends PageClass implements OnInit {
 	}
 
 	editTemplate(template: Assess.SimpleTemplate) {
-		this.editModalOpen = true
 		this.currentTemplate = template
 		this.spinner.show()
 		const req = this.templateProfileReq
+		req.itemList = []
 		req.code = template.code
 		req.name = template.name
 		req.type = template.type
 		this.service.fetchTemplateitem(template.id).then(res => {
 			this.spinner.hide()
-			req.itemList = res.map(item => ({
+			const itemList = res.map(item => ({
 				editable: item.editable,
 				mandatory: item.mandatory,
 				seqNo: 0,
 				templateItemId: item.id,
 				visible: item.visible
 			}))
+			Object.assign(this.templateProfileReq, { itemList })
+			this.assessTemplate.refreshList()
+			this.editModalOpen = true
 		})
 	}
 }

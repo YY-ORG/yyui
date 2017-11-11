@@ -25,6 +25,7 @@ export class AssessTemplateComponent extends PageClass implements OnInit {
   @Input() templateProfileReq: Assess.TemplateProfileReq = new Assess.TemplateProfileReq;
 
 	templateitemList: Assess.SimpleTemplateItem[] = []
+	cacheTemplateitemList: Assess.SimpleTemplateItem[] = []
 	selectTemplateitemList: Assess.SimpleTemplateItem[] = []
 	
 	currentTemplate: Assess.TemplateProfileReq = new Assess.TemplateProfileReq
@@ -34,8 +35,8 @@ export class AssessTemplateComponent extends PageClass implements OnInit {
 
 
 	ngOnInit() {
-		this.getTemplateitemList()
-	}
+    this.getTemplateitemList()
+  }
 
 	getTemplateitemList () {
 		this.spinner.show()
@@ -52,17 +53,22 @@ export class AssessTemplateComponent extends PageClass implements OnInit {
         visible: true,
         isSelect: false
       }))
-
-      this.templateitemList.forEach(templateitem => {
-        this.templateProfileReq.itemList.forEach(item => {
-          if (item.templateItemId === templateitem.id) {
-            Object.assign(templateitem, item, {isSelect: true})
-          }
-        })
-      })
+      this.cacheTemplateitemList = this.templateitemList.map(item => Object.assign({}, item))
+      this.refreshList()
 
 		}).catch(res => this.spinner.hide())
-	}
+  }
+  
+  refreshList () {
+    this.templateitemList = this.cacheTemplateitemList.map(item => Object.assign({}, item))
+    this.templateitemList.forEach(templateitem => {
+      this.templateProfileReq.itemList.forEach(item => {
+        if (item.templateItemId === templateitem.id) {
+          Object.assign(templateitem, item, {isSelect: true})
+        }
+      })
+    })
+  }
 
 	pageChanged (pageEvent: any) {
 		this.currentPage = pageEvent.currentpage - 1
