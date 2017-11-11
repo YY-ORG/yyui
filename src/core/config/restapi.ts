@@ -205,5 +205,41 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "id": "assess.assessanswer",
         "url": "assess/authsec/assesspaper/{assessPaperId}/assess/{assessId}/assessanswer "
+    },
+    {
+        "desc": "分页检索当前登录用户所在部门的考卷列表",
+        "method": "GET",
+        "id": "assesspaper.assesspaperlist",
+        "url": "assess/authsec/org/{orgId}/assesspaper/assesspaperlist"
+    },
+    {
+        "desc": "分页检索某个考卷的试题",
+        "method": "GET",
+        "id": "assesspaper.assesslistpage",
+        "url": "assess/authsec/assesspaper/{id}/assesslistpage"
+    },
+    {
+        "desc": "分页检索题库中的试题",
+        "method": "GET",
+        "id": "assesses.assesslist",
+        "url": "assess/authsec/assesses/assesslist"
+    },
+    {
+        "desc": "单独创建考题",
+        "method": "POST",
+        "id": "creat.assess",
+        "url": "assess/authsec/assess"
+    },
+    {
+        "desc": "创建考题的模板",
+        "method": "POST",
+        "id": "assess.template",
+        "url": "assess/authsec/assess/template"
+    },
+    {
+        "desc": "创建考题的元素项",
+        "method": "POST",
+        "id": "template.templateitem",
+        "url": "assess/authsec/assess/template/templateitem"
     }
 ]

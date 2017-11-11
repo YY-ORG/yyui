@@ -84,4 +84,12 @@ export namespace Assess {
     name: string = ""; //, optional),
     value: string = ""; //, optional)
   }
+  export class SimpleAssessPaperItem {
+    code: string = "" // , optional),
+    id: string = "" // , optional),
+    name: string = "" // , optional),
+    orgId: string = "" // , optional),
+    status: string = "" // , optional),
+    title: string = "" // , optional)
+  }
 }
