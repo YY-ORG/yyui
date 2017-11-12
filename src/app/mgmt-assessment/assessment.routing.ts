@@ -24,6 +24,7 @@ import { SendingManuscriptComponent } from './sending-manuscript/sending-manuscr
 import { ExaminationAssessComponent } from './examination-assess/examination-assess.component'
 import { ExaminationTemplateComponent } from './examination-template/examination-template.component'
 import { ExaminationAssesspaperComponent } from './examination-assesspaper/examination-assesspaper.component'
+import { ExaminationCategoryComponent } from './category/category.component'
 
 export const AssessmentRouting: ModuleWithProviders = RouterModule.forChild([{
   path: '',
@@ -66,6 +67,9 @@ export const AssessmentRouting: ModuleWithProviders = RouterModule.forChild([{
     },{
       path: 'assess-paper',
       component: ExaminationAssesspaperComponent
+    },{
+      path: 'category',
+      component: ExaminationCategoryComponent
     }
   ]
 }]);

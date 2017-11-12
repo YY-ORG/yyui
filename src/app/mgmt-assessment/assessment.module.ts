@@ -22,17 +22,20 @@ import { ForProjectComponent } from './for-project/for-project.component'
 import { SendingManuscriptComponent } from './sending-manuscript/sending-manuscript.component'
 import { ExaminationTemplateComponent } from './examination-template/examination-template.component'
 import { ExaminationAssesspaperComponent } from './examination-assesspaper/examination-assesspaper.component'
+import { ExaminationCategoryComponent } from './category/category.component'
 
 //service
 import { ExaminationPaperService } from './examination-paper/examination-paper.service'
 import { ExaminationAssessService } from './examination-assess/examination-assess.service'
 import { ExaminationTemplateService } from './examination-template/examination-template.service'
 import { ExaminationAssesspaperService } from './examination-assesspaper/examination-assesspaper.service'
+import { AssessCategoryService } from './category/category.service'
 
 // module
 import { AssessTemplateModule } from '../components/assess-template/assess-template.module'
 import { AssessQuestionsModule } from '../components/assess-questions/assess-questions.module'
 import { AssessPaperModule } from '../components/assess-paper/assess-paper.module'
+import { AssessCategoryModule } from '../components/assess-category/assess-category.module'
 
 
 @NgModule({
@@ -42,7 +45,8 @@ import { AssessPaperModule } from '../components/assess-paper/assess-paper.modul
         PipeModule,
         AssessTemplateModule,
         AssessQuestionsModule,
-        AssessPaperModule
+        AssessPaperModule,
+        AssessCategoryModule
     ],
     declarations: [
         ContinueEducationeComponent,
@@ -56,7 +60,8 @@ import { AssessPaperModule } from '../components/assess-paper/assess-paper.modul
         SendingManuscriptComponent,
         ExaminationAssessComponent,
         ExaminationTemplateComponent,
-        ExaminationAssesspaperComponent
+        ExaminationAssesspaperComponent,
+        ExaminationCategoryComponent
     ],
     exports: [
     ],
@@ -64,7 +69,8 @@ import { AssessPaperModule } from '../components/assess-paper/assess-paper.modul
         ExaminationPaperService,
         ExaminationAssessService,
         ExaminationTemplateService,
-        ExaminationAssesspaperService
+        ExaminationAssesspaperService,
+        AssessCategoryService
     ]
 
 })

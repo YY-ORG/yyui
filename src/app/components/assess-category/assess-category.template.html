@@ -1,0 +1,10 @@
+<ngl-form-element label="考题分组名称：" [error]="v.result.name" class="slds-m-top--small">
+    <input nglFormControl type="text" placeholder="" [(ngModel)]="assessProfileReq.name" (ngModelChange)="checkValue('name')" [required]="required">
+</ngl-form-element>
+<ngl-form-element label="CODE：" [error]="v.result.code" class="slds-m-top--small">
+    <input nglFormControl type="text" placeholder="" [(ngModel)]="assessProfileReq.code" (ngModelChange)="checkValue('code')" [required]="required">
+</ngl-form-element>
+
+<spinner #spinner></spinner>
+<alert #alert></alert>
+<confirm (onConfirm)="onConfirm()" #confirm></confirm>

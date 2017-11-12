@@ -301,5 +301,41 @@ export let RestApis: RestApiModel[] = [
         "method": "PUT",
         "id": "update.paper",
         "url": "assess/authsec/assesspaper"
+    },
+    {
+        "desc": "创建考题分组",
+        "method": "POST",
+        "id": "creat.category",
+        "url": "assess/authsec/assess/category"
+    },
+    {
+        "desc": "更新考题分组",
+        "method": "PUT",
+        "id": "update.category",
+        "url": "assess/authsec/assess/category"
+    },
+    {
+        "desc": "分页获取所有考题分组",
+        "method": "GET",
+        "id": "get.category",
+        "url": "assess/authsec/assess/category/categorylist"
+    },
+    {
+        "desc": "删除考题分组",
+        "method": "DELETE",
+        "id": "delete.category",
+        "url": "assess/authsec/assess/category/{id}"
+    },
+    {
+        "desc": "为考卷增加考题分组",
+        "method": "POST",
+        "id": "assesspaper.add.category",
+        "url": "assess/authsec/assesspaper/{id}/category"
+    },
+    {
+        "desc": "获取某个考卷的考题分组",
+        "method": "GET",
+        "id": "assesspaper.category",
+        "url": "assess/authsec/assesspaper/{id}/category/categorylist"
     }
 ]

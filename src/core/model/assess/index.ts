@@ -176,4 +176,25 @@ export namespace Assess {
     orgId: string = '' //, optional),
     title: string = '' //, optional)
   }
+  export class AssessCategoryReq {
+    code: string = "" //, optional),
+    name: string = "" //, optional)
+  }
+  export class AssessCategoryItem {
+    code: string = "" //, optional),
+    creatorId: string = "" //, optional),
+    id: string = "" //, optional),
+    name: string = "" //, optional),
+    status: string = "" //, optional)
+  }
+  export class AssessCategoryWithIDReq {
+    code: string = "" //, optional),
+    id: string = "" //, optional),
+    name: string = "" //, optional)
+  }
+  export class SimpleAssessCategoryItem {
+    code: string = "" //, optional),
+    id: string = "" //, optional),
+    name: string = "" //, optional)
+  }
 }
