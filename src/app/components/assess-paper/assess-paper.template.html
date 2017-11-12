@@ -1,0 +1,76 @@
+<ngl-form-element label="试卷名称：" [error]="v.result.name" class="slds-m-top--small">
+    <input nglFormControl type="text" placeholder="" [(ngModel)]="assessPaperProfileReq.name" (ngModelChange)="checkValue('name')" [required]="required">
+</ngl-form-element>
+<ngl-form-element label="CODE：" [error]="v.result.code" class="slds-m-top--small">
+    <input nglFormControl type="text" placeholder="" [(ngModel)]="assessPaperProfileReq.code" (ngModelChange)="checkValue('code')" [required]="required">
+</ngl-form-element>
+<ngl-form-element [error]="v.result.title" label="职称:" class="slds-m-top--small left-lable">
+    <select nglFormControl [(ngModel)]="assessPaperProfileReq.title" (ngModelChange)="checkValue('title')" class="slds-select">
+    <option value="">--- 请选择 ---</option>
+    <option *ngFor="let title of service.professionalTitle | async" [value]="title.value">{{title.displayValue}}</option>
+    </select>
+</ngl-form-element>
+<ngl-form-element [error]="v.result.orgId" label="部门:" class="slds-m-top--small left-lable">
+    <select nglFormControl [(ngModel)]="assessPaperProfileReq.orgId" (ngModelChange)="checkValue('orgId')" class="slds-select">
+        <option value="">--- 请选择 ---</option>
+        <option *ngFor="let organization of organizationList" [value]="organization.id">{{organization.organizitionName}}</option>
+    </select>
+</ngl-form-element>
+
+<h1 class="paper-title">考题列表<button class="slds-button slds-button--green float-right" (click)="addNewAssess()">更改考题</button></h1>
+
+<ngl-modal header="更改考题" size="large" [(open)]="addModalOpen">
+    <div body class="width85 mgb30button" style="margin:0 auto">
+        <table class="slds-table mgt30">
+            <tr>
+                <th>选择</th>
+                <th>名称</th>
+                <th>类型</th>
+                <th>状态</th>
+            </tr>
+            <tr *ngFor="let assess of allAssessList; let i = index">
+                <td class="no-padding">
+                    <ngl-form-checkbox [error]="hasError ? error : null" class="">
+                        <input nglFormControl [(ngModel)]="assess.isSelect" (ngModelChange)="seletChanged(assess)" type="checkbox" />
+                    </ngl-form-checkbox>
+                </td>
+                <td>
+                    <font class="color-neutral">{{assess.name}}</font>
+                </td>
+                <td>{{assess.type | dict: service.itemType | async}}</td>
+                <td>{{assess.status | dict: service.status | async}}</td>
+            </tr>
+        </table>
+        <pagination *ngIf="maxPage>1" [maxSize]="maxPage" [currentPage]="currentPage + 1" (pageChanged)="pageChanged($event)"></pagination>
+    </div>
+    <template ngl-modal-footer>
+        <button class="slds-button slds-button--neutral" (click)="submiteAssess()">关闭</button>
+    </template>
+</ngl-modal>
+
+<table class="slds-table mgt30">
+    <tr>
+        <th>序号</th>
+        <th>名称</th>
+        <th>CODE</th>
+    </tr>
+    <tr *ngFor="let assess of assessItemList; let i = index">
+        <td class="no-padding">
+                {{assess.seqNo}}
+                <button class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small" tabindex="-1" title="Edit Contact: Item 2">
+                  <svg class="slds-button__icon slds-button__icon_hint slds-button__icon_edit" aria-hidden="true">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#edit" />
+                  </svg>
+                  <span class="slds-assistive-text">Edit Contact: Item 2</span>
+                </button>
+        </td>
+        <td>
+            <font class="color-neutral">{{assess.assessName}}</font>
+        </td>
+        <td>{{assess.assessCode}}</td>
+    </tr>
+</table>
+
+<spinner #spinner></spinner>
+<alert #alert></alert>
+<confirm (onConfirm)="onConfirm()" #confirm></confirm>

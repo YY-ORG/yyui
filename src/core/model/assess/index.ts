@@ -114,6 +114,7 @@ export namespace Assess {
     name: string = '' //, optional),
     status: string = '' //, optional),
     type: string = '' //, optional)
+    isSelect: boolean = false
   }
   export class SimpleTemplate {
     code: string = '' //, optional),
@@ -121,6 +122,7 @@ export namespace Assess {
     name: string = '' //, optional),
     status: string = '' //, optional),
     type: string = '' //, optional)
+    isSelect: boolean = false
   }
   export class AssessProfileReq {
     code: string = '' //, optional),
@@ -155,5 +157,23 @@ export namespace Assess {
     name: string = '' //, optional),
     type: string = '' //, optional)
   }
-
+  export class AssessPaperProfileReq {
+    assessList: SimpleAssessReq[] = [] //[SimpleAssessReq], optional),
+    code: string = '' //, optional),
+    name: string = '' //, optional),
+    orgId: string = '' //, optional),
+    title: string = '' //, optional)
+  }
+  export class SimpleAssessReq {
+    assessId: string = '' //, optional),
+    seqNo: number = 0 //, optional)
+  }
+  export class AssessPaperWithIDProfileReq {
+    id: string = '' //, optional),
+    assessList: SimpleAssessReq[] = [] //[SimpleAssessReq], optional),
+    code: string = '' //, optional),
+    name: string = '' //, optional),
+    orgId: string = '' //, optional),
+    title: string = '' //, optional)
+  }
 }

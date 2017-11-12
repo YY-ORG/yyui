@@ -58,7 +58,7 @@ export class RegistrationComponent implements OnInit {
   checkValue(key ? : string) {
     let regs: ValidationRegs = {
       username: [this.userProfile.loginName, [this.v.isUnBlank, this.v.isInstanceName, this.v.lengthRange(2, 16)], "请输入2-16位大小写字母数字组合"],
-      password: [this.userProfile.password, [this.v.isUnBlank, this.v.isPassword], "请输入大小写字母数字特殊字符组合"],
+      password: [this.userProfile.password, [this.v.isUnBlank, this.v.isPassword, this.v.lengthRange(8, 20)], "请输入8-20位大小写字母数字组合"],
       checkPassword: [this.checkPassword, [this.v.isUnBlank, this.v.equalTo(this.userProfile.password)], "两次密码输入不一致"],
       email: [this.userProfile.email, [this.v.isUnBlank, this.v.isEmail], "email格式不正确"],
       name: [this.userProfile.userName, [this.v.isUnBlank, this.v.isBase], "姓名输入不正确"],

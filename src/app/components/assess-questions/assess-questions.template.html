@@ -1,0 +1,40 @@
+<ngl-form-element label="模板名称：" [error]="v.result.name" class="slds-m-top--small">
+    <input nglFormControl type="text" placeholder="" [(ngModel)]="assessProfileReq.name" (ngModelChange)="checkValue('name')" [required]="required">
+</ngl-form-element>
+<ngl-form-element label="CODE：" [error]="v.result.code" class="slds-m-top--small">
+    <input nglFormControl type="text" placeholder="" [(ngModel)]="assessProfileReq.code" (ngModelChange)="checkValue('code')" [required]="required">
+</ngl-form-element>
+<ngl-form-element [error]="v.result.type" label="类型:" class="slds-m-top--small left-lable">
+    <select nglFormControl [required]="required" [(ngModel)]="assessProfileReq.type" (ngModelChange)="checkValue('type')" class="slds-select">
+        <option value="">--- 请选择 ---</option>
+        <option *ngFor="let type of service.type | async" [value]="type.value">{{type.displayValue}}</option>
+    </select>
+</ngl-form-element>
+<h2 class="mgt30"><abbr class="slds-required" title="required">*</abbr>请选择考题模板元素</h2>
+<table class="slds-table mgt30">
+    <tr>
+        <th style="width: 70px">选择</th>
+        <th>模板名称</th>
+        <th>CODE</th>
+        <th>类型</th>
+        <th>状态</th>
+    </tr>
+    <tr *ngFor="let template of templateList; let i = index">
+        <td class="no-padding">
+            <ngl-form-checkbox [error]="hasError ? error : null" class="">
+                <input nglFormControl [(ngModel)]="template.isSelect" (ngModelChange)="seletChanged(template)" type="checkbox" />
+            </ngl-form-checkbox>
+        </td>
+        <td>
+            <font class="color-neutral">{{template.name}}</font>
+        </td>
+        <td>{{template.code}}</td>
+        <td>{{template.type | dict: service.type | async}}</td>
+        <td>{{template.status | dict: service.status | async}}</td>
+    </tr>
+</table>
+<pagination *ngIf="maxPage>1" [maxSize]="maxPage" [currentPage]="currentPage + 1" (pageChanged)="pageChanged($event)"></pagination>
+
+<spinner #spinner></spinner>
+<alert #alert></alert>
+<confirm (onConfirm)="onConfirm()" #confirm></confirm>

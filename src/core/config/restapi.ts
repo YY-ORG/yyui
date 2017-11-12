@@ -231,6 +231,12 @@ export let RestApis: RestApiModel[] = [
         "url": "assess/authsec/assess"
     },
     {
+        "desc": "更新创建考题",
+        "method": "PUT",
+        "id": "update.assess",
+        "url": "assess/authsec/assess"
+    },
+    {
         "desc": "创建考题的模板",
         "method": "POST",
         "id": "assess.template",
@@ -271,5 +277,29 @@ export let RestApis: RestApiModel[] = [
         "method": "PUT",
         "id": "update.template",
         "url": "assess/authsec/assess/template"
+    },
+    {
+        "desc": "删除考题",
+        "method": "DELETE",
+        "id": "delete.assess",
+        "url": "assess/authsec/assess/{id}"
+    },
+    {
+        "desc": "获取某个考题的模板",
+        "method": "GET",
+        "id": "get.assess.template",
+        "url": "assess/authsec/assess/{id}/template"
+    },
+    {
+        "desc": "创建考卷",
+        "method": "POST",
+        "id": "creat.paper",
+        "url": "assess/authsec/assesspaper "
+    },
+    {
+        "desc": "更新考卷",
+        "method": "PUT",
+        "id": "update.paper",
+        "url": "assess/authsec/assesspaper"
     }
 ]

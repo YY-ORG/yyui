@@ -3,7 +3,7 @@ import { Http, Response } from '@angular/http';
 import { SystemDictionaryService, RestApiCfg, RestApi, Adminui, Assess, Common } from '../../../core';
 
 @Injectable()
-export class ExaminationAssessService {
+export class AssesspaperService {
   constructor(private http:Http,
               private restApiCfg:RestApiCfg,
               private dict:SystemDictionaryService,
@@ -26,33 +26,39 @@ export class ExaminationAssessService {
     }) as Promise<[Common.PageInfo, Assess.SimpleAssessItem[]]>
   }
 
-  postQuestions (data: Assess.AssessProfileReq){
-    const api = this.restApiCfg.getRestApi("creat.assess");
+  fetchTemplateitemlist (page: number, size: number): Promise<[Common.PageInfo, Assess.SimpleTemplateItem[]]> {
+    const api = this.restApiCfg.getRestApi("templateitem.templateitemlist");
     
-    return this.restApi.request(api.method, api.url, null, null, data)
+    return this.restApi.request(api.method, api.url, null, [{
+      key: 'size',
+      value: size
+    }, {
+      key: 'page',
+      value: page
+    }]).then((res: any) => {
+        return [res.pageInfo, res.resultContent]
+    }) as Promise<[Common.PageInfo, Assess.SimpleTemplateItem[]]>
   }
 
-  updateQuestions (data: Assess.AssessWithIDProfileReq){
-    const api = this.restApiCfg.getRestApi("update.assess");
-    
-    return this.restApi.request(api.method, api.url, null, null, data)
-  }
-  
-  deleteQuestions (id: string) {
-    const api = this.restApiCfg.getRestApi("delete.assess");
-    
-    return this.restApi.request(api.method, api.url, { id })
+  fetchOrganizations() : Promise<Adminui.OrganizationItem[]>{
+      const api = this.restApiCfg.getRestApi("user.organizations");
+
+      return this.restApi.request(api.method, api.url)
   }
 
-  getAssessTemplate (id: string): Promise<Assess.SimpleTemplate[]> {
-    const api = this.restApiCfg.getRestApi("get.assess.template");
-    
-    return this.restApi.request(api.method, api.url, { id })
-  }
+  //职称
+  professionalTitle = this.dict.get({ 
+      owner : "USER_INFO",
+      field : "PROFESSIONAL_TITLE"
+  })
 
   type = this.dict.get({ 
-      owner : "ASSESS",
-      field : "TYPE"
+    owner : "ASSESS",
+    field : "TYPE"
+  })
+  itemType = this.dict.get({ 
+    owner : "TEMPLATE_ITEM",
+    field : "TYPE"
   })
   status = this.dict.get({ 
       owner : "GLOBAL",

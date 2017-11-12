@@ -7271,7 +7271,9 @@ a.slds-button--green:focus {
 
 .slds-modal__content,
 .slds-modal__header {
-    background: #fff
+    background: #fff;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+	border: 1px solid #d8dde6;
 }
 
 .slds-modal__footer,
@@ -7311,7 +7313,9 @@ a.slds-button--green:focus {
     -ms-hyphens: auto;
     hyphens: auto;
     overflow: hidden;
-    overflow-y: auto
+    overflow-y: auto;
+    border-top: none;
+    border-bottom: none;
 }
 
 .slds-modal__content:last-child {

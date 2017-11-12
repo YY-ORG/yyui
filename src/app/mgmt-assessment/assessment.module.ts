@@ -31,6 +31,8 @@ import { ExaminationAssesspaperService } from './examination-assesspaper/examina
 
 // module
 import { AssessTemplateModule } from '../components/assess-template/assess-template.module'
+import { AssessQuestionsModule } from '../components/assess-questions/assess-questions.module'
+import { AssessPaperModule } from '../components/assess-paper/assess-paper.module'
 
 
 @NgModule({
@@ -38,7 +40,9 @@ import { AssessTemplateModule } from '../components/assess-template/assess-templ
         AssessmentRouting,
         CommonComponentModule,
         PipeModule,
-        AssessTemplateModule
+        AssessTemplateModule,
+        AssessQuestionsModule,
+        AssessPaperModule
     ],
     declarations: [
         ContinueEducationeComponent,

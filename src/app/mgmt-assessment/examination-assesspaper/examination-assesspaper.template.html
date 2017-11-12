@@ -1,4 +1,4 @@
-<h1 class="content-title">考卷管理<button class="slds-button slds-button--green float-right" (click)="addNewAccount()">新增考卷</button></h1>
+<h1 class="content-title">考卷管理<button class="slds-button slds-button--green float-right" (click)="newPaperOpen()">新增考卷</button></h1>
 <table class="slds-table mgt30">
     <tr>
         <th style="width: 70px">序号</th>
@@ -23,7 +23,18 @@
 </table>
 <pagination *ngIf="maxPage>1" [maxSize]="maxPage" [currentPage]="currentPage + 1" (pageChanged)="pageChanged($event)"></pagination>
 
-<ngl-modal header="编辑内容" [(open)]="editModalOpen">
+
+<ngl-modal header="新增考卷" [(open)]="addModalOpen">
+    <div body class="width85 mgb30button" style="margin:0 auto">
+        <assess-paper #newAssessPaper [assessPaperProfileReq]="assessPaperProfileReq"></assess-paper>
+    </div>
+    <template ngl-modal-footer>
+        <button class="slds-button slds-button--neutral" (click)="addModalOpen = false">取消</button>
+        <button class="slds-button slds-button--brand" (click)="creatNewPaper()">确定</button>
+    </template>
+</ngl-modal>
+
+<ngl-modal header="编辑内容" size="large" [(open)]="editModalOpen">
     <div body class="width65 mgb30button" style="margin:0 auto">
         <ngl-form-element label="内容名称：" [error]="hasError ? error : null" class="slds-m-top--small">
             <input nglFormControl type="text" placeholder="" [required]="required">
@@ -39,11 +50,22 @@
             <option *ngFor="let sex of [{viewValue:'男', value:'0'},{viewValue:'女', value: '1'}]" [value]="sex.value">{{sex.viewValue}}</option>
           </select>
         </ngl-form-element>
+
+        <ngl-modal header="新增" [(open)]="newModalOpen">
+            <div body class="width65 mgb30button" style="margin:0 auto" (click)="newModalOpen=true">
+                    666
+            </div>
+            <template ngl-modal-footer>
+                <button class="slds-button slds-button--neutral" (click)="editModalOpen = false">取消</button>
+                <button class="slds-button slds-button--brand">确定</button>
+            </template>
+        </ngl-modal>    
     </div>
     <template ngl-modal-footer>
         <button class="slds-button slds-button--neutral" (click)="editModalOpen = false">取消</button>
         <button class="slds-button slds-button--brand">确定</button>
     </template>
+    
 </ngl-modal>
 
 <alert #alert></alert>
