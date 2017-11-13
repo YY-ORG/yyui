@@ -56,7 +56,12 @@ export class AssessQuestionsComponent extends PageClass implements OnInit {
   }
   
   refreshList () {
-    this.templateList = this.cacheTemplateList.map(item => Object.assign({}, item))
+    const reqType = this.assessProfileReq.type.toString()
+    let currentType: string[] = ['0', '1']
+    if (reqType ===  '0' || reqType === '1') {
+      currentType = ['0']
+    }
+    this.templateList = this.cacheTemplateList.map(item => Object.assign({}, item)).filter(item => currentType.indexOf(item.type.toString()) > -1)
     this.templateList.forEach(template => {
       this.assessProfileReq.templateId.forEach(itemid => {
         if (itemid === template.id) {
@@ -72,7 +77,13 @@ export class AssessQuestionsComponent extends PageClass implements OnInit {
   }
 
   seletChanged(template: Assess.SimpleTemplate) {
+
     if (!template.isSelect) {
+      this.templateList
+        .filter(tem => tem.type === template.type)  
+        .forEach(tem => {
+          Object.assign(tem, {disable: false})
+        })
       this.assessProfileReq.templateId = this.assessProfileReq.templateId.filter(itemid => itemid !== template.id)
       return false
     }
@@ -83,6 +94,14 @@ export class AssessQuestionsComponent extends PageClass implements OnInit {
     if (!isInItem) {
       this.assessProfileReq.templateId.push(template.id)
     }
+
+    this.templateList
+      .filter(tem => tem.type === template.type)  
+      .forEach(tem => {
+        if (tem.id !== template.id) {
+          Object.assign(tem, {disable: true})
+        }
+      })
   }
 
   checkValue(key ? : string) {

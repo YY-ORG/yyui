@@ -123,6 +123,7 @@ export namespace Assess {
     status: string = '' //, optional),
     type: string = '' //, optional)
     isSelect: boolean = false
+    disable: boolean = false
   }
   export class AssessProfileReq {
     code: string = '' //, optional),

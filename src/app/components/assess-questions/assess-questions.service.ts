@@ -31,6 +31,11 @@ export class AssessQuestionsService {
     field : "TYPE"
   })
 
+  template_type = this.dict.get({ 
+    owner : "TEMPLATE",
+    field : "TYPE"
+  })
+
   status = this.dict.get({ 
       owner : "GLOBAL",
       field : "STATUS"

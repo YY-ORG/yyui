@@ -9,7 +9,6 @@ import { AssessQuestionsComponent } from '../../components/assess-questions/asse
 
 import { Adminui, Assess, Common } from '../../../core';
 
-
 @Component({
 	selector: 'examination-assess',
 	styleUrls: ["./examination-assess.scss"],
@@ -124,7 +123,9 @@ export class ExaminationAssessComponent extends PageClass implements OnInit {
 			this.spinner.hide()
 			req.templateId = res.map(r => r.id)
 			this.assessProfileReq = req
-			this.assessQuestions.refreshList()
+			setTimeout(() => {
+				this.assessQuestions.refreshList()
+			}, 0)
 			this.editModalOpen = true
 		}).catch(e => this.spinner.hide())
 	}
