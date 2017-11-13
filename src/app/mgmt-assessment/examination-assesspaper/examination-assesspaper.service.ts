@@ -32,10 +32,40 @@ export class ExaminationAssesspaperService {
     return this.restApi.request(api.method, api.url, null, null, data)
   }
 
-  updateNewPaper (data: Assess.AssessPaperProfileReq){
+  updateNewPaper (data: Assess.AssessPaperWithIDProfileReq){
     const api = this.restApiCfg.getRestApi("update.paper");
     
     return this.restApi.request(api.method, api.url, null, null, data)
   }
+
+  deletePaper (id: string) {
+    const api = this.restApiCfg.getRestApi("delete.assesspaper");
+    
+    return this.restApi.request(api.method, api.url, { id })
+  }
+
+  getPaperAssessList (id: string): Promise<Assess.AssessMenuItem[]> {
+    const api = this.restApiCfg.getRestApi("assesspaper.assesslist");
+    
+    return this.restApi.request(api.method, api.url, { id })
+  }
   
+  //职称
+  professionalTitle = this.dict.get({ 
+    owner : "USER_INFO",
+    field : "PROFESSIONAL_TITLE"
+  })
+
+  type = this.dict.get({ 
+    owner : "ASSESS",
+    field : "TYPE"
+  })
+  itemType = this.dict.get({ 
+    owner : "TEMPLATE_ITEM",
+    field : "TYPE"
+  })
+  status = this.dict.get({ 
+      owner : "GLOBAL",
+      field : "STATUS"
+  })
 }

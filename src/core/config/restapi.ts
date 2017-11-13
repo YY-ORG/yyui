@@ -210,6 +210,12 @@ export let RestApis: RestApiModel[] = [
         "desc": "分页检索当前登录用户所在部门的考卷列表",
         "method": "GET",
         "id": "assesspaper.assesspaperlist",
+        "url": "assess//authsec/assesspaper/assesspaperlist"
+    },
+    {
+        "desc": "分页检索当前登录用户所在部门的考卷列表",
+        "method": "GET",
+        "id": "org.assesspaper.assesspaperlist",
         "url": "assess/authsec/org/assesspaper/assesspaperlist"
     },
     {
@@ -217,6 +223,12 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "id": "assesspaper.assesslistpage",
         "url": "assess/authsec/assesspaper/{id}/assesslistpage"
+    },
+    {
+        "desc": "删除某个考卷",
+        "method": "DELETE",
+        "id": "delete.assesspaper",
+        "url": "assess/authsec/assesspaper/{id}"
     },
     {
         "desc": "分页检索题库中的试题",
