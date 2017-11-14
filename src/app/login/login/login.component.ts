@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
 		if( this.loginText === "登录中..." || !this.username || !this.password ) return
 
 		this.loginText = "登录中..."
-		this.service.submitLogin(this.username, this.password)
+		this.service.submitLogin(this.username, encodeURIComponent(this.password))
 			.then(res => {
 				this.service.setJwt(res.access_token)
 			})

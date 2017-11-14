@@ -153,6 +153,12 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/adm/users/search/page/{page}/size/{size} "
     },
     {
+        "desc": "用户中心-账户管理，修改当前密码",
+        "method": "PUT",
+        "id": "password.modify",
+        "url": "adminui//authsec/user/password/modify"
+    },
+    {
         "desc": "角色管理--根据一个角色获得已经选择和未选择的菜单--edit",
         "method": "GET",
         "id": "menu.role",

@@ -23,7 +23,7 @@
     <ngl-form-element label="手机号:" [error]="v.result.phone" class="slds-m-top--small left-lable">
         <input nglFormControl type="text" placeholder="" [(ngModel)]="userProfile.phone" (keyup)="checkValue('phone')">
     </ngl-form-element>
-    <date-picker formClass="left-lable" placeholder="出生日期" (dateChanged)="onDateChanged($event)"></date-picker>
+    <date-picker formClass="left-lable" placeholder="出生日期" [initDate]="userProfile.birthday" (dateChanged)="onDateChanged($event)"></date-picker>
     <ngl-form-element *ngIf="isShowSelect" [error]="v.result.occupationType" label="岗位系列:" class="slds-m-top--small left-lable">
         <select nglFormControl [(ngModel)]="userProfile.occupationType" (ngModelChange)="checkValue('occupationType')" class="slds-select">
     <option value="">--- 请选择 ---</option>

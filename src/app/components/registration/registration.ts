@@ -88,6 +88,7 @@ export class RegistrationComponent implements OnInit {
     if (errorMessage) return Promise.reject(errorMessage)
 
     this.spinner.show()
+    // this.userProfile.password = encodeURIComponent(this.userProfile.password)
     return this.service.submitRegister(this.userProfile).then(res => {
       this.spinner.hide()
       return res

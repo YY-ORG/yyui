@@ -3,17 +3,17 @@
 		<a routerLink="/index"><img class="header-logo" src="/assets/img/logo-text.png"></a>
 		<div class="header-right" nglDropdown [(open)]="userMenuPopverOpen">
 			<div class="user-name" nglDropdownTrigger>
-				<img src="http://tva3.sinaimg.cn/crop.0.0.639.639.180/7804de18jw8f1ib18k2ivj20hr0hs40u.jpg">{{userInfo?.userName}}
+				{{userInfo?.userName}}
 				<i class="iconfont icon-xiangxiajiantou"></i>
 			</div>
 			<div class="slds-dropdown slds-dropdown--left slds-nubbin--top">
 				<ul class="slds-dropdown__list" role="menu">
 					<li class="slds-dropdown__item" role="presentation">
-						<a href="javascript:void(0);" role="menuitem" tabindex="0">
+						<a href="javascript:void(0);" (click)='router.navigateByUrl("/other-page/personal-data"); userMenuPopverOpen = false' role="menuitem" tabindex="0">
 							<span class="slds-truncate">个人资料</span>
 						</a>
 					</li>
-					<li class="slds-dropdown__item" role="presentation">
+					<li class="slds-dropdown__item" (click)='router.navigateByUrl("/other-page/password"); userMenuPopverOpen = false' role="presentation">
 						<a href="javascript:void(0);" role="menuitem" tabindex="-1">
 							<span class="slds-truncate">密码修改</span>
 						</a>

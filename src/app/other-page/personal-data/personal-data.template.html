@@ -1,0 +1,12 @@
+<h1 class="content-title">个人资料</h1>
+
+
+<div class="personal-data">
+	<registration #registration [isShowSelect]='false' [(userProfile)]="userInfo"></registration>
+	<button class="slds-button slds-button--brand mgt30" (click)="saveUser()">确定</button>
+</div>
+
+
+<alert #alert></alert>
+<spinner #spinner></spinner>
+<confirm (onConfirm)="onConfirm()" #confirm></confirm>

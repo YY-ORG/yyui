@@ -108,4 +108,10 @@ export namespace Adminui {
 		name: string = "" //, optional): 部门名称
 		serial?: string = "" //, optional): 部门系列
 	} 
+	export class PasswordProfile {
+		id: string //, optional)
+		newPassword: string //, optional): 新密码
+		password: string //, optional): 当前密码
+		 
+	} 
 }
