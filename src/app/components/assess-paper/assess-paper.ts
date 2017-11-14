@@ -76,12 +76,12 @@ export class AssesspaperComponent extends PageClass implements OnInit {
   }
 
   setAssessItemList () {
-    // this.assessItemList = this.assessPaperProfileReq.assessList.map(assess => ({
-    //     assessCode: assess.assessId,
-    //     assessId: assess.id,
-    //     assessName: assess.name,
-    //     seqNo: 0
-    // }))
+    this.assessItemList = this.assessPaperProfileReq.assessList.map(assess => ({
+        assessCode: assess.assessCode,
+        assessId: assess.assessId,
+        assessName: assess.assessName,
+        seqNo: assess.seqNo
+    }))
   }
   
   refreshList () {
@@ -90,10 +90,13 @@ export class AssesspaperComponent extends PageClass implements OnInit {
     this.allAssessList.forEach(item => {
       this.assessItemList.forEach(assessItem => {
         if (item.id === assessItem.assessId) {
-          Object.assign(assessItem, {isSelect: true})
+          Object.assign(assessItem, {
+            isSelect: true
+          })
         }
       })
     })
+    console.log(this.assessItemList)
   }
 
 	pageChanged (pageEvent: any) {
@@ -112,6 +115,8 @@ export class AssesspaperComponent extends PageClass implements OnInit {
     
     this.assessPaperProfileReq.assessList = this.assessItemList.map(assess => ({
       assessId: assess.assessId,
+      assessName: assess.assessName,
+      assessCode: assess.assessCode,
       seqNo: assess.seqNo
     }))
   }

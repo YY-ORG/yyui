@@ -37,7 +37,7 @@
 
 <ngl-modal header="编辑考卷" size="large" [(open)]="editModalOpen">
     <div body class="width65 mgb30button" style="margin:0 auto">
-        <assess-paper #assessPaper [assessPaperProfileReq]="assessPaperProfileReq"></assess-paper> 
+        <assess-paper #editAssessPaper [assessPaperProfileReq]="assessPaperProfileReq"></assess-paper> 
     </div>
     <template ngl-modal-footer>
         <button class="slds-button slds-button--neutral" (click)="editModalOpen = false">取消</button>

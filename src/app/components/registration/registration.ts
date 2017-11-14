@@ -82,7 +82,7 @@ export class RegistrationComponent implements OnInit {
   }
 
 
-  submitForm(): Promise<string> {
+  submitForm() {
     let errorMessage = this.checkValue()
 
     if (errorMessage) return Promise.reject(errorMessage)
@@ -90,8 +90,12 @@ export class RegistrationComponent implements OnInit {
     this.spinner.show()
     return this.service.submitRegister(this.userProfile).then(res => {
       this.spinner.hide()
-      return res;
-    })
+      return res
+    }).catch(error => {
+      this.spinner.hide()
+      this.alert.open(error)
+      throw error
+		})
   }
 
 

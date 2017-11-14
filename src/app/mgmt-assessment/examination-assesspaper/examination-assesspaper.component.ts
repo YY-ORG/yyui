@@ -10,7 +10,6 @@ import { AssesspaperComponent } from '../../components/assess-paper/assess-paper
 import { Adminui, Assess, Common } from '../../../core';
 
 
-
 @Component({
 	selector: 'examination-assesspaper',
 	styleUrls: ["./examination-assesspaper.scss"],
@@ -55,7 +54,9 @@ export class ExaminationAssesspaperComponent extends PageClass implements OnInit
 	
 	newPaperOpen () {
 		this.assessPaperProfileReq = new Assess.AssessPaperProfileReq
-		this.newAssessPaper.refreshList()
+		setTimeout(() => {
+			this.newAssessPaper.refreshList()
+		}, 0)
 		this.addModalOpen=true
 	}
 	creatNewPaper() {
@@ -121,10 +122,7 @@ export class ExaminationAssesspaperComponent extends PageClass implements OnInit
 		req.title = paper.title
 		this.service.getPaperAssessList(paper.id).then(res => {
 			this.spinner.hide()
-			const assessList = res.map(item => ({
-				assessId: item.assessId,
-				seqNo: 0,
-			}))
+			const assessList = res
 			Object.assign(this.assessPaperProfileReq, { assessList })
 			this.editAssessPaper.refreshList()
 			this.editModalOpen = true

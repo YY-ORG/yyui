@@ -168,6 +168,8 @@ export namespace Assess {
   export class SimpleAssessReq {
     assessId: string = '' //, optional),
     seqNo: number = 0 //, optional)
+    assessCode: string //, optional),
+    assessName: string //, optional),
   }
   export class AssessPaperWithIDProfileReq {
     id: string = '' //, optional),

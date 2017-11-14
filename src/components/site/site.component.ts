@@ -22,9 +22,6 @@ export class SiteComponent implements OnInit {
 
 	ngOnInit() {
 		this.service.getMenuList().then(res => {
-			if (!res || !res.length) {
-				this.router.navigateByUrl("/other-page/user-detail");
-			}
 			this.meunList = res
 		})
 	}

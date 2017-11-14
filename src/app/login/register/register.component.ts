@@ -55,8 +55,6 @@ export class RegisterComponent implements OnInit {
       this.alert.open("注册成功!", () => {
         this.router.navigate([`login`]);
       });
-		}).catch(error => {
-			this.alert.open(error)
 		})
   }
 }

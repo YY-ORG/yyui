@@ -1,12 +1,10 @@
-<h1 class="content-title">用户信息</h1>
+<h1 class="content-title">系统信息</h1>
 
 
 <div class="user-detail">
-	<p>用户名：{{userInfo.userName}}</p>
-	<p>描述：{{userInfo.description}}</p>
-	<p>登录名：{{userInfo.loginName}}</p>
-	<p>手机：{{userInfo.phone}}</p>
-	<p>部门名称：{{userInfo.organizationName}}</p>
+	<p>欢迎您 {{userInfo.userName}} 登录综合业务系统：</p>
+	<p *ngIf="!isHasAuthority">您的相关权限尚未启用，请联系数据中心予以开通！</p>
+	<p *ngIf="isHasAuthority">您的相关权限已经开通!</p>
 </div>
 
 <alert #alert></alert>

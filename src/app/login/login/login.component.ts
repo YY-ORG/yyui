@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
 			.then( res => this.service.getUserInfo() )
 			.then( res => {
 				this.loginText = "登录"
-				this.router.navigateByUrl("/index");
+				this.router.navigateByUrl("/other-page/user-detail");
 			})
 			.catch(e => {
 				console.log(e)

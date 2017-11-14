@@ -19,6 +19,8 @@ export class UserDetailComponent extends PageClass implements OnInit {
 	}
 
 	userInfo = this.service.userInfo
+	isHasAuthority = !(this.userInfo.roles.length === 1 && this.userInfo.roles[0].roleName === 'DEFAULTROLE')
+
 	ngOnInit() {
 		console.log(this.userInfo)
 	}

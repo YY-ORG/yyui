@@ -119,6 +119,9 @@ export class RestApi {
 				if (res.resultCode && res.resultCode === "10001003") {
 					throw "名称不能重复";
 				}
+				if (res.resultCode && res.resultCode === "10001001") {
+					throw res.detailDescription;
+				}
 				if (res.resultCode && res.resultCode !== "100") {
 					throw "状态吗不匹配";
 				}
