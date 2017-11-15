@@ -90,7 +90,7 @@ export class AssesspaperComponent extends PageClass implements OnInit {
     this.allAssessList.forEach(item => {
       this.assessItemList.forEach(assessItem => {
         if (item.id === assessItem.assessId) {
-          Object.assign(assessItem, {
+          Object.assign(item, {
             isSelect: true
           })
         }

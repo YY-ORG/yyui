@@ -17,6 +17,7 @@
         <td>{{assesspaper.title | dict: service.professionalTitle | async}}</td>
         <td>{{assesspaper.status | dict: service.status | async}}</td>
         <td>
+            <my-button button="radius" (onClick)="assignCategory(assesspaper)" color="primary" className="mgr10" icon="icon-edit1">分组</my-button>
             <my-button button="radius" (onClick)="editPaper(assesspaper)" color="primary" className="mgr10" icon="icon-edit1">编辑</my-button>
             <my-button button="radius" (onClick)="deletePaper(assesspaper)" color="red" className="mgr10" icon="icon-edit1">删除</my-button>
         </td>
@@ -24,6 +25,34 @@
 </table>
 <pagination *ngIf="maxPage>1" [maxSize]="maxPage" [currentPage]="currentPage + 1" (pageChanged)="pageChanged($event)"></pagination>
 
+
+<ngl-modal header="编辑分组" [(open)]="editCategory">
+    <div body class="width85 mgb30button" style="margin:0 auto">
+        <table class="slds-table mgt30">
+            <tr>
+                <th style="width: 70px;">选择</th>
+                <th>分组名称</th>
+                <th>CODE</th>
+            </tr>
+            <tr *ngFor="let category of categoryList; let i = index">
+                <td class="no-padding">
+                    <ngl-form-checkbox [error]="hasError ? error : null" class="">
+                        <input nglFormControl [disabled]="category.disable" [(ngModel)]="category.isSelect" (ngModelChange)="seletChanged(category)" type="checkbox" />
+                    </ngl-form-checkbox>
+                </td>
+                <td>
+                    <font class="color-neutral">{{category.name}}</font>
+                </td>
+                <td>{{category.code}}</td>
+            </tr>
+        </table>
+        <pagination *ngIf="cgmaxPage>1" [maxSize]="cgmaxPage" [currentPage]="currentPage + 1" (pageChanged)="cgpageChanged($event)"></pagination>
+    </div>
+    <template ngl-modal-footer>
+        <button class="slds-button slds-button--neutral" (click)="editCategory = false">取消</button>
+        <button class="slds-button slds-button--brand" (click)="creatNewCategory()">确定</button>
+    </template>
+</ngl-modal>
 
 <ngl-modal header="新增考卷" [(open)]="addModalOpen">
     <div body class="width85 mgb30button" style="margin:0 auto">

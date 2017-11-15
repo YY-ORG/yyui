@@ -199,5 +199,6 @@ export namespace Assess {
     code: string = "" //, optional),
     id: string = "" //, optional),
     name: string = "" //, optional)
+    isSelect: boolean = false //, optional)
   }
 }

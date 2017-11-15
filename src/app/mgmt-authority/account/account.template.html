@@ -4,22 +4,24 @@
     <tr>
         <th style="width: 70px">序号</th>
         <th>账号</th>
-        <th>描述</th>
+        <th>姓名</th>
         <th>邮箱</th>
         <th>手机</th>
         <th>角色</th>
+        <th>描述</th>
         <th>部门</th>
         <th style="width: 300px">操作</th>
     </tr>
     <tr *ngFor="let user of userList; let i = index">
         <td>{{i+1}}</td>
         <td>
-            <font class="color-neutral">{{user.userName}}</font>
+            <font class="color-neutral">{{user.loginName}}</font>
         </td>
-        <td>{{user.description}}</td>
+        <td>{{user.userName}}</td>
         <td>{{user.email}}</td>
         <td>{{user.phone}}</td>
         <td>{{user.roles | getArrValue : 'roleName'}}</td>
+        <td>{{user.description}}</td>
         <td>{{user.organizationName}}</td>
         <td>
             <my-button button="radius" (onClick)="editUser(user)" color="primary" className="mgr10" icon="icon-edit1">编辑</my-button>
@@ -41,7 +43,7 @@
 
 <ngl-modal header="编辑账号" [(open)]="editModalOpen">
     <div body class="width65 mgb30button" style="margin:0 auto">
-        <registration #registration [(userProfile)]="currentUser"></registration>
+        <registration #editregistration [(userProfile)]="currentUser" [isCanEditPassword]='true'></registration>
         <label _ngcontent-c2="" class="slds-form-element__label role-title mgt15" for="ngl_form_element_6">
             <span _ngcontent-c2="" ng-reflect-ngl-internal-outlet="角色：">角色：</span>
         </label>

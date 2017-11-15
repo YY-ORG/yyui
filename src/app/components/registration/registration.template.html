@@ -8,6 +8,9 @@
     <ngl-form-element *ngIf="!isEdit" label="确认密码:" [error]="v.result.checkPassword" class="slds-m-top--small left-lable">
         <input nglFormControl type="password" placeholder="" [(ngModel)]="checkPassword" (keyup)="checkValue('checkPassword')">
     </ngl-form-element>
+    <ngl-form-element *ngIf="isCanEditPassword" label="密码:" [error]="v.result.password" class="slds-m-top--small left-lable">
+        <input nglFormControl type="password" placeholder="" [(ngModel)]="editpasswordvalue" (ngModelChange)="editpassword()" (keyup)="checkValue('editpassword')">
+    </ngl-form-element>
     <ngl-form-element label="用户邮箱:" [error]="v.result.email" class="slds-m-top--small left-lable">
         <input nglFormControl type="text" placeholder="" [(ngModel)]="userProfile.email" (keyup)="checkValue('email')">
     </ngl-form-element>
@@ -25,31 +28,31 @@
     </ngl-form-element>
     <date-picker formClass="left-lable" placeholder="出生日期" [initDate]="userProfile.birthday" (dateChanged)="onDateChanged($event)"></date-picker>
     <ngl-form-element *ngIf="isShowSelect" [error]="v.result.occupationType" label="岗位系列:" class="slds-m-top--small left-lable">
-        <select nglFormControl [(ngModel)]="userProfile.occupationType" (ngModelChange)="checkValue('occupationType')" class="slds-select">
+        <select nglFormControl [disabled]='isDisable' [(ngModel)]="userProfile.occupationType" (ngModelChange)="checkValue('occupationType')" class="slds-select">
     <option value="">--- 请选择 ---</option>
             <option *ngFor="let occupationType of service.occupationType | async" [value]="occupationType.value">{{occupationType.displayValue}}</option>
         </select>
     </ngl-form-element>
     <ngl-form-element *ngIf="isShowSelect" [error]="v.result.professionalTitle" label="职称:" class="slds-m-top--small left-lable">
-        <select nglFormControl [(ngModel)]="userProfile.professionalTitle" (ngModelChange)="checkValue('professionalTitle')" class="slds-select">
+        <select nglFormControl [disabled]='isDisable' [(ngModel)]="userProfile.professionalTitle" (ngModelChange)="checkValue('professionalTitle')" class="slds-select">
     <option value="">--- 请选择 ---</option>
             <option *ngFor="let professionalTitle of service.professionalTitle | async" [value]="professionalTitle.value">{{professionalTitle.displayValue}}</option>
         </select>
     </ngl-form-element>
     <ngl-form-element *ngIf="isShowSelect" [error]="v.result.administrativeRank" label="行政级别:" class="slds-m-top--small left-lable">
-        <select nglFormControl [(ngModel)]="userProfile.administrativeRank" (ngModelChange)="checkValue('administrativeRank')" class="slds-select">
+        <select nglFormControl [disabled]='isDisable' [(ngModel)]="userProfile.administrativeRank" (ngModelChange)="checkValue('administrativeRank')" class="slds-select">
     <option value="">--- 请选择 ---</option>
             <option *ngFor="let rank of service.administrativeRank | async" [value]="rank.value">{{rank.displayValue}}</option>
         </select>
     </ngl-form-element>
     <ngl-form-element *ngIf="isShowSelect" [error]="v.result.administrativePost" label="行政职务:" class="slds-m-top--small left-lable">
-        <select nglFormControl [(ngModel)]="userProfile.administrativePost" (ngModelChange)="checkValue('administrativePost')" class="slds-select">
+        <select nglFormControl [disabled]='isDisable' [(ngModel)]="userProfile.administrativePost" (ngModelChange)="checkValue('administrativePost')" class="slds-select">
     <option value="">--- 请选择 ---</option>
             <option *ngFor="let post of service.administrativePost | async" [value]="post.value">{{post.displayValue}}</option>
         </select>
     </ngl-form-element>
     <ngl-form-element *ngIf="isShowSelect" [error]="v.result.orgId" label="部门:" class="slds-m-top--small left-lable">
-        <select nglFormControl [(ngModel)]="userProfile.organizationId" (ngModelChange)="userProfile.orgId = userProfile.organizationId;checkValue('orgId')" class="slds-select">
+        <select nglFormControl [disabled]='isDisable' [(ngModel)]="userProfile.organizationId" (ngModelChange)="userProfile.orgId = userProfile.organizationId;checkValue('orgId')" class="slds-select">
             <option value="">--- 请选择 ---</option>
             <option *ngFor="let organization of organizationList" [value]="organization.id">{{organization.organizitionName}}</option>
         </select>

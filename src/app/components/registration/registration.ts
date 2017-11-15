@@ -34,12 +34,15 @@ export class RegistrationComponent implements OnInit {
   
   @Input() isShowSelect:boolean = true;
   @Input() userProfile: Adminui.UserProfile;
+  @Input() isDisable: boolean = false;
+  @Input() isCanEditPassword: boolean = false;
   @ViewChild('spinner') spinner: SpinnerComponent;
   @ViewChild('alert') alert: AlertComponent;
 
   checkPassword: string;
   organizationList: Adminui.OrganizationItem[] = []
   isEdit: boolean = true;
+  editpasswordvalue: string = '!Qaz2wsx'
 
   ngOnInit() {
     if (!this.userProfile) {
@@ -67,6 +70,7 @@ export class RegistrationComponent implements OnInit {
       birthday: [this.userProfile.birthday, [this.v.isUnBlank, this.v.isBase], "请填写正确的出生日期"]
     }
 
+
     if (this.isShowSelect) {
       regs = {
         ...regs,
@@ -79,6 +83,14 @@ export class RegistrationComponent implements OnInit {
     }
 
     return this.v.check(key, regs);
+  }
+
+  editpassword () {
+    this.userProfile.password = this.editpasswordvalue
+  }
+
+  getPassword () {
+    return this.editpasswordvalue === '!Qaz2wsx' ? null : this.editpasswordvalue
   }
 
 

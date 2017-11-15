@@ -29,15 +29,22 @@ export class ExaminationAssesspaperComponent extends PageClass implements OnInit
 	willDeleteUser;
 	editModalOpen: boolean = false;
 	addModalOpen: boolean = false;
+	editCategory: boolean = false;
 	assesspaperList: Assess.SimpleAssessPaperItem[] = []
-	currentAssesspaperList: Assess.SimpleAssessPaperItem = new Assess.SimpleAssessPaperItem
-  	assessPaperProfileReq: Assess.AssessPaperProfileReq = new Assess.AssessPaperProfileReq;
+	currentAssesspaper: Assess.SimpleAssessPaperItem = new Assess.SimpleAssessPaperItem
+	assessPaperProfileReq: Assess.AssessPaperProfileReq = new Assess.AssessPaperProfileReq;
+	currentCategoryitem: Assess.SimpleAssessCategoryItem[] = []
+	categoryList: Assess.SimpleAssessCategoryItem[] = []
+	categoryReq: string[] = []
 	
 	currentPage: number = 0
 	maxPage: number = 1
+	cgcurrentPage: number = 0
+	cgmaxPage: number = 1
 	
 	ngOnInit() {
 		this.getPaperList()
+		this.getCategoryList()
 	}
 
 	getPaperList () {
@@ -72,10 +79,46 @@ export class ExaminationAssesspaperComponent extends PageClass implements OnInit
 			this.getPaperList()
 		}).catch(e => this.spinner.hide())
 	}
-
+	
 	pageChanged (pageEvent: any) {
 		this.currentPage = pageEvent.currentpage
 		this.getPaperList()
+	}
+
+	getCategoryList () {
+		this.spinner.show()
+		this.service.fetchCategorylist(this.cgcurrentPage, 10).then((res) => {
+			this.spinner.hide()
+			let [pageList, categoryList] = res
+			this.cgcurrentPage = pageList.currentPage
+			this.cgmaxPage = pageList.totalPage
+			this.categoryList = categoryList
+			this.refreshCategory()
+		}).catch(res => this.spinner.hide())
+	}
+
+	refreshCategory () {
+		this.categoryList.forEach(category => {
+			this.categoryReq.forEach(req => {
+				if (category.id === req) {
+					Object.assign(category, {isSelect: true})
+				}
+			})
+		})
+	}
+
+	cgpageChanged (pageEvent: any) {
+		this.cgcurrentPage = pageEvent.currentpage - 1
+		this.getCategoryList()
+	}
+
+	creatNewCategory() {
+		this.spinner.show()
+		this.service.assignCategory(this.currentAssesspaper.id, this.categoryReq).then(res => {
+			this.spinner.hide()
+			this.editCategory = false
+			console.log(res)
+		})
 	}
 
 	submiteEditPaper() {
@@ -86,7 +129,7 @@ export class ExaminationAssesspaperComponent extends PageClass implements OnInit
 		
 		this.spinner.show()		
 		this.service.updateNewPaper({
-			id: this.currentAssesspaperList.id,
+			id: this.currentAssesspaper.id,
 			...this.assessPaperProfileReq
 		}).then(res => {
 			this.spinner.hide()		
@@ -94,7 +137,28 @@ export class ExaminationAssesspaperComponent extends PageClass implements OnInit
 			this.getPaperList()
 		}).catch(e => this.spinner.hide())
 	}
+
+	assignCategory(paper: Assess.SimpleAssessPaperItem){
+		this.currentAssesspaper = paper
 		
+		this.spinner.show()
+		return this.service.getCategory(this.currentAssesspaper.id).then(res => {
+			this.spinner.hide()
+			this.editCategory = true  
+			this.categoryReq = res.map(r => r.id)
+			this.refreshCategory()
+			console.log(res)
+		}).catch(e => this.spinner.hide())
+	}
+		
+	seletChanged (category: Assess.SimpleAssessCategoryItem) {
+		this.categoryReq = this.categoryReq.filter(id => id !== category.id)
+		if (category.isSelect) {
+			this.categoryReq.push(category.id)
+		}
+		console.log(this.categoryReq)
+	}
+
 	deletePaper(paper: Assess.SimpleAssessPaperItem) {
 		this.confirm.open("确定要删除此考卷吗？")
 		this.onConfirm = () => {
@@ -112,7 +176,7 @@ export class ExaminationAssesspaperComponent extends PageClass implements OnInit
 	}
 
 	editPaper(paper: Assess.SimpleAssessPaperItem) {
-		this.currentAssesspaperList = paper
+		this.currentAssesspaper = paper
 		this.spinner.show()
 		const req = this.assessPaperProfileReq
 		req.assessList = []
