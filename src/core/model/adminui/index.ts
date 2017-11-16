@@ -27,19 +27,19 @@ export namespace Adminui {
 		totalRecords: number; //, optional)
 	}
 	export class UserProfile {
-		administrativePost : string = "";  //, optional): 行政职务 ,
-		administrativeRank : string = "";  //, optional): 行政级别 ,
+		administrativePost : string = "15";  //, optional): 行政职务 ,
+		administrativeRank : string = "7";  //, optional): 行政级别 ,
 		birthday : string = "";  //, optional),
 		description : string = "";  //, optional): 描述 ,
 		email : string = "";  //, optional),
 		gender : string = "";  //, optional),
 		userId : string = "";  //, optional),
 		loginName : string = "";  //, optional): 账号 ,
-		occupationType : string = "";  //, optional): 岗位系列 ,
+		occupationType : string = "4";  //, optional): 岗位系列 ,
 		orgId : string = "";  //, optional): 部门Id ,
 		password : string = "";  //, optional),
 		phone : string = "";  //, optional),
-		professionalTitle : string = "";  //, optional): 职称 ,
+		professionalTitle : string = "4";  //, optional): 职称 ,
 		roles : RoleProfile[] = [];  //[RoleProfile], optional): 绑定角色 ,
 		userName : string = "";  //, optional): 姓名
 	}

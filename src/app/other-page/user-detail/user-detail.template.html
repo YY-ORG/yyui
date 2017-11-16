@@ -2,8 +2,8 @@
 
 
 <div class="user-detail">
-	<p>欢迎您 {{userInfo.userName}} 登录综合业务系统：</p>
-	<p *ngIf="!isHasAuthority">您的相关权限尚未启用，请联系数据中心予以开通！</p>
+	<p style="font-weight: bold">欢迎您 {{userInfo.userName}} 登录综合业务系统：</p>
+	<p style="text-indent: 36px" *ngIf="!isHasAuthority">您的相关权限尚未启用，请联系数据中心予以开通！</p>
 	<p style="text-indent: 36px" *ngIf="isHasAuthority">您的相关权限已经开通!</p>
 </div>
 

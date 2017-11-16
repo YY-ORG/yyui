@@ -98,9 +98,10 @@ export class ExaminationAssesspaperComponent extends PageClass implements OnInit
 	}
 
 	refreshCategory () {
+		this.categoryList.forEach(c => Object.assign(c, { isSelect: false }))
 		this.categoryList.forEach(category => {
-			this.categoryReq.forEach(req => {
-				if (category.id === req) {
+			this.currentCategoryitem.forEach(req => {
+				if (category.id === req.id) {
 					Object.assign(category, {isSelect: true})
 				}
 			})
@@ -114,10 +115,10 @@ export class ExaminationAssesspaperComponent extends PageClass implements OnInit
 
 	creatNewCategory() {
 		this.spinner.show()
+		this.categoryReq = this.currentCategoryitem.map(res => res.id)
 		this.service.assignCategory(this.currentAssesspaper.id, this.categoryReq).then(res => {
 			this.spinner.hide()
 			this.editCategory = false
-			console.log(res)
 		})
 	}
 
@@ -138,6 +139,10 @@ export class ExaminationAssesspaperComponent extends PageClass implements OnInit
 		}).catch(e => this.spinner.hide())
 	}
 
+	get currentCategory () {
+		return this.currentCategoryitem.map(c => c.name).join(' ,')
+	}
+
 	assignCategory(paper: Assess.SimpleAssessPaperItem){
 		this.currentAssesspaper = paper
 		
@@ -145,18 +150,17 @@ export class ExaminationAssesspaperComponent extends PageClass implements OnInit
 		return this.service.getCategory(this.currentAssesspaper.id).then(res => {
 			this.spinner.hide()
 			this.editCategory = true  
-			this.categoryReq = res.map(r => r.id)
+			this.currentCategoryitem = res.map(r => Object.assign({}, r))
+			console.log(this.currentCategoryitem, res)
 			this.refreshCategory()
-			console.log(res)
 		}).catch(e => this.spinner.hide())
 	}
 		
 	seletChanged (category: Assess.SimpleAssessCategoryItem) {
-		this.categoryReq = this.categoryReq.filter(id => id !== category.id)
+		this.currentCategoryitem = this.currentCategoryitem.filter(res => res.id !== category.id)
 		if (category.isSelect) {
-			this.categoryReq.push(category.id)
+			this.currentCategoryitem.push(category)
 		}
-		console.log(this.categoryReq)
 	}
 
 	deletePaper(paper: Assess.SimpleAssessPaperItem) {

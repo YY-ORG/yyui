@@ -1,6 +1,6 @@
 <div class="register-box">
     <ngl-form-element label="用户名:" [error]="v.result.username" class="slds-m-top--small left-lable">
-        <input nglFormControl type="text" placeholder="" [(ngModel)]="userProfile.loginName" (keyup)="checkValue('username')">
+        <input nglFormControl type="text" [disabled]="isEdit" placeholder="" [(ngModel)]="userProfile.loginName" (keyup)="checkValue('username')">
     </ngl-form-element>
     <ngl-form-element *ngIf="!isEdit" label="密码:" [error]="v.result.password" class="slds-m-top--small left-lable">
         <input nglFormControl type="password" placeholder="" [(ngModel)]="userProfile.password" (keyup)="checkValue('password')">
