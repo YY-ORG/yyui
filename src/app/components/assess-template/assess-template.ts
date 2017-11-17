@@ -112,7 +112,7 @@ export class AssessTemplateComponent extends PageClass implements OnInit {
   checkValue(key ? : string) {
     let regs: ValidationRegs = {
       name: [this.templateProfileReq.name, [this.v.isUnBlank], "请输入名称"],
-      code: [this.templateProfileReq.code, [this.v.isUnBlank], "请输入code"],
+      code: [this.templateProfileReq.code, [this.v.isUnBlank], "请输入编码"],
       type: [this.templateProfileReq.type, [this.v.isUnBlank], "请选择类型"],
       items: [this.templateProfileReq.itemList.length, [this.v.min(1)], "请选择考题模板元素"],
     }

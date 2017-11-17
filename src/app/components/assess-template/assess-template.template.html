@@ -1,7 +1,7 @@
 <ngl-form-element label="模板名称：" [error]="v.result.name" class="slds-m-top--small">
     <input nglFormControl type="text" placeholder="" [(ngModel)]="templateProfileReq.name" (ngModelChange)="checkValue('name')" [required]="required">
 </ngl-form-element>
-<ngl-form-element label="CODE：" [error]="v.result.code" class="slds-m-top--small">
+<ngl-form-element label="编码：" [error]="v.result.code" class="slds-m-top--small">
     <input nglFormControl type="text" placeholder="" [(ngModel)]="templateProfileReq.code" (ngModelChange)="checkValue('code')" [required]="required">
 </ngl-form-element>
 <ngl-form-element [error]="v.result.type" label="类型:" class="slds-m-top--small left-lable">

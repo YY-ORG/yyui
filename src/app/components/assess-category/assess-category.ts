@@ -32,7 +32,7 @@ export class AssessCategoryComponent extends PageClass implements OnInit {
   checkValue(key ? : string) {
     let regs: ValidationRegs = {
       name: [this.assessProfileReq.name, [this.v.isUnBlank], "请输入名称"],
-      code: [this.assessProfileReq.code, [this.v.isUnBlank], "请输入code"],
+      code: [this.assessProfileReq.code, [this.v.isUnBlank], "请输入编码"],
     }
 
     return this.v.check(key, regs);

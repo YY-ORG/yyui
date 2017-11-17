@@ -150,7 +150,7 @@ export class AssesspaperComponent extends PageClass implements OnInit {
   checkValue(key ? : string) {
     let regs: ValidationRegs = {
       name: [this.assessPaperProfileReq.name, [this.v.isUnBlank], "请输入试卷名称"],
-      code: [this.assessPaperProfileReq.code, [this.v.isUnBlank], "请输入code"],
+      code: [this.assessPaperProfileReq.code, [this.v.isUnBlank], "请输入编码"],
       title: [this.assessPaperProfileReq.title, [this.v.isUnBlank], "请选择职称"],
       orgId: [this.assessPaperProfileReq.orgId, [this.v.isUnBlank], "请选择部门"],
       assessList: [this.assessPaperProfileReq.assessList.length, [this.v.min(1)], "考题列表不能为空"],
