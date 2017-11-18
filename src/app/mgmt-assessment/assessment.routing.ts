@@ -25,6 +25,7 @@ import { ExaminationAssessComponent } from './examination-assess/examination-ass
 import { ExaminationTemplateComponent } from './examination-template/examination-template.component'
 import { ExaminationAssesspaperComponent } from './examination-assesspaper/examination-assesspaper.component'
 import { ExaminationCategoryComponent } from './category/category.component'
+import { ExaminationTemplateitemComponent } from './templateitem/templateitem.component'
 
 export const AssessmentRouting: ModuleWithProviders = RouterModule.forChild([{
   path: '',
@@ -70,6 +71,9 @@ export const AssessmentRouting: ModuleWithProviders = RouterModule.forChild([{
     },{
       path: 'category',
       component: ExaminationCategoryComponent
+    },{
+      path: 'templateitem',
+      component: ExaminationTemplateitemComponent
     }
   ]
 }]);

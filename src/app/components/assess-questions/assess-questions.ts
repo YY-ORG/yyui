@@ -61,6 +61,9 @@ export class AssessQuestionsComponent extends PageClass implements OnInit {
     if (reqType ===  '0' || reqType === '1') {
       currentType = ['0']
     }
+    if (reqType === '') {
+      currentType = []
+    }
     this.templateList = this.cacheTemplateList.map(item => Object.assign({}, item)).filter(item => currentType.indexOf(item.type.toString()) > -1)
     this.templateList.forEach(template => {
       this.assessProfileReq.templateId.forEach(itemid => {

@@ -23,6 +23,7 @@ import { SendingManuscriptComponent } from './sending-manuscript/sending-manuscr
 import { ExaminationTemplateComponent } from './examination-template/examination-template.component'
 import { ExaminationAssesspaperComponent } from './examination-assesspaper/examination-assesspaper.component'
 import { ExaminationCategoryComponent } from './category/category.component'
+import { ExaminationTemplateitemComponent } from './templateitem/templateitem.component'
 
 //service
 import { ExaminationPaperService } from './examination-paper/examination-paper.service'
@@ -30,12 +31,14 @@ import { ExaminationAssessService } from './examination-assess/examination-asses
 import { ExaminationTemplateService } from './examination-template/examination-template.service'
 import { ExaminationAssesspaperService } from './examination-assesspaper/examination-assesspaper.service'
 import { AssessCategoryService } from './category/category.service'
+import { TemplateitemService } from './templateitem/templateitem.service'
 
 // module
 import { AssessTemplateModule } from '../components/assess-template/assess-template.module'
 import { AssessQuestionsModule } from '../components/assess-questions/assess-questions.module'
 import { AssessPaperModule } from '../components/assess-paper/assess-paper.module'
 import { AssessCategoryModule } from '../components/assess-category/assess-category.module'
+import { TemplateitemModule } from '../components/assess-templateitem/assess-templateitem.module'
 
 
 @NgModule({
@@ -46,7 +49,9 @@ import { AssessCategoryModule } from '../components/assess-category/assess-categ
         AssessTemplateModule,
         AssessQuestionsModule,
         AssessPaperModule,
-        AssessCategoryModule
+        AssessCategoryModule,
+        AssessCategoryModule,
+        TemplateitemModule
     ],
     declarations: [
         ContinueEducationeComponent,
@@ -61,7 +66,8 @@ import { AssessCategoryModule } from '../components/assess-category/assess-categ
         ExaminationAssessComponent,
         ExaminationTemplateComponent,
         ExaminationAssesspaperComponent,
-        ExaminationCategoryComponent
+        ExaminationCategoryComponent,
+        ExaminationTemplateitemComponent
     ],
     exports: [
     ],
@@ -70,7 +76,8 @@ import { AssessCategoryModule } from '../components/assess-category/assess-categ
         ExaminationAssessService,
         ExaminationTemplateService,
         ExaminationAssesspaperService,
-        AssessCategoryService
+        AssessCategoryService,
+        TemplateitemService
     ]
 
 })

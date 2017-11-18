@@ -102,11 +102,36 @@ export namespace Assess {
     status: string = '' //, optional),
     tip: string = '' //, optional),
     type: string = '' //, optional),
-    valueSource: string = '' //, optional)
+    valueField: string = "" //, optional),
+    valueOwner: string = "" //, optional)
     isSelect: boolean = false
     editable: boolean = true
     mandatory: boolean = true
     visible: boolean = true
+    seqNo: number = 0
+  }
+  export class TemplateItemProfileReq {
+    code: string = "" //, optional),
+    defaultValue: string = "" //, optional),
+    label: string = "" //, optional),
+    name: string = "" //, optional),
+    placeHolder: string = "" //, optional),
+    tip: string = "" //, optional),
+    type: string = "" //, optional),
+    valueField: string = "" //, optional),
+    valueOwner: string = "" //, optional)
+  }
+  export class TemplateItemWithIDProfileReq {
+    code: string = "" //, optional),
+    defaultValue: string = "" //, optional),
+    id: string = "" //, optional),
+    label: string = "" //, optional),
+    name: string = "" //, optional),
+    placeHolder: string = "" //, optional),
+    tip: string = "" //, optional),
+    type: string = "" //, optional),
+    valueField: string = "" //, optional),
+    valueOwner: string = "" //, optional)
   }
   export class SimpleAssessItem {
     code: string = '' //, optional),

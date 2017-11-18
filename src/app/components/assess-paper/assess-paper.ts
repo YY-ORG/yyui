@@ -2,6 +2,7 @@ import { Component,  OnInit, ViewEncapsulation, Input, ViewChild  } from '@angul
 
 import { INglDatatableSort, INglDatatableRowClick } from 'ng-lightning/ng-lightning';
 import { Validation, ValidationRegs, SpinnerComponent, AlertComponent } from '../../../components'
+import { OrderByPipe } from '../../../pipe/orderby'
 import { PageClass } from '../../../class/page/page.class'
 import { AssesspaperService } from './assess-paper.service'
 
@@ -16,7 +17,8 @@ import { Adminui, Assess, Common } from '../../../core';
 export class AssesspaperComponent extends PageClass implements OnInit {
 	constructor(
 		public v: Validation,
-    private service: AssesspaperService
+    private service: AssesspaperService,
+    private orderByPipe: OrderByPipe
 	) {
 		super()
     this.v.result = {}
@@ -96,7 +98,16 @@ export class AssesspaperComponent extends PageClass implements OnInit {
         }
       })
     })
-    console.log(this.assessItemList)
+  }
+
+  setSeqNo (assess: Assess.AssessMenuItem, lastIndex: number) {
+    assess.seqNo = lastIndex > +assess.seqNo ? assess.seqNo - 1 : +assess.seqNo + 1
+    let list = this.orderByPipe.transform(this.assessItemList, 'seqNo').map((assess, i) => {
+      return Object.assign({}, assess, {
+        seqNo: assess.seqNo > i - 1 ? i + 1 : i
+      })
+    })
+    this.assessItemList = list
   }
 
 	pageChanged (pageEvent: any) {
@@ -157,6 +168,10 @@ export class AssesspaperComponent extends PageClass implements OnInit {
     }
 
     return this.v.check(key, regs);
+  }
+
+  get seqNoList () {
+    return Array(this.assessItemList.length).fill(0).map((x,i) => i + 1);
   }
 }
 

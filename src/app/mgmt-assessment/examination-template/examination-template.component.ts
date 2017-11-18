@@ -131,7 +131,7 @@ export class ExaminationTemplateComponent extends PageClass implements OnInit {
 				visible: item.visible
 			}))
 			Object.assign(this.templateProfileReq, { itemList })
-			this.assessTemplate.refreshList()
+			this.assessTemplate.refreshList(res)
 			this.editModalOpen = true
 		})
 	}

@@ -12,22 +12,16 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/noauth/sysdic"
     },
     {
-        "desc": "数据字典信息（OWNER）",
+        "desc": "获取数据字典的Owner列表",
         "id": "sysdic.owner",
         "method": "GET",
-        "url": "adminui/noauth/sysdic/{_owner}"
+        "url": "sysbase/authsec/sysdic/owner"
     },
     {
-        "desc": "数据字典信息（OWNER/FIELD）",
+        "desc": "获取数据字典某个Owner的Field列表",
         "id": "sysdic.owner.field",
         "method": "GET",
-        "url": "adminui/noauth/sysdic/{_owner}/{_field}"
-    },
-    {
-        "desc": "数据字典信息（OWNER/FIELD/CODE）",
-        "id": "sysdic.owner.field.code",
-        "method": "GET",
-        "url": "adminui/noauth/sysdic/{_owner}/{_field}/{_code}"
+        "url": "sysbase/authsec/sysdic/owner/{owner}/field"
     },
     {
         "desc": "登出",
@@ -273,18 +267,6 @@ export let RestApis: RestApiModel[] = [
         "url": "assess/authsec/template/templatelist"
     },
     {
-        "desc": "创建考题的元素项",
-        "method": "POST",
-        "id": "template.templateitem",
-        "url": "assess/authsec/assess/template/templateitem"
-    },
-    {
-        "desc": "分页检索所有的考题模板元素",
-        "method": "GET",
-        "id": "templateitem.templateitemlist",
-        "url": "assess/authsec/templateitem/templateitemlist"
-    },
-    {
         "desc": "获取某个模板的模板元素",
         "method": "GET",
         "id": "templateitem.id.templateitemlist",
@@ -355,5 +337,29 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "id": "assesspaper.category",
         "url": "assess/authsec/assesspaper/{id}/category/categorylist"
+    },
+    {
+        "desc": "创建考题的元素项",
+        "method": "POST",
+        "id": "template.templateitem",
+        "url": "assess/authsec/assess/template/templateitem"
+    },
+    {
+        "desc": "更新考题的元素项",
+        "method": "PUT",
+        "id": "update.templateitem",
+        "url": "assess/authsec/assess/template/templateitem"
+    },
+    {
+        "desc": "分页检索所有的考题模板元素",
+        "method": "GET",
+        "id": "templateitem.templateitemlist",
+        "url": "assess/authsec/templateitem/templateitemlist"
+    },
+    {
+        "desc": "删除某个模板元素",
+        "method": "DELETE",
+        "id": "delete.templateitem",
+        "url": "assess/authsec/assess/template/templateitem/{id}"
     }
 ]

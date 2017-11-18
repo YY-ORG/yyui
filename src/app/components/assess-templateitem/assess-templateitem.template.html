@@ -1,0 +1,42 @@
+<ngl-form-element label="元素名称：" [error]="v.result.name" class="slds-m-top--small">
+    <input nglFormControl type="text" placeholder="" [(ngModel)]="assessProfileReq.name" (ngModelChange)="checkValue('name')" [required]="required">
+</ngl-form-element>
+<ngl-form-element label="编码：" [error]="v.result.code" class="slds-m-top--small">
+    <input nglFormControl type="text" placeholder="" [(ngModel)]="assessProfileReq.code" (ngModelChange)="checkValue('code')" [required]="required">
+</ngl-form-element>
+<ngl-form-element label="元素显示名称：" [error]="v.result.label" class="slds-m-top--small">
+    <input nglFormControl type="text" placeholder="" [(ngModel)]="assessProfileReq.label" (ngModelChange)="checkValue('label')" [required]="required">
+</ngl-form-element>
+<ngl-form-element [error]="v.result.type" label="元素类型:" class="slds-m-top--small">
+    <select nglFormControl [(ngModel)]="assessProfileReq.type" (ngModelChange)="checkValue('type')" class="slds-select" [required]="required">
+        <option value="">--- 请选择 ---</option>
+        <option *ngFor="let t of service.type | async" [value]="t.value">{{t.displayValue}}</option>
+    </select>
+</ngl-form-element>
+<ngl-form-element *ngIf="assessProfileReq.type == '1'" [error]="v.result.valueOwner" label="类目:" class="slds-m-top--small">
+    <select nglFormControl [(ngModel)]="assessProfileReq.valueOwner" (ngModelChange)="getFiled();checkValue('valueOwner')" class="slds-select" [required]="required">
+        <option value="">--- 请选择 ---</option>
+        <option *ngFor="let t of ownerList" [value]="t">{{t}}</option>
+    </select>
+</ngl-form-element>
+
+<ngl-form-element *ngIf="assessProfileReq.type == '1'" [error]="v.result.valueField" label="类目元素:" class="slds-m-top--small">
+    <select nglFormControl [(ngModel)]="assessProfileReq.valueField" (ngModelChange)="checkValue('valueField')" class="slds-select" [required]="required">
+        <option value="">--- 请选择 ---</option>
+        <option *ngFor="let t of fieldList" [value]="t">{{t}}</option>
+    </select>
+</ngl-form-element>
+<ngl-form-element label="默认值：" class="slds-m-top--small">
+    <input nglFormControl type="text" placeholder="" [(ngModel)]="assessProfileReq.defaultValue">
+</ngl-form-element>
+<ngl-form-element label="表单占位符：" class="slds-m-top--small">
+    <input nglFormControl type="text" placeholder="" [(ngModel)]="assessProfileReq.placeHolder">
+</ngl-form-element>
+<ngl-form-element label="错误提示：" class="slds-m-top--small">
+    <input nglFormControl type="text" placeholder="" [(ngModel)]="assessProfileReq.tip">
+</ngl-form-element>
+<!-- valueSource (string, optional)元素值来源 -->
+
+<spinner #spinner></spinner>
+<alert #alert></alert>
+<confirm (onConfirm)="onConfirm()" #confirm></confirm>

@@ -10,10 +10,59 @@
         <option *ngFor="let type of service.type | async" [value]="type.value">{{type.displayValue}}</option>
     </select>
 </ngl-form-element>
-<h2 class="mgt30"><abbr class="slds-required" title="required">*</abbr>请选择考题模板元素</h2>
+
+<h1 class="paper-title mgt30">考题模板元素列表<button class="slds-button slds-button--green float-right" (click)="addNewTemplate()">更改模板元素</button></h1>
+
+<ngl-modal header="更改模板元素" size="large" [(open)]="addModalOpen">
+    <div body class="width85 mgb30button" style="margin:0 auto">
+        <table class="slds-table mgt30">
+            <tr>
+                <th>选择</th>
+                <th>名称</th>
+                <th>类型</th>
+                <th>状态</th>
+                <th>可见</th>
+                <th>可编辑</th>
+                <th>必填</th>
+            </tr>
+            <tr *ngFor="let templateitem of templateitemList; let i = index">
+                <td class="no-padding">
+                    <ngl-form-checkbox [error]="hasError ? error : null" class="">
+                        <input nglFormControl [(ngModel)]="templateitem.isSelect" (ngModelChange)="seletChanged(templateitem)" type="checkbox" />
+                    </ngl-form-checkbox>
+                </td>
+                <td>
+                    <font class="color-neutral">{{templateitem.name}}</font>
+                </td>
+                <td>{{templateitem.type | dict: service.itemType | async}}</td>
+                <td>{{templateitem.status | dict: service.status | async}}</td>
+                <td>
+                    <ngl-form-checkbox-toggle [error]="hasError ? error : null" class="slds-m-top--small">
+                        <input nglFormControl [(ngModel)]="templateitem.visible" (ngModelChange)="seletChanged(templateitem)" type="checkbox" />
+                    </ngl-form-checkbox-toggle>
+                </td>
+                <td>
+                    <ngl-form-checkbox-toggle [error]="hasError ? error : null" class="slds-m-top--small">
+                        <input nglFormControl [(ngModel)]="templateitem.editable" (ngModelChange)="seletChanged(templateitem)" type="checkbox" />
+                    </ngl-form-checkbox-toggle>
+                </td>
+                <td>
+                    <ngl-form-checkbox-toggle [error]="hasError ? error : null" class="slds-m-top--small">
+                        <input nglFormControl [(ngModel)]="templateitem.mandatory" (ngModelChange)="seletChanged(templateitem)" type="checkbox" />
+                    </ngl-form-checkbox-toggle>
+                </td>
+            </tr>
+        </table>
+        <pagination *ngIf="maxPage>1" [maxSize]="maxPage" [currentPage]="currentPage + 1" (pageChanged)="pageChanged($event)"></pagination>
+    </div>
+    <template ngl-modal-footer>
+        <button class="slds-button slds-button--neutral" (click)="submiteAssess()">关闭</button>
+    </template>
+</ngl-modal>
+
 <table class="slds-table mgt30">
     <tr>
-        <th>选择</th>
+        <th>序号</th>
         <th>名称</th>
         <th>类型</th>
         <th>状态</th>
@@ -21,35 +70,22 @@
         <th>可编辑</th>
         <th>必填</th>
     </tr>
-    <tr *ngFor="let templateitem of templateitemList; let i = index">
+    <tr *ngFor="let templateitem of selectTemplateitemList | orderBy: 'seqNo'; let i = index">
         <td class="no-padding">
-            <ngl-form-checkbox [error]="hasError ? error : null" class="">
-                <input nglFormControl [(ngModel)]="templateitem.isSelect" (ngModelChange)="seletChanged(templateitem)" type="checkbox" />
-            </ngl-form-checkbox>
+            <select [(ngModel)]="templateitem.seqNo" (ngModelChange)="setSeqNo(templateitem, i + 1)">
+                <option *ngFor="let n of seqNoList" [value]="n">{{n}}</option>
+            </select>
         </td>
         <td>
             <font class="color-neutral">{{templateitem.name}}</font>
         </td>
         <td>{{templateitem.type | dict: service.itemType | async}}</td>
         <td>{{templateitem.status | dict: service.status | async}}</td>
-        <td>
-            <ngl-form-checkbox-toggle [error]="hasError ? error : null" class="slds-m-top--small">
-                <input nglFormControl [(ngModel)]="templateitem.visible" (ngModelChange)="seletChanged(templateitem)" type="checkbox" />
-            </ngl-form-checkbox-toggle>
-        </td>
-        <td>
-            <ngl-form-checkbox-toggle [error]="hasError ? error : null" class="slds-m-top--small">
-                <input nglFormControl [(ngModel)]="templateitem.editable" (ngModelChange)="seletChanged(templateitem)" type="checkbox" />
-            </ngl-form-checkbox-toggle>
-        </td>
-        <td>
-            <ngl-form-checkbox-toggle [error]="hasError ? error : null" class="slds-m-top--small">
-                <input nglFormControl [(ngModel)]="templateitem.mandatory" (ngModelChange)="seletChanged(templateitem)" type="checkbox" />
-            </ngl-form-checkbox-toggle>
-        </td>
+        <td>{{templateitem.visible ? '是' : '否'}}</td>
+        <td>{{templateitem.editable ? '是' : '否'}}</td>
+        <td>{{templateitem.mandatory ? '是' : '否'}}</td>
     </tr>
 </table>
-<pagination *ngIf="maxPage>1" [maxSize]="maxPage" [currentPage]="currentPage + 1" (pageChanged)="pageChanged($event)"></pagination>
 
 <spinner #spinner></spinner>
 <alert #alert></alert>
