@@ -4,7 +4,7 @@ import { INglDatatableSort, INglDatatableRowClick } from 'ng-lightning/ng-lightn
 import { SpinnerComponent } from '../../../components'
 import { PageClass } from '../../../class/page/page.class'
 import { PersonalDataService } from './personal-data.service'
-
+import { Router } from "@angular/router";
 
 @Component({
 	selector: 'personal-data',
@@ -13,6 +13,7 @@ import { PersonalDataService } from './personal-data.service'
 })
 export class PersonalDataComponent extends PageClass implements OnInit {
 	constructor(
+        private router: Router,
 		private service: PersonalDataService
 	) {
 		super()
@@ -30,7 +31,9 @@ export class PersonalDataComponent extends PageClass implements OnInit {
 		
 		this.service.putEditAccount(this.userInfo.userId, this.userInfo).then(res => {
 			this.spinner.hide()
-			this.alert.open('修改资料成功！')
+			this.alert.open('修改资料成功！', () => {
+				this.router.navigateByUrl("/other-page/user-detail");
+			})
 			localStorage["userInfo"] = JSON.stringify(this.userInfo)
 		})
 	}

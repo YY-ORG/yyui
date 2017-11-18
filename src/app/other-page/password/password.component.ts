@@ -5,6 +5,7 @@ import { Validation, ValidationRegs, SpinnerComponent } from '../../../component
 import { PageClass } from '../../../class/page/page.class'
 import { PasswordService } from './password.service'
 import { Adminui } from '../../../core';
+import { Router } from "@angular/router";
 
 
 @Component({
@@ -15,6 +16,7 @@ import { Adminui } from '../../../core';
 export class PasswordComponent extends PageClass implements OnInit {
 	constructor(
 		public v: Validation,
+		private router: Router,
 		private service: PasswordService
 	) {
 		super()
@@ -48,7 +50,10 @@ export class PasswordComponent extends PageClass implements OnInit {
 		// this.passwordProfile.newPassword = encodeURIComponent(this.passwordProfile.newPassword)
 		// this.passwordProfile.password = encodeURIComponent(this.passwordProfile.password)
 		this.service.putEditAccount(this.passwordProfile).then(res => {
-			this.alert.open('修改成功！')
+			this.alert.open('修改成功！', () => {
+				this.router.navigateByUrl("/other-page/user-detail");
+			})
+			
 			this.spinner.hide()
 		}).catch(res => {
 			this.alert.open('修改失败')
