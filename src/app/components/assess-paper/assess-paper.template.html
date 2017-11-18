@@ -37,7 +37,7 @@
                 <td>
                     <font class="color-neutral">{{assess.name}}</font>
                 </td>
-                <td>{{assess.type | dict: service.itemType | async}}</td>
+                <td>{{assess.type | dict: service.type | async}}</td>
                 <td>{{assess.status | dict: service.status | async}}</td>
             </tr>
         </table>
