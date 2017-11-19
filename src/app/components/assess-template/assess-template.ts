@@ -79,8 +79,8 @@ export class AssessTemplateComponent extends PageClass implements OnInit {
     }
     this.templateitemList = this.cacheTemplateitemList.map(item => Object.assign({}, item))
     this.templateitemList.forEach(templateitem => {
-      this.templateProfileReq.itemList.forEach(item => {
-        if (item.templateItemId === templateitem.id) {
+      this.selectTemplateitemList.forEach(item => {
+        if (item.id === templateitem.id) {
           Object.assign(templateitem, item, {isSelect: true})
         }
       })

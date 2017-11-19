@@ -8,6 +8,7 @@ import { QuillEditorModule } from 'ngx-quill-editor';
 
 import { SiteComponent } from './site/site.component'
 import { SiteService } from './site/site.service'
+import { FileUploadService } from './upload-file/upload-file.service'
 
 import { CountBarComponent } from './countBar/component/count-bar.component';
 import { MyDatePickerModule } from './date-picker/my-date-picker.module';
@@ -17,6 +18,8 @@ import { AlertComponent } from './alert/alert.component'
 import { ConfirmComponent } from './confirm/confirm.component'
 import { ButtonComponent } from './button/button.component'
 import { TagButtonComponent } from './button/tag-button.component'
+import { FileUploadComponent } from './upload-file/upload-file.component'
+
 import { PipeModule } from '../pipe/pipe.module'
 
 import { Validation } from './validators';
@@ -45,6 +48,7 @@ import { ArchwizardModule } from 'ng2-archwizard';
         ButtonComponent,
         TagButtonComponent,
         PaginationComponent,
+        FileUploadComponent
     ],
     exports: [
         CommonModule,
@@ -62,13 +66,14 @@ import { ArchwizardModule } from 'ng2-archwizard';
         ButtonComponent,
         TagButtonComponent,
         PaginationComponent,
+        FileUploadComponent,
         PipeModule,
         QuillEditorModule
     ],
     providers : [
         Validation,
         SiteService,
-
+        FileUploadService
     ]
 })
 export class CommonComponentModule { }

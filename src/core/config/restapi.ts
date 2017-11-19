@@ -361,5 +361,36 @@ export let RestApis: RestApiModel[] = [
         "method": "DELETE",
         "id": "delete.templateitem",
         "url": "assess/authsec/assess/template/templateitem/{id}"
+    },
+    {
+        "desc": "上传文件",
+        "method": "POST",
+        "id": "upload.file",
+        "url": "filesys/authsec/file"
+    },
+    {
+        "desc": "删除文件",
+        "method": "DELETE",
+        "id": "delete.file",
+        "url": "filesys/authsec/file/{id}"
+    },
+    {
+        "desc": "获取文件片信息",
+        "method": "GET",
+        "id": "file.info",
+        "url": "filesys//authsec/file/{id}"
+    },
+    {
+        "desc": "在线显示文件",
+        "method": "GET",
+        "id": "file.view",
+        "url": "filesys/authsec/file/{id}/view"
+    },
+    {
+        "desc": "分页查询文件",
+        "method": "GET",
+        "id": "get.files",
+        "url": "filesys/authsec/files"
     }
+    
 ]

@@ -3,11 +3,13 @@ import { Component,  OnInit, ViewEncapsulation, ChangeDetectorRef, ViewChild  } 
 import { INglDatatableSort, INglDatatableRowClick } from 'ng-lightning/ng-lightning';
 import { SpinnerComponent, Validation, ValidationRegs } from '../../../components'
 import { PageClass } from '../../../class/page/page.class'
+import { OrderByPipe } from '../../../pipe/orderby' 
 
 import { Adminui, Assess } from '../../../core';
 
 import { ExaminationPaperService } from './examination-paper.service'
 import { WizardComponent } from 'ng2-archwizard'
+import { ExaminationAssessComponent }  from '../../components/examination-assess/examination-assess'
 
 
 @Component({
@@ -18,15 +20,18 @@ import { WizardComponent } from 'ng2-archwizard'
 })
 export class ExaminationPaperComponent extends PageClass implements OnInit {
 	@ViewChild(WizardComponent) public wizard: WizardComponent;
-
+	@ViewChild('examinationAssess') examinationAssess: ExaminationAssessComponent;
+	
 	constructor(
 		private service: ExaminationPaperService,
 		public v: Validation,
-		private cdr: ChangeDetectorRef
+		private cdr: ChangeDetectorRef,
+		private orderBy: OrderByPipe
 	) {
 		super()
 		this.v.result = {}
 	}
+
 	willDeleteUser;
 	editModalOpen: boolean = false;
 	selectedTab: any;
@@ -35,31 +40,10 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 	assesslist: Assess.AssessMenuItem[] = []
 	currentAssesst: Assess.AssessMenuItem
 	examination: Assess.AssessItem
+	
 	templateItemList: Assess.TemplateItem[] = []
-
-	checkValue: Function
-
-	public editor;
-	public editorContent: string;
-	public editorOptions = {
-			placeholder: "请输入个人述职...",
-			modules: {
-				toolbar: [
-					['bold', 'italic', 'underline'],
-					['code-block'],
-					[{ 'list': 'ordered'}, { 'list': 'bullet' }],
-					[{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-					[{ 'direction': 'rtl' }],                         // text direction
-					[{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-					[{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-				
-					[{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-					[{ 'align': [] }],
-				
-					['clean']                                         // remove formatting button
-				]
-			},
-	};
+	curremtTemplateForm: Assess.TemplateItem
+	templateItemItemList: Assess.TemplateItemItem[]
 
 	ngOnInit() {
 		this.getPaper()
@@ -87,32 +71,38 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 			if (!res.length) {
 				return
 			}
-			this.assesslist = res
-			this.getItem(res[0])
+			this.assesslist = this.orderBy.transform(res, 'seqNo')
+
+			this.getItem(this.assesslist[0])
 			this.cdr.detectChanges()
-			setTimeout(() => {
-				// this.wizard.model.navigationMode.goToNextStep()
-			}, 4000)
 			
 		}).catch(e => this.spinner.hide())
 	}
 
 	goToStep (index: number) {
-		let data = this.templateItemList.map(itemList => {
-			return {
-				templateId: itemList.id,
-				seqNo: '',
-				itemList: itemList.templateItemItemList.map(item => item.reqDate)
-			}
-		})
-		this.service.postAssess(this.currentAssessPaper.id, this.currentAssesst.assessId, data)
-		
 		let preFinalize = {
 			emit: () => {
 				this.getItem(this.assesslist[index])
 			}
 		}
 		this.wizard.model.navigationMode.goToStep(index, preFinalize)
+	}
+
+	nextSteap (index: number) {
+		let errorMsg = this.examinationAssess.checkValue()
+		if (errorMsg) return this.alert.open(errorMsg)
+
+		let data = [{
+				templateId: this.curremtTemplateForm.id,
+				seqNo: '',
+				itemList: this.templateItemItemList.map(item => item.reqDate)
+		}]
+		this.spinner.show()
+		this.service.postAssess(this.currentAssessPaper.id, this.currentAssesst.assessId, data)
+			.then(res => {
+				this.spinner.hide()
+				this.goToStep(index)
+			}).catch(e => this.spinner.hide())
 	}
 
 	send (ddd) {
@@ -124,48 +114,10 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 		this.service.fetchExamination(assesst.assessId).then(res => {
 			this.examination = res
 			this.templateItemList = this.examination.templateItemList
-			this.templateItemList.forEach(templateItem =>{
-				templateItem.templateItemItemList.forEach(tem => {
-					tem.reqDate = {
-						code: tem.code,
-						id: tem.id,
-						name: tem.name,
-						value: ""
-					}
-				})
-			})
-			this.checkValue = (index: number, key ? : string) => {
-				let regs: any = {}
-
-				this.templateItemList.forEach(item => {
-					item.templateItemItemList.forEach(temp => {
-						let regExp = temp.regExp || 'isUnBlank'
-						let reg = regExp.split(',').map(val => this.v[val])
-						if (!regs[index]) regs[index] = {}
-						regs[index][temp.code] = [temp.reqDate.value, reg, temp.tip]
-					})
-				})
-
-				return this.v.check(key, regs[index]);
-			}
+			this.curremtTemplateForm = this.templateItemList.filter(template => template.type == '0')[0]
+			this.templateItemItemList = this.curremtTemplateForm.templateItemItemList
+			this.examinationAssess.setTemplateItemList()
 		})
-	}
-	
-  onEditorBlured(quill) {
-    console.log('editor blur!', quill);
-  }
-
-  onEditorFocused(quill) {
-    console.log('editor focus!', quill);
-  }
-
-  onEditorCreated(quill) {
-    this.editor = quill;
-    console.log('quill is ready! this is current quill instance object', quill);
-  }
-
-  onContentChanged({ quill, html, text }) {
-    console.log('quill content is changed!', quill, html, text);
 	}
 	
 	onConfirm() {
@@ -174,6 +126,10 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 		setTimeout(() => {
 			this.alert.open("删除成功")
 		}, 1000)
+	}
+
+	con (data) {
+		console.log(data)
 	}
 
 }

@@ -1,0 +1,86 @@
+<ng-container *ngFor="let templateItem of templateItemItemList; let c = index;">
+    <ng-container [ngSwitch]="templateItem.type">
+    <!-- 文本框 -->
+    <div *ngSwitchCase="'0'" class="label-box">
+        <ngl-form-element label="{{templateItem.label}}："  [error]="v.result[templateItem.code]" class="slds-m-top--small left-lable{{!templateItem.visible ? ' display-none' : ''}}">
+            <input [(ngModel)]="templateItem.reqDate.value" [disabled]="!templateItem.editable" nglFormControl type="text" (keyup)="checkValue(templateItem.code, templateItem.reqDate.value)" placeholder="{{templateItem.placeholderTip}}">
+        </ngl-form-element>
+    </div>
+    <!-- 下拉框 -->
+    <div *ngSwitchCase="'1'" class="label-box">
+        <ngl-form-element [error]="v.result[templateItem.code]" label="{{templateItem.label}}：" class="slds-m-top--small left-lable">
+            <select nglFormControl [disabled]='!templateItem.editable' [(ngModel)]="templateItem.reqDate.value" (ngModelChange)="checkValue(templateItem.code, templateItem.reqDate.value)" class="slds-select">
+                <option value="">--- 请选择 ---</option>
+                <option *ngFor="let rank of selectList[c] | async" [value]="rank.value">{{rank.displayValue}}</option>
+            </select>
+        </ngl-form-element>
+     </div>
+    <!-- 日期框 -->
+    <div *ngSwitchCase="'2'" class="label-box">
+        <date-picker class="{{!templateItem.visible ? ' display-none' : ''}}" formClass="left-lable" placeholder="{{templateItem.label}}：" [initDate]="templateItem.defaultValue" (dateChanged)="templateItem.reqDate.value = $event.formatted"></date-picker>
+    </div>
+    <!-- 数字框 -->
+    <div *ngSwitchCase="'5'" class="label-box">
+        <ngl-form-element label="{{templateItem.label}}："  [error]="v.result[templateItem.code]" class="slds-m-top--small left-lable{{!templateItem.visible ? ' display-none' : ''}}">
+            <input [(ngModel)]="templateItem.reqDate.value" [disabled]="!templateItem.editable" nglFormControl type="text" (keyup)="checkValue(templateItem.code, templateItem.reqDate.value)" placeholder="{{templateItem.placeholderTip}}">
+        </ngl-form-element>
+    </div>
+
+    <div *ngSwitchCase="'6'" class="label-box">
+        <ngl-form-element label="{{templateItem.label}}："  [error]="v.result[templateItem.code]" class="slds-m-top--small left-lable">
+            <input [(ngModel)]="templateItem.reqDate.value" [disabled]="!templateItem.editable" nglFormControl type="text" type="password"  (keyup)="checkValue(templateItem.code, templateItem.reqDate.value)" placeholder="{{templateItem.placeholderTip}}">
+        </ngl-form-element>
+    </div>
+    <!-- 分数框 -->
+    <div *ngSwitchCase="'11'" class="label-box">
+        <ngl-form-element label="{{templateItem.label}}："  [error]="v.result[templateItem.code]" class="slds-m-top--small left-lable{{!templateItem.visible ? ' display-none' : ''}}">
+            <input [(ngModel)]="templateItem.point1" (ngModelChange)="templateItem.reqDate.value = templateItem.point1 + '/' + templateItem.point2;checkValue(templateItem.code, templateItem.reqDate.value)" class="point1" [disabled]="!templateItem.editable" nglFormControl type="text" placeholder="{{templateItem.placeholderTip}}">
+            /
+            <input [(ngModel)]="templateItem.point2" (ngModelChange)="templateItem.reqDate.value = templateItem.point1 + '/' + templateItem.point2;checkValue(templateItem.code, templateItem.reqDate.value)" class="point2" [disabled]="!templateItem.editable" nglFormControl type="text" placeholder="{{templateItem.placeholderTip}}">
+        </ngl-form-element>
+    </div>
+    <!-- 百分比框 -->
+    <div *ngSwitchCase="'10'" class="label-box">
+        <ngl-form-element label="{{templateItem.label}}："  [error]="v.result[templateItem.code]" class="slds-m-top--small left-lable{{!templateItem.visible ? ' display-none' : ''}}">
+            <input [(ngModel)]="templateItem.reqDate.value" [disabled]="!templateItem.editable" nglFormControl type="text" (keyup)="checkValue(templateItem.code, templateItem.reqDate.value)" placeholder="{{templateItem.placeholderTip}}">
+        </ngl-form-element>
+        <span class="percent">%</span>
+    </div>
+    <!-- 复选框 -->
+    <div *ngSwitchCase="'7'" class="label-box">
+        <ngl-form-checkbox class="piont" [error]="v.result[templateItem.code]" class="slds-m-top--small left-lable{{!templateItem.visible ? ' display-none' : ''}}">
+            <label class="slds-form-element__label"><span>{{templateItem.label}}：</span></label>
+            <input nglFormControl [(ngModel)]="templateItem.reqDate.value" [disabled]="!templateItem.editable" (ngModelChange)="checkValue(templateItem.code, templateItem.reqDate.value)" type="checkbox" />
+        </ngl-form-checkbox>
+    </div>
+    <!-- 多行文本框 -->
+    <div *ngSwitchCase="'16'" class="label-box">
+        <ngl-form-element 
+            label="{{templateItem.label}}：" 
+            [error]="v.result[templateItem.code]"
+            class="slds-m-top--small left-lable">
+            <textarea [(ngModel)]="templateItem.reqDate.value" [disabled]="!templateItem.editable" (keyup)="checkValue(templateItem.code, templateItem.reqDate.value)" nglFormControl placeholder="{{templateItem.placeholderTip}}"></textarea>
+        </ngl-form-element>
+    </div>
+    <!-- 文件上传 -->
+    <div *ngSwitchCase="'13'" class="label-box mgt10">
+        <label class="slds-form-element__label"><span>{{templateItem.label}}：</span></label>
+        <file-upload #fu (change)="fu.upload()" (onFileUpload)="templateItem.reqDate.value = $event" [multiple]="true"></file-upload>
+    </div>
+    <!-- 富文本编辑器 -->
+    <div *ngSwitchCase="'17'" class="personal-description mgt30">
+        <quill-editor 
+        [(ngModel)]="templateItem.reqDate.value" 
+        [options]="editorOptions" 
+        (blur)="onEditorBlured($event)" 
+        (focus)="onEditorFocused($event)"
+        (ready)="onEditorCreated($event)" 
+        (change)="onContentChanged($event)"></quill-editor>
+    </div>
+    
+    </ng-container>
+</ng-container>
+
+<spinner #spinner></spinner>
+<alert #alert></alert>
+<confirm (onConfirm)="onConfirm()" #confirm></confirm>

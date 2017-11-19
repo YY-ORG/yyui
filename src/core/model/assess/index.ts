@@ -51,8 +51,11 @@ export namespace Assess {
     tip: string = '' //, optional),
     type: string = '' //, optional),
     updateDate: Timestamp = new Timestamp //, optional),
-    valueSource: string = '' //, optional),
+    valueField: string = "" //, optional),
+    valueOwner: string = "" //, optional)
     visible: boolean //, optional)
+    point1?: string = ""; //, optional)
+    point2?: string = ""; //, optional)
     reqDate: AssessTIItemReq = new AssessTIItemReq
   }
 

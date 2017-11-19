@@ -4,44 +4,22 @@
   <ng-template ngl-tab *ngFor="let assessPaper of assesspaperlist" [nglTabId]="index" [heading]="assessPaper.name">
     <p class="mgt20"></p> 
     <wizard *ngIf="!!assesslist.length">
-      <wizard-step stepTitle="{{assess.assessName}}" *ngFor="let assess of assesslist; index as i;" #wizard>
-        <ng-container *ngFor="let templateItem of templateItemList">
-          <ng-container *ngFor="let template of templateItem.templateItemItemList;">
+      <wizard-step stepTitle="{{assess.assessName}}" *ngFor="let assess of assesslist; let a = index;" #wizard>
+        <ng-container *ngFor="let template of templateItemList; let c = index;">
             <ng-container [ngSwitch]="template.type">
-              <div *ngSwitchCase="'6'" class="label-box">
-                <ngl-form-element label="{{template.label}}："  [error]="v.result[template.code]" class="slds-m-top--small left-lable">
-                    <input [(ngModel)]="template.reqDate.value" [disabled]="!template.editable" nglFormControl type="text" type="password"  (keyup)="checkValue(i, template.code)" placeholder="{{template.placeholderTip}}">
-                </ngl-form-element>
-              </div>
-              <div *ngSwitchCase="'5' || '0'" class="label-box">
-                <ngl-form-element label="{{template.label}}："  [error]="v.result[template.code]" class="slds-m-top--small left-lable{{template.visible ? ' display-none' : ''}}">
-                    <input [(ngModel)]="template.reqDate.value" [disabled]="!template.editable" nglFormControl type="text" (keyup)="checkValue(i, template.code)" placeholder="{{template.placeholderTip}}">
-                </ngl-form-element>
-              </div>
-              <div *ngSwitchCase="'16'" class="label-box">
-                <ngl-form-element 
-                  label="{{template.label}}：" 
-                  [error]="v.result[template.code]"
-                  class="slds-m-top--small left-lable">
-                    <textarea [(ngModel)]="template.reqDate.value" [disabled]="!template.editable" (keyup)="checkValue(i, template.code)" nglFormControl placeholder="{{template.placeholderTip}}"></textarea>
-                </ngl-form-element>
-              </div>
-              <div *ngSwitchCase="'17'" class="personal-description mgt30">
-                <quill-editor 
-                  [(ngModel)]="template.reqDate.value" 
-                  [options]="editorOptions" 
-                  (blur)="onEditorBlured($event)" 
-                  (focus)="onEditorFocused($event)"
-                  (ready)="onEditorCreated($event)" 
-                  (change)="onContentChanged($event)"></quill-editor>
-              </div>
-              
+                <!-- 表单模板 -->
+                <ng-container *ngSwitchCase="1">
+                    <examination-assess-component #examinationAssess [templateItemItemList]="templateItemItemList"></examination-assess-component>
+                </ng-container>
+                <!-- 表单表格混合模板 -->
+                <ng-container *ngSwitchCase="3">
+                    <examination-assess-component #examinationAssess [templateItemItemList]="templateItemItemList"></examination-assess-component>
+                </ng-container>
             </ng-container>
-          </ng-container>
-        </ng-container>
+        </ng-container>     
         <div class="step-button-box">
-          <button type="button" nglButton="inverse" (click)="goToStep(i - 1)" class="mgr30">上一步</button>
-          <button type="button" nglButton="brand" (click)="goToStep(i + 1)">下一步</button>
+          <button type="button" nglButton="inverse" (click)="goToStep(a - 1)" class="mgr30">上一步</button>
+          <button type="button" nglButton="brand" (click)="nextSteap(a + 1)">下一步</button>
         </div>
       </wizard-step>
     </wizard>

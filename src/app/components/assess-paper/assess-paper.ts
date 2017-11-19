@@ -108,6 +108,7 @@ export class AssesspaperComponent extends PageClass implements OnInit {
       })
     })
     this.assessItemList = list
+    this.submiteAssess()
   }
 
 	pageChanged (pageEvent: any) {

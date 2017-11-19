@@ -6,7 +6,7 @@ import { SystemDictionaryService, RestApiCfg, RestApi, Adminui, Assess } from '.
 export class ExaminationPaperService {
   constructor(private http:Http,
               private restApiCfg:RestApiCfg,
-              private dict:SystemDictionaryService,
+              public dict:SystemDictionaryService,
               private restApi:RestApi) {
   }
   
@@ -38,5 +38,11 @@ export class ExaminationPaperService {
     const api = this.restApiCfg.getRestApi("assess.assessanswer");
     
     return this.restApi.request(api.method, api.url, { assessPaperId, assessId }, null, data)
+  }
+
+  postfile () {
+    const api = this.restApiCfg.getRestApi("upload.file");
+    
+    return this.restApi.request(api.method, api.url)
   }
 }

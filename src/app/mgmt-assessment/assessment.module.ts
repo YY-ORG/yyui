@@ -39,6 +39,7 @@ import { AssessQuestionsModule } from '../components/assess-questions/assess-que
 import { AssessPaperModule } from '../components/assess-paper/assess-paper.module'
 import { AssessCategoryModule } from '../components/assess-category/assess-category.module'
 import { TemplateitemModule } from '../components/assess-templateitem/assess-templateitem.module'
+import { ExaminationAssessModule } from '../components/examination-assess/examination-assess.module'
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { TemplateitemModule } from '../components/assess-templateitem/assess-tem
         AssessPaperModule,
         AssessCategoryModule,
         AssessCategoryModule,
-        TemplateitemModule
+        TemplateitemModule,
+        ExaminationAssessModule
     ],
     declarations: [
         ContinueEducationeComponent,
