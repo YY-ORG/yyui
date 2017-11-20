@@ -57,7 +57,7 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
   }
 
   ngOnChanges() {
-    console.log(arguments)
+    console.log(arguments, '变化量')
     this.setTemplateItemList()
   }
 
@@ -119,25 +119,20 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
       regs[temp.code] = [temp.reqDate.value, reg, temp.tip || '输入有误，请检查']
     })
     this.regList = regs
-		console.log(this.regList)
 	}
 	
 	
   onEditorBlured(quill) {
-    console.log('editor blur!', quill);
   }
 
   onEditorFocused(quill) {
-    console.log('editor focus!', quill);
   }
 
   onEditorCreated(quill) {
     this.editor = quill;
-    console.log('quill is ready! this is current quill instance object', quill);
   }
 
   onContentChanged({ quill, html, text }) {
-    console.log('quill content is changed!', quill, html, text);
 	}
 }
 

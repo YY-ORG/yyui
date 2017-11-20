@@ -33,6 +33,7 @@ export class PersonalDataComponent extends PageClass implements OnInit {
 			this.spinner.hide()
 			this.alert.open('修改资料成功！', () => {
 				this.router.navigateByUrl("/other-page/user-detail");
+				window.location.reload()
 			})
 			localStorage["userInfo"] = JSON.stringify(this.userInfo)
 		})

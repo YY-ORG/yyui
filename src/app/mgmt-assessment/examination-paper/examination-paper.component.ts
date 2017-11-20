@@ -20,7 +20,7 @@ import { ExaminationAssessComponent }  from '../../components/examination-assess
 })
 export class ExaminationPaperComponent extends PageClass implements OnInit {
 	@ViewChild(WizardComponent) public wizard: WizardComponent;
-	@ViewChild('examinationAssess') examinationAssess: ExaminationAssessComponent;
+	@ViewChild(ExaminationAssessComponent) public examinationAssess: ExaminationAssessComponent;
 	
 	constructor(
 		private service: ExaminationPaperService,
@@ -34,6 +34,7 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 
 	willDeleteUser;
 	editModalOpen: boolean = false;
+	addModalOpen: boolean = false;
 	selectedTab: any;
 	assesspaperlist: Assess.AssessPaperItem[] = []
 	currentAssessPaper: Assess.AssessPaperItem
@@ -43,7 +44,9 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 	
 	templateItemList: Assess.TemplateItem[] = []
 	curremtTemplateForm: Assess.TemplateItem
+	curremtTemplateTable: Assess.TemplateItem
 	templateItemItemList: Assess.TemplateItemItem[]
+	templateTableList: Assess.TemplateItemItem[]
 
 	ngOnInit() {
 		this.getPaper()
@@ -57,13 +60,15 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 			setTimeout(() => {
 				(document.querySelector('.slds-tabs--default__link') as HTMLElement).click()
 				if (res.length) {
-					this.getAssesslist(res[0])
+					// this.getAssesslist(res[0])
 				}
 			})
 		}).catch(e => this.spinner.hide())
 	}
 
 	getAssesslist (paper: Assess.AssessPaperItem) {
+		this.cdr.detectChanges()
+		
 		this.currentAssessPaper = paper
 		this.spinner.show()
 		this.service.fetchAssesslist(paper.id).then(res => {
@@ -71,10 +76,12 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 			if (!res.length) {
 				return
 			}
-			this.assesslist = this.orderBy.transform(res, 'seqNo')
-
-			this.getItem(this.assesslist[0])
-			this.cdr.detectChanges()
+			this.assesslist = []
+			setTimeout(() => {
+				this.assesslist = this.orderBy.transform(res, 'seqNo')
+				this.cdr.detectChanges()
+				this.getItem(this.assesslist[0])
+			}, 0)
 			
 		}).catch(e => this.spinner.hide())
 	}
@@ -89,6 +96,10 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 	}
 
 	nextSteap (index: number) {
+		if (this.examination.type == '2') {
+			return this.goToStep(index)
+		}
+
 		let errorMsg = this.examinationAssess.checkValue()
 		if (errorMsg) return this.alert.open(errorMsg)
 
@@ -111,13 +122,28 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 
 	getItem(assesst: Assess.AssessMenuItem) {
 		this.currentAssesst = assesst
+		this.spinner.show()
 		this.service.fetchExamination(assesst.assessId).then(res => {
 			this.examination = res
 			this.templateItemList = this.examination.templateItemList
+			this.templateItemList.forEach(template => {
+				if (template.type == '0') this.curremtTemplateForm = template
+				if (template.type == '1') this.curremtTemplateTable = template
+			})
 			this.curremtTemplateForm = this.templateItemList.filter(template => template.type == '0')[0]
-			this.templateItemItemList = this.curremtTemplateForm.templateItemItemList
-			this.examinationAssess.setTemplateItemList()
+			this.curremtTemplateTable = this.templateItemList.filter(template => template.type == '1')[0]
+			this.templateItemItemList = this.curremtTemplateForm ? this.curremtTemplateForm.templateItemItemList : []
+			this.templateTableList = this.curremtTemplateTable ? this.curremtTemplateTable.templateItemItemList : []
+
+			setTimeout(() => {
+				this.spinner.hide()
+			}, 0)
 		})
+	}
+
+	selectedChange(ngTab: any) {
+		if (!this.assesspaperlist.length) return
+		this.getAssesslist(this.assesspaperlist[ngTab.id])
 	}
 	
 	onConfirm() {
