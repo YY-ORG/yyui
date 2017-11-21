@@ -1,4 +1,4 @@
-import { Component,  OnInit, ViewEncapsulation, Input, ViewChild  } from '@angular/core';
+import { Component,  OnInit, ViewEncapsulation, Input, ViewChild, OnChanges  } from '@angular/core';
 
 import { INglDatatableSort, INglDatatableRowClick } from 'ng-lightning/ng-lightning';
 import { Validation, ValidationRegs, SpinnerComponent, AlertComponent } from '../../../components'
@@ -6,7 +6,6 @@ import { PageClass } from '../../../class/page/page.class'
 import { AssessTemplateitemService } from './assess-templateitem.service'
 
 import { Adminui, Assess, Common } from '../../../core';
-import { OnChanges } from '.4.4.5@@angular/core/src/metadata/lifecycle_hooks';
 
 
 @Component({
