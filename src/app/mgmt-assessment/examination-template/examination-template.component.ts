@@ -56,7 +56,7 @@ export class ExaminationTemplateComponent extends PageClass implements OnInit {
 	}
 
 	pageChanged (pageEvent: any) {
-		this.currentPage = pageEvent.currentpage
+		this.currentPage = pageEvent.currentpage - 1
 		this.getTemplateList()
 	}
 

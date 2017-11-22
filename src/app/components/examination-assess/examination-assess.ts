@@ -26,6 +26,8 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
 	}
   
   @Input() templateItemItemList: Assess.TemplateItemItem[] = []
+  @Input() tableList: Assess.TemplateItemItem[] = []
+  
 	selectList: Promise<any>[] = []
   regList: any = {}
   

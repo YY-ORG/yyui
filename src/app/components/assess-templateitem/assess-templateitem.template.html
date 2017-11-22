@@ -13,10 +13,16 @@
         <option *ngFor="let t of service.type | async" [value]="t.value">{{t.displayValue}}</option>
     </select>
 </ngl-form-element>
-<ngl-form-element *ngIf="assessProfileReq.type == '1' || assessProfileReq.type == '15'" [error]="v.result.valueOwner" label="类目:" class="slds-m-top--small">
+<ngl-form-element *ngIf="assessProfileReq.type == '1'" [error]="v.result.valueOwner" label="类目:" class="slds-m-top--small">
     <select nglFormControl [(ngModel)]="assessProfileReq.valueOwner" (ngModelChange)="getFiled();checkValue('valueOwner')" class="slds-select" [required]="required">
         <option value="">--- 请选择 ---</option>
-        <option *ngFor="let t of ownerList" [value]="t">{{t}}</option>
+        <option *ngFor="let t of ownerList" [value]="t">{{t}}</option> 
+    </select>
+</ngl-form-element>
+<ngl-form-element *ngIf="assessProfileReq.type == '15'" [error]="v.result.valueOwner" label="表格模板:" class="slds-m-top--small">
+    <select nglFormControl [(ngModel)]="assessProfileReq.valueOwner" (ngModelChange)="checkValue('valueOwner')" class="slds-select" [required]="required">
+        <option value="">--- 请选择 ---</option>
+        <option *ngFor="let t of templateList" [value]="t.id">{{t.name}}</option>
     </select>
 </ngl-form-element>
 

@@ -9,8 +9,8 @@
               <ng-container *ngSwitchCase="0">
                   <examination-assess-component #examinationAssess2 [templateItemItemList]="templateItemItemList"></examination-assess-component>
               </ng-container>
-              <!-- 表单表格混合模板 -->
-              <ng-container *ngSwitchCase="2">
+              <!-- 表格模板 -->
+              <ng-container *ngSwitchCase="1">
                   <h1 class="mgt30 overflow-hidden"><button class="slds-button slds-button--green float-right" (click)="addModalOpen=true">新增</button></h1>
                   
                   <table class="slds-table mgt20">
@@ -49,6 +49,10 @@
                         <button class="slds-button slds-button--brand" (click)="submiteNewTemplate()">确定</button>
                     </template>
                 </ngl-modal>
+              </ng-container>
+              <!-- 表格表单混合模板 -->
+              <ng-container *ngSwitchCase="2">
+                <examination-assess-component #examinationAssess2 [tableList]="tableList" [templateItemItemList]="templateTableList"></examination-assess-component>
               </ng-container>
           </ng-container>
         <div class="step-button-box">

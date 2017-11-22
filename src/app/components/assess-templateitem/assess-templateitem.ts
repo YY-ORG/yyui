@@ -24,6 +24,9 @@ export class TemplateitemComponent extends PageClass implements OnInit, OnChange
   
   ownerList: string[] = []
   fieldList: string[] = []
+
+  templateList: Assess.SimpleTemplate[] = []
+
   
   @Input() assessProfileReq: Assess.TemplateItemProfileReq = new Assess.TemplateItemProfileReq;
 
@@ -31,6 +34,7 @@ export class TemplateitemComponent extends PageClass implements OnInit, OnChange
 
 	ngOnInit() {
     this.getOwner()
+    this.getTemplateList()
   }
 
   ngOnChanges () {
@@ -53,6 +57,13 @@ export class TemplateitemComponent extends PageClass implements OnInit, OnChange
       this.spinner.hide()
       this.fieldList = res
     }).catch(e => this.spinner.hide())
+  }
+
+  getTemplateList () {
+    this.service.fetchTemplates(2).then(res => {
+      console.log(res)
+      this.templateList = res
+    })
   }
 
   // type (string, optional),

@@ -229,4 +229,22 @@ export namespace Assess {
     name: string = "" //, optional)
     isSelect: boolean = false //, optional)
   }
+  export class ComplexTemplateItem {
+    code: string = '' // , optional),
+    defaultValue: string = '' // , optional),
+    editable: boolean // , optional),
+    id: string = '' // , optional),
+    label: string = '' // , optional),
+    mandatory: boolean // , optional),
+    name: string = '' // , optional),
+    placeholderTip: string = '' // , optional),
+    reliedId: string = '' // , optional),
+    seqNo: number = 0 // , optional),
+    status: string = '' // , optional),
+    tip: string = '' // , optional),
+    type: string = '' // , optional),
+    valueField: string = '' // , optional),
+    valueOwner: string = '' // , optional),
+    visible: boolean // , optional)
+  }
 }

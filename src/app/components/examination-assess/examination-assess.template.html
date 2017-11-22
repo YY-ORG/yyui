@@ -53,6 +53,11 @@
             <input nglFormControl [(ngModel)]="templateItem.reqDate.value" [disabled]="!templateItem.editable" (ngModelChange)="checkValue(templateItem.code, templateItem.reqDate.value)" type="checkbox" />
         </ngl-form-checkbox>
     </div>
+    <!-- 表格 -->
+    <div *ngSwitchCase="'15'" class="label-box">
+        <examination-assess-component #examinationAssess2 [templateItemItemList]="tableList"></examination-assess-component>
+        
+    </div>
     <!-- 多行文本框 -->
     <div *ngSwitchCase="'16'" class="label-box">
         <ngl-form-element 

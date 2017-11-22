@@ -17,11 +17,20 @@ export class AssessTemplateitemService {
 
     return this.restApi.request(api.method, api.url)
   }
-
+  
   fetchField(owner: string) : Promise<string[]>{
     const api = this.restApiCfg.getRestApi("sysdic.owner.field");
 
     return this.restApi.request(api.method, api.url, {owner})
+  }
+
+  fetchTemplates(type: number) : Promise<Assess.SimpleTemplate[]>{
+    const api = this.restApiCfg.getRestApi("all.templates");
+
+    return this.restApi.request(api.method, api.url, null, [{
+      key: '_type',
+      value: type
+    }])
   }
 
   type = this.dict.get({ 

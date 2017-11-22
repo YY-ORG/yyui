@@ -363,6 +363,18 @@ export let RestApis: RestApiModel[] = [
         "url": "assess/authsec/assess/template/templateitem/{id}"
     },
     {
+        "desc": "检索所有的某个类型的考题模板",
+        "method": "GET",
+        "id": "all.templates",
+        "url": "assess/authsec/templates"
+    },
+    {
+        "desc": "获取某个试题模板的元素列表",
+        "method": "GET",
+        "id": "id.get.templateitemlist",
+        "url": "assess/authsec/template/{id}/templateitemlist"
+    },
+    {
         "desc": "上传文件",
         "method": "POST",
         "id": "upload.file",
@@ -392,5 +404,4 @@ export let RestApis: RestApiModel[] = [
         "id": "get.files",
         "url": "filesys/authsec/files"
     }
-    
 ]

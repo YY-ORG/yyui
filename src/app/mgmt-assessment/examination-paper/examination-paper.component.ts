@@ -44,8 +44,10 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 	
 	templateItemList: Assess.TemplateItem[] = []
 	curremtTemplateForm: Assess.TemplateItem
+	curremtTable: Assess.TemplateItem
 	curremtTemplateTable: Assess.TemplateItem
 	templateItemItemList: Assess.TemplateItemItem[]
+	tableList: Assess.TemplateItemItem[]
 	templateTableList: Assess.TemplateItemItem[]
 
 	ngOnInit() {
@@ -131,8 +133,10 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 				if (template.type == '1') this.curremtTemplateTable = template
 			})
 			this.curremtTemplateForm = this.templateItemList.filter(template => template.type == '0')[0]
-			this.curremtTemplateTable = this.templateItemList.filter(template => template.type == '1')[0]
+			this.curremtTable = this.templateItemList.filter(template => template.type == '1')[0]
+			this.curremtTemplateTable = this.templateItemList.filter(template => template.type == '2')[0]
 			this.templateItemItemList = this.curremtTemplateForm ? this.curremtTemplateForm.templateItemItemList : []
+			this.tableList = this.curremtTable ? this.curremtTable.templateItemItemList : []
 			this.templateTableList = this.curremtTemplateTable ? this.curremtTemplateTable.templateItemItemList : []
 
 			setTimeout(() => {
