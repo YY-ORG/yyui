@@ -57,6 +57,9 @@
             <option *ngFor="let organization of organizationList" [value]="organization.id">{{organization.organizitionName}}</option>
         </select>
     </ngl-form-element>
+    <ngl-form-element *ngIf="isShowSelect" label="描述:" [error]="v.result.description" class="slds-m-top--small left-lable">
+        <input nglFormControl type="text" placeholder="" [(ngModel)]="userProfile.description" (keyup)="checkValue('description')">
+    </ngl-form-element>
 </div>
 <spinner #spinner></spinner>
 <alert #alert></alert>
