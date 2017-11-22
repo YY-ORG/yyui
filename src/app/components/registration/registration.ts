@@ -1,5 +1,5 @@
 import {
-  Component, Input, Output, EventEmitter, OnInit, ViewChild, ViewEncapsulation
+  Component, Input, Output, EventEmitter, OnInit, ViewChild, ViewEncapsulation, OnChanges
 } from '@angular/core';
 import {
   Validation, ValidationRegs, SpinnerComponent, AlertComponent
@@ -16,13 +16,15 @@ import {
   RegistrationService
 } from "./registration.service"
 
+import { MyDatePicker } from '../../../components/date-picker/my-date-picker.component'
+
 @Component({
   selector: 'registration',
   templateUrl: "./registration.template.html",
   styleUrls: ["./registration.scss"],
   encapsulation: ViewEncapsulation.None
 })
-export class RegistrationComponent implements OnInit {
+export class RegistrationComponent implements OnInit, OnChanges {
 
   constructor(
     public v: Validation,
@@ -38,7 +40,8 @@ export class RegistrationComponent implements OnInit {
   @Input() isCanEditPassword: boolean = false;
   @ViewChild('spinner') spinner: SpinnerComponent;
   @ViewChild('alert') alert: AlertComponent;
-
+  @ViewChild('dataPicker') dataPicker: MyDatePicker;
+  
   checkPassword: string;
   organizationList: Adminui.OrganizationItem[] = []
   isEdit: boolean = true;
@@ -50,6 +53,10 @@ export class RegistrationComponent implements OnInit {
       this.isEdit = false
     }
     this.fetchOrganizations();
+  }
+
+  ngOnChanges (arg) {
+    this.dataPicker.setInitDate(this.userProfile.birthday)
   }
 
   private fetchOrganizations() {

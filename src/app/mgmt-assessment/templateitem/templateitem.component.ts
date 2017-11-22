@@ -44,7 +44,7 @@ export class ExaminationTemplateitemComponent extends PageClass implements OnIni
 		this.service.fetchTemplateitemlist(this.currentPage, 10).then((res) => {
 			this.spinner.hide()
 			let [pageList, templateitemList] = res
-			this.currentPage = pageList.currentPage
+			this.currentPage = pageList.totalPage === pageList.currentPage ? pageList.totalPage - 1 : pageList.currentPage
 			this.maxPage = pageList.totalPage
 			this.templateitemList = templateitemList
 		}).catch(res => this.spinner.hide())

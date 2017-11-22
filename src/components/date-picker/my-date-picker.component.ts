@@ -84,7 +84,10 @@ export class MyDatePicker implements OnChanges ,OnInit {
         this.setInitDate();
     }
 
-    setInitDate():void {
+    setInitDate(date?: string):void {
+        if (date) {
+            this.initDate = date
+        }
         if(!this.initDate) {
             return;
         }

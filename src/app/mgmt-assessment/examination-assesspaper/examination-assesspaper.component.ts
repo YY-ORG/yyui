@@ -52,7 +52,7 @@ export class ExaminationAssesspaperComponent extends PageClass implements OnInit
 		this.service.fetAssesspaperlist(this.currentPage, 10).then((res) => {
 			this.spinner.hide()
 			let [pageList, assesspaperList] = res
-			this.currentPage = pageList.currentPage
+			this.currentPage = pageList.totalPage === pageList.currentPage ? pageList.totalPage - 1 : pageList.currentPage
 			this.maxPage = pageList.totalPage
 			this.assesspaperList = assesspaperList
 		}).catch(res => this.spinner.hide())

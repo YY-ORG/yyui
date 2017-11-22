@@ -48,7 +48,7 @@ export class ExaminationTemplateComponent extends PageClass implements OnInit {
 		this.service.fetchTemplatelist(this.currentPage, 10).then((res) => {
 			this.spinner.hide()
 			let [pageList, templateList] = res
-			this.currentPage = pageList.currentPage
+			this.currentPage = pageList.totalPage === pageList.currentPage ? pageList.totalPage - 1 : pageList.currentPage
 			this.maxPage = pageList.totalPage
 
 			this.templateList = templateList

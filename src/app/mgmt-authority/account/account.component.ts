@@ -73,12 +73,13 @@ export class AccountComponent extends PageClass implements OnInit {
 	
 	deleteUser(user: Adminui.UserProfile) {
 		this.willDeleteUser = user;
-		this.confirm.open("确定要删除此用户吗？")
+		this.confirm.open("确定要删除此用户吗（用户数据将被删除）？")
 		this.confirm.confirm = () => {
 			this.spinner.show()
 			this.service.deleteAccount(user.userId).then(res => {
 				this.spinner.hide()
 				this.confirm.close()
+				if (this.userList.length === 1) this.currentPage -= 1
 				this.getAccountList()
 			}).catch(e => this.spinner.hide())
 		}

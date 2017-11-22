@@ -50,7 +50,7 @@ export class RoleComponent extends PageClass implements OnInit {
 		this.service.fetchRoleList(this.currentPage , 10)
 			.then(res => {
 				let [pageList, roleList] = res
-				this.currentPage = pageList.currentPage
+				this.currentPage = pageList.totalPage === pageList.currentPage ? pageList.totalPage - 1 : pageList.currentPage
 				this.maxPage = pageList.totalPage
 				this.roleList = roleList
 				this.spinner.hide()
