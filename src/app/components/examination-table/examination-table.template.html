@@ -1,0 +1,36 @@
+<h1 class="mgt30 overflow-hidden"><button class="slds-button slds-button--green float-right" (click)="addModalOpen=true">新增</button></h1>
+
+<table class="slds-table mgt20">
+  <tr>
+      <th *ngFor="let table of tableList">{{table.label}}</th>
+      <th style="width: 200px">操作</th>
+  </tr>
+  <!-- <tr *ngFor="let templateitem of templateitemList; let i = index">
+      <td>{{templateitem.code}}</td>
+      <td>{{templateitem.label}}</td>
+      <td>{{templateitem.type | dict: service.type | async}}</td>
+      <td>{{templateitem.defaultValue}}</td>
+      <td>{{templateitem.placeholderTip}}</td>
+      <td>{{templateitem.tip}}</td>
+      <td>
+          <my-button button="radius" (onClick)="editTemplateitem(templateitem)" color="primary" className="mgr10" icon="icon-edit1">编辑</my-button>
+          <my-button button="radius" (onClick)="deleteTemplateitem(templateitem)" color="red" className="mgr10" icon="icon-edit1">删除</my-button>
+      </td>
+  </tr> -->
+</table>
+<ngl-modal size="large" header="新增" [(open)]="addModalOpen">
+  <div body class="width85 mgb30button" style="margin:0 auto">
+  </div>
+  <template ngl-modal-footer>
+      <button class="slds-button slds-button--neutral" (click)="addModalOpen = false">取消</button>
+      <button class="slds-button slds-button--brand" (click)="submiteNewTemplate()">确定</button>
+  </template>
+</ngl-modal>
+<ngl-modal size="large" header="编辑" [(open)]="editModalOpen">
+  <div body class="width85 mgb30button" style="margin:0 auto">
+  </div>
+  <template ngl-modal-footer>
+      <button class="slds-button slds-button--neutral" (click)="editModalOpen = false">取消</button>
+      <button class="slds-button slds-button--brand" (click)="submiteNewTemplate()">确定</button>
+  </template>
+</ngl-modal>

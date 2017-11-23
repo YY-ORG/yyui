@@ -40,6 +40,7 @@ import { AssessPaperModule } from '../components/assess-paper/assess-paper.modul
 import { AssessCategoryModule } from '../components/assess-category/assess-category.module'
 import { TemplateitemModule } from '../components/assess-templateitem/assess-templateitem.module'
 import { ExaminationAssessModule } from '../components/examination-assess/examination-assess.module'
+import { ExaminationTableModule } from '../components/examination-table/examination-table.module'
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { ExaminationAssessModule } from '../components/examination-assess/examin
         AssessCategoryModule,
         AssessCategoryModule,
         TemplateitemModule,
-        ExaminationAssessModule
+        ExaminationAssessModule,
+        ExaminationTableModule
     ],
     declarations: [
         ContinueEducationeComponent,

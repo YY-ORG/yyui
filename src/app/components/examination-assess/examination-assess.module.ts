@@ -11,11 +11,14 @@ import { ExaminationAssessComponent } from './examination-assess';
 //service\
 import { ExaminationAssessService } from "./examination-assess.service"
 
+import { ExaminationTableModule } from '../examination-table/examination-table.module'
+
 
 @NgModule({
     imports: [
         CommonComponentModule,
         PipeModule,
+        ExaminationTableModule
     ],
     declarations: [
       ExaminationAssessComponent

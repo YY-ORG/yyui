@@ -1,0 +1,26 @@
+
+.point1, .point2 {
+	width: 40%;
+	display: inline-block;
+}
+.point2 {
+}
+
+.personal-description {
+	width: 80%;
+	margin: 0 auto;
+	.ql-container .ql-editor {
+		min-height: 500px;
+	}
+	// .instruction {
+	// 	line-height: 26px;
+	// 	font-size: 14px;
+	// 	color: #999;
+	// 	margin-left: 50px;
+	// 	&::before {
+	// 		content: "说明：";
+	// 		float: left;
+	// 		margin-left: -50px;
+	// 	}
+	// }
+}
