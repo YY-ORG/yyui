@@ -6,6 +6,12 @@
 .point2 {
 }
 
+.radio-box {
+	legend.slds-form-element__label {
+		display: none;
+	}
+}
+
 .personal-description {
 	width: 80%;
 	margin: 0 auto;

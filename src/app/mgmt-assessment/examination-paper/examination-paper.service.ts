@@ -33,11 +33,17 @@ export class ExaminationPaperService {
     
     return this.restApi.request(api.method, api.url)
   }
-
+  
   postAssess (assessPaperId:string, assessId: string, data: any[] = []){
     const api = this.restApiCfg.getRestApi("assess.assessanswer");
     
     return this.restApi.request(api.method, api.url, { assessPaperId, assessId }, null, data)
+  }
+
+  fetchTableList (id:string): Promise<Assess.ComplexTemplateItem[]>{
+    const api = this.restApiCfg.getRestApi("id.get.templateitemlist");
+    
+    return this.restApi.request(api.method, api.url, { id })
   }
 
   postfile () {

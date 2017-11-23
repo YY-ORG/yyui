@@ -11,9 +11,20 @@
         <ngl-form-element [error]="v.result[templateItem.code]" label="{{templateItem.label}}：" class="slds-m-top--small left-lable">
             <select nglFormControl [disabled]='!templateItem.editable' [(ngModel)]="templateItem.reqDate.value" (ngModelChange)="checkValue(templateItem.code, templateItem.reqDate.value)" class="slds-select">
                 <option value="">--- 请选择 ---</option>
-                <option *ngFor="let rank of selectList[c] | async" [value]="rank.value">{{rank.displayValue}}</option>
+                <option *ngFor="let rank of templateItem.selectList | async" [value]="rank.value">{{rank.displayValue}}</option>
             </select>
         </ngl-form-element>
+     </div>
+    <!-- 单选框 -->
+    <div *ngSwitchCase="'8'" class="label-box">
+        <div  class="slds-m-top--small left-lable radio-box">
+            <label class="slds-form-element__label"><span>{{templateItem.label}}：</span></label>
+            <div class="slds-form-element__control">
+                <fieldset ngl-form-group [error]="v.result[templateItem.code]">
+                    <ngl-form-group-element *ngFor="let rank of templateItem.selectList | async" label="{{rank.displayValue}}"><input [value]="rank.value" [(ngModel)]="templateItem.reqDate.value" nglFormControl type="radio" /></ngl-form-group-element>
+                </fieldset>
+            </div>
+        </div>
      </div>
     <!-- 日期框 -->
     <div *ngSwitchCase="'2'" class="label-box">
@@ -54,7 +65,7 @@
         </ngl-form-checkbox>
     </div>
     <!-- 表格 -->
-    <div *ngSwitchCase="'15'" class="label-box">
+    <div *ngSwitchCase="'15'">
         <h1 class="mgt30 overflow-hidden"><button class="slds-button slds-button--green float-right" (click)="addModalOpen=true">新增</button></h1>
         
         <table class="slds-table mgt20">
@@ -77,7 +88,7 @@
         </table>
         <ngl-modal size="large" header="新增" [(open)]="addModalOpen">
           <div body class="width85 mgb30button" style="margin:0 auto">
-              <examination-assess-component #examinationAssess4 [templateItemItemList]="tableList"></examination-assess-component>
+              <examination-assess-component #examinationAssess4 [templateItemItemList]="tableAssessList"></examination-assess-component>
           </div>
           <template ngl-modal-footer>
               <button class="slds-button slds-button--neutral" (click)="addModalOpen = false">取消</button>
@@ -86,7 +97,7 @@
         </ngl-modal>
         <ngl-modal size="large" header="编辑" [(open)]="editModalOpen">
           <div body class="width85 mgb30button" style="margin:0 auto">
-              <examination-assess-component #examinationAssess5 [templateItemItemList]="tableList"></examination-assess-component>
+              <examination-assess-component #examinationAssess5 [templateItemItemList]="tableAssessList"></examination-assess-component>
           </div>
           <template ngl-modal-footer>
               <button class="slds-button slds-button--neutral" (click)="editModalOpen = false">取消</button>

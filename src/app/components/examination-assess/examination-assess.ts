@@ -27,6 +27,7 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
   
   @Input() templateItemItemList: Assess.TemplateItemItem[] = []
   @Input() tableList: Assess.TemplateItemItem[] = []
+  @Input() tableAssessList: Assess.TemplateItemItem[] = []
   
 	selectList: Promise<any>[] = []
   regList: any = {}
@@ -59,7 +60,6 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
   }
 
   ngOnChanges() {
-    console.log(arguments, '变化量')
     this.setTemplateItemList()
   }
 
@@ -98,9 +98,11 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
   }
 
 	getSelectList () {
-		this.selectList = this.templateItemItemList.map((templateItem, c) => {
+		this.templateItemItemList.map((templateItem, c) => {
       const {valueOwner, valueField} = templateItem
-      return valueOwner && valueField ? this.service.dict.get({ owner: valueOwner, field: valueField }) : null
+      if (valueOwner && valueField) {
+        Object.assign(templateItem, { selectList: this.service.dict.get({ owner: valueOwner, field: valueField }) })
+      }
     })
 	}
 

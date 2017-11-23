@@ -49,6 +49,9 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 	templateItemItemList: Assess.TemplateItemItem[]
 	tableList: Assess.TemplateItemItem[]
 	templateTableList: Assess.TemplateItemItem[]
+	complexTemplateList: Assess.ComplexTemplateItem[] = []
+
+	tableItemList= [{ type: '15' }]
 
 	ngOnInit() {
 		this.getPaper()
@@ -139,10 +142,23 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 			this.tableList = this.curremtTable ? this.curremtTable.templateItemItemList : []
 			this.templateTableList = this.curremtTemplateTable ? this.curremtTemplateTable.templateItemItemList : []
 
+			if (this.curremtTemplateTable) {
+				this.getTemplateTableList()
+			}
+
 			setTimeout(() => {
 				this.spinner.hide()
 			}, 0)
 		})
+	}
+
+	getTemplateTableList() {
+		this.spinner.show()
+		const id = this.templateTableList.filter(list => list.type == '15')[0].valueOwner
+		this.service.fetchTableList(id).then(res => {
+			this.spinner.hide()
+			this.complexTemplateList = res
+		}).catch(e => this.spinner.hide())
 	}
 
 	selectedChange(ngTab: any) {
