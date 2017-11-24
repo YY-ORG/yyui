@@ -27,7 +27,7 @@
 </table>
 <pagination *ngIf="maxPage>1" [maxSize]="maxPage" [currentPage]="currentPage + 1" (pageChanged)="pageChanged($event)"></pagination>
 
-<ngl-modal header="编辑账号" [(open)]="editModalOpen">
+<ngl-modal size="large" header="编辑账号" [(open)]="editModalOpen">
     <div body class="width90 mgb30button role___component" style="margin:0 auto">
         <div class="menu-box" *ngFor="let menuTop of menuItem | orderBy: 'orderBy';">
             <ngl-form-checkbox [label]="menuTop.name" [error]="hasError ? error : null" class="inline-block checkbox-lisl-checkbox role-title">

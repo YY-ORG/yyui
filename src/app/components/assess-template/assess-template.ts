@@ -75,9 +75,7 @@ export class AssessTemplateComponent extends PageClass implements OnInit {
   refreshList (res?: Assess.SimpleTemplateItem[]) {
     if (res) {
       this.selectTemplateitemList = res
-    } else {
-      this.selectTemplateitemList = []
-    }
+    } 
     this.templateitemList = this.cacheTemplateitemList.map(item => Object.assign({}, item))
     this.templateitemList.forEach(templateitem => {
       this.selectTemplateitemList.forEach(item => {

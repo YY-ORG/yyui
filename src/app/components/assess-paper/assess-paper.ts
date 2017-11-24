@@ -73,7 +73,7 @@ export class AssesspaperComponent extends PageClass implements OnInit {
         isSelect: false
       }))
       this.cacheAllAssessItemList = this.allAssessList.map(item => Object.assign({}, item))
-      this.refreshList()
+      this.refreshAssessList()
 
 		}).catch(res => this.spinner.hide())
   }
@@ -86,9 +86,8 @@ export class AssesspaperComponent extends PageClass implements OnInit {
         seqNo: assess.seqNo
     }))
   }
-  
-  refreshList () {
-    this.setAssessItemList()
+
+  refreshAssessList () {
     this.allAssessList = this.cacheAllAssessItemList.map(item => Object.assign({}, item))
     this.allAssessList.forEach(item => {
       this.assessItemList.forEach(assessItem => {
@@ -99,6 +98,11 @@ export class AssesspaperComponent extends PageClass implements OnInit {
         }
       })
     })
+  }
+  
+  refreshList () {
+    this.setAssessItemList()
+    this.refreshAssessList()
   }
 
   setSeqNo (assess: Assess.AssessMenuItem, lastIndex: number) {

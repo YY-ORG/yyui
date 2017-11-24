@@ -26,7 +26,7 @@
 <pagination *ngIf="maxPage>1" [maxSize]="maxPage" [currentPage]="currentPage + 1" (pageChanged)="pageChanged($event)"></pagination>
 
 
-<ngl-modal header="编辑分组" [(open)]="editCategory">
+<ngl-modal size="large" header="编辑分组" [(open)]="editCategory">
     <div body class="width85 mgb30button" style="margin:0 auto">
         <p>当前分组：{{currentCategory}}</p>
         <table class="slds-table mgt30">
@@ -55,7 +55,7 @@
     </template>
 </ngl-modal>
 
-<ngl-modal header="新增考卷" [(open)]="addModalOpen">
+<ngl-modal size="large" header="新增考卷" [(open)]="addModalOpen">
     <div body class="width85 mgb30button" style="margin:0 auto">
         <assess-paper #newAssessPaper [assessPaperProfileReq]="assessPaperProfileReq"></assess-paper>
     </div>
@@ -65,7 +65,7 @@
     </template>
 </ngl-modal>
 
-<ngl-modal header="编辑考卷" size="large" [(open)]="editModalOpen">
+<ngl-modal size="large" header="编辑考卷" size="large" [(open)]="editModalOpen">
     <div body class="width65 mgb30button" style="margin:0 auto">
         <assess-paper #editAssessPaper [assessPaperProfileReq]="assessPaperProfileReq"></assess-paper> 
     </div>

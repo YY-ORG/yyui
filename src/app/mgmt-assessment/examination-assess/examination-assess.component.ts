@@ -41,7 +41,7 @@ export class ExaminationAssessComponent extends PageClass implements OnInit {
 
 	getQuestionsList () {
 		this.spinner.show()
-		this.service.fetAssesslist(0, 10).then((res) => {
+		this.service.fetAssesslist(this.currentPage, 10).then((res) => {
 			this.spinner.hide()
 			let [pageList, assessList] = res
 			this.currentPage = pageList.totalPage === pageList.currentPage ? pageList.totalPage - 1 : pageList.currentPage
@@ -52,7 +52,7 @@ export class ExaminationAssessComponent extends PageClass implements OnInit {
 	}
 
 	pageChanged (pageEvent: any) {
-		this.currentPage = pageEvent.currentpage
+		this.currentPage = pageEvent.currentpage - 1
 		this.getQuestionsList()
 	}
 

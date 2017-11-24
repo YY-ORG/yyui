@@ -30,7 +30,7 @@
 </table>
 <pagination *ngIf="maxPage>1" [maxSize]="maxPage" [currentPage]="currentPage + 1" (pageChanged)="pageChanged($event)"></pagination>
 
-<ngl-modal header="新增考题元素" [(open)]="addModalOpen">
+<ngl-modal size="large" header="新增考题元素" [(open)]="addModalOpen">
     <div body class="width85 mgb30button" style="margin:0 auto">
        <assess-templateitem #newAssessTemplateitem [assessProfileReq]="assessProfileReq"></assess-templateitem>
     </div>
@@ -40,7 +40,7 @@
     </template>
 </ngl-modal>
 
-<ngl-modal header="编辑考题元素" [(open)]="editModalOpen">
+<ngl-modal size="large" header="编辑考题元素" [(open)]="editModalOpen">
     <div body class="width85 mgb30button" style="margin:0 auto">
        <assess-templateitem #assessTemplateitem [assessProfileReq]="assessProfileReq"></assess-templateitem>
     </div>

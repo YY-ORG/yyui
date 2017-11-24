@@ -23,7 +23,7 @@
 </table>
 <pagination maxSize=70 currentPage=5 (pageChanged)="pageChanged($event)"></pagination>
 
-<ngl-modal header="编辑内容" [(open)]="editModalOpen">
+<ngl-modal size="large" header="编辑内容" [(open)]="editModalOpen">
     <div body class="width65 mgb30button" style="margin:0 auto">
         <ngl-form-element label="内容名称：" [error]="hasError ? error : null" class="slds-m-top--small">
             <input nglFormControl type="text" placeholder="" [required]="required">

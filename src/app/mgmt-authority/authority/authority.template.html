@@ -28,7 +28,7 @@
 </table>
 <pagination maxSize=70 currentPage=5 (pageChanged)="pageChanged($event)"></pagination>
 
-<ngl-modal header="权限分配" [(open)]="editModalOpen">
+<ngl-modal size="large" header="权限分配" [(open)]="editModalOpen">
     <div body class="width65 mgb30button" style="margin:0 auto">
         <ngl-form-element label="账号：" [error]="hasError ? error : null" class="slds-m-top--small left-lable">
             <input nglFormControl type="text" placeholder="" [required]="required">

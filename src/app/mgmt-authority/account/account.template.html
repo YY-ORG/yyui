@@ -31,7 +31,7 @@
 </table>
 <pagination *ngIf="maxSize > 1" [maxSize]="maxSize" [currentPage]="currentPage + 1" (pageChanged)="pageChanged($event)"></pagination>
 
-<ngl-modal header="新增账号" [(open)]="addAccount">
+<ngl-modal size="large" header="新增账号" [(open)]="addAccount">
     <div body class="width65 mgb30button" style="margin:0 auto">
         <registration #registration></registration>
     </div>
@@ -41,7 +41,7 @@
     </template>
 </ngl-modal>
 
-<ngl-modal header="编辑账号" [(open)]="editModalOpen">
+<ngl-modal size="large" header="编辑账号" [(open)]="editModalOpen">
     <div body class="width65 mgb30button" style="margin:0 auto">
         <registration #editregistration [(userProfile)]="currentUser" [isCanEditPassword]='true'></registration>
         <label _ngcontent-c2="" class="slds-form-element__label role-title mgt15" for="ngl_form_element_6">

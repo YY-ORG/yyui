@@ -24,7 +24,7 @@
 </table>
 <pagination *ngIf="maxSize > 1" [maxSize]="maxSize" [currentPage]="currentPage + 1" (pageChanged)="pageChanged($event)"></pagination>
 
-<ngl-modal header="查看部门" [(open)]="organizationDetail">
+<ngl-modal size="large" header="查看部门" [(open)]="organizationDetail">
     <div body class="width85 mgb30button" style="margin:0 auto">
         <ul class="org-info">
             <li>机构名称：{{currentOrganization.organizitionName}}</li>

@@ -20,7 +20,7 @@
 </table>
 <pagination *ngIf="maxPage>1" [maxSize]="maxPage" [currentPage]="currentPage + 1" (pageChanged)="pageChanged($event)"></pagination>
 
-<ngl-modal header="新增考题分组" [(open)]="addModalOpen">
+<ngl-modal size="large" header="新增考题分组" [(open)]="addModalOpen">
     <div body class="width85 mgb30button" style="margin:0 auto">
        <assess-category #newAssessCategory [assessProfileReq]="assessProfileReq"></assess-category>
     </div>
@@ -30,7 +30,7 @@
     </template>
 </ngl-modal>
 
-<ngl-modal header="编辑考题分组" [(open)]="editModalOpen">
+<ngl-modal size="large" header="编辑考题分组" [(open)]="editModalOpen">
     <div body class="width85 mgb30button" style="margin:0 auto">
        <assess-category #assessCategory [assessProfileReq]="assessProfileReq"></assess-category>
     </div>
