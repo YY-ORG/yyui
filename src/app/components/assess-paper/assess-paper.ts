@@ -27,23 +27,36 @@ export class AssesspaperComponent extends PageClass implements OnInit {
   @Input() assessPaperProfileReq: Assess.AssessPaperProfileReq = new Assess.AssessPaperProfileReq;
   newAssessPaper
   addModalOpen: boolean = false
+  selectCategoryModal: boolean = false
 
   assessItemList: Assess.AssessMenuItem[] = [] // 当前试卷的试题列表
+  tableAssessItemList: any = {}
   allAssessList: Assess.SimpleAssessItem[] = []  // 所有的试题列表
   cacheAllAssessItemList: Assess.SimpleAssessItem[] = []  // 缓存所有的试题列表
   
   selectassessItemList: Assess.AssessMenuItem[] = []
   organizationList: Adminui.OrganizationItem[] = []
+
+  currentCategory: Assess.SimpleAssessCategoryItem
+  selectedTab: string
+  categoryList: Assess.SimpleAssessCategoryItem[] = []
+  selectedCategoryList: Assess.SimpleAssessCategoryItem[] = []
+
+  professionalTitle: any[] = []
 	
 	// currentpaper: Assess.paperProfileReq = new Assess.paperProfileReq
 	
 	currentPage: number = 0
 	maxPage: number = 1
+	cgcurrentPage: number = 0
+	cgmaxPage: number = 1
 
 
 	ngOnInit() {
     this.getAssessList()
     this.fetchOrganizations()
+    this.getCategoryList()
+    this.getTitle()
   }
 
   private fetchOrganizations() {
@@ -54,8 +67,17 @@ export class AssesspaperComponent extends PageClass implements OnInit {
     })
   }
 
+  getTitle () {
+		this.spinner.show()
+    this.service.professionalTitle.then(res => {
+			this.spinner.hide()
+      this.professionalTitle = res;
+    })
+  }
+
   // 新增考题
   addNewAssess () {
+    this.refreshAssessList()
     this.addModalOpen = true
   }
 
@@ -79,6 +101,33 @@ export class AssesspaperComponent extends PageClass implements OnInit {
   }
 
   setAssessItemList () {
+    this.professionalTitle.forEach(title => Object.assign(title, { selected: false }))
+    this.assessPaperProfileReq.titleList.forEach(title => {
+      this.professionalTitle.forEach(r => {
+        if (r.value === title) {
+          Object.assign(r, { selected: true })
+        }
+      })
+    })
+
+    this.organizationList.forEach(org => Object.assign(org, { selected: false }))
+    this.assessPaperProfileReq.orgIdList.forEach(id => {
+      this.organizationList.forEach(r => {
+        if (r.id === id) {
+          Object.assign(r, { selected: true })
+        }
+      })
+    })
+    
+    this.tableAssessItemList = {}
+    this.assessPaperProfileReq.assessList.forEach(assess => {
+      let obj = this.tableAssessItemList[assess.assessCategoryId]
+      if (obj) obj = []
+      obj.push(assess)
+    })
+
+    this.selectedCategoryList = []
+
     this.assessItemList = this.assessPaperProfileReq.assessList.map(assess => ({
         assessCode: assess.assessCode,
         assessId: assess.assessId,
@@ -116,10 +165,26 @@ export class AssesspaperComponent extends PageClass implements OnInit {
     this.submiteAssess()
   }
 
-	pageChanged (pageEvent: any) {
-		this.currentPage = pageEvent.currentpage - 1
-		this.getAssessList()
+  pageChanged (pageEvent: any) {
+    this.currentPage = pageEvent.currentpage - 1
+    this.getAssessList()
   }
+
+	cgpageChanged (pageEvent: any) {
+		this.cgcurrentPage = pageEvent.currentpage - 1
+		this.getCategoryList()
+  }
+
+	getCategoryList () {
+		this.spinner.show()
+		this.service.fetchCategorylist(this.cgcurrentPage, 10).then((res) => {
+			this.spinner.hide()
+			let [pageList, categoryList] = res
+			this.cgcurrentPage = pageList.totalPage === pageList.currentPage ? pageList.totalPage - 1 : pageList.currentPage
+			this.cgmaxPage = pageList.totalPage
+			this.categoryList = categoryList
+		}).catch(res => this.spinner.hide())
+	}
 
   creatSeqNo() {
     this.assessItemList.forEach((item, i) => {
@@ -129,13 +194,42 @@ export class AssesspaperComponent extends PageClass implements OnInit {
 
   submiteAssess () {
     this.addModalOpen = false
+
+    let arr: Assess.SimpleAssessReq[] = []
+    for (let key in this.tableAssessItemList) {
+      this.tableAssessItemList[key].forEach(assess => {
+        arr.push({
+          assessCategoryId: key,
+          assessId: assess.assessId,
+          assessName: assess.assessName,
+          assessCode: assess.assessCode,
+          seqNo: assess.seqNo
+        })
+      })
+    }
     
-    this.assessPaperProfileReq.assessList = this.assessItemList.map(assess => ({
-      assessId: assess.assessId,
-      assessName: assess.assessName,
-      assessCode: assess.assessCode,
-      seqNo: assess.seqNo
-    }))
+    this.assessPaperProfileReq.assessList = arr
+  }
+
+  selectCategoryOpen () {
+    this.currentCategory = null
+    this.selectCategoryModal = true
+  }
+
+  submiteCategory () {
+    if (!this.currentCategory) return this.alert.open('请选择一个分组')
+    if (this.selectedCategoryList.filter(c=> c.id === this.currentCategory.id).length) return this.alert.open('已经选过此分组')
+
+    this.selectedCategoryList.push(this.currentCategory)
+
+    this.selectCategoryModal = false
+    this.selectedTab = this.currentCategory.id
+    this.tableAssessItemList[this.currentCategory.id] = []
+
+    setTimeout(() => {
+      const tabs = document.querySelectorAll('.slds-tabs--default__link');
+      (tabs[tabs.length - 1] as HTMLElement).click()
+    })
   }
   
   seletChanged(assessItem: Assess.SimpleAssessItem) {
@@ -168,12 +262,38 @@ export class AssesspaperComponent extends PageClass implements OnInit {
     let regs: ValidationRegs = {
       name: [this.assessPaperProfileReq.name, [this.v.isUnBlank], "请输入试卷名称"],
       code: [this.assessPaperProfileReq.code, [this.v.isUnBlank], "请输入编码"],
-      title: [this.assessPaperProfileReq.title, [this.v.isUnBlank], "请选择职称"],
-      orgId: [this.assessPaperProfileReq.orgId, [this.v.isUnBlank], "请选择部门"],
+      title: [this.assessPaperProfileReq.titleList.length, [this.v.min(1)], "请选择职称"],
+      orgId: [this.assessPaperProfileReq.orgIdList.length, [this.v.min(1)], "请选择部门"],
       assessList: [this.assessPaperProfileReq.assessList.length, [this.v.min(1)], "考题列表不能为空"],
     }
 
     return this.v.check(key, regs);
+  }
+
+  protected tabChange(category: Assess.SimpleAssessCategoryItem, event: string) {
+
+    if (event === 'inactive') {
+      this.tableAssessItemList[category.id] = this.assessItemList
+    } else {
+      this.currentCategory = category
+      console.log(this.currentCategory.id, this.tableAssessItemList[this.currentCategory.id])
+      this.assessItemList = this.tableAssessItemList[this.currentCategory.id]
+    }
+  }
+
+  protected removeDetail(detail: Object) {
+    // this.se = this.details.filter((d) => d !== detail);
+    // setTimeout(() => this.selectedTab = 'sum');
+  }
+
+  titleCheck () {
+    this.assessPaperProfileReq.titleList = this.professionalTitle.filter(res => res.selected).map(r => r.value)
+    this.checkValue('title')
+  }
+
+  organizationCheck () {
+     this.assessPaperProfileReq.orgIdList = this.organizationList.filter(res => (res as any).selected).map(r => r.id)
+     this.checkValue('orgId')
   }
 
   get seqNoList () {

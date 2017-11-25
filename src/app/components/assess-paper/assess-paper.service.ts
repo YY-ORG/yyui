@@ -46,6 +46,21 @@ export class AssesspaperService {
       return this.restApi.request(api.method, api.url)
   }
 
+   
+  fetchCategorylist (page: number, size: number): Promise<[Common.PageInfo, Assess.SimpleAssessCategoryItem[]]> {
+    const api = this.restApiCfg.getRestApi("get.category");
+    
+    return this.restApi.request(api.method, api.url, null, [{
+      key: 'size',
+      value: size
+    }, {
+      key: 'page',
+      value: page
+    }]).then((res: any) => {
+        return [res.pageInfo, res.resultContent]
+    }) as Promise<[Common.PageInfo, Assess.SimpleAssessCategoryItem[]]>
+  }
+
   //职称
   professionalTitle = this.dict.get({ 
       owner : "USER_INFO",

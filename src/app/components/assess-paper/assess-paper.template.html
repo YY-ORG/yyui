@@ -4,21 +4,36 @@
 <ngl-form-element label="编码：" [error]="v.result.code" class="slds-m-top--small">
     <input nglFormControl type="text" placeholder="" [(ngModel)]="assessPaperProfileReq.code" (ngModelChange)="checkValue('code')" [required]="required">
 </ngl-form-element>
-<ngl-form-element [error]="v.result.title" label="职称:" class="slds-m-top--small left-lable">
-    <select nglFormControl [(ngModel)]="assessPaperProfileReq.title" (ngModelChange)="checkValue('title')" class="slds-select">
-    <option value="">--- 请选择 ---</option>
-    <option *ngFor="let title of service.professionalTitle | async" [value]="title.value">{{title.displayValue}}</option>
-    </select>
+<ngl-form-element [error]="v.result.title" label="职称:" class="slds-m-top--small">
+    <input nglFormControl style="display: none" [required]="required">
+        
+    <ngl-form-checkbox *ngFor="let title of professionalTitle" [label]="title.displayValue" [error]="hasError ? error : null" class="inline-block checkbox-lisl-checkbox role-title">
+        <input nglFormControl type="checkbox" [(ngModel)]="title.selected" (ngModelChange)="titleCheck(title);" />
+    </ngl-form-checkbox>
 </ngl-form-element>
-<ngl-form-element [error]="v.result.orgId" label="部门:" class="slds-m-top--small left-lable">
-    <select nglFormControl [(ngModel)]="assessPaperProfileReq.orgId" (ngModelChange)="checkValue('orgId')" class="slds-select">
-        <option value="">--- 请选择 ---</option>
-        <option *ngFor="let organization of organizationList" [value]="organization.id">{{organization.organizitionName}}</option>
-    </select>
+<ngl-form-element [error]="v.result.orgId" label="部门:" class="slds-m-top--small">
+    <input nglFormControl style="display: none" [required]="required">
+        
+    <ngl-form-checkbox *ngFor="let organization of organizationList" [label]="organization.organizitionName" [error]="hasError ? error : null" class="inline-block checkbox-lisl-checkbox role-title">
+        <input nglFormControl type="checkbox" [(ngModel)]="organization.selected" (ngModelChange)="organizationCheck(organization);" />
+    </ngl-form-checkbox>
 </ngl-form-element>
 
-<h1 class="paper-title">考题列表<button class="slds-button slds-button--green float-right" (click)="addNewAssess()">更改考题</button></h1>
+<h1 class="slds-text-heading--large mgt30"><font style="font-size: 22px">考题管理</font>
+    <button class="slds-button slds-button--neutral slds-button--small" (click)="selectCategoryOpen()" style="float:right; font-size:small;">添加分组</button>
+</h1>
 
+<ngl-tabs [(selected)]="selectedTab" type="default">
+    <ngl-tab *ngFor="let category of selectedCategoryList" nglTabId="{{category.id}}" (onActivate)="tabChange(category, 'active')" (onDeactivate)="tabChange(category, 'inactive')">
+        <ng-template ngl-tab-heading>{{ category.name }}</ng-template>
+        <ng-template ngl-tab-content>
+            <h1 class="slds-text-heading--large ">
+                <button class="slds-button slds-button--green " (click)="addNewAssess()" style=" font-size:small;">编辑考题</button>
+            </h1>
+        </ng-template>
+    </ngl-tab>
+</ngl-tabs>
+    
 <ngl-modal header="更改考题" size="large" [(open)]="addModalOpen">
     <div body class="width85 mgb30button" style="margin:0 auto">
         <table class="slds-table mgt30">
@@ -48,7 +63,37 @@
     </template>
 </ngl-modal>
 
-<table class="slds-table mgt30">
+<ngl-modal header="选择分组" [(open)]="selectCategoryModal">
+    <div body class="width55 mgb30button" style="margin:0 auto">
+        <table class="slds-table mgt30">
+            <tr>
+                <th>选择</th>
+                <th>分组名称</th>
+                <th>编码</th>
+            </tr>
+            <tr *ngFor="let category of categoryList; let i = index" (click)="currentCategory = category" >
+                <td style="width: 150px">
+                    <div class="radio">
+                        <input class="{{currentCategory?.id === category?.id ? 'checked' : ''}}" id="radio-{{i}}" name="radio" type="radio" >
+                        <label for="radio-{{i}}" class="radio-label"></label>
+                    </div>
+                </td>
+                <td>
+                    <font class="color-neutral">{{category.name}}</font>
+                </td>
+                <td>{{category.code}}</td>
+            </tr>
+        </table>
+        <pagination *ngIf="cgmaxPage>1" [maxSize]="cgmaxPage" [currentPage]="cgcurrentPage + 1" (pageChanged)="cgpageChanged($event)"></pagination>
+    </div>
+    <template ngl-modal-footer>
+        <button class="slds-button slds-button--neutral" (click)="selectCategoryModal = false">取消</button>
+        <button class="slds-button slds-button--brand" (click)="submiteCategory()">确定</button>
+    </template>
+</ngl-modal>   
+
+
+<table *ngIf="assessItemList.length" class="slds-table">
     <tr>
         <th>序号</th>
         <th>名称</th>

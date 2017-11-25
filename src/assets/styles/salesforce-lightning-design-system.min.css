@@ -3906,7 +3906,8 @@ a.slds-button--green:focus {
     border: 1px solid #d8dde6;
     border-radius: .125rem;
     background: #fff;
-    transition: border .1s linear, background-color .1s linear
+    transition: border .1s linear, background-color .1s linear;
+    margin-right: 5px;
 }
 
 .slds-checkbox .slds-form-element__label {

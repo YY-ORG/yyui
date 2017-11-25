@@ -91,9 +91,9 @@ export namespace Assess {
     code: string = "" // , optional),
     id: string = "" // , optional),
     name: string = "" // , optional),
-    orgId: string = "" // , optional),
+    orgIdList: string[] = [] // , optional),
     status: string = "" // , optional),
-    title: string = "" // , optional)
+    titleList: string[] = [] // , optional)
   }
   export class SimpleTemplateItem {
     code: string = '' //, optional),
@@ -190,11 +190,12 @@ export namespace Assess {
     assessList: SimpleAssessReq[] = [] //[SimpleAssessReq], optional),
     code: string = '' //, optional),
     name: string = '' //, optional),
-    orgId: string = '' //, optional),
-    title: string = '' //, optional)
+    orgIdList: string[] = [] //, optional),
+    titleList: string[] = [] //, optional)
   }
   export class SimpleAssessReq {
     assessId: string = '' //, optional),
+    assessCategoryId: string = '' //, optional),
     seqNo: number = 0 //, optional)
     assessCode: string //, optional),
     assessName: string //, optional),
@@ -204,8 +205,8 @@ export namespace Assess {
     assessList: SimpleAssessReq[] = [] //[SimpleAssessReq], optional),
     code: string = '' //, optional),
     name: string = '' //, optional),
-    orgId: string = '' //, optional),
-    title: string = '' //, optional)
+    orgIdList: string[] = [] //, optional),
+    titleList: string[] = [] //, optional)
   }
   export class AssessCategoryReq {
     code: string = "" //, optional),

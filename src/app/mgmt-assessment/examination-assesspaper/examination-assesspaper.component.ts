@@ -186,8 +186,8 @@ export class ExaminationAssesspaperComponent extends PageClass implements OnInit
 		req.assessList = []
 		req.code = paper.code
 		req.name = paper.name
-		req.orgId = paper.orgId
-		req.title = paper.title
+		req.orgIdList = paper.orgIdList
+		req.titleList = paper.titleList
 		this.service.getPaperAssessList(paper.id).then(res => {
 			this.spinner.hide()
 			const assessList = res
