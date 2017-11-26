@@ -64,6 +64,16 @@ export namespace Assess {
     assessId: string //, optional),
     assessName: string //, optional),
     seqNo: number //, optional)
+    categoryCode?: string
+    assessCategoryId?: string
+    categoryName?: string
+  }
+
+  export class AssessGroupItem {
+    assessItemList: AssessMenuItem[] //[AssessMenuItem], optional),
+    code: string //, optional),
+    id: string //, optional),
+    name: string //, optional)
   }
 
   export class AssessPaperItem {

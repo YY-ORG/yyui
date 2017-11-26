@@ -44,7 +44,7 @@ export class ExaminationAssesspaperService {
     return this.restApi.request(api.method, api.url, { id })
   }
   
-  getPaperAssessList (id: string): Promise<Assess.AssessMenuItem[]> {
+  getPaperAssessList (id: string): Promise<Assess.AssessGroupItem[]> {
     const api = this.restApiCfg.getRestApi("assesspaper.assesslist");
     
     return this.restApi.request(api.method, api.url, { id })

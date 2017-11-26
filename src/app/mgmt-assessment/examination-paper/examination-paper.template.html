@@ -1,8 +1,14 @@
 <h1 class="content-title">考题设置</h1>
 <ngl-tabs [(selected)]="selectedTab" (selectedChange)="selectedChange($event)">
   <ng-template ngl-tab *ngFor="let assessPaper of assesspaperlist; let paperIndex = index" [nglTabId]="paperIndex" [heading]="assessPaper.name">
+    <ngl-form-element label="请选择分组:" class="slds-m-top--small left-lable" style="width: 300px">
+        <select nglFormControl [(ngModel)]="selectGroup" (ngModelChange)="selectGroupChange()" class="slds-select">
+          <option [value]="null">--- 请选择 ---</option>
+            <option *ngFor="let group of groupItem" [ngValue]="group">{{group.name}}</option>
+        </select>
+    </ngl-form-element>
     <p class="mgt20"></p> 
-    <wizard *ngIf="!!assesslist.length">
+    <wizard *ngIf="!!assesslist?.length">
       <wizard-step stepTitle="{{assess.assessName}}" class="step-box" *ngFor="let assess of assesslist; let a = index;" #wizard>
           <ng-container [ngSwitch]="examination?.type">
               <!-- 表单模板 -->

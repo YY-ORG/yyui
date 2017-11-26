@@ -23,17 +23,19 @@
     <button class="slds-button slds-button--neutral slds-button--small" (click)="selectCategoryOpen()" style="float:right; font-size:small;">添加分组</button>
 </h1>
 
+<div #tabBox class="tab-box">
 <ngl-tabs [(selected)]="selectedTab" type="default">
     <ngl-tab *ngFor="let category of selectedCategoryList" nglTabId="{{category.id}}" (onActivate)="tabChange(category, 'active')" (onDeactivate)="tabChange(category, 'inactive')">
         <ng-template ngl-tab-heading>{{ category.name }}</ng-template>
         <ng-template ngl-tab-content>
-            <h1 class="slds-text-heading--large ">
+            <h1  *ngIf="selectedCategoryList.length" class="slds-text-heading--large ">
                 <button class="slds-button slds-button--green " (click)="addNewAssess()" style=" font-size:small;">编辑考题</button>
             </h1>
         </ng-template>
     </ngl-tab>
 </ngl-tabs>
-    
+</div>
+
 <ngl-modal header="更改考题" size="large" [(open)]="addModalOpen">
     <div body class="width85 mgb30button" style="margin:0 auto">
         <table class="slds-table mgt30">

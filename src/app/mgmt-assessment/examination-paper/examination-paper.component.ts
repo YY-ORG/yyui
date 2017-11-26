@@ -39,6 +39,8 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 	assesspaperlist: Assess.AssessPaperItem[] = []
 	currentAssessPaper: Assess.AssessPaperItem
 	assesslist: Assess.AssessMenuItem[] = []
+	groupItem: Assess.AssessGroupItem[] = []
+	selectGroup: Assess.AssessGroupItem = null
 	currentAssesst: Assess.AssessMenuItem
 	examination: Assess.AssessItem
 	
@@ -81,14 +83,19 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 			if (!res.length) {
 				return
 			}
-			this.assesslist = []
-			setTimeout(() => {
-				this.assesslist = this.orderBy.transform(res, 'seqNo')
-				this.cdr.detectChanges()
-				this.getItem(this.assesslist[0])
-			}, 0)
+			this.groupItem = res
 			
 		}).catch(e => this.spinner.hide())
+	}
+
+	selectGroupChange ($event) {
+		this.cdr.detectChanges()
+		this.assesslist = []
+		setTimeout(() => {
+			this.assesslist = this.selectGroup.assessItemList
+			this.cdr.detectChanges()
+			this.getItem(this.assesslist[0])
+		})
 	}
 
 	goToStep (index: number) {

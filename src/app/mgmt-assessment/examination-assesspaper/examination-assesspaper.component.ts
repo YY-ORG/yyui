@@ -190,7 +190,17 @@ export class ExaminationAssesspaperComponent extends PageClass implements OnInit
 		req.titleList = paper.titleList
 		this.service.getPaperAssessList(paper.id).then(res => {
 			this.spinner.hide()
-			const assessList = res
+			const assessList: Assess.AssessMenuItem[] = []
+			res.forEach(group => {
+				group.assessItemList.forEach(assess => {
+					assessList.push({
+						...assess,
+						categoryCode: group.code,
+						assessCategoryId: group.id,
+						categoryName: group.name
+					})
+				})
+			})
 			Object.assign(this.assessPaperProfileReq, { assessList })
 			this.editAssessPaper.refreshList()
 			this.editModalOpen = true

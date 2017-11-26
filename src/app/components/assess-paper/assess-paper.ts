@@ -1,4 +1,4 @@
-import { Component,  OnInit, ViewEncapsulation, Input, ViewChild  } from '@angular/core';
+import { Component,  OnInit, ViewEncapsulation, Input, ViewChild, ElementRef  } from '@angular/core';
 
 import { INglDatatableSort, INglDatatableRowClick } from 'ng-lightning/ng-lightning';
 import { Validation, ValidationRegs, SpinnerComponent, AlertComponent } from '../../../components'
@@ -24,6 +24,7 @@ export class AssesspaperComponent extends PageClass implements OnInit {
     this.v.result = {}
 	}
   
+  @ViewChild('tabBox') tabBox:ElementRef;
   @Input() assessPaperProfileReq: Assess.AssessPaperProfileReq = new Assess.AssessPaperProfileReq;
   newAssessPaper
   addModalOpen: boolean = false
@@ -71,7 +72,11 @@ export class AssesspaperComponent extends PageClass implements OnInit {
 		this.spinner.show()
     this.service.professionalTitle.then(res => {
 			this.spinner.hide()
-      this.professionalTitle = res;
+      this.professionalTitle = res.map(r => ({
+        ...r,
+        value: +r.value
+      }));
+      console.log(this.professionalTitle)
     })
   }
 
@@ -121,19 +126,35 @@ export class AssesspaperComponent extends PageClass implements OnInit {
     
     this.tableAssessItemList = {}
     this.assessPaperProfileReq.assessList.forEach(assess => {
-      let obj = this.tableAssessItemList[assess.assessCategoryId]
-      if (obj) obj = []
-      obj.push(assess)
+      let obj = this.tableAssessItemList
+      let id = assess.assessCategoryId
+      if (!obj[id]) obj[id] = []
+      obj[id].push(assess)
     })
 
     this.selectedCategoryList = []
-
-    this.assessItemList = this.assessPaperProfileReq.assessList.map(assess => ({
-        assessCode: assess.assessCode,
-        assessId: assess.assessId,
-        assessName: assess.assessName,
-        seqNo: assess.seqNo
-    }))
+    for (let key in this.tableAssessItemList) {
+      let value = this.tableAssessItemList[key][0]
+      this.selectedCategoryList.push({
+        name: value.categoryName,
+        code: value.categoryCode,
+        id: value.assessCategoryId,
+        isSelect: false
+      })
+    }
+    console.log(this.selectedCategoryList)
+    setTimeout(() => {
+      try{
+        const tabs = this.tabBox.nativeElement.querySelectorAll('.slds-tabs--default__link');
+        (tabs[0] as HTMLElement).click()
+      } catch (e) {}
+    })
+    // this.assessItemList = this.assessPaperProfileReq.assessList.map(assess => ({
+    //     assessCode: assess.assessCode,
+    //     assessId: assess.assessId,
+    //     assessName: assess.assessName,
+    //     seqNo: assess.seqNo
+    // }))
   }
 
   refreshAssessList () {
@@ -162,6 +183,8 @@ export class AssesspaperComponent extends PageClass implements OnInit {
       })
     })
     this.assessItemList = list
+    console.log(this.assessItemList)
+    this.tableAssessItemList[this.currentCategory.id] = this.assessItemList
     this.submiteAssess()
   }
 
@@ -227,8 +250,10 @@ export class AssesspaperComponent extends PageClass implements OnInit {
     this.tableAssessItemList[this.currentCategory.id] = []
 
     setTimeout(() => {
-      const tabs = document.querySelectorAll('.slds-tabs--default__link');
-      (tabs[tabs.length - 1] as HTMLElement).click()
+      try {
+        const tabs = this.tabBox.nativeElement.querySelectorAll('.slds-tabs--default__link');
+        (tabs[tabs.length - 1] as HTMLElement).click()
+      } catch (e) {}
     })
   }
   
