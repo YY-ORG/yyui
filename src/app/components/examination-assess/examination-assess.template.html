@@ -70,7 +70,7 @@
         
         <table class="slds-table mgt20">
           <tr>
-              <th *ngFor="let table of tableList">{{table.label}}</th>
+              <th *ngFor="let table of tableList | orderBy: 'seqNo'">{{table.label}}</th>
               <th style="width: 200px">操作</th>
           </tr>
           <!-- <tr *ngFor="let templateitem of templateitemList; let i = index">
@@ -88,7 +88,7 @@
         </table>
         <ngl-modal size="large" header="新增" [(open)]="addModalOpen">
           <div body class="width85 mgb30button" style="margin:0 auto">
-              <examination-assess-component #examinationAssess4 [templateItemItemList]="tableAssessList"></examination-assess-component>
+              <examination-assess-component *ngIf="addModalOpen" #examinationAssess4 [templateItemItemList]="tableAssessList"></examination-assess-component>
           </div>
           <template ngl-modal-footer>
               <button class="slds-button slds-button--neutral" (click)="addModalOpen = false">取消</button>
@@ -97,7 +97,7 @@
         </ngl-modal>
         <ngl-modal size="large" header="编辑" [(open)]="editModalOpen">
           <div body class="width85 mgb30button" style="margin:0 auto">
-              <examination-assess-component #examinationAssess5 [templateItemItemList]="tableAssessList"></examination-assess-component>
+              <examination-assess-component *ngIf="editModalOpen" #examinationAssess5 [templateItemItemList]="tableAssessList"></examination-assess-component>
           </div>
           <template ngl-modal-footer>
               <button class="slds-button slds-button--neutral" (click)="editModalOpen = false">取消</button>

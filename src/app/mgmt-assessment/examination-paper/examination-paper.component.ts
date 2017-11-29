@@ -99,6 +99,7 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 	}
 
 	goToStep (index: number) {
+		this.complexTemplateList = []
 		let preFinalize = {
 			emit: () => {
 				this.getItem(this.assesslist[index])
@@ -108,7 +109,7 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 	}
 
 	nextSteap (index: number) {
-		if (this.examination.type == '2') {
+		if (this.examination.type == '3') {
 			return this.goToStep(index)
 		}
 
@@ -140,7 +141,7 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 			this.templateItemList = this.examination.templateItemList
 			this.templateItemList.forEach(template => {
 				if (template.type == '0') this.curremtTemplateForm = template
-				if (template.type == '1') this.curremtTemplateTable = template
+				if (template.type == '3') this.curremtTemplateTable = template
 			})
 			this.curremtTemplateForm = this.templateItemList.filter(template => template.type == '0')[0]
 			this.curremtTable = this.templateItemList.filter(template => template.type == '1')[0]
@@ -171,6 +172,7 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 	selectedChange(ngTab: any) {
 		if (!this.assesspaperlist.length) return
 		this.getAssesslist(this.assesspaperlist[ngTab.id])
+		this.assesslist = []
 	}
 	
 	onConfirm() {

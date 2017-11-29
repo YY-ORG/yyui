@@ -101,6 +101,7 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
 		this.templateItemItemList.map((templateItem, c) => {
       const {valueOwner, valueField} = templateItem
       if (valueOwner && valueField) {
+        console.log(valueOwner, valueField)
         Object.assign(templateItem, { selectList: this.service.dict.get({ owner: valueOwner, field: valueField }) })
       }
     })

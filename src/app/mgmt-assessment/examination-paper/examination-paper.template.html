@@ -9,22 +9,21 @@
     </ngl-form-element>
     <p class="mgt20"></p> 
     <wizard *ngIf="!!assesslist?.length">
-      <wizard-step stepTitle="{{assess.assessName}}" class="step-box" *ngFor="let assess of assesslist; let a = index;" #wizard>
+      <wizard-step stepTitle="{{assess.assessName}}" class="step-box" *ngFor="let assess of assesslist | orderBy: 'seqNo'; let a = index;" #wizard>
           <ng-container [ngSwitch]="examination?.type">
-              <!-- 表单模板 -->
               <ng-container *ngSwitchCase="0">
-                  <examination-assess-component #examinationAssess2 [templateItemItemList]="templateItemItemList"></examination-assess-component>
+                  <!-- 表单模板 -->
+                  <examination-assess-component *ngIf="!complexTemplateList?.length" #examinationAssess2 [templateItemItemList]="templateItemItemList"></examination-assess-component>
+                  <!-- 表格表单混合模板 -->
+                  <examination-assess-component *ngIf="complexTemplateList.length" #examinationAssess2 [tableAssessList]="complexTemplateList" [tableList]="complexTemplateList" [templateItemItemList]="templateTableList"></examination-assess-component>
               </ng-container>
               <!-- 表格模板 -->
-              <ng-container *ngSwitchCase="1">
+              <ng-container *ngSwitchCase="3">
                 <examination-assess-component #examinationAssess2 [tableAssessList]="templateItemItemList" [tableList]="tableList" [templateItemItemList]="tableItemList"></examination-assess-component>
-              </ng-container>
-              <!-- 表格表单混合模板 -->
-              <ng-container *ngSwitchCase="2">
-                <examination-assess-component #examinationAssess2 [tableAssessList]="complexTemplateList" [tableList]="complexTemplateList" [templateItemItemList]="templateTableList"></examination-assess-component>
               </ng-container>
           </ng-container>
         <div class="step-button-box">
+          <button type="button" nglButton="inverse" (click)="goToStep(a + 1)" class="mgr30">跳过</button>
           <button type="button" nglButton="inverse" (click)="goToStep(a - 1)" class="mgr30">上一步</button>
           <button type="button" nglButton="brand" (click)="nextSteap(a + 1)">下一步</button>
         </div>
