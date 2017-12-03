@@ -142,19 +142,26 @@ export class AssesspaperComponent extends PageClass implements OnInit {
         isSelect: false
       })
     }
-    console.log(this.selectedCategoryList)
+    this.seleteFirstTab()
+  }
+
+  seleteFirstTab() {
     setTimeout(() => {
       try{
         const tabs = this.tabBox.nativeElement.querySelectorAll('.slds-tabs--default__link');
         (tabs[0] as HTMLElement).click()
       } catch (e) {}
     })
-    // this.assessItemList = this.assessPaperProfileReq.assessList.map(assess => ({
-    //     assessCode: assess.assessCode,
-    //     assessId: assess.assessId,
-    //     assessName: assess.assessName,
-    //     seqNo: assess.seqNo
-    // }))
+  }
+
+  deleteGroup(category: Assess.SimpleAssessCategoryItem) {
+    this.selectedCategoryList = this.selectedCategoryList.filter(group => group.id !== category.id)
+    this.assessItemList = this.assessItemList.filter(assess => {
+      assess.assessCategoryId !== category.id
+    })
+    delete this.tableAssessItemList[category.id]
+    this.submiteAssess()
+    this.seleteFirstTab()
   }
 
   refreshAssessList () {
@@ -183,7 +190,7 @@ export class AssesspaperComponent extends PageClass implements OnInit {
       })
     })
     this.assessItemList = list
-    console.log(this.assessItemList)
+
     this.tableAssessItemList[this.currentCategory.id] = this.assessItemList
     this.submiteAssess()
   }
@@ -218,6 +225,8 @@ export class AssesspaperComponent extends PageClass implements OnInit {
   submiteAssess () {
     this.addModalOpen = false
 
+    this.tableAssessItemList[this.currentCategory.id] = this.assessItemList
+
     let arr: Assess.SimpleAssessReq[] = []
     for (let key in this.tableAssessItemList) {
       this.tableAssessItemList[key].forEach(assess => {
@@ -230,7 +239,7 @@ export class AssesspaperComponent extends PageClass implements OnInit {
         })
       })
     }
-    
+
     this.assessPaperProfileReq.assessList = arr
   }
 

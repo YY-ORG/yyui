@@ -10,16 +10,42 @@
     <p class="mgt20"></p> 
     <wizard *ngIf="!!assesslist?.length">
       <wizard-step stepTitle="{{assess.assessName}}" class="step-box" *ngFor="let assess of assesslist | orderBy: 'seqNo'; let a = index;" #wizard>
-          <ng-container [ngSwitch]="examination?.type">
+          <ng-container *ngIf='currentStep === a' [ngSwitch]="examination?.type">
               <ng-container *ngSwitchCase="0">
                   <!-- 表单模板 -->
-                  <examination-assess-component *ngIf="!complexTemplateList?.length" #examinationAssess2 [templateItemItemList]="templateItemItemList"></examination-assess-component>
+                  <examination-assess-component 
+                    code="FORM" 
+                    *ngIf="!complexTemplateList?.length" 
+                    #examinationAssess 
+                    [templateFormId]="curremtTemplateForm?.id"
+                    [assessPaper]='currentAssessPaper'
+                    [assess]='currentAssesst'
+                    [group]='selectGroup'
+                    [templateItemItemList]="templateItemItemList"></examination-assess-component>
                   <!-- 表格表单混合模板 -->
-                  <examination-assess-component *ngIf="complexTemplateList.length" #examinationAssess2 [tableAssessList]="complexTemplateList" [tableList]="complexTemplateList" [templateItemItemList]="templateTableList"></examination-assess-component>
+                  <examination-assess-component 
+                    code="FORM_TABLE" 
+                    *ngIf="complexTemplateList.length" 
+                    #examinationAssess 
+                    [tableAssessList]="complexTemplateList" 
+                    [tableList]="complexTemplateList" 
+                    [templateFormId]="formTableFormTemplateId"
+                    [assessPaper]='currentAssessPaper'
+                    [assess]='currentAssesst'
+                    [group]='selectGroup'
+                    [templateItemItemList]="templateTableList"></examination-assess-component>
               </ng-container>
               <!-- 表格模板 -->
               <ng-container *ngSwitchCase="3">
-                <examination-assess-component #examinationAssess2 [tableAssessList]="templateItemItemList" [tableList]="tableList" [templateItemItemList]="tableItemList"></examination-assess-component>
+                <examination-assess-component 
+                  code="TABLE" #examinationAssess 
+                  [tableAssessList]="templateItemItemList" 
+                  [tableList]="tableList" 
+                  [templateFormId]="curremtTemplateForm?.id"
+                  [assessPaper]='currentAssessPaper'
+                  [assess]='currentAssesst'
+                  [group]='selectGroup'
+                  [templateItemItemList]="tableItemList"></examination-assess-component>
               </ng-container>
           </ng-container>
         <div class="step-button-box">

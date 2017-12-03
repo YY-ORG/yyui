@@ -5,6 +5,7 @@ import { Validation, ValidationRegs, SpinnerComponent, AlertComponent } from '..
 import { PageClass } from '../../../class/page/page.class'
 import { ExaminationAssessService } from './examination-assess.service'
 import { OrderByPipe } from '../../../pipe/orderby' 
+import { MyDatePicker } from '../../../components/date-picker/my-date-picker.component'
 
 import { Adminui, Assess, Common } from '../../../core';
 
@@ -25,14 +26,29 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
     this.v.result = {}
 	}
   
-  @Input() templateItemItemList: Assess.TemplateItemItem[] = []
+  @Input() templateFormId: string
   @Input() tableList: Assess.TemplateItemItem[] = []
   @Input() tableAssessList: Assess.TemplateItemItem[] = []
+  @Input() code: 'FORM' | 'FORM_TABLE' | 'TABLE' = 'FORM'
+  @Input() assessPaper: Assess.AssessPaperItem
+  @Input() assess: Assess.AssessMenuItem
+  @Input() group: Assess.AssessGroupItem
+  @Input() templateItemItemList: Assess.TemplateItemItem[]
+
+  @ViewChild('examinationAssessAdd') public examinationAssessAdd: ExaminationAssessComponent;
+  @ViewChild('examinationAssessEdit') public examinationAssessEdit: ExaminationAssessComponent;
+  @ViewChild('dataPicker') dataPicker: MyDatePicker;
+  
   
 	selectList: Promise<any>[] = []
   regList: any = {}
+
+  formValue: Assess.SimpleAssessAnswerItem[] = []  // 所有表单的值
+  tableTrList: any[] = []  // 表格列表
   
-	checkValue: Function
+  checkValue: Function
+  addModalOpen: boolean = false
+  editModalOpen: boolean = false
 
 	public editor;
 	public editorContent: string;
@@ -57,9 +73,10 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
 	};
 
 	ngOnInit() {
+    this.getFormValue()
   }
 
-  ngOnChanges() {
+  ngOnChanges(changes) {
     this.setTemplateItemList()
   }
 
@@ -74,6 +91,9 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
       if (tem.type == '11') {  // 如果是分数框
         tem.point1 = ''
         tem.point2 = ''
+      }
+      if (tem.type == '7') {  // 如果是复选框
+        tem.reqDate.value = 0
       }
     })
     this.templateItemItemList = this.orderBy.transform(this.templateItemItemList, 'seqNo')
@@ -100,8 +120,7 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
 	getSelectList () {
 		this.templateItemItemList.map((templateItem, c) => {
       const {valueOwner, valueField} = templateItem
-      if (valueOwner && valueField) {
-        console.log(valueOwner, valueField)
+      if (['1', '8'].indexOf(templateItem.type.toString()) > -1) {
         Object.assign(templateItem, { selectList: this.service.dict.get({ owner: valueOwner, field: valueField }) })
       }
     })
@@ -124,8 +143,187 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
       regs[temp.code] = [temp.reqDate.value, reg, temp.tip || '输入有误，请检查']
     })
     this.regList = regs
+  }
+
+  submit () {
+    switch (this.code) {
+      case 'TABLE':
+        return this.service.putAssessanswer(this.assessPaper.id, this.assess.assessId, this.group.id)
+      case 'FORM_TABLE':
+        this.templateItemItemList.forEach(res => {
+          if (res.type.toString() === '15') {
+            res.reqDate.value = this.tableTrList.map(table => table.id).join(':')
+          }
+        })
+      case 'FORM':
+        let errorMsg = this.checkValue()
+        if (errorMsg) {
+          this.alert.open(errorMsg)
+          return Promise.reject(errorMsg)
+        }
+        return this.service.postSingleAssessanswer(this.assessPaper.id, this.assess.assessId, this.group.id, this.reqData)
+    }
+  }
+
+  get reqData (): Assess.AssessTemplateReq[] {
+    return [{
+      templateId: this.templateFormId,
+      seqNo: 0,
+      itemList: this.templateItemItemList.map(item => item.reqDate)
+    }]
+  }
+  
+  submitFrom () {
+		let errorMsg = this.checkValue()
+    if (errorMsg) {
+      this.alert.open(errorMsg)
+      return Promise.reject(errorMsg)
+    }
+    
+    let service
+    switch (this.code) {
+      case 'FORM': service = this.service.postSingleAssessanswer
+        break;
+      case 'FORM_TABLE': service = this.service.postAssessanswerSubanswer
+        break;
+      case 'TABLE': service = this.service.postAssessanswer
+        break;
+    }
+    
+		this.spinner.show()
+		return service.bind(this.service)(this.assessPaper.id, this.assess.assessId, this.group.id, this.reqData)
+			.then(res => {
+				this.spinner.hide()
+			}).catch(e => this.spinner.hide())
+  }
+
+  submitNewFrom () {
+    this.examinationAssessAdd.submitFrom().then(res => {
+      this.getFormValue()
+      this.addModalOpen = false
+    })
+  }
+
+  getFormValue () {
+    this.spinner.show()
+    this.service.fetchAssessanswer(this.assessPaper.id, this.assess.assessId).then(res => {
+      this.spinner.hide()
+      this.formValue = res
+
+      let tableTrList: Assess.SimpleAssessAnswerItem[] = []
+      let formVluesList: Assess.SimpleAssessAnswerItem[] = []  // 表单的值
+
+      if (this.code === 'FORM' || this.code === 'FORM_TABLE') {
+        formVluesList = res.filter(r => r.type == '0')
+        this.setFormReq(formVluesList.length ? formVluesList[0] : null)
+        tableTrList = res.filter(r => r.type == '1')
+      } else if (this.code === 'TABLE') {
+        tableTrList = res.filter(r => r.type == '0')
+      }
+      this.setTableTrList(tableTrList)
+    })
+  }
+
+	deleteTableList(tableTr: any) {
+		this.confirm.open("确定要删除吗？")
+		this.onConfirm = () => {
+			this.confirm.close()
+      this.spinner.show()
+      
+      let service
+      switch (this.code) {
+        case 'FORM_TABLE': service = this.service.deleteFormTableAssessanswers
+          break;
+        case 'TABLE': service = this.service.deleteTableAssessanswers
+          break;
+      }
+			service.bind(this.service)(this.assessPaper.id, this.assess.assessId, this.group.id, [tableTr.id]).then(res => {
+				this.spinner.hide()
+				this.alert.open('删除成功')
+				this.getFormValue()
+			}).catch(e => {
+				this.spinner.hide()
+				this.alert.open('删除失败，请稍后再试')
+			})
+		}
 	}
-	
+
+  setFormReq (formVluesList: Assess.SimpleAssessAnswerItem) {
+    if (!formVluesList) {
+      return false
+    }
+    
+    this.templateItemItemList.forEach(item => {
+      formVluesList.detailList.forEach(detail => {
+        if(item.reqDate.code === detail.itemCode) {
+          item.reqDate.value = detail.itemValue
+        }
+      })
+    })
+    
+    this.parserReqDate()
+  }
+
+  parserReqDate () {
+    this.templateItemItemList.forEach(item => {
+      switch (item.type.toString()) {
+        case '2':
+          this.dataPicker.setInitDate(item.reqDate.value as string)
+          break;
+        case '11':
+          let arr = item.reqDate.value.toString().split('/')
+          item.point1 = arr[0]
+          item.point2 = arr[1]
+          break;
+        default: break;
+      }
+    })
+  }
+
+  setTableTrList (tableTrList: Assess.SimpleAssessAnswerItem[]){
+    if (!this.tableList.length) return false
+
+    this.tableTrList = []
+    tableTrList.forEach(tr => {
+      let obj = {
+        id : tr.id,
+        seqNo : tr.seqNo,
+        templateId : tr.templateId
+      }
+
+      // 预加载字典
+      this.tableList.forEach(table => {
+       
+        if (['1', '8'].indexOf(table.type.toString()) > -1) {
+          Object.assign(table, { selectList: this.service.dict.get({ owner: table.valueOwner, field: table.valueField }) })
+        }
+      })
+      
+      this.tableList.forEach(table => {
+        tr.detailList.forEach(td => {
+          if (td.itemCode === table.code) {
+            obj[table.code] = td
+            
+            // 处理字典里面的值
+            let lastValue = obj[table.code].itemValue
+            if ((table as any).selectList) {
+              obj[table.code].itemValue = (table as any).selectList.then(res => {
+                return res.filter(r => r.value === lastValue)[0].displayValue
+              })
+            } else {
+              obj[table.code].itemValue = Promise.resolve(lastValue)
+            }
+          }
+        })
+      })
+      this.tableTrList.push(obj)
+    })
+  }
+
+  
+  submitEditFrom () {
+    this.examinationAssessEdit.submitFrom()
+  }
 	
   onEditorBlured(quill) {
   }

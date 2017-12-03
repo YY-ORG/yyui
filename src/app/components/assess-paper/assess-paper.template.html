@@ -30,6 +30,7 @@
         <ng-template ngl-tab-content>
             <h1  *ngIf="selectedCategoryList.length" class="slds-text-heading--large ">
                 <button class="slds-button slds-button--green " (click)="addNewAssess()" style=" font-size:small;">编辑考题</button>
+                <my-button button="radius" (onClick)="deleteGroup(category)" color="red" className="mgr10 float-right" icon="icon-edit1">删除该分组</my-button>
             </h1>
         </ng-template>
     </ngl-tab>

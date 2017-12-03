@@ -20,7 +20,7 @@ import { ExaminationAssessComponent }  from '../../components/examination-assess
 })
 export class ExaminationPaperComponent extends PageClass implements OnInit {
 	@ViewChild(WizardComponent) public wizard: WizardComponent;
-	@ViewChild(ExaminationAssessComponent) public examinationAssess: ExaminationAssessComponent;
+	@ViewChild('examinationAssess') public examinationAssess: ExaminationAssessComponent;
 	
 	constructor(
 		private service: ExaminationPaperService,
@@ -52,8 +52,10 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 	tableList: Assess.TemplateItemItem[]
 	templateTableList: Assess.TemplateItemItem[]
 	complexTemplateList: Assess.ComplexTemplateItem[] = []
+	formTableFormTemplateId: string = ''
 
 	tableItemList= [{ type: '15' }]
+	currentStep = 0
 
 	ngOnInit() {
 		this.getPaper()
@@ -95,6 +97,7 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 			this.assesslist = this.selectGroup.assessItemList
 			this.cdr.detectChanges()
 			this.getItem(this.assesslist[0])
+			this.currentStep = 0
 		})
 	}
 
@@ -105,28 +108,33 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 				this.getItem(this.assesslist[index])
 			}
 		}
+		this.currentStep = index
 		this.wizard.model.navigationMode.goToStep(index, preFinalize)
 	}
 
 	nextSteap (index: number) {
-		if (this.examination.type == '3') {
-			return this.goToStep(index)
-		}
-
-		let errorMsg = this.examinationAssess.checkValue()
-		if (errorMsg) return this.alert.open(errorMsg)
-
-		let data = [{
-				templateId: this.curremtTemplateForm.id,
-				seqNo: '',
-				itemList: this.templateItemItemList.map(item => item.reqDate)
-		}]
-		this.spinner.show()
-		this.service.postAssess(this.currentAssessPaper.id, this.currentAssesst.assessId, data)
+		this.examinationAssess.submit()
 			.then(res => {
-				this.spinner.hide()
 				this.goToStep(index)
-			}).catch(e => this.spinner.hide())
+			})
+		// if (this.examination.type == '3') {
+		// 	return this.goToStep(index)
+		// }
+
+		// let errorMsg = this.examinationAssess.checkValue()
+		// if (errorMsg) return this.alert.open(errorMsg)
+
+		// let data = [{
+		// 		templateId: this.curremtTemplateForm.id,
+		// 		seqNo: '',
+		// 		itemList: this.templateItemItemList.map(item => item.reqDate)
+		// }]
+		// this.spinner.show()
+		// this.service.postAssess(this.currentAssessPaper.id, this.currentAssesst.assessId, data)
+		// 	.then(res => {
+		// 		this.spinner.hide()
+		// 		this.goToStep(index)
+		// 	}).catch(e => this.spinner.hide())
 	}
 
 	send (ddd) {
@@ -146,6 +154,7 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 			this.curremtTemplateForm = this.templateItemList.filter(template => template.type == '0')[0]
 			this.curremtTable = this.templateItemList.filter(template => template.type == '1')[0]
 			this.curremtTemplateTable = this.templateItemList.filter(template => template.type == '2')[0]
+			
 			this.templateItemItemList = this.curremtTemplateForm ? this.curremtTemplateForm.templateItemItemList : []
 			this.tableList = this.curremtTable ? this.curremtTable.templateItemItemList : []
 			this.templateTableList = this.curremtTemplateTable ? this.curremtTemplateTable.templateItemItemList : []
@@ -162,8 +171,8 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 
 	getTemplateTableList() {
 		this.spinner.show()
-		const id = this.templateTableList.filter(list => list.type == '15')[0].valueOwner
-		this.service.fetchTableList(id).then(res => {
+		this.formTableFormTemplateId = this.templateTableList.filter(list => list.type == '15')[0].valueOwner
+		this.service.fetchTableList(this.formTableFormTemplateId).then(res => {
 			this.spinner.hide()
 			this.complexTemplateList = res
 		}).catch(e => this.spinner.hide())

@@ -207,6 +207,60 @@ export let RestApis: RestApiModel[] = [
         "url": "assess/authsec/assesspaper/{assessPaperId}/assess/{assessId}/assessanswer "
     },
     {
+        "desc": "考生删除某个卷子某个多答案题的多个答案",
+        "method": "DELETE",
+        "id": "delete.assessanswers",
+        "url": "assess/authsec/assesspaper/assess/assessanswers"
+    },
+    {
+        "desc": "考生删除某个卷子某个多答案题的某个答案",
+        "method": "DELETE",
+        "id": "delete.answerItemId",
+        "url": "assess/authsec/assesspaper/assess/assessanswer/{answerItemId}"
+    },
+    {
+        "desc": "考生删除某个卷子某个题的子元素项的多个答案",
+        "method": "DELETE",
+        "id": "delete.subanswer",
+        "url": "assess/authsec/assesspaper/assess/assessanswer/subanswers"
+    },
+    {
+        "desc": "考生删除某个卷子某个题的子元素项的某个答案",
+        "method": "DELETE",
+        "id": "delete.subanswer.subAnswerId",
+        "url": "assess/authsec/assesspaper/assess/assessanswer/subanswer/{subAnswerId}"
+    },
+    {
+        "desc": "获取某个用户某个题的答案",
+        "method": "GET",
+        "id": "get.assessanswer",
+        "url": "assess/authsec/assesspaper/{assessPaperId}/assess/{assessId}/assessanswer"
+    },
+    {
+        "desc": "考生提交某个卷子某个题(单答案题)的答案",
+        "method": "POST",
+        "id": "assess.single.assessanswer",
+        "url": "assess/authsec/assesspaper/{assessPaperId}/group/{groupId}/assess/{assessId}/assessanswer"
+    },
+    {
+        "desc": "考生提交某个多答案题（提交的时候无须再提交内容）",
+        "method": "PUT",
+        "id": "put.single.assessanswer",
+        "url": "assess/authsec/assesspaper/{assessPaperId}/group/{groupId}/assess/{assessId}/assessanswer"
+    },
+    {
+        "desc": "考生增加某个卷子某个多答案题的答案",
+        "method": "POST",
+        "id": "assessanswer.answeritem",
+        "url": "assess/authsec/assesspaper/{assessPaperId}/group/{groupId}/assess/{assessId}/assessanswer/answeritem"
+    },
+    {
+        "desc": "考生增加某个卷子某个题的元素项答案",
+        "method": "POST",
+        "id": "assessanswer.subanswer",
+        "url": "assess/authsec/assesspaper/{assessPaperId}/group/{groupId}/assess/{assessId}/assessanswer/subanswer"
+    },
+    {
         "desc": "分页检索当前登录用户所在部门的考卷列表",
         "method": "GET",
         "id": "assesspaper.assesspaperlist",

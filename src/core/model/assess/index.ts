@@ -95,7 +95,7 @@ export namespace Assess {
     code: string = ""; //, optional),
     id: string = ""; //, optional),
     name: string = ""; //, optional),
-    value: string = ""; //, optional)
+    value: string | number = ""; //, optional)
   }
   export class SimpleAssessPaperItem {
     code: string = "" // , optional),
@@ -257,5 +257,17 @@ export namespace Assess {
     valueField: string = '' // , optional),
     valueOwner: string = '' // , optional),
     visible: boolean // , optional)
+  }
+  export class SimpleAssessAnswerItem {
+    detailList: SimpleAssessAnswerDetailItem[] // [SimpleAssessAnswerDetailItem], optional),
+    id: string // , optional),
+    seqNo: number // , optional),
+    templateId: string // , optional),
+    type: string // , optional)
+  }
+  export class SimpleAssessAnswerDetailItem {
+    id: string // , optional),
+    itemCode: string // , optional),
+    itemValue: string // , optional)
   }
 }

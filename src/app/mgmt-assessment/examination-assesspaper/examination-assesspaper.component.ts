@@ -129,6 +129,7 @@ export class ExaminationAssesspaperComponent extends PageClass implements OnInit
 		}
 		
 		this.spinner.show()		
+		console.log(this.assessPaperProfileReq)
 		this.service.updateNewPaper({
 			id: this.currentAssesspaper.id,
 			...this.assessPaperProfileReq
