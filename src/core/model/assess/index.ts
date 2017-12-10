@@ -270,4 +270,27 @@ export namespace Assess {
     itemCode: string // , optional),
     itemValue: string // , optional)
   }
+  export class SimpleAssessPaperAnswerItem {
+    auditedCount: number //, optional),
+    code: string //, optional),
+    doingCount: number //, optional),
+    doneCount: number //, optional),
+    groupAnswerItemList: SimpleAssessGroupAnswerItem[] //[SimpleAssessGroupAnswerItem], optional),
+    id: string //, optional),
+    markedCount: number //, optional),
+    name: string //, optional),
+    totalCount: number //, optional),
+    unstartedCount: number //, optional)
+  }
+  export class SimpleAssessGroupAnswerItem {
+    auditedCount: number //, optional),
+    doingCount: number //, optional),
+    doneCount: number //, optional),
+    groupCode: string //, optional),
+    groupId: string //, optional),
+    groupName: string //, optional),
+    markedCount: number //, optional),
+    totalCount: number //, optional),
+    unstartedCount: number //, optional)
+  }
 }

@@ -73,11 +73,11 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
 	};
 
 	ngOnInit() {
-    this.getFormValue()
   }
 
   ngOnChanges(changes) {
     this.setTemplateItemList()
+    this.getFormValue()
   }
 
   setTemplateItemList () {
@@ -199,12 +199,12 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
 
   submitNewFrom () {
     this.examinationAssessAdd.submitFrom().then(res => {
-      this.getFormValue()
+      this.getFormValue(true)
       this.addModalOpen = false
     })
   }
 
-  getFormValue () {
+  getFormValue (isJustTable: boolean = false) {
     this.spinner.show()
     this.service.fetchAssessanswer(this.assessPaper.id, this.assess.assessId).then(res => {
       this.spinner.hide()
@@ -215,7 +215,7 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
 
       if (this.code === 'FORM' || this.code === 'FORM_TABLE') {
         formVluesList = res.filter(r => r.type == '0')
-        this.setFormReq(formVluesList.length ? formVluesList[0] : null)
+        if(!isJustTable) this.setFormReq(formVluesList.length ? formVluesList[0] : null)
         tableTrList = res.filter(r => r.type == '1')
       } else if (this.code === 'TABLE') {
         tableTrList = res.filter(r => r.type == '0')
@@ -240,7 +240,7 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
 			service.bind(this.service)(this.assessPaper.id, this.assess.assessId, this.group.id, [tableTr.id]).then(res => {
 				this.spinner.hide()
 				this.alert.open('删除成功')
-				this.getFormValue()
+				this.getFormValue(true)
 			}).catch(e => {
 				this.spinner.hide()
 				this.alert.open('删除失败，请稍后再试')

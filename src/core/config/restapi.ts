@@ -429,6 +429,12 @@ export let RestApis: RestApiModel[] = [
         "url": "assess/authsec/template/{id}/templateitemlist"
     },
     {
+        "desc": "获取某个用户某个试卷的分组答案的答题详情",
+        "method": "GET",
+        "id": "get.assessanswerlist",
+        "url": "assess/authsec/assesspaper/{id}/assessanswerlist"
+    },
+    {
         "desc": "上传文件",
         "method": "POST",
         "id": "upload.file",

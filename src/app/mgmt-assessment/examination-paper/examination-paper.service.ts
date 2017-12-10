@@ -27,6 +27,12 @@ export class ExaminationPaperService {
     
     return this.restApi.request(api.method, api.url, { id })
   }
+  
+  fetchAssessanswerlist (id: string): Promise<Assess.SimpleAssessPaperAnswerItem> {
+    const api = this.restApiCfg.getRestApi("get.assessanswerlist");
+    
+    return this.restApi.request(api.method, api.url, { id })
+  }
 
   fetchoOrgAssesslist (): Promise<Assess.AssessPaperItem[]> {
     const api = this.restApiCfg.getRestApi("assesslist.orgnization");

@@ -40,6 +40,7 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 	currentAssessPaper: Assess.AssessPaperItem
 	assesslist: Assess.AssessMenuItem[] = []
 	groupItem: Assess.AssessGroupItem[] = []
+	groupAnswerItemList: Assess.SimpleAssessGroupAnswerItem[] = []
 	selectGroup: Assess.AssessGroupItem = null
 	currentAssesst: Assess.AssessMenuItem
 	examination: Assess.AssessItem
@@ -80,24 +81,31 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 		
 		this.currentAssessPaper = paper
 		this.spinner.show()
-		this.service.fetchAssesslist(paper.id).then(res => {
+		Promise.all([this.service.fetchAssesslist(paper.id), this.service.fetchAssessanswerlist(paper.id)]).then(res => {
 			this.spinner.hide()
-			if (!res.length) {
-				return
+			let [groupItem, { groupAnswerItemList }] = res
+			if (!groupAnswerItemList.length) {
+				return this.alert.open('没有找到相关分组')
 			}
-			this.groupItem = res
-			
+
+			this.groupAnswerItemList = groupAnswerItemList
+			this.groupItem = groupItem
 		}).catch(e => this.spinner.hide())
 	}
 
-	selectGroupChange ($event) {
+	continueAnswer(groupAnswer: Assess.SimpleAssessGroupAnswerItem) {
+		this.selectGroup = this.groupItem.filter(group => group.id === groupAnswer.groupId)[0]
+		this.selectGroupChange()
+	}
+
+	selectGroupChange ($event?) {
 		this.cdr.detectChanges()
 		this.assesslist = []
 		setTimeout(() => {
 			this.assesslist = this.selectGroup.assessItemList
 			this.cdr.detectChanges()
 			this.getItem(this.assesslist[0])
-			this.currentStep = 0
+			this.goToStep(0)
 		})
 	}
 
@@ -182,6 +190,7 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 		if (!this.assesspaperlist.length) return
 		this.getAssesslist(this.assesspaperlist[ngTab.id])
 		this.assesslist = []
+		this.selectGroup = null
 	}
 	
 	onConfirm() {

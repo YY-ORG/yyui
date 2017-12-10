@@ -129,8 +129,8 @@
     <!-- 文件上传 -->
     <div *ngSwitchCase="'13'" class="label-box mgt10">
         <label class="slds-form-element__label"><span>{{templateItem.label}}：</span></label>
-        <span style="position: absolute;left: 380px;top: 5px;width: 500px;">已上传文件编号：{{templateItem.reqDate.value}}</span>
-        <file-upload #fu (change)="fu.upload()" (onFileUpload)="templateItem.reqDate.value = $event" [multiple]="true"></file-upload>
+        <span *ngIf="templateItem.reqDate.value" style="position: absolute;top: 5px;width: 500px;">已上传文件：{{templateItem.reqDate.value | getFileName}}</span>
+        <file-upload  *ngIf="!templateItem.reqDate.value" #fu (change)="fu.upload()" (onFileUpload)="templateItem.reqDate.value = $event" [multiple]="true"></file-upload>
     </div>
     <!-- 富文本编辑器 -->
     <div *ngSwitchCase="'17'" class="personal-description mgt30">

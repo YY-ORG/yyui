@@ -7,6 +7,7 @@ import { decimalPlacesPipe } from './decimalPlaces.pipe';
 import { ObjectToArrPipe } from './objectToArr.pipe';
 import { formatCapacity } from './formatCapacity.pipe';
 import { getArrValuePipe } from './getArrValue.pip';
+import { getFileNamePipe } from './getFileName.pipe';
 
 @NgModule({
     imports: [
@@ -19,7 +20,8 @@ import { getArrValuePipe } from './getArrValue.pip';
         decimalPlacesPipe,
         ObjectToArrPipe,
         formatCapacity,
-        getArrValuePipe
+        getArrValuePipe,
+        getFileNamePipe
     ],
     exports: [
         OrderByPipe,
@@ -28,7 +30,8 @@ import { getArrValuePipe } from './getArrValue.pip';
         decimalPlacesPipe,
         ObjectToArrPipe,
         formatCapacity,
-        getArrValuePipe
+        getArrValuePipe,
+        getFileNamePipe
     ],
     providers: [OrderByPipe,
         dictPipe,
@@ -36,7 +39,8 @@ import { getArrValuePipe } from './getArrValue.pip';
         decimalPlacesPipe,
         ObjectToArrPipe,
         formatCapacity,
-        getArrValuePipe
+        getArrValuePipe,
+        getFileNamePipe
     ]
 })
 export class PipeModule { }
