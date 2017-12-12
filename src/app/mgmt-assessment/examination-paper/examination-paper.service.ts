@@ -63,4 +63,11 @@ export class ExaminationPaperService {
     
     return this.restApi.request(api.method, api.url)
   }
+
+  getfile () {
+    const api = this.restApiCfg.getRestApi("get.file.info");
+    
+    return this.restApi.request(api.method, api.url)
+  }
+  
 }
