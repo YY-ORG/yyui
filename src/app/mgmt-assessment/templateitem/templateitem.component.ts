@@ -47,7 +47,10 @@ export class ExaminationTemplateitemComponent extends PageClass implements OnIni
 			this.currentPage = pageList.totalPage === pageList.currentPage ? pageList.totalPage - 1 : pageList.currentPage
 			this.maxPage = pageList.totalPage
 			this.templateitemList = templateitemList
-		}).catch(res => this.spinner.hide())
+		}).catch(res => {
+      this.spinner.hide()
+      this.alert.open(res)
+    })
 	}
 
 	pageChanged (pageEvent: any) {

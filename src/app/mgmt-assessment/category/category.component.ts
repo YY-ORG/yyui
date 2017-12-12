@@ -47,7 +47,10 @@ export class ExaminationCategoryComponent extends PageClass implements OnInit {
 			this.currentPage = pageList.totalPage === pageList.currentPage ? pageList.totalPage - 1 : pageList.currentPage
 			this.maxPage = pageList.totalPage
 			this.categoryList = categoryList
-		}).catch(res => this.spinner.hide())
+		}).catch(res => {
+      this.spinner.hide()
+      this.alert.open(res)
+    })
 	}
 
 	pageChanged (pageEvent: any) {
@@ -64,7 +67,10 @@ export class ExaminationCategoryComponent extends PageClass implements OnInit {
 			this.spinner.hide()
 			this.addModalOpen = false
 			this.getCategoryList()
-		})
+		}).catch(res => {
+      this.spinner.hide()
+      this.alert.open(res)
+    })
 	}
 
 	addNewCategory () {

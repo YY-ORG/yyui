@@ -45,6 +45,12 @@ export class ExaminationPaperService {
     
     return this.restApi.request(api.method, api.url, { assessPaperId, assessId }, null, data)
   }
+  
+  postAssessanswer (assessPaperId:string){
+    const api = this.restApiCfg.getRestApi("put.assessanswer");
+    
+    return this.restApi.request(api.method, api.url, { assessPaperId })
+  }
 
   fetchTableList (id:string): Promise<Assess.ComplexTemplateItem[]>{
     const api = this.restApiCfg.getRestApi("id.get.templateitemlist");

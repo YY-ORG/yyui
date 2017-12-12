@@ -53,14 +53,14 @@ export class ExaminationAssessService {
   deleteTableAssessanswers (assessPaperId: string, assessId: string, groupId: string, data: string[] = []): Promise<any>{
     const api = this.restApiCfg.getRestApi("delete.assessanswers");
     
-    return this.restApi.request(api.method, api.url, null, null, data)
+    return this.restApi.request(api.method, api.url, { assessPaperId }, null, data)
   }
 
   // 考生删除某个卷子某个题的子元素项的多个答案 表单里表格
   deleteFormTableAssessanswers (assessPaperId: string, assessId: string, groupId: string, data: string[] = []): Promise<any>{
     const api = this.restApiCfg.getRestApi("delete.subanswer");
     
-    return this.restApi.request(api.method, api.url, null, null, data)
+    return this.restApi.request(api.method, api.url, { assessPaperId }, null, data)
   }
 
 

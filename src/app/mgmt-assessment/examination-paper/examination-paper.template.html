@@ -24,6 +24,7 @@
         <td *ngIf="!groupAnswer.unstartedCount">已完毕</td>
       </tr>
     </table>
+    <button *ngIf="!selectGroup" class="slds-button slds-button--brand mgt30" (click)="submiteAssessanswer()">提交试卷</button>
     <p class="mgt20"></p> 
     <wizard *ngIf="!!assesslist?.length">
       <wizard-step stepTitle="{{assess.assessName}}" class="step-box" *ngFor="let assess of assesslist | orderBy: 'seqNo'; let a = index;" #wizard>

@@ -88,7 +88,10 @@ export class OrganizationComponent extends PageClass implements OnInit {
 				this.spinner.hide()
 				this.confirm.close()
 				this.getOrganizationList()
-			}).catch(e => this.spinner.hide())
+			}).catch(res => {
+        this.spinner.hide()
+        this.alert.open(res)
+      })
 		}
 	}
 
@@ -99,6 +102,9 @@ export class OrganizationComponent extends PageClass implements OnInit {
 			this.spinner.hide()
 			this.editModalOpen = false
 			this.getOrganizationList()
+		}).catch(res => {
+			this.spinner.hide()
+			this.alert.open(res)
 		})
 	}
 

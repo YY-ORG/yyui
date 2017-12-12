@@ -81,7 +81,10 @@ export class AccountComponent extends PageClass implements OnInit {
 				this.confirm.close()
 				if (this.userList.length === 1) this.currentPage -= 1
 				this.getAccountList()
-			}).catch(e => this.spinner.hide())
+			}).catch(res => {
+        this.spinner.hide()
+        this.alert.open(res)
+      })
 		}
 	}
 

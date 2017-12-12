@@ -48,7 +48,10 @@ export class TemplateitemComponent extends PageClass implements OnInit, OnChange
     this.service.fetchOwner().then(res => {
       this.spinner.hide()
       this.ownerList = res
-    }).catch(e => this.spinner.hide())
+    }).catch(res => {
+      this.spinner.hide()
+      this.alert.open(res)
+    })
   }
 
   getFiled () {
@@ -56,7 +59,10 @@ export class TemplateitemComponent extends PageClass implements OnInit, OnChange
     this.service.fetchField(this.assessProfileReq.valueOwner).then(res => {
       this.spinner.hide()
       this.fieldList = res
-    }).catch(e => this.spinner.hide())
+    }).catch(res => {
+      this.spinner.hide()
+      this.alert.open(res)
+    })
   }
 
   getTemplateList () {

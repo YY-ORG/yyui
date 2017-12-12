@@ -73,7 +73,10 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 					// this.getAssesslist(res[0])
 				}
 			})
-		}).catch(e => this.spinner.hide())
+		}).catch(res => {
+			this.spinner.hide()
+			this.alert.open(res)
+		})
 	}
 
 	getAssesslist (paper: Assess.AssessPaperItem) {
@@ -90,7 +93,10 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 
 			this.groupAnswerItemList = groupAnswerItemList
 			this.groupItem = groupItem
-		}).catch(e => this.spinner.hide())
+		}).catch(res => {
+			this.spinner.hide()
+			this.alert.open(res)
+		})
 	}
 
 	continueAnswer(groupAnswer: Assess.SimpleAssessGroupAnswerItem) {
@@ -183,7 +189,10 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 		this.service.fetchTableList(this.formTableFormTemplateId).then(res => {
 			this.spinner.hide()
 			this.complexTemplateList = res
-		}).catch(e => this.spinner.hide())
+		}).catch(res => {
+			this.spinner.hide()
+			this.alert.open(res)
+		})
 	}
 
 	selectedChange(ngTab: any) {
@@ -192,13 +201,31 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 		this.assesslist = []
 		this.selectGroup = null
 	}
+
+	submiteAssessanswer () {
+		let hasUnStarted =  false
+		this.groupAnswerItemList.forEach(res => {
+			if (res.unstartedCount > 0) {
+				hasUnStarted = true
+			}
+		})
+
+		this.confirm.open(hasUnStarted ? '您还有未做试题，提交后将无法再做更改，是否确认提交试卷？' : '提交后将无法再做更改，是否确认提交试卷？')
+		this.onConfirm = function () {
+			this.confirm.close()
+			this.spinner.show()
+			this.service.postAssessanswer(this.currentAssessPaper.id).then(res => {
+				this.spinner.hide()
+				this.alert.open('提交成功')
+			}).catch(res => {
+				this.spinner.hide()
+				this.alert.open(res)
+			})
+		}
+	}
 	
 	onConfirm() {
 		this.confirm.close()
-
-		setTimeout(() => {
-			this.alert.open("删除成功")
-		}, 1000)
 	}
 
 	con (data) {

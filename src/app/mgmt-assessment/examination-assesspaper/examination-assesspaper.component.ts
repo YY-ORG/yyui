@@ -55,7 +55,10 @@ export class ExaminationAssesspaperComponent extends PageClass implements OnInit
 			this.currentPage = pageList.totalPage === pageList.currentPage ? pageList.totalPage - 1 : pageList.currentPage
 			this.maxPage = pageList.totalPage
 			this.assesspaperList = assesspaperList
-		}).catch(res => this.spinner.hide())
+		}).catch(res => {
+      this.spinner.hide()
+      this.alert.open(res)
+    })
 	}
 
 	
@@ -77,7 +80,10 @@ export class ExaminationAssesspaperComponent extends PageClass implements OnInit
 			this.spinner.hide()
 			this.addModalOpen = false
 			this.getPaperList()
-		}).catch(e => this.spinner.hide())
+		}).catch(res => {
+      this.spinner.hide()
+      this.alert.open(res)
+    })
 	}
 	
 	pageChanged (pageEvent: any) {
@@ -94,7 +100,10 @@ export class ExaminationAssesspaperComponent extends PageClass implements OnInit
 			this.cgmaxPage = pageList.totalPage
 			this.categoryList = categoryList
 			this.refreshCategory()
-		}).catch(res => this.spinner.hide())
+		}).catch(res => {
+      this.spinner.hide()
+      this.alert.open(res)
+    })
 	}
 
 	refreshCategory () {
@@ -137,7 +146,10 @@ export class ExaminationAssesspaperComponent extends PageClass implements OnInit
 			this.spinner.hide()		
 			this.editModalOpen = false
 			this.getPaperList()
-		}).catch(e => this.spinner.hide())
+		}).catch(res => {
+      this.spinner.hide()
+      this.alert.open(res)
+    })
 	}
 
 	get currentCategory () {
@@ -152,9 +164,12 @@ export class ExaminationAssesspaperComponent extends PageClass implements OnInit
 			this.spinner.hide()
 			this.editCategory = true  
 			this.currentCategoryitem = res.map(r => Object.assign({}, r))
-			console.log(this.currentCategoryitem, res)
+
 			this.refreshCategory()
-		}).catch(e => this.spinner.hide())
+		}).catch(res => {
+      this.spinner.hide()
+      this.alert.open(res)
+    })
 	}
 		
 	seletChanged (category: Assess.SimpleAssessCategoryItem) {

@@ -102,7 +102,10 @@ export class AssesspaperComponent extends PageClass implements OnInit {
       this.cacheAllAssessItemList = this.allAssessList.map(item => Object.assign({}, item))
       this.refreshAssessList()
 
-		}).catch(res => this.spinner.hide())
+    }).catch(res => {
+      this.spinner.hide()
+      this.alert.open(res)
+    })
   }
 
   setAssessItemList () {
@@ -213,7 +216,10 @@ export class AssesspaperComponent extends PageClass implements OnInit {
 			this.cgcurrentPage = pageList.totalPage === pageList.currentPage ? pageList.totalPage - 1 : pageList.currentPage
 			this.cgmaxPage = pageList.totalPage
 			this.categoryList = categoryList
-		}).catch(res => this.spinner.hide())
+		}).catch(res => {
+      this.spinner.hide()
+      this.alert.open(res)
+    })
 	}
 
   creatSeqNo() {

@@ -52,7 +52,10 @@ export class ExaminationTemplateComponent extends PageClass implements OnInit {
 			this.maxPage = pageList.totalPage
 
 			this.templateList = templateList
-		}).catch(res => this.spinner.hide())
+		}).catch(res => {
+      this.spinner.hide()
+      this.alert.open(res)
+    })
 	}
 
 	pageChanged (pageEvent: any) {
@@ -77,7 +80,10 @@ export class ExaminationTemplateComponent extends PageClass implements OnInit {
 			this.spinner.hide()		
 			this.addModalOpen = false
 			this.getTemplateList()
-		}).catch(e => this.spinner.hide())
+		}).catch(res => {
+      this.spinner.hide()
+      this.alert.open(res)
+    })
 	}
 
 	submiteEditTemplate() {
@@ -94,7 +100,10 @@ export class ExaminationTemplateComponent extends PageClass implements OnInit {
 			this.spinner.hide()		
 			this.editModalOpen = false
 			this.getTemplateList()
-		}).catch(e => this.spinner.hide())
+		}).catch(res => {
+      this.spinner.hide()
+      this.alert.open(res)
+    })
 	}
 		
 	deleteTemplate(template: Assess.SimpleTemplate) {

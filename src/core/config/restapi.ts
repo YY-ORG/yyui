@@ -210,25 +210,25 @@ export let RestApis: RestApiModel[] = [
         "desc": "考生删除某个卷子某个多答案题的多个答案",
         "method": "DELETE",
         "id": "delete.assessanswers",
-        "url": "assess/authsec/assesspaper/assess/assessanswers"
+        "url": "assess/authsec/assesspaper/{assessPaperId}/assess/assessanswers"
     },
     {
         "desc": "考生删除某个卷子某个多答案题的某个答案",
         "method": "DELETE",
         "id": "delete.answerItemId",
-        "url": "assess/authsec/assesspaper/assess/assessanswer/{answerItemId}"
+        "url": "assess/authsec/assesspaper/{assessPaperId}/assess/assessanswer/{answerItemId}"
     },
     {
         "desc": "考生删除某个卷子某个题的子元素项的多个答案",
         "method": "DELETE",
         "id": "delete.subanswer",
-        "url": "assess/authsec/assesspaper/assess/assessanswer/subanswers"
+        "url": "assess/authsec/assesspaper/{assessPaperId}/assess/assessanswer/subanswers"
     },
     {
         "desc": "考生删除某个卷子某个题的子元素项的某个答案",
         "method": "DELETE",
         "id": "delete.subanswer.subAnswerId",
-        "url": "assess/authsec/assesspaper/assess/assessanswer/subanswer/{subAnswerId}"
+        "url": "assess/authsec/assesspaper/{assessPaperId}/assess/assessanswer/subanswer/{subAnswerId}"
     },
     {
         "desc": "获取某个用户某个题的答案",
@@ -247,6 +247,12 @@ export let RestApis: RestApiModel[] = [
         "method": "PUT",
         "id": "put.single.assessanswer",
         "url": "assess/authsec/assesspaper/{assessPaperId}/group/{groupId}/assess/{assessId}/assessanswer"
+    },
+    {
+        "desc": "考生提交考卷",
+        "method": "PUT",
+        "id": "put.assessanswer",
+        "url": "assess/authsec/assesspaper/{assessPaperId}/paperanswer"
     },
     {
         "desc": "考生增加某个卷子某个多答案题的答案",
@@ -451,6 +457,12 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "id": "file.info",
         "url": "filesys//authsec/file/{id}"
+    },
+    {
+        "desc": "批量获取文件的信息",
+        "method": "POST",
+        "id": "get.file.info",
+        "url": "filesys/authsec/file/simpleinfo}"
     },
     {
         "desc": "在线显示文件",

@@ -194,7 +194,10 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
 		return service.bind(this.service)(this.assessPaper.id, this.assess.assessId, this.group.id, this.reqData)
 			.then(res => {
 				this.spinner.hide()
-			}).catch(e => this.spinner.hide())
+			}).catch(res => {
+        this.spinner.hide()
+        this.alert.open(res)
+      })
   }
 
   submitNewFrom () {

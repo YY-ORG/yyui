@@ -46,9 +46,12 @@ export class ExaminationAssessComponent extends PageClass implements OnInit {
 			let [pageList, assessList] = res
 			this.currentPage = pageList.totalPage === pageList.currentPage ? pageList.totalPage - 1 : pageList.currentPage
 			this.maxPage = pageList.totalPage
-			console.log(assessList)
+
 			this.assessList = assessList
-		}).catch(res => this.spinner.hide())
+		}).catch(res => {
+      this.spinner.hide()
+      this.alert.open(res)
+    })
 	}
 
 	pageChanged (pageEvent: any) {
@@ -73,7 +76,10 @@ export class ExaminationAssessComponent extends PageClass implements OnInit {
 			this.spinner.hide()		
 			this.addModalOpen = false
 			this.getQuestionsList()
-		}).catch(e => this.spinner.hide())
+		}).catch(res => {
+      this.spinner.hide()
+      this.alert.open(res)
+    })
 	}
 	
 	submiteEditQuestions() {
@@ -90,7 +96,10 @@ export class ExaminationAssessComponent extends PageClass implements OnInit {
 			this.spinner.hide()		
 			this.editModalOpen = false
 			this.getQuestionsList()
-		}).catch(e => this.spinner.hide())
+		}).catch(res => {
+      this.spinner.hide()
+      this.alert.open(res)
+    })
 	}
 
 	deleteQuestions(questions: Assess.SimpleAssessItem) {
@@ -127,7 +136,10 @@ export class ExaminationAssessComponent extends PageClass implements OnInit {
 				this.assessQuestions.refreshList()
 			}, 0)
 			this.editModalOpen = true
-		}).catch(e => this.spinner.hide())
+		}).catch(res => {
+      this.spinner.hide()
+      this.alert.open(res)
+    })
 	}
 
 	onConfirm() {

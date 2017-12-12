@@ -69,7 +69,10 @@ export class AssessTemplateComponent extends PageClass implements OnInit {
       this.cacheTemplateitemList = this.templateitemList.map(item => Object.assign({}, item))
       this.refreshList()
 
-		}).catch(res => this.spinner.hide())
+		}).catch(res => {
+      this.spinner.hide()
+      this.alert.open(res)
+    })
   }
   
   refreshList (res?: Assess.SimpleTemplateItem[]) {

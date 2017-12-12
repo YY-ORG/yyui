@@ -119,11 +119,11 @@ export class RestApi {
 				if (res.resultCode && res.resultCode === "10001003") {
 					throw "名称不能重复";
 				}
-				if (res.resultCode && res.resultCode === "10001001") {
+				if (['10002', '10001001', '10001'].indexOf(res.resultCode) > -1) {
 					throw res.detailDescription;
 				}
 				if (res.resultCode && res.resultCode !== "100") {
-					throw "状态吗不匹配";
+					throw res.detailDescription;
 				}
 
 				return res.resultContent;
