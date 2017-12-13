@@ -1,30 +1,31 @@
 <h1 class="content-title">考题设置</h1>
 <ngl-tabs [(selected)]="selectedTab" (selectedChange)="selectedChange($event)">
   <ng-template ngl-tab *ngFor="let assessPaper of assesspaperlist; let paperIndex = index" [nglTabId]="paperIndex" [heading]="assessPaper.name">
-    <ngl-form-element label="请选择分组:" class="slds-m-top--small left-lable" style="width: 300px">
+    <!-- <ngl-form-element label="请选择分组:" class="slds-m-top--small left-lable" style="width: 300px">
         <select nglFormControl [(ngModel)]="selectGroup" (ngModelChange)="selectGroupChange()" class="slds-select">
           <option [value]="null">--- 请选择 ---</option>
             <option *ngFor="let group of groupItem" [ngValue]="group">{{group.name}}</option>
         </select>
-    </ngl-form-element>
+    </ngl-form-element> -->
     <table *ngIf="!selectGroup" class="slds-table mgt30">
       <tr>
         <th>考题组</th>
         <th>考题总数</th>
         <th>已做总数</th>
         <th>未做总数</th>
-        <th>操作</th>
+        <th *ngIf="paperStatus == 0">操作</th>
       </tr>
       <tr *ngFor="let groupAnswer of groupAnswerItemList; let i = index">
         <td>{{groupAnswer.groupName}}</td>
         <td>{{groupAnswer.totalCount}}</td>
         <td>{{groupAnswer.doneCount}}</td>
         <td>{{groupAnswer.unstartedCount}}</td>
-        <td *ngIf="groupAnswer.unstartedCount"><font class="color-red" (click)="continueAnswer(groupAnswer)">继续做题</font></td>
-        <td *ngIf="!groupAnswer.unstartedCount">已完毕</td>
+        <td *ngIf="groupAnswer.unstartedCount && paperStatus == 0"><font class="color-red" (click)="continueAnswer(groupAnswer)">继续做题</font></td>
+        <td *ngIf="!groupAnswer.unstartedCount && paperStatus == 0">已完毕</td>
       </tr>
     </table>
-    <button *ngIf="!selectGroup" class="slds-button slds-button--brand mgt30" (click)="submiteAssessanswer()">提交试卷</button>
+    
+    <button *ngIf="!selectGroup && paperStatus == 0" class="slds-button slds-button--brand mgt30" (click)="submiteAssessanswer()">提交试卷</button>
     <p class="mgt20"></p> 
     <wizard *ngIf="!!assesslist?.length">
       <wizard-step stepTitle="{{assess.assessName}}" class="step-box" *ngFor="let assess of assesslist | orderBy: 'seqNo'; let a = index;" #wizard>

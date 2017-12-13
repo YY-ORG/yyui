@@ -1,4 +1,16 @@
-
+.file-delete-button {
+	cursor: pointer;
+	vertical-align: middle;
+	border: 1px solid #c73d3d;
+	font-size: 14px;
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	text-align: center;
+	line-height: 15px;
+	color: #c73d3d;
+	font-weight: bold;
+}
 .point1, .point2 {
 	width: 40%;
 	display: inline-block;

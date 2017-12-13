@@ -64,10 +64,10 @@ export class ExaminationPaperService {
     return this.restApi.request(api.method, api.url)
   }
 
-  getfile () {
+  getfile (data: string[]) {
     const api = this.restApiCfg.getRestApi("get.file.info");
     
-    return this.restApi.request(api.method, api.url)
+    return this.restApi.request(api.method, api.url, null, data)
   }
   
 }

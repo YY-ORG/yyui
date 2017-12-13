@@ -35,6 +35,7 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 	willDeleteUser;
 	editModalOpen: boolean = false;
 	addModalOpen: boolean = false;
+	paperStatus: number = 1; // 试卷状态
 	selectedTab: any;
 	assesspaperlist: Assess.AssessPaperItem[] = []
 	currentAssessPaper: Assess.AssessPaperItem
@@ -86,11 +87,12 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 		this.spinner.show()
 		Promise.all([this.service.fetchAssesslist(paper.id), this.service.fetchAssessanswerlist(paper.id)]).then(res => {
 			this.spinner.hide()
-			let [groupItem, { groupAnswerItemList }] = res
+			let [groupItem, { status, groupAnswerItemList }] = res
 			if (!groupAnswerItemList.length) {
 				return this.alert.open('没有找到相关分组')
 			}
 
+			this.paperStatus = status
 			this.groupAnswerItemList = groupAnswerItemList
 			this.groupItem = groupItem
 		}).catch(res => {

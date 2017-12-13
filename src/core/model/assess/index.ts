@@ -280,6 +280,7 @@ export namespace Assess {
     markedCount: number //, optional),
     name: string //, optional),
     totalCount: number //, optional),
+    status: number //, optional),
     unstartedCount: number //, optional)
   }
   export class SimpleAssessGroupAnswerItem {

@@ -462,7 +462,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "批量获取文件的信息",
         "method": "POST",
         "id": "get.file.info",
-        "url": "filesys/authsec/file/simpleinfo}"
+        "url": "filesys/authsec/file/simpleinfo"
     },
     {
         "desc": "在线显示文件",

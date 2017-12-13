@@ -16,16 +16,13 @@ export class getFileNamePipe implements PipeTransform {
     }
     
 
-    transform(value: string): Promise<any> {
-        const api = this.restApiCfg.getRestApi("file.info");
+    transform(value: string | string[]): Promise<any> {
+        const api = this.restApiCfg.getRestApi("get.file.info");
         
-        let headers: Headers = new Headers();
+        value = typeof value === 'string' ? [value] : value
         
-        let options = new RequestOptions({ headers: headers as any });
-        
-        return this.http.get(api.url.replace('{id}', value), options).toPromise().then(res => {
-            const contentDisposition = res.headers.get('Content-Disposition');
-            console.log(contentDisposition, res.headers)
+        return this.restApi.request(api.method, api.url, null, null, value).then(res => {
+            return res.map(r => r.name).join(',')
         })
     }
 }

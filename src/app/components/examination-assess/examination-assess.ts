@@ -249,7 +249,18 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
 				this.alert.open('删除失败，请稍后再试')
 			})
 		}
-	}
+  }
+  
+  deleteFile (id: string) {
+    this.spinner.show()
+    
+    this.service.deleteFile(id).then(res => {
+				this.spinner.hide()
+    }).catch(res => {
+      this.spinner.hide()
+      this.alert.open(res)
+    })
+  }
 
   setFormReq (formVluesList: Assess.SimpleAssessAnswerItem) {
     if (!formVluesList) {

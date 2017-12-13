@@ -63,6 +63,13 @@ export class ExaminationAssessService {
     return this.restApi.request(api.method, api.url, { assessPaperId }, null, data)
   }
 
+  // 删除文件
+  deleteFile (id: string) {
+    const api = this.restApiCfg.getRestApi("delete.file");
+    
+    return this.restApi.request(api.method, api.url, { id })
+  }
+
 
   type = this.dict.get({ 
     owner : "ASSESS",
