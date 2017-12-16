@@ -267,6 +267,18 @@ export let RestApis: RestApiModel[] = [
         "url": "assess/authsec/assesspaper/{assessPaperId}/group/{groupId}/assess/{assessId}/assessanswer/subanswer"
     },
     {
+        "desc": "考生更新某个卷子某个多答案题的答案",
+        "method": "PUT",
+        "id": "update.assessanswer.answer",
+        "url": "assess/authsec/assesspaper/{assessPaperId}/group/{groupId}/assess/{assessId}/assessanswer/answeritem/{answerItemId}"
+    },
+    {
+        "desc": "考生更新某个卷子某个题的元素项的某个答案",
+        "method": "PUT",
+        "id": "update.assessanswer.subanswer",
+        "url": "assess/authsec/assesspaper/{assessPaperId}/group/{groupId}/assess/{assessId}/assessanswer/subanswer/{subAnswerId}"
+    },
+    {
         "desc": "分页检索当前登录用户所在部门的考卷列表",
         "method": "GET",
         "id": "assesspaper.assesspaperlist",

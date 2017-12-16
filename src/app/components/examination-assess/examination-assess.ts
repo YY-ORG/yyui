@@ -27,6 +27,7 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
 	}
   
   @Input() templateFormId: string
+  @Input() globalDisable: boolean = false
   @Input() tableList: Assess.TemplateItemItem[] = []
   @Input() tableAssessList: Assess.TemplateItemItem[] = []
   @Input() code: 'FORM' | 'FORM_TABLE' | 'TABLE' = 'FORM'
@@ -34,6 +35,7 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
   @Input() assess: Assess.AssessMenuItem
   @Input() group: Assess.AssessGroupItem
   @Input() templateItemItemList: Assess.TemplateItemItem[]
+  @Input() assessanswer: Assess.SimpleAssessAnswerItem
 
   @ViewChild('examinationAssessAdd') public examinationAssessAdd: ExaminationAssessComponent;
   @ViewChild('examinationAssessEdit') public examinationAssessEdit: ExaminationAssessComponent;
@@ -42,6 +44,7 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
   
 	selectList: Promise<any>[] = []
   regList: any = {}
+  currentAssessanswer: Assess.SimpleAssessAnswerItem
 
   formValue: Assess.SimpleAssessAnswerItem[] = []  // 所有表单的值
   tableTrList: any[] = []  // 表格列表
@@ -77,7 +80,7 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
 
   ngOnChanges(changes) {
     this.setTemplateItemList()
-    this.getFormValue()
+    this.assessanswer ? this.setFormReq(this.assessanswer) : this.getFormValue()
   }
 
   setTemplateItemList () {
@@ -200,10 +203,42 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
       })
   }
 
+  submitEditFrom () {
+		let errorMsg = this.checkValue()
+    if (errorMsg) {
+      this.alert.open(errorMsg)
+      return Promise.reject(errorMsg)
+    }
+    
+    let service
+    switch (this.code) {
+      case 'FORM_TABLE': service = this.service.updateAssessanswerSubanswer
+        break;
+      case 'TABLE': service = this.service.updateAssessanswer
+        break;
+    }
+    
+		this.spinner.show()
+		return service.bind(this.service)(this.assessPaper.id, this.assess.assessId, this.group.id, this.assessanswer.id, this.reqData)
+			.then(res => {
+				this.spinner.hide()
+			}).catch(res => {
+        this.spinner.hide()
+        this.alert.open(res)
+      })
+  }
+
   submitNewFrom () {
     this.examinationAssessAdd.submitFrom().then(res => {
       this.getFormValue(true)
       this.addModalOpen = false
+    })
+  }
+
+  submitModelEditFrom () {
+    this.examinationAssessEdit.submitEditFrom().then(res => {
+      this.getFormValue(true)
+      this.editModalOpen = false
     })
   }
 
@@ -213,18 +248,22 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
       this.spinner.hide()
       this.formValue = res
 
-      let tableTrList: Assess.SimpleAssessAnswerItem[] = []
-      let formVluesList: Assess.SimpleAssessAnswerItem[] = []  // 表单的值
-
-      if (this.code === 'FORM' || this.code === 'FORM_TABLE') {
-        formVluesList = res.filter(r => r.type == '0')
-        if(!isJustTable) this.setFormReq(formVluesList.length ? formVluesList[0] : null)
-        tableTrList = res.filter(r => r.type == '1')
-      } else if (this.code === 'TABLE') {
-        tableTrList = res.filter(r => r.type == '0')
-      }
-      this.setTableTrList(tableTrList)
+      this.setFormValue(isJustTable)
     })
+  }
+
+  setFormValue (isJustTable: boolean = false) {
+    let tableTrList: Assess.SimpleAssessAnswerItem[] = []
+    let formVluesList: Assess.SimpleAssessAnswerItem[] = []  // 表单的值
+
+    if (this.code === 'FORM' || this.code === 'FORM_TABLE') {
+      formVluesList = this.formValue.filter(r => r.type == '0')
+      if(!isJustTable) this.setFormReq(formVluesList.length ? formVluesList[0] : null)
+      tableTrList = this.formValue.filter(r => r.type == '1')
+    } else if (this.code === 'TABLE') {
+      tableTrList = this.formValue.filter(r => r.type == '0')
+    }
+    this.setTableTrList(tableTrList)
   }
 
 	deleteTableList(tableTr: any) {
@@ -294,6 +333,11 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
     })
   }
 
+  editModalAssessAnwser (tableTr: any) {
+    this.currentAssessanswer = this.formValue.filter(value => value.id === tableTr.id)[0]
+    this.editModalOpen = true
+  }
+
   setTableTrList (tableTrList: Assess.SimpleAssessAnswerItem[]){
     if (!this.tableList.length) return false
 
@@ -316,7 +360,7 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
       this.tableList.forEach(table => {
         tr.detailList.forEach(td => {
           if (td.itemCode === table.code) {
-            obj[table.code] = td
+            obj[table.code] = Object.assign({}, td)
             
             // 处理字典里面的值
             let lastValue = obj[table.code].itemValue
@@ -333,11 +377,6 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
       this.tableTrList.push(obj)
     })
   }
-
-  
-  submitEditFrom () {
-    this.examinationAssessEdit.submitFrom()
-  }
 	
   onEditorBlured(quill) {
   }
@@ -347,6 +386,9 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
 
   onEditorCreated(quill) {
     this.editor = quill;
+    if (this.globalDisable) {
+      this.editor.disable()
+    }
   }
 
   onContentChanged({ quill, html, text }) {
