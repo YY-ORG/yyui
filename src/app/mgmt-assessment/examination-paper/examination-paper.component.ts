@@ -118,6 +118,9 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 	}
 
 	goToStep (index: number) {
+		if (index === this.assesslist.length) {
+			return false
+		}
 		this.complexTemplateList = []
 		let preFinalize = {
 			emit: () => {

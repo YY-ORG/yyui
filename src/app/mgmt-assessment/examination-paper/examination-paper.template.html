@@ -22,7 +22,7 @@
         <td>{{groupAnswer.unstartedCount}}</td>
         <td *ngIf="groupAnswer.unstartedCount && paperStatus == 0"><font class="color-red" (click)="continueAnswer(groupAnswer)">继续做题</font></td>
         <td *ngIf="!groupAnswer.unstartedCount && paperStatus == 0">已完毕</td>
-        <td  *ngIf="paperStatus != 0"><font class="color-red" (click)="continueAnswer(groupAnswer)">查看试题</font></td>
+        <td  *ngIf="paperStatus != 0"><font class="color-red" (click)="continueAnswer(groupAnswer)">查看试卷</font></td>
       </tr>
     </table>
     
@@ -72,11 +72,10 @@
               </ng-container>
           </ng-container>
         <div class="step-button-box">
-          <button *ngIf='paperStatus == 0' type="button" nglButton="inverse" (click)="goToStep(a + 1)" class="mgr30">跳过</button>
-          <button type="button" nglButton="inverse" (click)="goToStep(a - 1)" class="mgr30">上一题</button>
+          <button type="button" nglButton="inverse" (click)="goToStep(a - 1)">上一题</button>
+          <button type="button" nglButton="inverse" (click)="goToStep(a + 1)" class="mgr30">下一题</button>
           
-          <button *ngIf='paperStatus == 0' type="button" nglButton="brand" (click)="nextSteap(a + 1)">下一题</button>
-          <button *ngIf='paperStatus != 0' type="button" nglButton="brand" (click)="goToStep(a + 1)">下一题</button>
+          <button *ngIf='paperStatus == 0' type="button" nglButton="brand" (click)="nextSteap(a + 1)">保存</button>
         </div>
       </wizard-step>
     </wizard>
