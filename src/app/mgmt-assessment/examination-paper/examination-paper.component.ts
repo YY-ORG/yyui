@@ -117,10 +117,27 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 		})
 	}
 
-	goToStep (index: number) {
-		if (index === this.assesslist.length) {
-			return false
+	goToIndex () {
+		this.selectGroup = null
+		this.assesslist = []
+	}
+
+	confirmGoToStep (index: number) {
+		this.confirm.open('是否保存本题？')
+		this.onConfirm = () => {
+			this.confirm.close()
+			this.spinner.show()
+			this.examinationAssess.submit().then(res => {
+				this.spinner.hide()
+				this.goToStep(index)
+			}).catch(res => {
+				this.spinner.hide()
+				this.alert.open(res)
+			})
 		}
+	}
+
+	goToStep (index: number) {
 		this.complexTemplateList = []
 		let preFinalize = {
 			emit: () => {
@@ -232,6 +249,7 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 	onConfirm() {
 		this.confirm.close()
 	}
+	onCancel() {}
 
 	con (data) {
 		console.log(data)
