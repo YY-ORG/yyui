@@ -123,6 +123,9 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 	}
 
 	confirmGoToStep (index: number) {
+		if (!this.examinationAssess.isEdit) {
+			return this.goToStep(index)
+		}
 		this.confirm.open('是否保存本题？')
 		this.onConfirm = () => {
 			this.confirm.close()

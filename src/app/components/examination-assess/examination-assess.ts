@@ -48,6 +48,7 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
 
   formValue: Assess.SimpleAssessAnswerItem[] = []  // 所有表单的值
   tableTrList: any[] = []  // 表格列表
+  isEdit: boolean = false
   
   checkValue: Function
   addModalOpen: boolean = false
@@ -105,6 +106,7 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
     this.getRegList()
 
     this.checkValue = (code?: string, value?: string) => {
+      this.isEdit = true
       let regs: any = {}
 
       if (code) {
