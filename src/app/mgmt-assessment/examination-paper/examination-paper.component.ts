@@ -120,6 +120,7 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 	goToIndex () {
 		this.selectGroup = null
 		this.assesslist = []
+		this.getAssesslist(this.currentAssessPaper)
 	}
 
 	confirmGoToStep (index: number) {
@@ -137,6 +138,9 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 				this.spinner.hide()
 				this.alert.open(res)
 			})
+		}
+		this.onCancel = () => {
+			this.goToStep(index)
 		}
 	}
 
