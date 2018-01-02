@@ -56,6 +56,10 @@ export class RegistrationComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges (arg) {
+    if (!this.userProfile) {
+      this.userProfile = new Adminui.UserProfile
+      this.isEdit = false
+    }
     this.dataPicker.setInitDate(this.userProfile.birthday)
   }
 
