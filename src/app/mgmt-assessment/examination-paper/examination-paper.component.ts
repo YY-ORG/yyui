@@ -36,6 +36,7 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 	editModalOpen: boolean = false;
 	addModalOpen: boolean = false;
 	paperStatus: number = 1; // 试卷状态
+	currentDisable: boolean = false; // 当前考题状态
 	selectedTab: any;
 	assesspaperlist: Assess.AssessPaperItem[] = []
 	currentAssessPaper: Assess.AssessPaperItem
@@ -101,9 +102,10 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 		})
 	}
 
-	continueAnswer(groupAnswer: Assess.SimpleAssessGroupAnswerItem) {
+	continueAnswer(groupAnswer: Assess.SimpleAssessGroupAnswerItem, currentDisable: boolean = false) {
 		this.selectGroup = this.groupItem.filter(group => group.id === groupAnswer.groupId)[0]
 		this.selectGroupChange()
+		this.currentDisable = !!currentDisable
 	}
 
 	selectGroupChange ($event?) {
