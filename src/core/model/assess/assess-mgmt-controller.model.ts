@@ -71,6 +71,19 @@ class AssessPaperItem {
   status: string //, optional)
 }
 
+interface AssessPaperExamineeMapItem {
+  assessPaperId: string //, optional),
+  assessPaperName: string //, optional),
+  auditScore: number //, optional),
+  markedScore: number //, optional),
+  orgId: string //, optional),
+  orgName: string //, optional),
+  status: string //, optional),
+  title: string //, optional),
+  userId: string //, optional),
+  userName: string //, optional)
+}
+
 
 export {
   AssessItem,
@@ -78,5 +91,6 @@ export {
   TemplateItem,
   TemplateItemItem,
   AssessMenuItem,
-  AssessPaperItem
+  AssessPaperItem,
+  AssessPaperExamineeMapItem
 }
