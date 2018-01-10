@@ -14,7 +14,7 @@ import { ContinueEducationeComponent } from './continue-educatione/continue-educ
 import { ExaminationPaperComponent } from './examination-paper/examination-paper.component'
 import { ExaminationAssessComponent } from './examination-assess/examination-assess.component'
 import { PersonalDescriptionComponent } from './personal-description/personal-description.component'
-import { DeEducationeComponent } from './de-educatione/de-educatione.component'
+import { FirstCommentComponent } from './first-comment/first-comment.component'
 import { CanReviewComponent } from './can-review/can-review.component'
 import { DemocraticTestComponent } from './democratic-test/democratic-test.component'
 import { OrdinaryTimesComponent } from './ordinary-times/ordinary-times.component'
@@ -32,6 +32,7 @@ import { ExaminationTemplateService } from './examination-template/examination-t
 import { ExaminationAssesspaperService } from './examination-assesspaper/examination-assesspaper.service'
 import { AssessCategoryService } from './category/category.service'
 import { TemplateitemService } from './templateitem/templateitem.service'
+import { FristCommentService } from './first-comment/first-comment.service'
 
 // module
 import { AssessTemplateModule } from '../components/assess-template/assess-template.module'
@@ -61,7 +62,7 @@ import { ExaminationTableModule } from '../components/examination-table/examinat
         ContinueEducationeComponent,
         ExaminationPaperComponent,
         PersonalDescriptionComponent,
-        DeEducationeComponent,
+        FirstCommentComponent,
         CanReviewComponent,
         DemocraticTestComponent,
         OrdinaryTimesComponent,
@@ -81,7 +82,8 @@ import { ExaminationTableModule } from '../components/examination-table/examinat
         ExaminationTemplateService,
         ExaminationAssesspaperService,
         AssessCategoryService,
-        TemplateitemService
+        TemplateitemService,
+        FristCommentService
     ]
 
 })

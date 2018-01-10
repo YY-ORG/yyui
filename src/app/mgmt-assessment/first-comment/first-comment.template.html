@@ -1,0 +1,33 @@
+<h1 class="content-title">考核初评</h1>
+<div class="first-comment">
+    <table class="slds-table mgt30">
+        <tr>
+            <th style="width: 70px">序号</th>
+            <th>姓名</th>
+            <th>职称</th>
+            <th>考卷</th>
+            <th>初评得分</th>
+            <th>是否初评</th>
+            <th style="width: 300px">操作</th>
+        </tr>
+        <tr *ngFor="let unmark of unmarklist; let i = index">
+            <td>{{i+1}}</td>
+            <td>
+                <font class="color-neutral">{{unmark.userName}}</font>
+            </td>
+            <td>{{unmark.title | dict: service.professionalTitle | async}}</td>
+            <td>{{unmark.assessPaperName}}</td>
+            <td>{{unmark.markedScore || '--'}}</td>
+            <td>{{unmark.status | dict: service.status | async}}</td>
+            <td>
+                <my-button button="radius" (onClick)="editunmark(unmark)" color="primary" className="mgr10" icon="icon-edit1">查看</my-button>
+                <my-button button="radius" (onClick)="deleteunmark(unmark)" color="red" className="mgr10" icon="icon-edit1">评分</my-button>
+            </td>
+        </tr>
+    </table>
+    <pagination *ngIf="maxPage>1" [maxSize]="maxPage" [currentPage]="currentPage + 1" (pageChanged)="pageChanged($event)"></pagination>
+</div>
+
+<alert #alert></alert>
+<confirm (onConfirm)="onConfirm()" #confirm></confirm>
+<spinner #spinner></spinner>

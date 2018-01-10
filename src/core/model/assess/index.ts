@@ -294,4 +294,16 @@ export namespace Assess {
     totalCount: number //, optional),
     unstartedCount: number //, optional)
   }
+  export class AssessPaperExamineeMapItem {
+    assessPaperId: string //, optional),
+    assessPaperName: string //, optional),
+    auditScore: number //, optional),
+    markedScore: number //, optional),
+    orgId: string //, optional),
+    orgName: string //, optional),
+    status: string //, optional),
+    title: string //, optional),
+    userId: string //, optional),
+    userName: string //, optional)
+  }  
 }
