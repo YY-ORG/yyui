@@ -5,6 +5,7 @@ import { SpinnerComponent } from '../../../components'
 import { PageClass } from '../../../class/page/page.class'
 import { SystemDictionaryService, RestApiCfg, RestApi, Adminui, Assess, Common } from '../../../core';
 import { FristCommentService } from './first-comment.service'
+import { Router } from "@angular/router";
 
 @Component({
 	selector: 'first-comment',
@@ -14,7 +15,8 @@ import { FristCommentService } from './first-comment.service'
 })
 export class FirstCommentComponent extends PageClass implements OnInit {
 	constructor(
-    private service: FristCommentService
+		private service: FristCommentService,
+		private router: Router
 	) {
 		super()
 	}
@@ -28,6 +30,11 @@ export class FirstCommentComponent extends PageClass implements OnInit {
 
 	ngOnInit() {
 		this.getUnmarkList()
+	}
+
+	gotoPaper (unmarklist: Assess.AssessPaperExamineeMapItem) {
+		this.router.navigate(['mgmt-assessment/first-comment', unmarklist.assessPaperId, unmarklist.userId]);
+
 	}
 
 	getUnmarkList () {

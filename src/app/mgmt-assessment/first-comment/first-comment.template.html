@@ -20,8 +20,8 @@
             <td>{{unmark.markedScore || '--'}}</td>
             <td>{{unmark.status | dict: service.status | async}}</td>
             <td>
-                <my-button button="radius" (onClick)="editunmark(unmark)" color="primary" className="mgr10" icon="icon-edit1">查看</my-button>
-                <my-button button="radius" (onClick)="deleteunmark(unmark)" color="red" className="mgr10" icon="icon-edit1">评分</my-button>
+                <my-button button="radius" (onClick)="gotoPaper(unmark)" color="primary" className="mgr10" icon="icon-edit1">查看</my-button>
+                <my-button button="radius" (onClick)="gotoPaper(unmark)" color="red" className="mgr10" icon="icon-edit1">评分</my-button>
             </td>
         </tr>
     </table>

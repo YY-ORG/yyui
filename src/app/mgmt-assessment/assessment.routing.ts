@@ -15,6 +15,7 @@ import {
   PersonalDescriptionComponent
 } from './personal-description/personal-description.component'
 import { FirstCommentComponent } from './first-comment/first-comment.component'
+import { FirstCommentPaperComponent } from './first-comment-paper/first-comment-paper.component'
 import { ExaminationPaperComponent } from './examination-paper/examination-paper.component'
 import { CanReviewComponent } from './can-review/can-review.component'
 import { DemocraticTestComponent } from './democratic-test/democratic-test.component'
@@ -44,6 +45,7 @@ export const AssessmentRouting: ModuleWithProviders = RouterModule.forChild([{
       path: 'first-comment',
       component: FirstCommentComponent
     },
+    { path: 'first-comment/:paperid/:userid', component: FirstCommentPaperComponent },
     {
       path: 'can-review',
       component: CanReviewComponent
