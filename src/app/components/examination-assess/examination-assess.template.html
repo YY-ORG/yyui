@@ -148,7 +148,15 @@
     
     </ng-container>
 </ng-container>
-
+<div *ngIf='userId' class="comment">
+    <div *ngIf='templateItemItemList.length === 1 && templateItemItemList[0].type === "15";else inputComment' class="table-comment">
+        <!-- 表格选项 -->
+    </div>
+    <ng-template #inputComment>
+        <!-- 表单展现 -->
+        
+    </ng-template>
+</div>
 <spinner #spinner></spinner>
 <alert #alert></alert>
 <confirm (onConfirm)="onConfirm()" #confirm></confirm>

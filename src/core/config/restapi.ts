@@ -459,6 +459,12 @@ export let RestApis: RestApiModel[] = [
         "url": "assess/authsec/assesspaper/assessanswer/unauditlist"
     },
     {
+        "desc": "获取某个用户某个题的答案及答案的评分详情",
+        "method": "GET",
+        "id": "get.markassessanswer",
+        "url": "assess/authsec/assesspaper/{id}/assess/{assessId}/markassessanswer"
+    },
+    {
         "desc": "获取当前用户所在部门的未评分的试卷列表",
         "method": "GET",
         "id": "get.unmarklist",

@@ -306,4 +306,31 @@ export namespace Assess {
     userId: string //, optional),
     userName: string //, optional)
   }  
+  export class MarkedAssessAnswer {
+    auditComment: string // 复核评论
+    auditScore: number // 复核得分
+    auxiliaryScore: number // 系统辅助得分
+    id: string // 答案id
+    itemList: MarkedAssessAnswerItem[] //[MarkedAssessAnswerItem], optional),
+    markedComment: string // 初评评论
+    markedScore: number //, 初评得分
+    rauditScore: number // 实际复核得分
+    rmarkedScore: number //, 实际初评得分
+    scoringThreshold: number // 累加不超过限额的值 或 百分比
+    scoringType: string // 计分类型  doneCount unstartedCount markedCount
+  }
+  export class MarkedAssessAnswerItem {
+    auditComment: string //, optional),
+    auditScore: number //, optional),
+    auxiliaryScore: number //, optional),
+    detailList: SimpleAssessAnswerDetailItem[] //[SimpleAssessAnswerDetailItem], optional),
+    id: string //, optional),
+    markedComment: string //, optional),
+    markedScore: number //, optional),
+    rauditScore: number //, optional),
+    rmarkedScore: number //, optional),
+    seqNo: number //, optional),
+    templateId: string //, optional),
+    type: string //, optional)
+  }
 }

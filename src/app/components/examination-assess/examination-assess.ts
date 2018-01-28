@@ -36,6 +36,7 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
   @Input() group: Assess.AssessGroupItem
   @Input() templateItemItemList: Assess.TemplateItemItem[]
   @Input() assessanswer: Assess.SimpleAssessAnswerItem
+  @Input() userId: string
 
   @ViewChild('examinationAssessAdd') public examinationAssessAdd: ExaminationAssessComponent;
   @ViewChild('examinationAssessEdit') public examinationAssessEdit: ExaminationAssessComponent;
@@ -45,6 +46,7 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
 	selectList: Promise<any>[] = []
   regList: any = {}
   currentAssessanswer: Assess.SimpleAssessAnswerItem
+  markedAssessAnswer: Assess.MarkedAssessAnswer
 
   formValue: Assess.SimpleAssessAnswerItem[] = []  // 所有表单的值
   tableTrList: any[] = []  // 表格列表
@@ -85,6 +87,7 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
   }
 
   setTemplateItemList () {
+    console.log(this.templateItemItemList, 888)
     this.templateItemItemList.forEach(tem => {
       tem.reqDate = {
         code: tem.code,
@@ -246,12 +249,23 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
 
   getFormValue (isJustTable: boolean = false) {
     this.spinner.show()
-    this.service.fetchAssessanswer(this.assessPaper.id, this.assess.assessId).then(res => {
-      this.spinner.hide()
-      this.formValue = res
+    if (this.userId) { // 如果有userid 代表是评分 做评分的逻辑
+      this.service.fetchMarkassessanswer(this.assessPaper.id, this.assess.assessId, this.userId).then(res => {
+        this.spinner.hide()
+        
+        this.markedAssessAnswer = res
+        console.log(this.markedAssessAnswer)
+        this.formValue = res.itemList
+        this.setFormValue(isJustTable)
+      })
+    } else {
+      this.service.fetchAssessanswer(this.assessPaper.id, this.assess.assessId).then(res => {
+        this.spinner.hide()
+        this.formValue = res
 
-      this.setFormValue(isJustTable)
-    })
+        this.setFormValue(isJustTable)
+      })
+    }
   }
 
   setFormValue (isJustTable: boolean = false) {

@@ -19,6 +19,15 @@ export class ExaminationAssessService {
     
     return this.restApi.request(api.method, api.url, { assessPaperId, assessId })
   }
+
+  fetchMarkassessanswer (id: string, assessId: string, userId: string): Promise<Assess.MarkedAssessAnswer> {
+    const api = this.restApiCfg.getRestApi("get.markassessanswer");
+    
+    return this.restApi.request(api.method, api.url, { id, assessId }, [{
+      key: '_userId',
+      value: userId
+    }])
+  }
   
   // 考生提交某个卷子某个题(单答案题)的答案
   postSingleAssessanswer (assessPaperId: string, assessId: string, groupId: string, data: Assess.AssessTemplateReq[] = []): Promise<any>{

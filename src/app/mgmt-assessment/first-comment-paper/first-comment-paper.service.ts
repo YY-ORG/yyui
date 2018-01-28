@@ -21,6 +21,15 @@ export class FirstCommentPaperService {
     }])
   }
 
+  fetchMarkassessanswer (id: string, assessId: string, userId: string): Promise<Assess.MarkedAssessAnswer> {
+    const api = this.restApiCfg.getRestApi("get.markassessanswer");
+    
+    return this.restApi.request(api.method, api.url, { id, assessId }, [{
+      key: '_userId',
+      value: userId
+    }])
+  }
+
   professionalTitle = this.dict.get({ 
     owner : "USER_INFO",
     field : "PROFESSIONAL_TITLE"
