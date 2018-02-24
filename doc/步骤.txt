@@ -1,0 +1,35 @@
+计分管理
+
+第一页： 试卷列表
+第二页： 
+第一步---
+显示分组
+调用接口 GET /authsec/assesspaper/{_assessPaperId}/category/scoring 获取某个卷子的分组评分设置列表
+apAcId (string, optional), 
+code (string, optional),
+id (string, optional),
+name (string, optional),
+ratio (number, optional), 计分比
+threshold (number, optional) 分值范围
+第二步---
+提交接口
+POST /authsec/assesspaper/{_assessPaperId}/category/scoring 提交某个卷子的分组评分设置详情
+第三步---
+点击设置考题评分，弹出框
+GET /authsec/assesspaper/{_assessPaperId}/category/{_categoryId}/scoring 分页获取某个卷子的某个分组下试题的评分设置列表
+逻辑：判断多答案和单答案，如果是多答案 单答案分值范围列可以编辑
+第四步---
+提交
+POST /authsec/assesspaper/{_assessPaperId}/category/{_categoryId}/scoring 提交某个卷子某个分组的试题评分设置详情
+itemThreshold 为单答案分值范围列
+
+初评
+GET /authsec/assesspaper/{_assessPaperId}/assess/{_assessId}/markassessanswer 获取某个用户某个题的答案及答案的评分详情
+auxiliaryScore 系统辅助评分
+单答案提显示最外层
+多答案根据itemList
+多答案最外层的评分是表格里评分的总和，禁止编辑
+
+
+最后一步提交评分
+POST /authsec/assesspaper/{_assessPaperId}/markassessanswer 提交某个用户某个卷子的答案初评总分
