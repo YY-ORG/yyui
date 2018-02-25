@@ -1,0 +1,27 @@
+<h1 class="content-title">计分管理</h1>
+<table class="set-scoring slds-table mgt30">
+    <tr>
+        <th style="width: 70px">序号</th>
+        <th>考卷名称</th>
+        <th>编码</th>
+        <th>职称</th>
+        <th style="width: 300px">操作</th>
+    </tr>
+    <tr *ngFor="let assesspaper of assesspaperList; let i = index">
+        <td>{{i+1}}</td>
+        <td>
+            <font class="color-neutral">{{assesspaper.name}}</font>
+        </td>
+        <td>{{assesspaper.code}}</td>
+        <td>{{assesspaper.titleList | dict: service.professionalTitle | async}}</td>
+        <td>
+            <my-button button="radius" (onClick)="gotoPaper(assesspaper)" color="primary" className="mgr10" icon="icon-edit1">设置计分</my-button>
+        </td>
+    </tr>
+</table>
+<pagination *ngIf="maxPage>1" [maxSize]="maxPage" [currentPage]="currentPage + 1" (pageChanged)="pageChanged($event)"></pagination>
+
+
+<alert #alert></alert>
+<confirm (onConfirm)="onConfirm()" #confirm></confirm>
+<spinner #spinner></spinner>

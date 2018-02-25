@@ -27,6 +27,8 @@ import { ExaminationTemplateComponent } from './examination-template/examination
 import { ExaminationAssesspaperComponent } from './examination-assesspaper/examination-assesspaper.component'
 import { ExaminationCategoryComponent } from './category/category.component'
 import { ExaminationTemplateitemComponent } from './templateitem/templateitem.component'
+import { SetScoringComponent } from './set-scoring/set-scoring.component'
+import { SetScoringCategoryComponent } from './set-scoring-category/set-scoring-category.component'
 
 export const AssessmentRouting: ModuleWithProviders = RouterModule.forChild([{
   path: '',
@@ -76,6 +78,12 @@ export const AssessmentRouting: ModuleWithProviders = RouterModule.forChild([{
     },{
       path: 'templateitem',
       component: ExaminationTemplateitemComponent
+    },{
+      path: 'scoring',
+      component: SetScoringComponent
+    },{
+      path: 'scoring/:paperid',
+      component: SetScoringCategoryComponent
     }
   ]
 }]);

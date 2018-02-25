@@ -25,6 +25,8 @@ import { ExaminationTemplateComponent } from './examination-template/examination
 import { ExaminationAssesspaperComponent } from './examination-assesspaper/examination-assesspaper.component'
 import { ExaminationCategoryComponent } from './category/category.component'
 import { ExaminationTemplateitemComponent } from './templateitem/templateitem.component'
+import { SetScoringComponent } from './set-scoring/set-scoring.component'
+import { SetScoringCategoryComponent } from './set-scoring-category/set-scoring-category.component'
 
 //service
 import { ExaminationPaperService } from './examination-paper/examination-paper.service'
@@ -35,6 +37,8 @@ import { AssessCategoryService } from './category/category.service'
 import { TemplateitemService } from './templateitem/templateitem.service'
 import { FirstCommentPaperService } from './first-comment-paper/first-comment-paper.service'
 import { FristCommentService } from './first-comment/first-comment.service'
+import { SetScoringService } from './set-scoring/set-scoring.service'
+import { SetScoringCategoryService } from './set-scoring-category/set-scoring-category.service'
 
 // module
 import { AssessTemplateModule } from '../components/assess-template/assess-template.module'
@@ -75,7 +79,9 @@ import { ExaminationTableModule } from '../components/examination-table/examinat
         ExaminationTemplateComponent,
         ExaminationAssesspaperComponent,
         ExaminationCategoryComponent,
-        ExaminationTemplateitemComponent
+        ExaminationTemplateitemComponent,
+        SetScoringComponent,
+        SetScoringCategoryComponent
     ],
     exports: [
     ],
@@ -87,7 +93,9 @@ import { ExaminationTableModule } from '../components/examination-table/examinat
         AssessCategoryService,
         TemplateitemService,
         FristCommentService,
-        FirstCommentPaperService
+        FirstCommentPaperService,
+        SetScoringService,
+        SetScoringCategoryService
     ]
 
 })

@@ -471,6 +471,30 @@ export let RestApis: RestApiModel[] = [
         "url": "assess/authsec/assesspaper/assessanswer/unmarklist"
     },
     {
+        "desc": "获取某个卷子的分组评分设置列表",
+        "method": "GET",
+        "id": "get.paper.scoring",
+        "url": "assess/authsec/assesspaper/{id}/category/scoring"
+    },
+    {
+        "desc": "提交某个卷子的分组评分设置详情",
+        "method": "POST",
+        "id": "post.paper.scoring",
+        "url": "assess/authsec/assesspaper/{id}/category/scoring"
+    },
+    {
+        "desc": "分页获取某个卷子的某个分组下试题的评分设置列表",
+        "method": "GET",
+        "id": "get.category.scoring",
+        "url": "assess/authsec/assesspaper/{id}/category/{categoryId}/scoring"
+    },
+    {
+        "desc": "提交某个卷子某个分组的试题评分设置详情",
+        "method": "POST",
+        "id": "post.category.scoring",
+        "url": "assess/authsec/assesspaper/{id}/category/{categoryId}/scoring"
+    },
+    {
         "desc": "上传文件",
         "method": "POST",
         "id": "upload.file",

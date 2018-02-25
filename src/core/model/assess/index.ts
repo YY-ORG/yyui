@@ -333,4 +333,35 @@ export namespace Assess {
     templateId: string //, optional),
     type: string //, optional)
   }
+  export class ApAcScoringItem {
+    apAcId: string //, optional),
+    code: string //, optional),
+    id: string //, optional),
+    name: string //, optional),
+    ratio: number //, optional),
+    threshold: number //, optional)
+  }
+  export class ApAcScoringReq {
+    apacId: string //, optional),
+    id: string //, optional),
+    ratio: number //, optional),
+    threshold: number //, optional)
+  }
+  export class ApAssessScoringItem {
+    apAssessId: string //, optional),
+    code: string //, optional),
+    id: string //, optional),
+    itemThreshold: number //, optional),
+    name: string //, optional),
+    ratio: number //, optional),
+    seqNo: number //, optional),
+    threshold: number //, optional)
+  }
+  export class ApAssessScoringReq {
+    apAssessId: string //, optional),
+    assessId: string //, optional),
+    itemThreshold: number //, optional),
+    ratio: number //, optional),
+    threshold: number //, optional)
+  }
 }

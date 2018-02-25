@@ -14,7 +14,7 @@
             <font class="color-neutral">{{assesspaper.name}}</font>
         </td>
         <td>{{assesspaper.code}}</td>
-        <td>{{assesspaper.title | dict: service.professionalTitle | async}}</td>
+        <td>{{assesspaper.titleList | dict: service.professionalTitle | async}}</td>
         <td>{{assesspaper.status | dict: service.status | async}}</td>
         <td>
             <my-button button="radius" (onClick)="assignCategory(assesspaper)" color="primary" className="mgr10" icon="icon-edit1">分组</my-button>

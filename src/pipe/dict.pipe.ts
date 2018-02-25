@@ -26,15 +26,28 @@ import { Pipe, PipeTransform, Injectable } from "@angular/core";
 @Injectable()
 export class dictPipe implements PipeTransform {
 
-    transform(value: string, promise:Promise<any[]>): Promise<string> {
+    transform(value: string | string[], promise:Promise<any[]>): Promise<string> {
         return promise.then(arrs => {
-
             if(!arrs) return "";  //如果不是arr返回空
-            
-            arrs = arrs.filter(arr => arr.value == value); //过滤字典
-            if(arrs.length) {   //是否取到了值
-                return arrs[0].displayValue;
+
+            if (typeof value === 'object') {
+                let values = []
+                value.forEach(v => {
+                    let arrss = arrs.filter(arr => arr.value == v); //过滤字典
+                    if(arrss.length) {   //是否取到了值
+                        values.push(arrss[0].displayValue)
+                    } else {
+                        values.push('')
+                    }
+                });
+                return values.join(',')
+            } else {
+                let arrss = arrs.filter(arr => arr.value == value); //过滤字典
+                if(arrss.length) {   //是否取到了值
+                    return arrss[0].displayValue;
+                }
             }
+            
             return "";
         })
     }
