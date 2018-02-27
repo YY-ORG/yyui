@@ -25,11 +25,13 @@ export class SetScoringCategoryComponent extends PageClass implements OnInit {
 	}
 
 	scoringList: Assess.ApAcScoringItem[] = []
+	cgScoringList: Assess.ApAssessScoringItem[] = []
 	private sub: any;
 
 	currentPage: number = 0
 	maxPage: number = 1
-	paperid: string;
+	paperid: string
+	setModalOpen: boolean = false
 
 	ngOnInit() {
 		// paperid/:userid
@@ -43,31 +45,110 @@ export class SetScoringCategoryComponent extends PageClass implements OnInit {
 		this.spinner.show()
 		this.service.fetPaperScoring(this.paperid).then((res) => {
 			this.spinner.hide()
-			this.scoringList = res
-			console.log(this.scoringList)
+			this.scoringList = res.map(r => {
+				return {
+					...r,
+					ratio: r.ratio * 100,
+					ratioError: '',
+					thresholdError: ''
+				}
+			})
+		}).catch(res => {
+      this.spinner.hide()
+      this.alert.open(res)
+    })
+	}
+	
+	getCgScoringList (categoryID: string) {
+		this.spinner.show()
+		this.service.fetCategoryScoring(this.paperid, categoryID, this.currentPage, 10).then((res) => {
+			this.spinner.hide()
+			let [pageList, cgScoringList] = res
+			this.currentPage = pageList.totalPage === pageList.currentPage ? pageList.totalPage - 1 : pageList.currentPage
+			this.maxPage = pageList.totalPage
+
+			this.cgScoringList = cgScoringList.map(r => {
+				return {
+					...r,
+					ratio: r.ratio * 100,
+					ratioError: '',
+					thresholdError: ''
+				}
+			})
 		}).catch(res => {
       this.spinner.hide()
       this.alert.open(res)
     })
 	}
 
-	checkRatio (value: number) {
-		return this.v.isNumber(value) && this.v.min(0) && this.v.max(100)
+	checkRatio (value: number, scoring: Assess.ApAcScoringItem) {
+		scoring.ratioError = this.v.isUnBlank(value) && this.v.isNumber(value) && this.v.min(10e-10)(value) && this.v.max(100)(value) ? '' : '计分比填写不正确'
 	}
 
-	checkThreshold (value: number) {
-		return this.v.isNumber(value) && this.v.min(0)
+	checkThreshold (value: number, scoring: Assess.ApAcScoringItem) {
+		scoring.thresholdError = this.v.isUnBlank(value) && this.v.isNumber(value) && this.v.min(0)(value) ? '' : '分值范围填写不正确'
 	}
 
-  checkValue(key ? : string) {
-    let regs: ValidationRegs = {
-    }
+	submiteScoring () {
+		for (let index = 0; index < this.scoringList.length; index++) {
+			const scoring = this.scoringList[index];
+			if (scoring.ratioError) return this.alert.open(scoring.ratioError)
+			if (scoring.thresholdError) return this.alert.open(scoring.thresholdError)
+		}
 
-    return this.v.check(key, regs);
-  }
+		this.spinner.show()
+		let data: Assess.ApAcScoringReq[] = this.scoringList.map(scoring => {
+			return {
+				apacId: scoring.apAcId,
+				id: scoring.id,
+				ratio: scoring.ratio / 100,
+				threshold: +scoring.threshold
+			}
+		})
+		this.service.postPaperScoring(this.paperid, data).then(res => {
+			this.spinner.hide()
+			this.alert.open('提交成功')
+			this.getScoringList()
+		}).catch(res => {
+      this.spinner.hide()
+      this.alert.open(res)
+    })
+	}
+
+	submiteCgScoring () {
+		for (let index = 0; index < this.cgScoringList.length; index++) {
+			const scoring = this.cgScoringList[index];
+			if (scoring.ratioError) return this.alert.open(scoring.ratioError)
+			if (scoring.thresholdError) return this.alert.open(scoring.thresholdError)
+		}
+
+		// this.spinner.show()
+		// let data: Assess.ApAssessScoringReq[] = this.scoringList.map(scoring => {
+		// 	return {
+		// 		apacId: scoring.apAcId,
+		// 		id: scoring.id,
+		// 		ratio: scoring.ratio / 100,
+		// 		threshold: +scoring.threshold
+		// 	}
+		// })
+		// this.service.postCategoryScoring(this.paperid, data).then(res => {
+		// 	this.spinner.hide()
+		// 	this.alert.open('提交成功')
+		// 	this.getScoringList()
+		// }).catch(res => {
+    //   this.spinner.hide()
+    //   this.alert.open(res)
+    // })
+	}
+
 	pageChanged (pageEvent: any) {
 		this.currentPage = pageEvent.currentpage - 1
 		this.getScoringList()
+	}
+
+	openCategory (scoring: Assess.ApAcScoringItem) {
+		this.setModalOpen = true
+		this.getCgScoringList(scoring.id)
 	}
 
 }

@@ -340,6 +340,8 @@ export namespace Assess {
     name: string //, optional),
     ratio: number //, optional),
     threshold: number //, optional)
+    ratioError: string
+    thresholdError: string
   }
   export class ApAcScoringReq {
     apacId: string //, optional),
@@ -356,6 +358,8 @@ export namespace Assess {
     ratio: number //, optional),
     seqNo: number //, optional),
     threshold: number //, optional)
+    ratioError: string
+    thresholdError: string
   }
   export class ApAssessScoringReq {
     apAssessId: string //, optional),

@@ -3,7 +3,7 @@
     <tr>
         <th style="width: 70px">序号</th>
         <th>考题分组</th>
-        <th>积分比（%）</th>
+        <th>计分比（%）</th>
         <th>分值范围（>=0）</th>
         <th style="width: 300px">操作</th>
     </tr>
@@ -13,18 +13,54 @@
             <font class="color-neutral">{{scoring.name}}</font>
         </td>
         <td>
-            <input class="edit-input error" type="text" placeholder="" [(ngModel)]="scoring.ratio">
+            <input class="edit-input" [ngClass]='{"error": scoring.ratioError}' type="text" placeholder="" [(ngModel)]="scoring.ratio" (ngModelChange)='checkRatio(scoring.ratio, scoring)'>
         </td>
         <td>
-            <input class="edit-input" type="text" placeholder="" [(ngModel)]="scoring.threshold">
+            <input class="edit-input" [ngClass]='{"error": scoring.thresholdError}' type="text" placeholder="" [(ngModel)]="scoring.threshold" (ngModelChange)='checkThreshold(scoring.threshold, scoring)'>
         </td>
         <td>
-            <my-button button="radius" (onClick)="assignCategory(scoring)" color="primary" className="mgr10" icon="icon-edit1">设置组内考题计分</my-button>
+            <my-button button="radius" (onClick)="openCategory(scoring)" color="primary" className="mgr10" icon="icon-edit1">设置组内考题计分</my-button>
         </td>
     </tr>
 </table>
+<p class="text-align-right">
+    <button class="slds-button slds-button--brand mgt30" (click)="submiteScoring()">提交</button>
+</p>
+<div class="instruction mgt30">
+    <p>1. 分值范围为0时，表示不封顶</p>
+</div>
 <pagination *ngIf="maxPage>1" [maxSize]="maxPage" [currentPage]="currentPage + 1" (pageChanged)="pageChanged($event)"></pagination>
-
+<ngl-modal size="large" header="组内考题计分设置" [(open)]="setModalOpen">
+    <div body class="width85 mgb30button" style="margin:0 auto">
+        <table class="set-scoring-category slds-table mgt30">
+            <tr>
+                <th style="width: 70px">序号</th>
+                <th>考题分组</th>
+                <th>计分比（%）</th>
+                <th>分值范围（>=0）</th>
+            </tr>
+            <tr *ngFor="let scoring of cgScoringList; let i = index">
+                <td>{{i+1}}</td>
+                <td>
+                    <font class="color-neutral">{{scoring.name}}</font>
+                </td>
+                <td>
+                    <input class="edit-input" [ngClass]='{"error": scoring.ratioError}' type="text" placeholder="" [(ngModel)]="scoring.ratio" (ngModelChange)='checkRatio(scoring.ratio, scoring)'>
+                </td>
+                <td>
+                    <input class="edit-input" [ngClass]='{"error": scoring.thresholdError}' type="text" placeholder="" [(ngModel)]="scoring.threshold" (ngModelChange)='checkThreshold(scoring.threshold, scoring)'>
+                </td>
+            </tr>
+        </table>
+        <p class="text-align-right">
+            <button class="slds-button slds-button--brand mgt30" (click)="submiteCgScoring()">提交</button>
+        </p>
+    </div>
+    <template ngl-modal-footer>
+        <button class="slds-button slds-button--neutral" (click)="setModalOpen = false">取消</button>
+        <button class="slds-button slds-button--brand" (click)="submiteNewTemplate()">确定</button>
+    </template>
+</ngl-modal>
 
 <alert #alert></alert>
 <confirm (onConfirm)="onConfirm()" #confirm></confirm>

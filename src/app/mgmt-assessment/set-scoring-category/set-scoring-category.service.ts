@@ -17,6 +17,12 @@ export class SetScoringCategoryService {
     
     return this.restApi.request(api.method, api.url,  { id })
   }
+
+  postPaperScoring (id: string, data: Assess.ApAcScoringReq[]){
+    const api = this.restApiCfg.getRestApi("post.paper.scoring");
+    
+    return this.restApi.request(api.method, api.url, { id }, null, data)
+  }
   
   fetCategoryScoring (id: string, categoryId: string, page: number, size: number): Promise<[Common.PageInfo, Assess.ApAssessScoringItem[]]> {
     const api = this.restApiCfg.getRestApi("get.category.scoring");
@@ -30,6 +36,12 @@ export class SetScoringCategoryService {
     }]).then((res: any) => {
       return [res.pageInfo, res.resultContent]
     }) as Promise<[Common.PageInfo, Assess.ApAssessScoringItem[]]>
+  }
+
+  postCategoryScoring (id: string, categoryId: string, data: Assess.ApAssessScoringReq[]){
+    const api = this.restApiCfg.getRestApi("post.category.scoring");
+    
+    return this.restApi.request(api.method, api.url, { id, categoryId }, null, data)
   }
 
   //职称
