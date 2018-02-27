@@ -360,6 +360,7 @@ export namespace Assess {
     threshold: number //, optional)
     ratioError: string
     thresholdError: string
+    itemThresholdError: string
   }
   export class ApAssessScoringReq {
     apAssessId: string //, optional),

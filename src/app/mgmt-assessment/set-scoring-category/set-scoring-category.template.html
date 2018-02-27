@@ -37,6 +37,7 @@
                 <th style="width: 70px">序号</th>
                 <th>考题分组</th>
                 <th>计分比（%）</th>
+                <th>单个答案分值范围（>=0）</th>
                 <th>分值范围（>=0）</th>
             </tr>
             <tr *ngFor="let scoring of cgScoringList; let i = index">
@@ -48,6 +49,9 @@
                     <input class="edit-input" [ngClass]='{"error": scoring.ratioError}' type="text" placeholder="" [(ngModel)]="scoring.ratio" (ngModelChange)='checkRatio(scoring.ratio, scoring)'>
                 </td>
                 <td>
+                    <input [disabled]='!(scoring?.type == 1 || scoring?.type == 3)' class="edit-input" [ngClass]='{"error": scoring.itemThresholdError}' type="text" placeholder="" [(ngModel)]="scoring.itemThreshold" (ngModelChange)='checkItemThreshold(scoring.itemThreshold, scoring)'>
+                </td>
+                <td>
                     <input class="edit-input" [ngClass]='{"error": scoring.thresholdError}' type="text" placeholder="" [(ngModel)]="scoring.threshold" (ngModelChange)='checkThreshold(scoring.threshold, scoring)'>
                 </td>
             </tr>
@@ -55,10 +59,13 @@
         <p class="text-align-right">
             <button class="slds-button slds-button--brand mgt30" (click)="submiteCgScoring()">提交</button>
         </p>
+        <div class="instruction mgt30">
+            <p>1. 分值范围为0时，表示不封顶</p>
+            <p>2. 单个答案分值范围，仅在多答案题的时候可编辑，用来表述单个答案的分值范围</p>
+        </div>
     </div>
     <template ngl-modal-footer>
-        <button class="slds-button slds-button--neutral" (click)="setModalOpen = false">取消</button>
-        <button class="slds-button slds-button--brand" (click)="submiteNewTemplate()">确定</button>
+        <button class="slds-button slds-button--neutral" (click)="setModalOpen = false">关闭</button>
     </template>
 </ngl-modal>
 
