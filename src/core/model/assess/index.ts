@@ -369,4 +369,10 @@ export namespace Assess {
     ratio: number //, optional),
     threshold: number //, optional)
   }
+  export class AssessAnswerScoringReq {
+    assessAnswerId: string //, optional),
+    assessAnswerItemId: string //, optional),
+    comments: string //, optional),
+    score: number //, optional)
+  }
 }

@@ -8,6 +8,7 @@ import { FirstCommentPaperService } from './first-comment-paper.service'
 import { Router, ActivatedRoute } from "@angular/router";
 import { ExaminationPaperService } from '../examination-paper/examination-paper.service'
 import { WizardComponent } from 'ng2-archwizard'
+import { ExaminationAssessComponent }  from '../../components/examination-assess/examination-assess'
 
 @Component({
 	selector: 'first-comment-paper',
@@ -26,7 +27,8 @@ export class FirstCommentPaperComponent extends PageClass implements OnInit {
 		super()
 	}
 	@ViewChild(WizardComponent) public wizard: WizardComponent;
-
+	@ViewChild('examinationAssess') public examinationAssess: ExaminationAssessComponent;
+	
 	willDeleteUser;
 	editModalOpen: boolean = false;
 	groupAnswerItemList: Assess.SimpleAssessGroupAnswerItem[] = []
@@ -46,6 +48,7 @@ export class FirstCommentPaperComponent extends PageClass implements OnInit {
 	complexTemplateList: Assess.ComplexTemplateItem[] = []
 	formTableFormTemplateId: string = ''
 	currentAssessPaper: Assess.AssessPaperItem = new Assess.AssessPaperItem
+	commentReq: Assess.MarkedAssessAnswer = new Assess.MarkedAssessAnswer
 
 	currentPage: number = 0
 	maxPage: number = 1
@@ -86,10 +89,10 @@ export class FirstCommentPaperComponent extends PageClass implements OnInit {
 		this.epService.fetchExamination(assesst.assessId).then(res => {
 			this.examination = res
 			this.templateItemList = this.examination.templateItemList
-			this.templateItemList.forEach(template => {
-				if (template.type == '0') this.curremtTemplateForm = template
-				if (template.type == '3') this.curremtTemplateTable = template
-			})
+			// this.templateItemList.forEach(template => {
+			// 	if (template.type == '0') this.curremtTemplateForm = template
+			// 	if (template.type == '3') this.curremtTemplateTable = template
+			// })
 			this.curremtTemplateForm = this.templateItemList.filter(template => template.type == '0')[0]
 			this.curremtTable = this.templateItemList.filter(template => template.type == '1')[0]
 			this.curremtTemplateTable = this.templateItemList.filter(template => template.type == '2')[0]
@@ -111,7 +114,17 @@ export class FirstCommentPaperComponent extends PageClass implements OnInit {
 
 	markassessanswer (assesst: Assess.AssessMenuItem) {
 		this.service.fetchMarkassessanswer(this.paperid, assesst.assessId, this.userid).then(res => {
-			console.log(res)
+			// let len = this.templateItemList.length
+
+			// if (len === 1 && this.templateItemList[0].type == '0') {
+			// 	console.log('单表单')
+			// } else if (len === 1 && this.templateItemList[0].type == '2') {
+			// 	console.log('表单表格混合')
+			// } else if (len >= 2) {
+			// 	console.log('表格')
+			// }
+			// console.log(this.templateItemItemList, this.templateItemList, res, 9090)
+			this.commentReq = res
 		})
 	}
 
@@ -148,6 +161,10 @@ export class FirstCommentPaperComponent extends PageClass implements OnInit {
 		}
 		this.currentStep = index
 		this.wizard.model.navigationMode.goToStep(index, preFinalize)
+	}
+
+	setComment () {
+		this.examinationAssess.submitComment()
 	}
 
 	nextSteap (index: number) {

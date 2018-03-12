@@ -28,6 +28,22 @@ export class ExaminationAssessService {
       value: userId
     }])
   }
+
+  // 给某个用户某个题的答案初评分
+  postMarkassessanswer (assessPaperId: string, assessId: string, data: Assess.AssessAnswerScoringReq): Promise<any>{
+    const api = this.restApiCfg.getRestApi("post.markassessanswer");
+    
+    return this.restApi.request(api.method, api.url, { assessPaperId, assessId }, null, data)
+  }
+  // 给某个用户某个题的答案复核评分
+  postAuditassessanswer (assessPaperId: string, assessId: string, data: Assess.AssessAnswerScoringReq): Promise<any>{
+    const api = this.restApiCfg.getRestApi("post.auditassessanswer");
+    
+    return this.restApi.request(api.method, api.url, { assessPaperId, assessId }, null, data)
+  }
+
+  // POST / 
+  // POST /authsec/assesspaper/{_assessPaperId}/assess/{_assessId}/auditassessanswer 
   
   // 考生提交某个卷子某个题(单答案题)的答案
   postSingleAssessanswer (assessPaperId: string, assessId: string, groupId: string, data: Assess.AssessTemplateReq[] = []): Promise<any>{

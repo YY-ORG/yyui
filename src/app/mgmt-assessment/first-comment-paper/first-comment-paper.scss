@@ -1,29 +1,26 @@
-.de-educatione {
-	max-width: 500px;
-	margin: 0 auto;
+.first-comment-paper {
+	.label-box {
+		max-width: 500px;
+		margin: 0 auto;
+		position: relative;
+		.percent {
+			position: absolute;
+			top: 10px;
+			right: -20px;
+		}
+		.slds-form-element__label {
+			width: 120px;
+			display: inline-block;
+		}
+	}
 	.slds-form-element__label {
-		width: 120px;
+		width: 100px;
 	}
-}
-.de-educatione-instruction {
-	line-height: 26px;
-	font-size: 14px;
-	color: #999;
-	border-top: 1px solid #ccc;
-	margin: 20px auto 0;
-	width: 90%;
-	padding-top: 30px;
-	padding-left: 30%;
-	&::before {
-		content: "说明：";
-		float: left;
-		margin-left: -50px;
+	.slds-card {
+		padding: 20px 30px;
+		margin: 0 auto;
 	}
-}
-.de-educatione-poiont {
-	font-size: 16px;
-	color: #666;
-	width: 90%;
-	text-align: right;
-	margin-top: 50px;
+	.slds-table {
+		margin: 0 auto;
+	}
 }

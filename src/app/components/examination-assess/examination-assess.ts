@@ -37,16 +37,22 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
   @Input() templateItemItemList: Assess.TemplateItemItem[]
   @Input() assessanswer: Assess.SimpleAssessAnswerItem
   @Input() userId: string
+  @Input() commentType: 1 | 2
+  @Input() isComment: boolean = false
+  @Input() commentReq: Assess.MarkedAssessAnswer = new Assess.MarkedAssessAnswer()
 
   @ViewChild('examinationAssessAdd') public examinationAssessAdd: ExaminationAssessComponent;
   @ViewChild('examinationAssessEdit') public examinationAssessEdit: ExaminationAssessComponent;
   @ViewChild('dataPicker') dataPicker: MyDatePicker;
   
+  commentCode: 0 | 1 | 2 | 3 = 0
   
 	selectList: Promise<any>[] = []
   regList: any = {}
   currentAssessanswer: Assess.SimpleAssessAnswerItem
   markedAssessAnswer: Assess.MarkedAssessAnswer
+  formVluesList: Assess.SimpleAssessAnswerItem[] = []  // 表单的值
+  currentCommentReq: Assess.MarkedAssessAnswerItem = new Assess.MarkedAssessAnswerItem()
 
   formValue: Assess.SimpleAssessAnswerItem[] = []  // 所有表单的值
   tableTrList: any[] = []  // 表格列表
@@ -84,10 +90,27 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
   ngOnChanges(changes) {
     this.setTemplateItemList()
     this.assessanswer ? this.setFormReq(this.assessanswer) : this.getFormValue()
+    if (this.commentType) {
+      this.setComment() // 评分设置
+    }
+  }
+
+  setComment () {
+    const len = this.templateItemItemList.length
+    if (len === 1 && this.templateItemItemList[0].type == '15') {
+      console.log('表格')
+      this.commentCode = 2
+    } else if (this.templateItemItemList.filter(item => item.type == '15').length > 1) {
+      console.log('混合表格')
+      this.commentCode = 3
+    } else {
+      console.log('表单')
+      this.commentCode = 1
+    }
+    console.log(this.commentReq, 'commentReq commentReq commentReq')
   }
 
   setTemplateItemList () {
-    console.log(this.templateItemItemList, 888)
     this.templateItemItemList.forEach(tem => {
       tem.reqDate = {
         code: tem.code,
@@ -173,6 +196,19 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
     }
   }
 
+  submitComment () {
+    if (!this.formVluesList.length) return false
+    const sendCommentServer = this.commentType === 1  ? this.service.postMarkassessanswer : this.service.postAuditassessanswer
+    return sendCommentServer(this.assessPaper.id, this.assess.assessId, {
+      assessAnswerId: this.assessanswer.id,
+      assessAnswerItemId: this.formVluesList[0].id,
+      comments: this.commentType === 1 ? this.commentReq.markedComment : this.commentReq.auditComment,
+      score: this.commentType === 1 ? this.commentReq.markedScore : this.commentReq.auditScore
+    }).then(res => {
+      console.log(res)
+    })
+  }
+
   get reqData (): Assess.AssessTemplateReq[] {
     return [{
       templateId: this.templateFormId,
@@ -254,7 +290,7 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
         this.spinner.hide()
         
         this.markedAssessAnswer = res
-        console.log(this.markedAssessAnswer)
+        console.log(this.formValue, 'this.formValue')
         this.formValue = res.itemList
         this.setFormValue(isJustTable)
       })
@@ -270,11 +306,10 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
 
   setFormValue (isJustTable: boolean = false) {
     let tableTrList: Assess.SimpleAssessAnswerItem[] = []
-    let formVluesList: Assess.SimpleAssessAnswerItem[] = []  // 表单的值
 
     if (this.code === 'FORM' || this.code === 'FORM_TABLE') {
-      formVluesList = this.formValue.filter(r => r.type == '0')
-      if(!isJustTable) this.setFormReq(formVluesList.length ? formVluesList[0] : null)
+      this.formVluesList = this.formValue.filter(r => r.type == '0')
+      if(!isJustTable) this.setFormReq(this.formVluesList.length ? this.formVluesList[0] : null)
       tableTrList = this.formValue.filter(r => r.type == '1')
     } else if (this.code === 'TABLE') {
       tableTrList = this.formValue.filter(r => r.type == '0')
@@ -354,6 +389,11 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
     this.editModalOpen = true
   }
 
+  commentAssess (tableTr: any) {
+    this.currentCommentReq = this.commentReq.itemList.filter(item => item.id === tableTr.id)[0]
+    this.editModalAssessAnwser(tableTr)
+  }
+
   setTableTrList (tableTrList: Assess.SimpleAssessAnswerItem[]){
     if (!this.tableList.length) return false
 
@@ -402,9 +442,13 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
 
   onEditorCreated(quill) {
     this.editor = quill;
-    if (this.globalDisable) {
+    if (this.globalDisable || this.commentType) {
       this.editor.disable()
     }
+  }
+
+  get isTable () {
+    return this.code === 'TABLE'
   }
 
   onContentChanged({ quill, html, text }) {

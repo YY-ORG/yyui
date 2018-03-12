@@ -22,7 +22,7 @@
 </div>
 
 <p class="mgt20"></p> 
-<wizard *ngIf="!!assesslist?.length">
+<wizard *ngIf="!!assesslist?.length" class="first-comment-paper">
   <wizard-step stepTitle="{{assess.assessName}}" class="step-box" *ngFor="let assess of assesslist | orderBy: 'seqNo'; let a = index;" #wizard>
       <ng-container *ngIf='currentStep === a' [ngSwitch]="examination?.type">
 
@@ -35,9 +35,11 @@
                 [templateFormId]="curremtTemplateForm?.id"
                 [assessPaper]='currentAssessPaper'
                 [assess]='currentAssesst'
+                [isComment]='true'
+                [commentType]='1'
+                [commentReq]='commentReq'
                 [group]='selectGroup'
                 [userId]='userid'
-                [globalDisable]='true'
                 [templateItemItemList]="templateItemItemList"></examination-assess-component>
               <!-- 表格表单混合模板 -->
               <examination-assess-component 
@@ -49,9 +51,11 @@
                 [templateFormId]="formTableFormTemplateId"
                 [assessPaper]='currentAssessPaper'
                 [assess]='currentAssesst'
+                [isComment]='true'
+                [commentType]='1'
+                [commentReq]='commentReq'
                 [group]='selectGroup'
                 [userId]='userid'
-                [globalDisable]='true'
                 [templateItemItemList]="templateTableList"></examination-assess-component>
           </ng-container>
           <!-- 表格模板 -->
@@ -63,16 +67,18 @@
               [tableList]="tableList" 
               [templateFormId]="curremtTemplateForm?.id"
               [assessPaper]='currentAssessPaper'
+              [commentReq]='commentReq'
+              [isComment]='true'
+              [commentType]='1'
               [assess]='currentAssesst'
               [group]='selectGroup'
               [userId]='userid'
-              [globalDisable]='true'
               [templateItemItemList]="tableItemList"></examination-assess-component>
           </ng-container>
       </ng-container>
     <div class="step-button-box">
       <button type="button" nglButton="inverse" *ngIf="a !== 0" (click)="confirmGoToStep(a - 1)">上一题</button>
-      <button type="button" nglButton="inverse" *ngIf="a + 1 !== assesslist.length" (click)="(paperStatus != 0 || currentDisable) ? goToStep(a + 1) : confirmGoToStep(a + 1)" class="mgr30">下一题</button>
+      <button type="button" nglButton="inverse" *ngIf="a + 1 !== assesslist.length" (click)="setComment()" class="mgr30">下一题</button>
       <button type="button" nglButton="inverse" *ngIf="a + 1 === assesslist.length" (click)="goToIndex()" class="mgr30">返回首页</button>
       
       <button *ngIf='!(paperStatus != 0 || currentDisable)' type="button" nglButton="brand" (click)="nextSteap(a + 1)">保存</button>
