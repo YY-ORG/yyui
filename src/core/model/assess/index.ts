@@ -263,6 +263,7 @@ export namespace Assess {
     id: string // , optional),
     seqNo: number // , optional),
     templateId: string // , optional),
+    answerId?: string
     type: string // , optional)
   }
   export class SimpleAssessAnswerDetailItem {

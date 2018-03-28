@@ -98,7 +98,7 @@
                 [assessPaper]='assessPaper'
                 [assess]='assess'
                 [group]='group'
-                [globalDisable || commentType]='globalDisable || commentType'
+                [globalDisable]='globalDisable'
                 [templateItemItemList]="tableAssessList"></examination-assess-component>
           </div>
           <template ngl-modal-footer>
@@ -162,10 +162,10 @@
     <input nglFormControl disabled type="text" placeholder="" [(ngModel)]="commentReq.auxiliaryScore">
   </ngl-form-element>
   <ngl-form-element label="评分:"  class="slds-m-top--small left-lable">
-      <input nglFormControl type="text" placeholder="">
+      <input [(ngModel)]="score" nglFormControl type="text" placeholder="">
   </ngl-form-element>
   <ngl-form-element label="评分意见" [error]="hasError ? error : null" class="slds-m-top--small left-lable">
-      <textarea nglFormControl placeholder=""></textarea>
+      <textarea [(ngModel)]="scoreComment" nglFormControl placeholder=""></textarea>
   </ngl-form-element>
 </article>
 

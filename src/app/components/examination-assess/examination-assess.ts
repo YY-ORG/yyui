@@ -82,7 +82,10 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
 					['clean']                                         // remove formatting button
 				]
 			},
-	};
+  };
+  
+  scoreComment: string = ''
+  score: number
 
 	ngOnInit() {
   }
@@ -111,6 +114,7 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
   }
 
   setTemplateItemList () {
+    console.log(this.templateItemItemList)
     this.templateItemItemList.forEach(tem => {
       tem.reqDate = {
         code: tem.code,
@@ -197,15 +201,19 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
   }
 
   submitComment () {
+    console.log('this.formVluesList', this.formVluesList)
     if (!this.formVluesList.length) return false
-    const sendCommentServer = this.commentType === 1  ? this.service.postMarkassessanswer : this.service.postAuditassessanswer
+    const sendCommentServer = this.commentType === 1  ? this.service.postMarkassessanswer.bind(this.service) : this.service.postAuditassessanswer.bind(this.service)
     return sendCommentServer(this.assessPaper.id, this.assess.assessId, {
-      assessAnswerId: this.assessanswer.id,
+      assessAnswerId: this.formVluesList[0].answerId,
       assessAnswerItemId: this.formVluesList[0].id,
-      comments: this.commentType === 1 ? this.commentReq.markedComment : this.commentReq.auditComment,
-      score: this.commentType === 1 ? this.commentReq.markedScore : this.commentReq.auditScore
+      comments: this.scoreComment, // this.commentType === 1 ? this.commentReq.markedComment : this.commentReq.auditComment,
+      score: this.score // this.commentType === 1 ? this.commentReq.markedScore : this.commentReq.auditScore
     }).then(res => {
       console.log(res)
+    }).catch(res => {
+      this.spinner.hide()
+      this.alert.open(res)
     })
   }
 
@@ -290,8 +298,8 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
         this.spinner.hide()
         
         this.markedAssessAnswer = res
-        console.log(this.formValue, 'this.formValue')
         this.formValue = res.itemList
+        console.log(this.formValue, res, 'this.formValue')
         this.setFormValue(isJustTable)
       })
     } else {

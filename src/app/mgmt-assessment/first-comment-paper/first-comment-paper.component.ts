@@ -164,7 +164,11 @@ export class FirstCommentPaperComponent extends PageClass implements OnInit {
 	}
 
 	setComment () {
-		this.examinationAssess.submitComment()
+		console.log('this.examinationAssess.submitComment', this.examinationAssess.submitComment())
+		this.examinationAssess.submitComment().then(res => {
+			this.goToStep(++this.currentStep)
+			this.markassessanswer(this.assesslist[this.currentStep])
+		})
 	}
 
 	nextSteap (index: number) {
@@ -203,7 +207,7 @@ export class FirstCommentPaperComponent extends PageClass implements OnInit {
 
 			this.paperStatus = status
 			this.groupAnswerItemList = groupAnswerItemList
-			console.log(res)
+			console.log(res, groupAnswerItemList, 'groupAnswerItemList')
 		}).catch(res => {
 			this.spinner.hide()
 			this.alert.open(res)

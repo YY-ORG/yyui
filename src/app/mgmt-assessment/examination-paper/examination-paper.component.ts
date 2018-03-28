@@ -196,9 +196,13 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 				if (template.type == '0') this.curremtTemplateForm = template
 				if (template.type == '3') this.curremtTemplateTable = template
 			})
+			console.log('this.templateItemList', this.templateItemList)
+			console.log('this.curremtTemplateForm', this.curremtTemplateForm)
+			console.log('this.curremtTable', this.curremtTable)
+			console.log('this.curremtTemplateTable', this.curremtTemplateTable)
 			this.curremtTemplateForm = this.templateItemList.filter(template => template.type == '0')[0]
 			this.curremtTable = this.templateItemList.filter(template => template.type == '1')[0]
-			this.curremtTemplateTable = this.templateItemList.filter(template => template.type == '2')[0]
+			this.curremtTemplateTable = this.templateItemList.filter(template => template.type == '3')[0]
 			
 			this.templateItemItemList = this.curremtTemplateForm ? this.curremtTemplateForm.templateItemItemList : []
 			this.tableList = this.curremtTable ? this.curremtTable.templateItemItemList : []
