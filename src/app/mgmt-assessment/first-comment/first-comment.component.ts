@@ -28,13 +28,15 @@ export class FirstCommentComponent extends PageClass implements OnInit {
 
 	currentPage: number = 0
 	maxPage: number = 1
+	isFirstComment : boolean = false
 
 	ngOnInit() {
+		this.isFirstComment = this.router.url.indexOf('first-comment') > -1
 		this.getUnmarkList()
 	}
 
 	gotoPaper (unmarklist: Assess.AssessPaperExamineeMapItem) {
-		this.router.navigate(['mgmt-assessment/first-comment', unmarklist.assessPaperId, unmarklist.userId]);
+		this.router.navigate([`mgmt-assessment/${this.isFirstComment ? 'first-comment' : 're-comment'}`, unmarklist.assessPaperId, unmarklist.userId]);
 
 	}
 

@@ -3,13 +3,13 @@
     <!-- 文本框 -->
     <div *ngSwitchCase="'0'" class="label-box">
         <ngl-form-element label="{{templateItem.label}}："  [error]="v.result[templateItem.code]" class="slds-m-top--small left-lable{{!templateItem.visible ? ' display-none' : ''}}">
-            <input [(ngModel)]="templateItem.reqDate.value" [disabled]="globalDisable || commentType || !templateItem.editable" nglFormControl type="text" (keyup)="checkValue(templateItem.code, templateItem.reqDate.value)" placeholder="{{templateItem.placeholderTip}}">
+            <input [(ngModel)]="templateItem.reqDate.value" [disabled]="isDisable || !templateItem.editable" nglFormControl type="text" (keyup)="checkValue(templateItem.code, templateItem.reqDate.value)" placeholder="{{templateItem.placeholderTip}}">
         </ngl-form-element>
     </div>
     <!-- 下拉框 -->
     <div *ngSwitchCase="'1'" class="label-box">
         <ngl-form-element [error]="v.result[templateItem.code]" label="{{templateItem.label}}：" class="slds-m-top--small left-lable">
-            <select nglFormControl [disabled]='globalDisable || commentType || !templateItem.editable' [(ngModel)]="templateItem.reqDate.value" (ngModelChange)="checkValue(templateItem.code, templateItem.reqDate.value)" class="slds-select">
+            <select nglFormControl [disabled]='isDisable || !templateItem.editable' [(ngModel)]="templateItem.reqDate.value" (ngModelChange)="checkValue(templateItem.code, templateItem.reqDate.value)" class="slds-select">
                 <option value="">--- 请选择 ---</option>
                 <option *ngFor="let rank of templateItem.selectList | async" [value]="rank.value">{{rank.displayValue}}</option>
             </select>
@@ -21,40 +21,40 @@
             <label class="slds-form-element__label"><span>{{templateItem.label}}：</span></label>
             <div class="slds-form-element__control">
                 <fieldset ngl-form-group [error]="v.result[templateItem.code]">
-                    <ngl-form-group-element *ngFor="let rank of templateItem.selectList | async" label="{{rank.displayValue}}"><input [disabled]='globalDisable || commentType || !templateItem.editable' [value]="rank.value" [(ngModel)]="templateItem.reqDate.value" name="{{templateItem.code}}" nglFormControl type="radio" /></ngl-form-group-element>
+                    <ngl-form-group-element *ngFor="let rank of templateItem.selectList | async" label="{{rank.displayValue}}"><input [disabled]='isDisable || !templateItem.editable' [value]="rank.value" [(ngModel)]="templateItem.reqDate.value" name="{{templateItem.code}}" nglFormControl type="radio" /></ngl-form-group-element>
                 </fieldset>
             </div>
         </div>
      </div>
     <!-- 日期框 -->
     <div *ngSwitchCase="'2'" class="label-box">
-        <date-picker #dataPicker class="{{!templateItem.visible ? ' display-none' : ''}}" formClass="left-lable" placeholder="{{templateItem.label}}：" [initDate]="templateItem.defaultValue" [disabled]='globalDisable || commentType || !templateItem.editable' (dateChanged)="templateItem.reqDate.value = $event.formatted"></date-picker>
+        <date-picker #dataPicker class="{{!templateItem.visible ? ' display-none' : ''}}" formClass="left-lable" placeholder="{{templateItem.label}}：" [initDate]="templateItem.defaultValue" [disabled]='isDisable || !templateItem.editable' (dateChanged)="templateItem.reqDate.value = $event.formatted"></date-picker>
     </div>
     <!-- 数字框 -->
     <div *ngSwitchCase="'5'" class="label-box">
         <ngl-form-element label="{{templateItem.label}}："  [error]="v.result[templateItem.code]" class="slds-m-top--small left-lable{{!templateItem.visible ? ' display-none' : ''}}">
-            <input [(ngModel)]="templateItem.reqDate.value" [disabled]="globalDisable || commentType || !templateItem.editable" nglFormControl type="text" (keyup)="checkValue(templateItem.code, templateItem.reqDate.value)" placeholder="{{templateItem.placeholderTip}}">
+            <input [(ngModel)]="templateItem.reqDate.value" [disabled]="isDisable || !templateItem.editable" nglFormControl type="text" (keyup)="checkValue(templateItem.code, templateItem.reqDate.value)" placeholder="{{templateItem.placeholderTip}}">
         </ngl-form-element>
     </div>
 
     <div *ngSwitchCase="'6'" class="label-box">
         <ngl-form-element label="{{templateItem.label}}："  [error]="v.result[templateItem.code]" class="slds-m-top--small left-lable">
-            <input [(ngModel)]="templateItem.reqDate.value" [disabled]="globalDisable || commentType || !templateItem.editable" nglFormControl type="text" type="password"  (keyup)="checkValue(templateItem.code, templateItem.reqDate.value)" placeholder="{{templateItem.placeholderTip}}">
+            <input [(ngModel)]="templateItem.reqDate.value" [disabled]="isDisable || !templateItem.editable" nglFormControl type="text" type="password"  (keyup)="checkValue(templateItem.code, templateItem.reqDate.value)" placeholder="{{templateItem.placeholderTip}}">
         </ngl-form-element>
     </div>
     <!-- 分数框 -->
     <div *ngSwitchCase="'11'" class="label-box">
         <ngl-form-element label="{{templateItem.label}}："  [error]="v.result[templateItem.code]" class="slds-m-top--small left-lable{{!templateItem.visible ? ' display-none' : ''}}">
-            <input [(ngModel)]="templateItem.point1" (ngModelChange)="templateItem.reqDate.value = templateItem.point1 + '/' + templateItem.point2;checkValue(templateItem.code, templateItem.reqDate.value)" class="point1" [disabled]="globalDisable || commentType || !templateItem.editable" nglFormControl type="text" placeholder="{{templateItem.placeholderTip}}">
+            <input [(ngModel)]="templateItem.point1" (ngModelChange)="templateItem.reqDate.value = templateItem.point1 + '/' + templateItem.point2;checkValue(templateItem.code, templateItem.reqDate.value)" class="point1" [disabled]="isDisable || !templateItem.editable" nglFormControl type="text" placeholder="{{templateItem.placeholderTip}}">
             /
-            <input [(ngModel)]="templateItem.point2" (ngModelChange)="templateItem.reqDate.value = templateItem.point1 + '/' + templateItem.point2;checkValue(templateItem.code, templateItem.reqDate.value)" class="point2" [disabled]="globalDisable || commentType || !templateItem.editable" nglFormControl type="text" placeholder="{{templateItem.placeholderTip}}">
+            <input [(ngModel)]="templateItem.point2" (ngModelChange)="templateItem.reqDate.value = templateItem.point1 + '/' + templateItem.point2;checkValue(templateItem.code, templateItem.reqDate.value)" class="point2" [disabled]="isDisable || !templateItem.editable" nglFormControl type="text" placeholder="{{templateItem.placeholderTip}}">
         </ngl-form-element>
         <span class="percent" style="left: 510px;width: 500px;">{{templateItem.placeholderTip}}</span>
     </div>
     <!-- 百分比框 -->
     <div *ngSwitchCase="'10'" class="label-box">
         <ngl-form-element label="{{templateItem.label}}："  [error]="v.result[templateItem.code]" class="slds-m-top--small left-lable{{!templateItem.visible ? ' display-none' : ''}}">
-            <input [(ngModel)]="templateItem.reqDate.value" [disabled]="globalDisable || commentType || !templateItem.editable" nglFormControl type="text" (keyup)="checkValue(templateItem.code, templateItem.reqDate.value)" placeholder="{{templateItem.placeholderTip}}">
+            <input [(ngModel)]="templateItem.reqDate.value" [disabled]="isDisable || !templateItem.editable" nglFormControl type="text" (keyup)="checkValue(templateItem.code, templateItem.reqDate.value)" placeholder="{{templateItem.placeholderTip}}">
         </ngl-form-element>
         <span class="percent">%</span>
     </div>
@@ -62,7 +62,7 @@
     <div *ngSwitchCase="'7'" class="label-box">
         <ngl-form-checkbox class="piont" [error]="v.result[templateItem.code]" class="slds-m-top--small left-lable{{!templateItem.visible ? ' display-none' : ''}}">
             <label class="slds-form-element__label"><span>{{templateItem.label}}：</span></label>
-            <input nglFormControl [(ngModel)]="templateItem.reqDate.value" [disabled]="globalDisable || commentType || !templateItem.editable" (ngModelChange)="checkValue(templateItem.code, templateItem.reqDate.value)" type="checkbox" />
+            <input nglFormControl [(ngModel)]="templateItem.reqDate.value" [disabled]="isDisable || !templateItem.editable" (ngModelChange)="checkValue(templateItem.code, templateItem.reqDate.value)" type="checkbox" />
         </ngl-form-checkbox>
     </div>
     <!-- 表格 -->
@@ -81,7 +81,7 @@
                   <my-button button="radius" (onClick)="deleteTableList(tableTr)" color="red" className="mgr10" icon="icon-edit1">删除</my-button>
               </td>
               <td *ngIf='globalDisable || (commentType && !isTable)'>
-                <my-button button="radius" (onClick)="editModalAssessAnwser(tableTr)" color="primary" className="mgr10" icon="icon-edit1">编辑</my-button>
+                <my-button button="radius" (onClick)="editModalAssessAnwser(tableTr)" color="primary" className="mgr10" icon="icon-edit1">查看</my-button>
               </td>
               <td *ngIf='isTable && commentType'>
                 <my-button button="radius" (onClick)="commentAssess(tableTr)" color="primary" className="mgr10" icon="icon-edit1">评分</my-button>
@@ -91,7 +91,7 @@
         <ngl-modal size="large" header="新增" [(open)]="addModalOpen">
           <div body class="width85 mgb30button" style="margin:0 auto">
               <examination-assess-component 
-                [code]='code' 
+                [code]='FORM' 
                 *ngIf="addModalOpen" 
                 #examinationAssessAdd 
                 [templateFormId]="templateFormId"
@@ -109,7 +109,7 @@
         <ngl-modal size="large" header="编辑" [(open)]="editModalOpen">
           <div body class="width85 mgb30button" style="margin:0 auto">
               <examination-assess-component 
-                [code]='code' 
+                [code]='FORM' 
                 *ngIf="editModalOpen" 
                 #examinationAssessEdit
                 [templateFormId]="templateFormId"
@@ -120,11 +120,13 @@
                 [isComment]='isComment'
                 [commentType]='commentType'
                 [commentReq]='currentCommentReq'
+                [globalDisable]='globalDisable'
                 [templateItemItemList]="tableAssessList"></examination-assess-component>
           </div>
           <template ngl-modal-footer>
-              <button class="slds-button slds-button--neutral" (click)="editModalOpen = false">取消</button>
-              <button class="slds-button slds-button--brand" (click)="submitModelEditFrom()">确定</button>
+              <button class="slds-button slds-button--neutral" (click)="editModalOpen = false">{{ isDisable ? '关闭' : '取消'}}</button>
+              <button *ngIf="!isDisable" class="slds-button slds-button--brand" (click)="submitModelEditFrom()">确定</button>
+              <button *ngIf="commentType" class="slds-button slds-button--brand" (click)="sendEditComment()">提交评分</button>
           </template>
         </ngl-modal>
     </div>
@@ -134,7 +136,7 @@
             label="{{templateItem.label}}：" 
             [error]="v.result[templateItem.code]"
             class="slds-m-top--small left-lable">
-            <textarea [(ngModel)]="templateItem.reqDate.value" [disabled]="globalDisable || commentType || !templateItem.editable" (keyup)="checkValue(templateItem.code, templateItem.reqDate.value)" nglFormControl placeholder="{{templateItem.placeholderTip}}"></textarea>
+            <textarea [(ngModel)]="templateItem.reqDate.value" [disabled]="isDisable || !templateItem.editable" (keyup)="checkValue(templateItem.code, templateItem.reqDate.value)" nglFormControl placeholder="{{templateItem.placeholderTip}}"></textarea>
         </ngl-form-element>
     </div>
     <!-- 文件上传 -->
@@ -161,11 +163,17 @@
   <ngl-form-element label="系统辅助评分:"  class="slds-m-top--small left-lable width50">
     <input nglFormControl disabled type="text" placeholder="" [(ngModel)]="commentReq.auxiliaryScore">
   </ngl-form-element>
-  <ngl-form-element label="评分:"  class="slds-m-top--small left-lable">
-      <input [(ngModel)]="score" nglFormControl type="text" placeholder="">
+  <ngl-form-element *ngIf='code === "TABLE"' label="总计评分:"  class="slds-m-top--small left-lable">
+      <input [(ngModel)]="isFristComment ? commentReq.markedScore : commentReq.auditScore" disabled nglFormControl type="text" placeholder="">
   </ngl-form-element>
-  <ngl-form-element label="评分意见" [error]="hasError ? error : null" class="slds-m-top--small left-lable">
-      <textarea [(ngModel)]="scoreComment" nglFormControl placeholder=""></textarea>
+  <ngl-form-element *ngIf='code !== "TABLE"' [error]="vComment.result['score']" label="评分:"  class="slds-m-top--small left-lable">
+      <input [(ngModel)]="score"  (ngModelChange)="checkCommentValue('score')" nglFormControl type="text" placeholder="">
+  </ngl-form-element>
+  <ngl-form-element *ngIf='code !== "TABLE"' [error]="vComment.result['scoreComment']" label="评分意见" [error]="hasError ? error : null" class="slds-m-top--small left-lable">
+      <textarea [(ngModel)]="scoreComment"  (ngModelChange)="checkCommentValue('scoreComment')" nglFormControl placeholder=""></textarea>
+  </ngl-form-element>
+  <ngl-form-element label="本题计分比例" class="slds-m-top--small left-lable">
+    <input nglFormControl disabled type="text" placeholder="" [value]="commentReq.scoringRatio * 100 + '%'">
   </ngl-form-element>
 </article>
 
@@ -181,7 +189,7 @@
     <td>实际得分</td>
     <td>{{commentReq.rmarkedScore}}</td>
   </tr>
-  <tr *ngIf='!isTable'>
+  <tr *ngIf='code !== "TABLE"'>
     <td>互评意见</td>
     <td>{{commentReq.markedComment}}</td>
   </tr>
@@ -198,7 +206,7 @@
     <td>实际得分</td>
     <td>{{commentReq.rauditScore}}</td>
   </tr>
-  <tr *ngIf='!isTable'>
+  <tr *ngIf='code !== "TABLE"'>
     <td>互评意见</td>
     <td>{{commentReq.auditComment}}</td>
   </tr>

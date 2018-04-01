@@ -1,4 +1,4 @@
-<h1 class="content-title">考核初评</h1>
+<h1 class="content-title">{{isFirstComment ? "考核初评" : "考试复评"}}</h1>
 <div class="first-comment">
     <table class="slds-table mgt30">
         <tr>
@@ -6,7 +6,7 @@
             <th>姓名</th>
             <th>职称</th>
             <th>考卷</th>
-            <th>初评得分</th>
+            <th>{{isFirstComment ? "初评得分" : "复评得分"}}</th>
             <th>是否初评</th>
             <th style="width: 300px">操作</th>
         </tr>
@@ -17,7 +17,7 @@
             </td>
             <td>{{unmark.title | dict: service.professionalTitle | async}}</td>
             <td>{{unmark.assessPaperName}}</td>
-            <td>{{unmark.markedScore || '--'}}</td>
+            <td>{{isFirstComment ? unmark.markedScore : unmark.auditScore || '--'}}</td>
             <td>{{unmark.status | dict: service.status | async}}</td>
             <td>
                 <my-button button="radius" (onClick)="gotoPaper(unmark)" color="primary" className="mgr10" icon="icon-edit1">查看</my-button>

@@ -312,13 +312,14 @@ export namespace Assess {
     auditScore: number // 复核得分
     auxiliaryScore: number // 系统辅助得分
     id: string // 答案id
+    answerId?: string
     itemList: MarkedAssessAnswerItem[] //[MarkedAssessAnswerItem], optional),
-    markedComment: string // 初评评论
-    markedScore: number //, 初评得分
-    rauditScore: number // 实际复核得分
-    rmarkedScore: number //, 实际初评得分
-    scoringThreshold: number // 累加不超过限额的值 或 百分比
-    scoringType: string // 计分类型  doneCount unstartedCount markedCount
+    markedComment?: string // 初评评论
+    markedScore?: number //, 初评得分
+    rauditScore?: number // 实际复核得分
+    rmarkedScore?: number //, 实际初评得分
+    scoringThreshold?: number // 累加不超过限额的值 或 百分比
+    scoringType?: string // 计分类型  doneCount unstartedCount markedCount
   }
   export class MarkedAssessAnswerItem {
     auditComment: string //, optional),

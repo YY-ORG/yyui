@@ -55,6 +55,8 @@ export class FirstCommentPaperComponent extends PageClass implements OnInit {
 	paperStatus: number = 1; // 试卷状态
 	currentStep = 0
 
+	isFirstComment : boolean = false
+
 	private sub: any;
 	paperid: string;
 	userid: string;
@@ -62,6 +64,8 @@ export class FirstCommentPaperComponent extends PageClass implements OnInit {
 
 	ngOnInit() {
 		// paperid/:userid
+		console.log(this.router.url)
+		this.isFirstComment = this.router.url.indexOf('first-comment') > -1
 		this.sub = this.route.params.subscribe(params => {
 			this.paperid = params.paperid
 			this.userid = params.userid
@@ -89,10 +93,10 @@ export class FirstCommentPaperComponent extends PageClass implements OnInit {
 		this.epService.fetchExamination(assesst.assessId).then(res => {
 			this.examination = res
 			this.templateItemList = this.examination.templateItemList
-			// this.templateItemList.forEach(template => {
-			// 	if (template.type == '0') this.curremtTemplateForm = template
-			// 	if (template.type == '3') this.curremtTemplateTable = template
-			// })
+			this.templateItemList.forEach(template => {
+				if (template.type == '0') this.curremtTemplateForm = template
+				if (template.type == '2') this.curremtTemplateTable = template
+			})
 			this.curremtTemplateForm = this.templateItemList.filter(template => template.type == '0')[0]
 			this.curremtTable = this.templateItemList.filter(template => template.type == '1')[0]
 			this.curremtTemplateTable = this.templateItemList.filter(template => template.type == '2')[0]
@@ -147,12 +151,12 @@ export class FirstCommentPaperComponent extends PageClass implements OnInit {
 			this.assesslist = this.selectGroup.assessItemList
 			this.cdr.detectChanges()
 			this.getItem(this.assesslist[0])
-			this.markassessanswer(this.assesslist[0])
 			this.goToStep(0)
 		})
 	}
 
 	goToStep (index: number) {
+		this.markassessanswer(this.assesslist[index])
 		this.complexTemplateList = []
 		let preFinalize = {
 			emit: () => {
@@ -164,10 +168,12 @@ export class FirstCommentPaperComponent extends PageClass implements OnInit {
 	}
 
 	setComment () {
-		console.log('this.examinationAssess.submitComment', this.examinationAssess.submitComment())
+		if (this.tableList.length) {
+			return this.goToStep(++this.currentStep)
+		}
+		console.log(this.examinationAssess)
 		this.examinationAssess.submitComment().then(res => {
 			this.goToStep(++this.currentStep)
-			this.markassessanswer(this.assesslist[this.currentStep])
 		})
 	}
 

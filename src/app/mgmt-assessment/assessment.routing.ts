@@ -46,8 +46,12 @@ export const AssessmentRouting: ModuleWithProviders = RouterModule.forChild([{
     },{
       path: 'first-comment',
       component: FirstCommentComponent
+    },{
+      path: 're-comment',
+      component: FirstCommentComponent
     },
     { path: 'first-comment/:paperid/:userid', component: FirstCommentPaperComponent },
+    { path: 're-comment/:paperid/:userid', component: FirstCommentPaperComponent },
     {
       path: 'can-review',
       component: CanReviewComponent

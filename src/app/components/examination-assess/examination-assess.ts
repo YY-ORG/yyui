@@ -1,3 +1,5 @@
+// 下一步 刷新table列表
+
 import { Component,  OnInit, ViewEncapsulation, Input, ViewChild, OnChanges  } from '@angular/core';
 
 import { INglDatatableSort, INglDatatableRowClick } from 'ng-lightning/ng-lightning';
@@ -19,11 +21,13 @@ import { Adminui, Assess, Common } from '../../../core';
 export class ExaminationAssessComponent extends PageClass implements OnInit, OnChanges {
 	constructor(
 		public v: Validation,
+		public vComment: Validation,
     private service: ExaminationAssessService,
 		private orderBy: OrderByPipe
 	) {
 		super()
     this.v.result = {}
+    this.vComment.result = {}
 	}
   
   @Input() templateFormId: string
@@ -35,7 +39,7 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
   @Input() assess: Assess.AssessMenuItem
   @Input() group: Assess.AssessGroupItem
   @Input() templateItemItemList: Assess.TemplateItemItem[]
-  @Input() assessanswer: Assess.SimpleAssessAnswerItem
+  @Input() assessanswer: Assess.SimpleAssessAnswerItem // 用户的答案
   @Input() userId: string
   @Input() commentType: 1 | 2
   @Input() isComment: boolean = false
@@ -52,7 +56,7 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
   currentAssessanswer: Assess.SimpleAssessAnswerItem
   markedAssessAnswer: Assess.MarkedAssessAnswer
   formVluesList: Assess.SimpleAssessAnswerItem[] = []  // 表单的值
-  currentCommentReq: Assess.MarkedAssessAnswerItem = new Assess.MarkedAssessAnswerItem()
+  // currentCommentReq: Assess.MarkedAssessAnswerItem = new Assess.MarkedAssessAnswerItem()
 
   formValue: Assess.SimpleAssessAnswerItem[] = []  // 所有表单的值
   tableTrList: any[] = []  // 表格列表
@@ -92,25 +96,12 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
 
   ngOnChanges(changes) {
     this.setTemplateItemList()
-    this.assessanswer ? this.setFormReq(this.assessanswer) : this.getFormValue()
-    if (this.commentType) {
-      this.setComment() // 评分设置
-    }
-  }
-
-  setComment () {
-    const len = this.templateItemItemList.length
-    if (len === 1 && this.templateItemItemList[0].type == '15') {
-      console.log('表格')
-      this.commentCode = 2
-    } else if (this.templateItemItemList.filter(item => item.type == '15').length > 1) {
-      console.log('混合表格')
-      this.commentCode = 3
+    if (this.assessanswer) { // 表格会从外部直接传来用户答案，如果没有传来 再去获取
+      this.setFormReq(this.assessanswer)
+      this.setCommentReq(this.assessanswer)
     } else {
-      console.log('表单')
-      this.commentCode = 1
+      this.getFormValue()
     }
-    console.log(this.commentReq, 'commentReq commentReq commentReq')
   }
 
   setTemplateItemList () {
@@ -150,6 +141,15 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
 
       return this.v.check(null, this.regList)
     }
+  }
+
+  checkCommentValue(key ? : string) {
+    let regs: ValidationRegs = {
+      score: [this.score, [this.vComment.isUnBlank, this.vComment.min(0), this.vComment.max(100)], "分值范围在0-100之间"],
+      scoreComment: [this.scoreComment, [this.vComment.isUnBlank], "请输入评分意见"]
+    }
+    console.log(this.vComment)
+    return this.vComment.check(key, regs);
   }
 
 	getSelectList () {
@@ -200,20 +200,31 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
     }
   }
 
+  get isFristComment () {
+    return this.commentType === 1
+  }
+
   submitComment () {
-    console.log('this.formVluesList', this.formVluesList)
-    if (!this.formVluesList.length) return false
-    const sendCommentServer = this.commentType === 1  ? this.service.postMarkassessanswer.bind(this.service) : this.service.postAuditassessanswer.bind(this.service)
+    if (!this.commentReq) return false
+    const sendCommentServer = this.isFristComment  ? this.service.postMarkassessanswer.bind(this.service) : this.service.postAuditassessanswer.bind(this.service)
     return sendCommentServer(this.assessPaper.id, this.assess.assessId, {
-      assessAnswerId: this.formVluesList[0].answerId,
-      assessAnswerItemId: this.formVluesList[0].id,
-      comments: this.scoreComment, // this.commentType === 1 ? this.commentReq.markedComment : this.commentReq.auditComment,
-      score: this.score // this.commentType === 1 ? this.commentReq.markedScore : this.commentReq.auditScore
+      assessAnswerId: this.commentReq.answerId,
+      assessAnswerItemId: this.commentReq.id,
+      comments: this.scoreComment, // isFristComment ? this.commentReq.markedComment : this.commentReq.auditComment,
+      score: this.score // isFristComment ? this.commentReq.markedScore : this.commentReq.auditScore
     }).then(res => {
       console.log(res)
     }).catch(res => {
       this.spinner.hide()
       this.alert.open(res)
+    })
+  }
+
+  sendEditComment () {
+    this.examinationAssessEdit.submitComment().then(res => {
+      this.editModalOpen = false
+      this.getFormValue()
+      // this.setComment() // 评分设置
     })
   }
 
@@ -299,14 +310,13 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
         
         this.markedAssessAnswer = res
         this.formValue = res.itemList
-        console.log(this.formValue, res, 'this.formValue')
         this.setFormValue(isJustTable)
+        this.setCommentReq(res)
       })
     } else {
       this.service.fetchAssessanswer(this.assessPaper.id, this.assess.assessId).then(res => {
         this.spinner.hide()
         this.formValue = res
-
         this.setFormValue(isJustTable)
       })
     }
@@ -316,11 +326,11 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
     let tableTrList: Assess.SimpleAssessAnswerItem[] = []
 
     if (this.code === 'FORM' || this.code === 'FORM_TABLE') {
-      this.formVluesList = this.formValue.filter(r => r.type == '0')
+      this.formVluesList = this.formValue.filter(r => r.type == '0') //表单的答案
       if(!isJustTable) this.setFormReq(this.formVluesList.length ? this.formVluesList[0] : null)
-      tableTrList = this.formValue.filter(r => r.type == '1')
+      tableTrList = this.formValue.filter(r => r.type == '1') // 表单表格混合题的表格答案
     } else if (this.code === 'TABLE') {
-      tableTrList = this.formValue.filter(r => r.type == '0')
+      tableTrList = this.formValue.filter(r => r.type == '0') // 表格答案
     }
     this.setTableTrList(tableTrList)
   }
@@ -376,11 +386,17 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
     this.parserReqDate()
   }
 
+  setCommentReq (formVluesList: any) { // 设置评论
+    this.commentReq = formVluesList
+  }
+
   parserReqDate () {
     this.templateItemItemList.forEach(item => {
       switch (item.type.toString()) {
         case '2':
-          this.dataPicker.setInitDate(item.reqDate.value as string)
+          setTimeout(() => {
+            this.dataPicker.setInitDate(item.reqDate.value as string)
+          })
           break;
         case '11':
           let arr = item.reqDate.value.toString().split('/')
@@ -392,14 +408,21 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
     })
   }
 
-  editModalAssessAnwser (tableTr: any) {
+  editModalAssessAnwser (tableTr: any) { // 编辑提取表格答案
     this.currentAssessanswer = this.formValue.filter(value => value.id === tableTr.id)[0]
     this.editModalOpen = true
   }
 
-  commentAssess (tableTr: any) {
-    this.currentCommentReq = this.commentReq.itemList.filter(item => item.id === tableTr.id)[0]
-    this.editModalAssessAnwser(tableTr)
+  commentAssess (tableTr: any) { // 评分提取表格答案
+    this.currentAssessanswer = this.commentReq.itemList.filter(item => item.id === tableTr.id)[0]
+    
+    this.editModalOpen = true
+    // console.log(this.currentCommentReq, 'this.currentCommentReq')
+    // this.editModalAssessAnwser(tableTr)
+  }
+
+  get isDisable () {
+    return this.globalDisable || this.commentType
   }
 
   setTableTrList (tableTrList: Assess.SimpleAssessAnswerItem[]){

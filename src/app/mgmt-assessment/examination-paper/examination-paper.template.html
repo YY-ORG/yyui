@@ -35,7 +35,6 @@
                   <!-- 表单模板 -->
                   <examination-assess-component 
                     code="FORM" 
-                    *ngIf="!complexTemplateList?.length" 
                     #examinationAssess 
                     [templateFormId]="curremtTemplateForm?.id"
                     [assessPaper]='currentAssessPaper'
@@ -43,10 +42,11 @@
                     [group]='selectGroup'
                     [globalDisable]='(paperStatus != 0 || currentDisable) ? true : false'
                     [templateItemItemList]="templateItemItemList"></examination-assess-component>
+              </ng-container>
+              <ng-container *ngSwitchCase="2">
                   <!-- 表格表单混合模板 -->
                   <examination-assess-component 
                     code="FORM_TABLE" 
-                    *ngIf="complexTemplateList.length" 
                     #examinationAssess 
                     [tableAssessList]="complexTemplateList" 
                     [tableList]="complexTemplateList" 

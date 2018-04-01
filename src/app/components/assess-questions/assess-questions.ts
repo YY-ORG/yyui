@@ -60,9 +60,12 @@ export class AssessQuestionsComponent extends PageClass implements OnInit {
   
   refreshList () {
     const reqType = this.assessProfileReq.type.toString()
-    let currentType: string[] = ['0', '1']
+    let currentType: string[] = ['0', '1', '2']
     if (reqType ===  '0' || reqType === '1') {
       currentType = ['0']
+    }
+    if (reqType ===  '2') {
+      currentType = ['2']
     }
     if (reqType === '') {
       currentType = []

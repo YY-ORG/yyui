@@ -1,4 +1,4 @@
-<h1 class="content-title">考核初评</h1>
+<h1 class="content-title">{{isFirstComment ? "考核初评" : "考试复评"}}</h1>
 <div *ngIf="!selectGroup" class="first-comment-paper">
     <table class="slds-table mgt30">
       <tr>
@@ -6,7 +6,7 @@
         <th>考题总数</th>
         <th>已做总数</th>
         <th>未做总数</th>
-        <th>初评总数</th>
+        <th>{{isFirstComment ? "初评总数" : "复评总数"}}</th>
         <th>操作</th>
       </tr>
       <tr *ngFor="let groupAnswer of groupAnswerItemList; let i = index">
@@ -14,7 +14,7 @@
         <td>{{groupAnswer.totalCount}}</td>
         <td>{{groupAnswer.doneCount}}</td>
         <td>{{groupAnswer.unstartedCount}}</td>
-        <td>{{groupAnswer.markedCount}}</td>
+        <td>{{isFirstComment ? groupAnswer.markedCount : groupAnswer.auditedCount}}</td>
         <td  *ngIf="paperStatus != 0"><font class="color-red" (click)="continueAnswer(groupAnswer)">查看试卷</font></td>
       </tr>
     </table>
@@ -30,21 +30,21 @@
               <!-- 表单模板 -->
               <examination-assess-component 
                 code="FORM" 
-                *ngIf="!complexTemplateList?.length" 
                 #examinationAssess 
                 [templateFormId]="curremtTemplateForm?.id"
                 [assessPaper]='currentAssessPaper'
                 [assess]='currentAssesst'
                 [isComment]='true'
-                [commentType]='1'
+                [commentType]='isFirstComment ? 1 : 2'
                 [commentReq]='commentReq'
                 [group]='selectGroup'
                 [userId]='userid'
                 [templateItemItemList]="templateItemItemList"></examination-assess-component>
               <!-- 表格表单混合模板 -->
-              <examination-assess-component 
+          </ng-container>
+          <ng-container *ngSwitchCase="2">
+            <examination-assess-component 
                 code="FORM_TABLE" 
-                *ngIf="complexTemplateList.length" 
                 #examinationAssess 
                 [tableAssessList]="complexTemplateList" 
                 [tableList]="complexTemplateList" 
@@ -52,13 +52,13 @@
                 [assessPaper]='currentAssessPaper'
                 [assess]='currentAssesst'
                 [isComment]='true'
-                [commentType]='1'
+                [commentType]='isFirstComment ? 1 : 2'
                 [commentReq]='commentReq'
                 [group]='selectGroup'
                 [userId]='userid'
                 [templateItemItemList]="templateTableList"></examination-assess-component>
-          </ng-container>
           <!-- 表格模板 -->
+        </ng-container>
 
           <ng-container *ngSwitchCase="3">
             <examination-assess-component 
@@ -69,7 +69,7 @@
               [assessPaper]='currentAssessPaper'
               [commentReq]='commentReq'
               [isComment]='true'
-              [commentType]='1'
+              [commentType]='isFirstComment ? 1 : 2'
               [assess]='currentAssesst'
               [group]='selectGroup'
               [userId]='userid'
