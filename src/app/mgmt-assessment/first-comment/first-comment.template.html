@@ -7,7 +7,7 @@
             <th>职称</th>
             <th>考卷</th>
             <th>{{isFirstComment ? "初评得分" : "复评得分"}}</th>
-            <th>是否初评</th>
+            <th>{{isFirstComment ? "是否初评" : "是否复评"}}</th>
             <th style="width: 300px">操作</th>
         </tr>
         <tr *ngFor="let unmark of unmarklist; let i = index">

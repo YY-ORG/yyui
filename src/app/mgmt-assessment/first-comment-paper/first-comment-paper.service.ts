@@ -30,6 +30,24 @@ export class FirstCommentPaperService {
     }])
   }
 
+  postPaperMarkassessanswer (assessPaperId: string, userId: string): Promise<Assess.MarkedAssessAnswer> { //提交某个用户某个卷子的答案初评总分
+    const api = this.restApiCfg.getRestApi("post.paper.markassessanswer");
+    
+    return this.restApi.request(api.method, api.url, { assessPaperId }, [{
+      key: '_userId',
+      value: userId
+    }])
+  }
+
+  postPaperAuditassessanswer (assessPaperId: string, userId: string): Promise<Assess.MarkedAssessAnswer> { //提交某个用户某个卷子的答案复核总分
+    const api = this.restApiCfg.getRestApi("post.paper.auditassessanswer");
+    
+    return this.restApi.request(api.method, api.url, { assessPaperId }, [{
+      key: '_userId',
+      value: userId
+    }])
+  }
+
   professionalTitle = this.dict.get({ 
     owner : "USER_INFO",
     field : "PROFESSIONAL_TITLE"

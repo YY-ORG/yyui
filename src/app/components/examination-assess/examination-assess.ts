@@ -105,7 +105,7 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
   }
 
   setTemplateItemList () {
-    console.log(this.templateItemItemList)
+    // console.log(this.templateItemItemList)
     this.templateItemItemList.forEach(tem => {
       tem.reqDate = {
         code: tem.code,
@@ -144,11 +144,12 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
   }
 
   checkCommentValue(key ? : string) {
-    let regs: ValidationRegs = {
+      this.isEdit = true
+      let regs: ValidationRegs = {
       score: [this.score, [this.vComment.isUnBlank, this.vComment.min(0), this.vComment.max(100)], "分值范围在0-100之间"],
       scoreComment: [this.scoreComment, [this.vComment.isUnBlank], "请输入评分意见"]
     }
-    console.log(this.vComment)
+    // console.log(this.vComment)
     return this.vComment.check(key, regs);
   }
 
@@ -205,7 +206,14 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
   }
 
   submitComment () {
+    // console.log('this.commentReq', this.commentReq)
+    let errorMsg = this.checkCommentValue()
+    if (errorMsg) return this.alert.open(errorMsg)
     if (!this.commentReq) return false
+    if (!this.commentReq.answerId && this.commentReq.itemList.length) { // 表单和混合表单外层没有answerid
+      this.commentReq.id = this.commentReq.itemList[0].id
+      this.commentReq.answerId = this.commentReq.itemList[0].answerId
+    }
     const sendCommentServer = this.isFristComment  ? this.service.postMarkassessanswer.bind(this.service) : this.service.postAuditassessanswer.bind(this.service)
     return sendCommentServer(this.assessPaper.id, this.assess.assessId, {
       assessAnswerId: this.commentReq.answerId,
@@ -213,7 +221,7 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
       comments: this.scoreComment, // isFristComment ? this.commentReq.markedComment : this.commentReq.auditComment,
       score: this.score // isFristComment ? this.commentReq.markedScore : this.commentReq.auditScore
     }).then(res => {
-      console.log(res)
+      // console.log(res)
     }).catch(res => {
       this.spinner.hide()
       this.alert.open(res)

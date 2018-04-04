@@ -324,6 +324,7 @@ export namespace Assess {
   export class MarkedAssessAnswerItem {
     auditComment: string //, optional),
     auditScore: number //, optional),
+    answerId?: string
     auxiliaryScore: number //, optional),
     detailList: SimpleAssessAnswerDetailItem[] //[SimpleAssessAnswerDetailItem], optional),
     id: string //, optional),

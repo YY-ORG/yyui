@@ -47,7 +47,6 @@ export class FirstCommentComponent extends PageClass implements OnInit {
 			let [pageList, unmarklist] = res
 			this.currentPage = pageList.totalPage === pageList.currentPage ? pageList.totalPage - 1 : pageList.currentPage
 			this.maxPage = pageList.totalPage
-			console.log(unmarklist)
 			this.unmarklist = unmarklist
 		}).catch(res => {
       this.spinner.hide()

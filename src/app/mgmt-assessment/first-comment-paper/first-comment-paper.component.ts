@@ -64,7 +64,6 @@ export class FirstCommentPaperComponent extends PageClass implements OnInit {
 
 	ngOnInit() {
 		// paperid/:userid
-		console.log(this.router.url)
 		this.isFirstComment = this.router.url.indexOf('first-comment') > -1
 		this.sub = this.route.params.subscribe(params => {
 			this.paperid = params.paperid
@@ -156,6 +155,9 @@ export class FirstCommentPaperComponent extends PageClass implements OnInit {
 	}
 
 	goToStep (index: number) {
+		if (index < 0 || index >= this.assesslist.length) {
+			return this.goToIndex()
+		}
 		this.markassessanswer(this.assesslist[index])
 		this.complexTemplateList = []
 		let preFinalize = {
@@ -167,14 +169,35 @@ export class FirstCommentPaperComponent extends PageClass implements OnInit {
 		this.wizard.model.navigationMode.goToStep(index, preFinalize)
 	}
 
+
+	goToIndex () {
+		this.selectGroup = null
+		this.assesslist = []
+		this.getAssesslist()
+	}
+
 	setComment () {
 		if (this.tableList.length) {
 			return this.goToStep(++this.currentStep)
 		}
-		console.log(this.examinationAssess)
+
 		this.examinationAssess.submitComment().then(res => {
 			this.goToStep(++this.currentStep)
 		})
+	}
+
+	confirmGoToStep (index: number) {
+		if (!this.examinationAssess.isEdit) {
+			return this.goToStep(index)
+		}
+		this.confirm.open('是否保存本题评分？')
+		this.onConfirm = () => {
+			this.confirm.close()
+			this.setComment()
+		}
+		this.onCancel = () => {
+			this.goToStep(index)
+		}
 	}
 
 	nextSteap (index: number) {
@@ -213,7 +236,6 @@ export class FirstCommentPaperComponent extends PageClass implements OnInit {
 
 			this.paperStatus = status
 			this.groupAnswerItemList = groupAnswerItemList
-			console.log(res, groupAnswerItemList, 'groupAnswerItemList')
 		}).catch(res => {
 			this.spinner.hide()
 			this.alert.open(res)
@@ -224,23 +246,34 @@ export class FirstCommentPaperComponent extends PageClass implements OnInit {
 		this.router.navigate(['/product-details', unmarklist.assessPaperId]);
 
 	}
-	
-	deleteUser(d) {
-		this.willDeleteUser = d;
-		this.confirm.open("确定要删除此用户吗？")
-	}
 
-	editUser(d) {
-		this.editModalOpen = true
-	}
+	submiteComment () {
+		let hasUnStarted =  false
+		this.groupAnswerItemList.forEach(res => {
+			if (res.unstartedCount > 0) {
+				hasUnStarted = true
+			}
+		})
+		this.confirm.open(hasUnStarted ? '您还有未评分试题，提交后将无法再做更改，是否确认提交评分？' : '提交后将无法再做更改，是否确认提交评分？')
+		this.onConfirm = function () {
+			this.confirm.close()
+			this.spinner.show()
+			let service = this.isFirstComment ? this.service.postPaperMarkassessanswer.bind(this.service) : this.service.postPaperAuditassessanswer.bind(this.service)
+			service(this.paperid, this.userid).then(res => {
+				this.spinner.hide()
+				this.alert.open('提交成功', () => {
+					this.router.navigate(['/mgmt-assessment/re-comment'])
+				})
+			}).catch(res => {
+				this.spinner.hide()
+				this.alert.open(res)
+			})
+		}
+  }
 
 	onConfirm() {
-		this.confirm.close()
-
-		setTimeout(() => {
-			this.alert.open("删除成功")
-		}, 1000)
-		console.log("23")
+	}
+	onCancel() {
 	}
 	ngOnDestroy() {
 	  this.sub.unsubscribe();
