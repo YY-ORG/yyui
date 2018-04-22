@@ -91,7 +91,7 @@
         <ngl-modal size="large" header="新增" [(open)]="addModalOpen">
           <div body class="width85 mgb30button" style="margin:0 auto">
               <examination-assess-component 
-                [code]='FORM' 
+                code='FORM' 
                 *ngIf="addModalOpen" 
                 #examinationAssessAdd 
                 [templateFormId]="templateFormId"
@@ -109,7 +109,7 @@
         <ngl-modal size="large" header="编辑" [(open)]="editModalOpen">
           <div body class="width85 mgb30button" style="margin:0 auto">
               <examination-assess-component 
-                [code]='FORM' 
+                code='FORM' 
                 *ngIf="editModalOpen" 
                 #examinationAssessEdit
                 [templateFormId]="templateFormId"
