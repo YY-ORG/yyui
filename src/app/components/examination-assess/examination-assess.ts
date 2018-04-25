@@ -286,7 +286,8 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
         break;
     }
     
-		this.spinner.show()
+    this.spinner.show()
+    console.log(this.service, 123123123)
 		return service.bind(this.service)(this.assessPaper.id, this.assess.assessId, this.group.id, this.assessanswer.id, this.reqData)
 			.then(res => {
 				this.spinner.hide()
