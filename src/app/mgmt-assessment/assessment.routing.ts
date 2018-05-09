@@ -29,6 +29,7 @@ import { ExaminationCategoryComponent } from './category/category.component'
 import { ExaminationTemplateitemComponent } from './templateitem/templateitem.component'
 import { SetScoringComponent } from './set-scoring/set-scoring.component'
 import { SetScoringCategoryComponent } from './set-scoring-category/set-scoring-category.component'
+import { ScoresComponent } from './scores/scores.components'
 
 export const AssessmentRouting: ModuleWithProviders = RouterModule.forChild([{
   path: '',
@@ -88,6 +89,9 @@ export const AssessmentRouting: ModuleWithProviders = RouterModule.forChild([{
     },{
       path: 'scoring/:paperid',
       component: SetScoringCategoryComponent
+    }, {
+      path: 'scores',
+      component: ScoresComponent
     }
   ]
 }]);

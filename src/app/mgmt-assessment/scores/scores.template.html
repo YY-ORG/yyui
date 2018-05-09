@@ -1,0 +1,17 @@
+<h1 class="content-title">考核结果查询</h1>
+<div class="scores">
+  <ngl-form-element [error]="v.result.gender" label="性别:" class="slds-m-top--small left-lable">
+    <select nglFormControl [(ngModel)]="userProfile.gender" (ngModelChange)="checkValue('gender')" class="slds-select">
+          <option value="">--- 请选择 ---</option>
+          <option *ngFor="let sex of service.gender | async" [value]="sex.value">{{sex.displayValue}}</option>
+      </select>
+  </ngl-form-element>
+</div>
+
+<div class="text-align-center mgt30">
+    <button class="slds-button slds-button--neutral" (click)="editModalOpen = false">提交</button>
+    <button class="slds-button slds-button--brand">重置</button>
+</div>
+
+<alert #alert></alert>
+<confirm (onConfirm)="onConfirm()" #confirm></confirm>
