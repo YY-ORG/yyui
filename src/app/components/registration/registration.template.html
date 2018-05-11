@@ -52,7 +52,7 @@
         </select>
     </ngl-form-element>
     <ngl-form-element *ngIf="isShowSelect" [error]="v.result.orgId" label="部门:" class="slds-m-top--small left-lable">
-        <select nglFormControl [disabled]='isDisable' [(ngModel)]="userProfile.organizationId" (ngModelChange)="userProfile.orgId = userProfile.organizationId;checkValue('orgId')" class="slds-select">
+        <select nglFormControl [disabled]='isDisable' [(ngModel)]="userProfile.deptId" (ngModelChange)="userProfile.orgId = userProfile.deptId;checkValue('orgId')" class="slds-select">
             <option value="">--- 请选择 ---</option>
             <option *ngFor="let organization of organizationList" [value]="organization.id">{{organization.organizitionName}}</option>
         </select>

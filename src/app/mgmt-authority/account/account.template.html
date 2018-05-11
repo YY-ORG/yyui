@@ -22,7 +22,7 @@
         <td>{{user.phone}}</td>
         <td>{{user.roles | getArrValue : 'roleName'}}</td>
         <td>{{user.description}}</td>
-        <td>{{user.organizationName}}</td>
+        <td>{{user.deptName}}</td>
         <td>
             <my-button button="radius" (onClick)="editUser(user)" color="primary" className="mgr10" icon="icon-edit1">编辑</my-button>
             <my-button button="radius" (onClick)="deleteUser(user)" color="red" className="mgr10" icon="icon-edit1">删除</my-button>

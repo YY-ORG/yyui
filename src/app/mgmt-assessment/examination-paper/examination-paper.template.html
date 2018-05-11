@@ -20,13 +20,13 @@
         <td>{{groupAnswer.totalCount}}</td>
         <td>{{groupAnswer.doneCount}}</td>
         <td>{{groupAnswer.unstartedCount}}</td>
-        <td *ngIf="groupAnswer.unstartedCount && paperStatus == 0"><font class="color-red" (click)="continueAnswer(groupAnswer)">继续做题</font></td>
-        <td *ngIf="!groupAnswer.unstartedCount && paperStatus == 0"><font class="color-red" (click)="continueAnswer(groupAnswer, true)">已完毕</font></td>
+        <td *ngIf="groupAnswer.unstartedCount && paperStatus === 0"><font class="color-red" (click)="continueAnswer(groupAnswer)">继续做题</font></td>
+        <td *ngIf="!groupAnswer.unstartedCount && paperStatus === 0"><font class="color-red" (click)="continueAnswer(groupAnswer, true)">已完毕</font></td>
         <td  *ngIf="paperStatus != 0"><font class="color-red" (click)="continueAnswer(groupAnswer)">查看试卷</font></td>
       </tr>
     </table>
     
-    <button *ngIf="!selectGroup && paperStatus == 0" class="slds-button slds-button--brand mgt30" (click)="submiteAssessanswer()">提交试卷</button>
+    <button *ngIf="!selectGroup && paperStatus === 0" class="slds-button slds-button--brand mgt30" (click)="submiteAssessanswer()">提交试卷</button>
     <p class="mgt20"></p> 
     <wizard *ngIf="!!assesslist?.length">
       <wizard-step stepTitle="{{assess.assessName}}" class="step-box" *ngFor="let assess of assesslist | orderBy: 'seqNo'; let a = index;" #wizard>

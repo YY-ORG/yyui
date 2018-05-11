@@ -251,7 +251,7 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 			this.service.postAssessanswer(this.currentAssessPaper.id).then(res => {
 				this.spinner.hide()
 				this.alert.open('提交成功')
-				this.getAssesslist()
+				this.getAssesslist(this.currentAssessPaper)
 			}).catch(res => {
 				this.spinner.hide()
 				this.alert.open(res)

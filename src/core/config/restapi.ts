@@ -522,7 +522,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "上传文件",
         "method": "POST",
         "id": "upload.file",
-        "url": "filesys/authsec/file"
+        "url": "zuul/filesys/authsec/file"
     },
     {
         "desc": "删除文件",
@@ -534,24 +534,24 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取文件片信息",
         "method": "GET",
         "id": "file.info",
-        "url": "filesys//authsec/file/{id}"
+        "url": "zuul/filesys/authsec/file/{id}"
     },
     {
         "desc": "批量获取文件的信息",
         "method": "POST",
         "id": "get.file.info",
-        "url": "filesys/authsec/file/simpleinfo"
+        "url": "zuul/filesys/authsec/file/simpleinfo"
     },
     {
         "desc": "在线显示文件",
         "method": "GET",
         "id": "file.view",
-        "url": "filesys/authsec/file/{id}/view"
+        "url": "zuul/filesys/authsec/file/{id}/view"
     },
     {
         "desc": "分页查询文件",
         "method": "GET",
         "id": "get.files",
-        "url": "filesys/authsec/files"
+        "url": "zuul/filesys/authsec/files"
     }
 ]
