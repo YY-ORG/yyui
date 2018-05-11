@@ -27,6 +27,7 @@ import { ExaminationCategoryComponent } from './category/category.component'
 import { ExaminationTemplateitemComponent } from './templateitem/templateitem.component'
 import { SetScoringComponent } from './set-scoring/set-scoring.component'
 import { SetScoringCategoryComponent } from './set-scoring-category/set-scoring-category.component'
+import { ScoresComponent } from './scores/scores.components'
 
 //service
 import { ExaminationPaperService } from './examination-paper/examination-paper.service'
@@ -81,7 +82,8 @@ import { ExaminationTableModule } from '../components/examination-table/examinat
         ExaminationCategoryComponent,
         ExaminationTemplateitemComponent,
         SetScoringComponent,
-        SetScoringCategoryComponent
+        SetScoringCategoryComponent,
+        ScoresComponent
     ],
     exports: [
     ],

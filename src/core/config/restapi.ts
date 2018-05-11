@@ -519,6 +519,18 @@ export let RestApis: RestApiModel[] = [
         "url": "assess/authsec/assesspaper/{assessPaperId}/auditassessanswer"
     },
     {
+        "desc": "按照分组获取某个用户某个试卷的评分详情",
+        "method": "GET",
+        "id": "get.answerscorelist",
+        "url": "assess/authsec/assesspaper/{assessPaperId}/answerscorelist"
+    },
+    {
+        "desc": "依据条件检索某个试卷的成绩排名列表",
+        "method": "GET",
+        "id": "get.assesspaper.ranking",
+        "url": "assess/authsec/assesspaper/{assessPaperId}/ranking"
+    },
+    {
         "desc": "上传文件",
         "method": "POST",
         "id": "upload.file",
