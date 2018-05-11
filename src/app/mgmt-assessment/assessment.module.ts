@@ -40,6 +40,7 @@ import { FirstCommentPaperService } from './first-comment-paper/first-comment-pa
 import { FristCommentService } from './first-comment/first-comment.service'
 import { SetScoringService } from './set-scoring/set-scoring.service'
 import { SetScoringCategoryService } from './set-scoring-category/set-scoring-category.service'
+import { ScoresService } from './scores/scores.service'
 
 // module
 import { AssessTemplateModule } from '../components/assess-template/assess-template.module'
@@ -97,7 +98,8 @@ import { ExaminationTableModule } from '../components/examination-table/examinat
         FristCommentService,
         FirstCommentPaperService,
         SetScoringService,
-        SetScoringCategoryService
+        SetScoringCategoryService,
+        ScoresService
     ]
 
 })

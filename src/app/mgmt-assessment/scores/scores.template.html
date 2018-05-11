@@ -1,11 +1,17 @@
 <h1 class="content-title">考核结果查询</h1>
 <div class="scores">
-  <ngl-form-element [error]="v.result.gender" label="性别:" class="slds-m-top--small left-lable">
-    <select nglFormControl [(ngModel)]="userProfile.gender" (ngModelChange)="checkValue('gender')" class="slds-select">
-          <option value="">--- 请选择 ---</option>
-          <option *ngFor="let sex of service.gender | async" [value]="sex.value">{{sex.displayValue}}</option>
-      </select>
-  </ngl-form-element>
+    <ngl-form-element label="职称:" class="slds-m-top--small left-lable">
+      <select nglFormControl [(ngModel)]="assessPaperId" class="slds-select">
+            <option value="">--- 请选择 ---</option>
+            <option *ngFor="let sex of service.professionalTitle | async" [value]="sex.value">{{sex.displayValue}}</option>
+        </select>
+    </ngl-form-element>
+    <ngl-form-element label="部门:" class="slds-m-top--small left-lable">
+        <select nglFormControl [(ngModel)]="orgId" class="slds-select">
+            <option value="">--- 请选择 ---</option>
+            <option *ngFor="let organization of organizationList" [value]="organization.id">{{organization.organizitionName}}</option>
+        </select>
+    </ngl-form-element>
 </div>
 
 <div class="text-align-center mgt30">
