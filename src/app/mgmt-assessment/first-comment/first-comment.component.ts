@@ -63,6 +63,11 @@ export class FirstCommentComponent extends PageClass implements OnInit {
 		this.editModalOpen = true
 	}
 
+	pageChanged (pageEvent: any) {
+		this.currentPage = pageEvent.currentpage - 1
+		this.getUnmarkList()
+	}
+
 	onConfirm() {
 		this.confirm.close()
 
