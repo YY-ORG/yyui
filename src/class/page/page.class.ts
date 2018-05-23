@@ -43,5 +43,41 @@ export class PageClass {
 	onDateChanged($event){}
 	onConfirm(){}
 
+	printElem (elem: HTMLElement) {
+		var mywindow = window.open('', 'PRINT', 'height=400,width=600');
+		
+		mywindow.document.write('<html><head><title>' + document.title  + '</title>');
+		mywindow.document.write(`
+		<style>
+		  * {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			table {
+				width: 100%;
+				margin: 10px 0 30px;
+				border-collapse: collapse;
+			}
+			table th, table td {
+				border:1px solid #000;
+				padding: .2em 0.5em;
+				text-align: center;
+			}
+		</style>
+		`)
+    mywindow.document.write('</head><body >');
+    mywindow.document.write(elem.innerHTML);
+    mywindow.document.write('</body></html>');
+
+    // mywindow.document.close(); // necessary for IE >= 10
+    mywindow.focus(); // necessary for IE >= 10*/
+
+    mywindow.print();
+    mywindow.close();
+
+    return true;
+	}
+
 }
 

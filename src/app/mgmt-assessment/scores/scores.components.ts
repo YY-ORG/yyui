@@ -1,4 +1,4 @@
-import { Component,  OnInit, ViewEncapsulation  } from '@angular/core';
+import { Component,  OnInit, ViewEncapsulation, ViewChild, ElementRef  } from '@angular/core';
 
 import { INglDatatableSort, INglDatatableRowClick } from 'ng-lightning/ng-lightning';
 import {
@@ -21,8 +21,7 @@ import {
 @Component({
 	selector: 'scores',
 	styleUrls: ["./scores.scss"],
-	templateUrl: "./scores.template.html",
-	encapsulation: ViewEncapsulation.None
+	templateUrl: "./scores.template.html"
 })
 export class ScoresComponent extends PageClass implements OnInit {
 	constructor(
@@ -33,7 +32,8 @@ export class ScoresComponent extends PageClass implements OnInit {
 		super()
 	  this.v.result = {}
 	}
-	
+
+	@ViewChild('detailBox') $detailBox: ElementRef;
 
 	assessPaperId: string = ''
 	orgId: string = ''
@@ -45,6 +45,8 @@ export class ScoresComponent extends PageClass implements OnInit {
 	organizationList: Adminui.OrganizationItem[] = []
 	rankingList: any[] = []
 	currentRanking: any = {}
+	detailList: any[] = []
+	totalScores: number = 0
 
 	scoresDetail: boolean = false
 	ngOnInit() {
@@ -89,18 +91,34 @@ export class ScoresComponent extends PageClass implements OnInit {
 
     return this.v.check(key, regs);
 	}
-	
+
 	moreInfo (ranking: any) {
 		this.currentRanking = ranking
 		this.scoresDetail = true
 		this.spinner.show()
 		this.service.fetchRankingDetail(this.assessPaperId, this.currentRanking.userId).then(res => {
 			this.spinner.hide()
-			console.log(res)
+			this.detailList = res
+			res.forEach(a => {
+				this.totalScores += this.getTotalScore(a)
+			})
 		}).catch(res => {
       this.spinner.hide()
       this.alert.open(res)
     })
+	}
+
+	getTotalScore (detail: any) {
+		let totalScore = 0
+		detail.itemList.forEach(a => {
+			totalScore += a.totalScore
+		})
+		return totalScore
+	}
+
+	printDetail () {
+		this.printElem(this.$detailBox.nativeElement)
+		// window.print()
 	}
 
 	onConfirm() {

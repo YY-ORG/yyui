@@ -12,3 +12,48 @@
 		margin-top: 1rem;
 	}
 }
+.detail-modal {
+	.detail-title {
+		text-align: center;
+		font-size: 18px;
+		line-height: 20px;
+		margin-top: 30px;
+		a {
+			font-size: 14px;
+			padding-left: 30px;
+		}
+	}
+	.detail-title2 {
+		font-size: 16px;
+		margin-top: 40px;
+	}
+	.scores-print {
+		position: absolute;
+    margin-top: -70px;
+    float: right;
+    right: 30px;
+	}
+}
+
+@media print {
+	.detail-modal {
+		/deep/ .slds-modal {
+			position: inherit!important;
+		}
+		/deep/ .slds-backdrop--open {
+			display: none!important;
+		}
+	}
+	.detail-box {
+			background-color: #000;
+			height: 100%;
+			width: 100%;
+			position: fixed;
+			top: 0;
+			left: 0;
+			margin: 0;
+			padding: 15px;
+			font-size: 14px;
+			line-height: 18px;
+	}
+}
