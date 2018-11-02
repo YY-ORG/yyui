@@ -97,6 +97,9 @@ export class AssesspaperComponent extends PageClass implements OnInit {
 
 			this.allAssessList = assessItemList.map(item => ({
         ...item,
+        exEditable: true,
+        scEditable: true,
+        auEditable: true,
         isSelect: false
       }))
       this.cacheAllAssessItemList = this.allAssessList.map(item => Object.assign({}, item))
@@ -173,7 +176,10 @@ export class AssesspaperComponent extends PageClass implements OnInit {
       this.assessItemList.forEach(assessItem => {
         if (item.id === assessItem.assessId) {
           Object.assign(item, {
-            isSelect: true
+            isSelect: true,
+            auEditable: assessItem.auEditable,
+            exEditable: assessItem.exEditable,
+            scEditable: assessItem.scEditable
           })
         }
       })
@@ -241,6 +247,9 @@ export class AssesspaperComponent extends PageClass implements OnInit {
           assessId: assess.assessId,
           assessName: assess.assessName,
           assessCode: assess.assessCode,
+          exEditable: assess.exEditable,
+          scEditable: assess.scEditable,
+          auEditable: assess.auEditable,
           seqNo: assess.seqNo
         })
       })
@@ -283,6 +292,9 @@ export class AssesspaperComponent extends PageClass implements OnInit {
       assessCode: assessItem.code,
       assessId: assessItem.id,
       assessName: assessItem.name,
+      exEditable: assessItem.exEditable,
+      scEditable: assessItem.scEditable,
+      auEditable: assessItem.auEditable,
       seqNo: 0
     }
     let isInItem = false

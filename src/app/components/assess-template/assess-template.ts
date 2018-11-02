@@ -7,6 +7,7 @@ import { AssessTemplateService } from './assess-template.service'
 import { OrderByPipe } from '../../../pipe/orderby'
 
 import { Adminui, Assess, Common } from '../../../core';
+import { executeCopy } from '../../../core/common/copy'
 
 
 @Component({
@@ -28,8 +29,8 @@ export class AssessTemplateComponent extends PageClass implements OnInit {
 
 	templateitemList: Assess.SimpleTemplateItem[] = []
 	cacheTemplateitemList: Assess.SimpleTemplateItem[] = []
-	selectTemplateitemList: Assess.SimpleTemplateItem[] = []
-	
+  selectTemplateitemList: Assess.SimpleTemplateItem[] = []
+  
 	currentTemplate: Assess.TemplateProfileReq = new Assess.TemplateProfileReq
 	
 	currentPage: number = 0
@@ -61,10 +62,18 @@ export class AssessTemplateComponent extends PageClass implements OnInit {
 
 			this.templateitemList = templateitemList.map(item => ({
         ...item,
-        editable: true,
+        failedMsg: '',
+        maxValue: '',
+        minValue: '',
+        valueFrom: '',
         mandatory: true,
-        visible: true,
-        isSelect: false
+        exVisible: true,
+        isSelect: false,
+        scVisible: true,
+        auVisible: true,
+        exEditable: true,
+        scEditable: true,
+        auEditable: true
       }))
       this.cacheTemplateitemList = this.templateitemList.map(item => Object.assign({}, item))
       this.refreshList()
@@ -123,11 +132,19 @@ export class AssessTemplateComponent extends PageClass implements OnInit {
 
   setReqList () {
     this.templateProfileReq.itemList = this.selectTemplateitemList.map(templateitem => ({
-      editable: templateitem.editable,
       mandatory: templateitem.mandatory,
       seqNo: templateitem.seqNo,
       templateItemId: templateitem.id,
-      visible: templateitem.visible
+      failedMsg: templateitem.failedMsg,
+      maxValue: +templateitem.maxValue,
+      minValue: +templateitem.minValue,
+      valueFrom: templateitem.valueFrom,
+      exVisible: templateitem.exVisible,
+      scVisible: templateitem.scVisible,
+      auVisible: templateitem.auVisible,
+      exEditable: templateitem.exEditable,
+      scEditable: templateitem.scEditable,
+      auEditable: templateitem.auEditable,
     }))
   }
 
@@ -154,6 +171,11 @@ export class AssessTemplateComponent extends PageClass implements OnInit {
 
   get seqNoList () {
     return Array(this.selectTemplateitemList.length).fill(0).map((x,i) => i + 1);
+  }
+
+  copytext (text: string, $event: Event) {
+    executeCopy(text, $event.target as HTMLElement)
+    alert('复制成功！')
   }
 
 }

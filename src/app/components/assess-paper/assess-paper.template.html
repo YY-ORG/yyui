@@ -45,6 +45,7 @@
                 <th>名称</th>
                 <th>类型</th>
                 <th>状态</th>
+                <th>可编辑</th>
             </tr>
             <tr *ngFor="let assess of allAssessList; let i = index">
                 <td class="no-padding">
@@ -57,6 +58,16 @@
                 </td>
                 <td>{{assess.type | dict: service.type | async}}</td>
                 <td>{{assess.status | dict: service.status | async}}</td>
+                <td>
+                    <fieldset style="margin-top: 0" ngl-form-group-alt [required]="required" [error]="hasError ? error : null" class="slds-m-top--small">
+                        <ngl-form-group-element><ng-template nglFormLabel>参评</ng-template><input [(ngModel)]="assess.exEditable" (ngModelChange)="seletChanged(assess)" nglFormControl type="checkbox" /></ngl-form-group-element>
+                        <ngl-form-group-element><ng-template nglFormLabel>初评</ng-template><input [(ngModel)]="assess.scEditable" (ngModelChange)="seletChanged(assess)" nglFormControl type="checkbox" /></ngl-form-group-element>
+                        <ngl-form-group-element><ng-template nglFormLabel>复核</ng-template><input [(ngModel)]="assess.auEditable" (ngModelChange)="seletChanged(assess)" nglFormControl type="checkbox" /></ngl-form-group-element>
+                    </fieldset>
+                    <!-- <ngl-form-checkbox-toggle [error]="hasError ? error : null" class="slds-m-top--small">
+                        <input nglFormControl [(ngModel)]="templateitem.editable" (ngModelChange)="seletChanged(templateitem)" type="checkbox" />
+                    </ngl-form-checkbox-toggle> -->
+                </td>
             </tr>
         </table>
         <pagination *ngIf="maxPage>1" [maxSize]="maxPage" [currentPage]="currentPage + 1" (pageChanged)="pageChanged($event)"></pagination>

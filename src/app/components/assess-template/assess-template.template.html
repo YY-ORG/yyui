@@ -14,45 +14,73 @@
 <h1 class="paper-title mgt30">考题模板元素列表<button class="slds-button slds-button--green float-right" (click)="addNewTemplate()">更改模板元素</button></h1>
 
 <ngl-modal header="更改模板元素" size="large" [(open)]="addModalOpen">
-    <div body class="width85 mgb30button" style="margin:0 auto">
-        <table class="slds-table mgt30">
-            <tr>
-                <th>选择</th>
-                <th>名称</th>
-                <th>类型</th>
-                <th>状态</th>
-                <th>可见</th>
-                <th>可编辑</th>
-                <th>必填</th>
-            </tr>
-            <tr *ngFor="let templateitem of templateitemList; let i = index">
-                <td class="no-padding">
-                    <ngl-form-checkbox [error]="hasError ? error : null" class="">
-                        <input nglFormControl [(ngModel)]="templateitem.isSelect" (ngModelChange)="seletChanged(templateitem)" type="checkbox" />
-                    </ngl-form-checkbox>
-                </td>
-                <td>
-                    <font class="color-neutral">{{templateitem.name}}</font>
-                </td>
-                <td>{{templateitem.type | dict: service.itemType | async}}</td>
-                <td>{{templateitem.status | dict: service.status | async}}</td>
-                <td>
-                    <ngl-form-checkbox-toggle [error]="hasError ? error : null" class="slds-m-top--small">
-                        <input nglFormControl [(ngModel)]="templateitem.visible" (ngModelChange)="seletChanged(templateitem)" type="checkbox" />
-                    </ngl-form-checkbox-toggle>
-                </td>
-                <td>
-                    <ngl-form-checkbox-toggle [error]="hasError ? error : null" class="slds-m-top--small">
-                        <input nglFormControl [(ngModel)]="templateitem.editable" (ngModelChange)="seletChanged(templateitem)" type="checkbox" />
-                    </ngl-form-checkbox-toggle>
-                </td>
-                <td>
-                    <ngl-form-checkbox-toggle [error]="hasError ? error : null" class="slds-m-top--small">
-                        <input nglFormControl [(ngModel)]="templateitem.mandatory" (ngModelChange)="seletChanged(templateitem)" type="checkbox" />
-                    </ngl-form-checkbox-toggle>
-                </td>
-            </tr>
-        </table>
+    <div body class="width85 mgb30button" style="margin:0 auto;">
+        <div style="width: 100%;overflow-x: scroll;">
+            <table style="width: 1500px;" class="slds-table mgt30">
+                <tr>
+                    <th>选择</th>
+                    <th>名称</th>
+                    <th>编码</th>
+                    <th>最大值</th>
+                    <th>最小值</th>
+                    <th>值来源</th>
+                    <th>校验提示</th>
+                    <th>可见</th>
+                    <th>可编辑</th>
+                    <th>必填</th>
+                </tr>
+                <tr *ngFor="let templateitem of templateitemList; let i = index">
+                    <td class="no-padding">
+                        <ngl-form-checkbox [error]="hasError ? error : null" class="">
+                            <input nglFormControl [(ngModel)]="templateitem.isSelect" (ngModelChange)="seletChanged(templateitem)" type="checkbox" />
+                        </ngl-form-checkbox>
+                    </td>
+                    <td>
+                        <font class="color-neutral">{{templateitem.name}}</font>
+                    </td>
+                    <td style="font-size: 12px;"><button title="{{templateitem.code}}" (click)="copytext(templateitem.code, $event)" style="padding: 0 20px" type="button" nglButton="neutral">复制</button></td>
+                    <!-- <td>{{templateitem.type | dict: service.itemType | async}}</td>
+                    <td>{{templateitem.status | dict: service.status | async}}</td> -->
+                    <td>
+                        <input style="width: 60px;padding: 0 0 0 5px;" nglFormControl type="number" placeholder="" [(ngModel)]="templateitem.maxValue" (ngModelChange)="seletChanged(templateitem)">
+                    </td>
+                    <td>
+                        <input style="width: 60px;padding: 0 0 0 5px;" nglFormControl type="number" placeholder="" [(ngModel)]="templateitem.minValue" (ngModelChange)="seletChanged(templateitem)">
+                    </td>
+                    <td>
+                        <input style="width: 200px;padding: 0 5px;" nglFormControl type="text" placeholder="" [(ngModel)]="templateitem.failedMsg" (ngModelChange)="seletChanged(templateitem)">
+                    </td>
+                    <td>
+                        <input style="width: 200px;padding: 0 5px;" nglFormControl type="text" placeholder="" [(ngModel)]="templateitem.valueFrom" (ngModelChange)="seletChanged(templateitem)">
+                    </td>
+                    <td>
+                        <fieldset style="margin-top: 0" ngl-form-group-alt [required]="required" [error]="hasError ? error : null" class="slds-m-top--small">
+                            <ngl-form-group-element><ng-template nglFormLabel>参评</ng-template><input [(ngModel)]="templateitem.exVisible" (ngModelChange)="seletChanged(templateitem)" nglFormControl type="checkbox" /></ngl-form-group-element>
+                            <ngl-form-group-element><ng-template nglFormLabel>初评</ng-template><input [(ngModel)]="templateitem.scVisible" (ngModelChange)="seletChanged(templateitem)" nglFormControl type="checkbox" /></ngl-form-group-element>
+                            <ngl-form-group-element><ng-template nglFormLabel>复核</ng-template><input [(ngModel)]="templateitem.auVisible" (ngModelChange)="seletChanged(templateitem)" nglFormControl type="checkbox" /></ngl-form-group-element>
+                        </fieldset>
+                        <!-- <ngl-form-checkbox-toggle [error]="hasError ? error : null" class="slds-m-top--small">
+                            <input nglFormControl [(ngModel)]="templateitem.visible" (ngModelChange)="seletChanged(templateitem)" type="checkbox" />
+                        </ngl-form-checkbox-toggle> -->
+                    </td>
+                    <td>
+                        <fieldset style="margin-top: 0" ngl-form-group-alt [required]="required" [error]="hasError ? error : null" class="slds-m-top--small">
+                            <ngl-form-group-element><ng-template nglFormLabel>参评</ng-template><input [(ngModel)]="templateitem.exEditable" (ngModelChange)="seletChanged(templateitem)" nglFormControl type="checkbox" /></ngl-form-group-element>
+                            <ngl-form-group-element><ng-template nglFormLabel>初评</ng-template><input [(ngModel)]="templateitem.scEditable" (ngModelChange)="seletChanged(templateitem)" nglFormControl type="checkbox" /></ngl-form-group-element>
+                            <ngl-form-group-element><ng-template nglFormLabel>复核</ng-template><input [(ngModel)]="templateitem.auEditable" (ngModelChange)="seletChanged(templateitem)" nglFormControl type="checkbox" /></ngl-form-group-element>
+                        </fieldset>
+                        <!-- <ngl-form-checkbox-toggle [error]="hasError ? error : null" class="slds-m-top--small">
+                            <input nglFormControl [(ngModel)]="templateitem.editable" (ngModelChange)="seletChanged(templateitem)" type="checkbox" />
+                        </ngl-form-checkbox-toggle> -->
+                    </td>
+                    <td>
+                        <ngl-form-checkbox-toggle [error]="hasError ? error : null" class="slds-m-top--small">
+                            <input nglFormControl [(ngModel)]="templateitem.mandatory" (ngModelChange)="seletChanged(templateitem)" type="checkbox" />
+                        </ngl-form-checkbox-toggle>
+                    </td>
+                </tr>
+            </table>
+        </div>
         <pagination *ngIf="maxPage>1" [maxSize]="maxPage" [currentPage]="currentPage + 1" (pageChanged)="pageChanged($event)"></pagination>
     </div>
     <template ngl-modal-footer>
@@ -81,8 +109,8 @@
         </td>
         <td>{{templateitem.type | dict: service.itemType | async}}</td>
         <td>{{templateitem.status | dict: service.status | async}}</td>
-        <td>{{templateitem.visible ? '是' : '否'}}</td>
-        <td>{{templateitem.editable ? '是' : '否'}}</td>
+        <td>{{templateitem.exVisible ? '参评' : ''}} {{templateitem.scVisible ? '初评' : ''}} {{templateitem.auVisible ? '复核' : ''}}</td>
+        <td>{{templateitem.exEditable ? '参评' : ''}} {{templateitem.scEditable ? '初评' : ''}} {{templateitem.auEditable ? '复核' : ''}}</td>
         <td>{{templateitem.mandatory ? '是' : '否'}}</td>
     </tr>
 </table>

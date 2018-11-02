@@ -67,6 +67,9 @@ export namespace Assess {
     categoryCode?: string
     assessCategoryId?: string
     categoryName?: string
+    exEditable: boolean = true
+    scEditable: boolean = true
+    auEditable: boolean = true
   }
 
   export class AssessGroupItem {
@@ -122,6 +125,17 @@ export namespace Assess {
     mandatory: boolean = true
     visible: boolean = true
     seqNo: number = 0
+    failedMsg: string = ''
+    maxValue: string = ''
+    minValue: string = ''
+    scEditable: boolean = true
+    scVisible: boolean = true
+    auEditable: boolean = true
+    auVisible: boolean = true
+    exEditable: boolean = true
+    exVisible: boolean = true
+    templateItemId: string = ''
+    valueFrom: string = ''
   }
   export class TemplateItemProfileReq {
     code: string = "" //, optional),
@@ -153,6 +167,9 @@ export namespace Assess {
     status: string = '' //, optional),
     type: string = '' //, optional)
     isSelect: boolean = false
+    exEditable: boolean = true
+    scEditable: boolean = true
+    auEditable: boolean = true
   }
   export class SimpleTemplate {
     code: string = '' //, optional),
@@ -183,11 +200,19 @@ export namespace Assess {
     type: string = '' //, optional)
   }
   export class TemplateItemMapReq {
-    editable: boolean = true //, optional),
     mandatory: boolean = true //, optional),
     seqNo: number = 0 //, optional),
     templateItemId: string = '' //, optional),
-    visible: boolean = true //, optional)
+    failedMsg: string = ''
+    maxValue: number
+    minValue: number
+    valueFrom: string = ''
+    exVisible: boolean = true
+    scVisible: boolean = true
+    auVisible: boolean = true
+    exEditable: boolean = true
+    scEditable: boolean = true
+    auEditable: boolean = true
   }
   export class TemplateWithIDProfileReq {
     code: string = '' //, optional),
@@ -209,6 +234,9 @@ export namespace Assess {
     seqNo: number = 0 //, optional)
     assessCode: string //, optional),
     assessName: string //, optional),
+    exEditable: boolean
+    scEditable: boolean
+    auEditable: boolean
   }
   export class AssessPaperWithIDProfileReq {
     id: string = '' //, optional),
