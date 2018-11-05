@@ -111,6 +111,7 @@
     <tr>
         <th>序号</th>
         <th>名称</th>
+        <th>可编辑</th>
         <th>编码</th>
     </tr>
     <tr *ngFor="let assess of assessItemList | orderBy: 'seqNo'; let i = index">
@@ -122,6 +123,7 @@
         <td>
             <font class="color-neutral">{{assess.assessName}}</font>
         </td>
+        <td>{{assess.exEditable ? '参评' : ''}} {{assess.scEditable ? '初评' : ''}} {{assess.auEditable ? '复核' : ''}}</td>
         <td>{{assess.assessCode}}</td>
     </tr>
 </table>

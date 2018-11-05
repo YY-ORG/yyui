@@ -108,6 +108,10 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 		this.currentDisable = !!currentDisable
 	}
 
+	get isGlobalDisabled () {
+		return !this.currentAssesst.exEditable || ((this.paperStatus != 0 || this.currentDisable) ? true : false)
+	}
+
 	selectGroupChange ($event?) {
 		this.cdr.detectChanges()
 		this.assesslist = []

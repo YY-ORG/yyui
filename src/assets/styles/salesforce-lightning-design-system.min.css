@@ -3448,7 +3448,6 @@ a.slds-button--green:focus {
 }
 
 .slds-form-element__label {
-    display: none;
     color: #54698d;
     font-size: .75rem;
     line-height: 2;

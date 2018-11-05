@@ -40,7 +40,7 @@
                     [assessPaper]='currentAssessPaper'
                     [assess]='currentAssesst'
                     [group]='selectGroup'
-                    [globalDisable]='(paperStatus != 0 || currentDisable) ? true : false'
+                    [globalDisable]='isGlobalDisabled'
                     [templateItemItemList]="templateItemItemList"></examination-assess-component>
               </ng-container>
               <ng-container *ngSwitchCase="2">
@@ -54,7 +54,7 @@
                     [assessPaper]='currentAssessPaper'
                     [assess]='currentAssesst'
                     [group]='selectGroup'
-                    [globalDisable]='(paperStatus != 0 || currentDisable) ? true : false'
+                    [globalDisable]='isGlobalDisabled'
                     [templateItemItemList]="templateTableList"></examination-assess-component>
               </ng-container>
               <!-- 表格模板 -->
@@ -67,7 +67,7 @@
                   [assessPaper]='currentAssessPaper'
                   [assess]='currentAssesst'
                   [group]='selectGroup'
-                  [globalDisable]='(paperStatus != 0 || currentDisable) ? true : false'
+                  [globalDisable]='isGlobalDisabled'
                   [templateItemItemList]="tableItemList"></examination-assess-component>
               </ng-container>
           </ng-container>
