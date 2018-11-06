@@ -104,8 +104,26 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
     }
   }
 
+  setCalculatedValue () {
+    this.templateItemItemList.forEach(item => {
+      if (!item.valueFrom) return
+      let v = item.valueFrom
+
+      // 替换Math里所有的方法
+      Object.getOwnPropertyNames(Math).forEach(method => v = v.replace(new RegExp(method +'\\('), 'Math.' + method + '('))
+
+      // 替换括号里面的值
+      v = v.replace(/{(.*?)}/g, (a, b) => this.getItemReqValueViaCode(b).value + '' )
+
+      try {
+        item.reqDate.value = eval(v)
+      } catch (e) {}
+    })
+  }
+
   setTemplateItemList () {
     // console.log(this.templateItemItemList)
+    this.templateItemItemList = this.templateItemItemList.filter(item => this.isItemVisible(item))
     this.templateItemItemList.forEach(tem => {
       tem.reqDate = {
         code: tem.code,
@@ -125,6 +143,7 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
 
     this.getSelectList()
     this.getRegList()
+    this.setCalculatedValue() // 设置计算的关联值
 
     this.checkValue = (code?: string, value?: string) => {
       this.isEdit = true
@@ -160,23 +179,46 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
         Object.assign(templateItem, { selectList: this.service.dict.get({ owner: valueOwner, field: valueField }) })
       }
     })
-	}
+  }
+
+  private getItemReqValueViaCode (code: string): Assess.AssessTIItemReq {
+    let itemReq = new Assess.AssessTIItemReq
+    this.templateItemItemList.forEach(item => {
+      if (item.code === code.trim()) {
+        itemReq = item.reqDate
+      }
+    })
+    return itemReq
+  }
+
+  private parseRegString (value: string): Function {
+    var matchedString = value.trim().match(/^{(.*)}$/)
+    if (matchedString) {
+      let [ ,code ] = matchedString
+      return () => this.getItemReqValueViaCode(code).value
+    } else {
+      return () => value
+    }
+  }
 
 	getRegList () {
-		
     let regs = {}
     this.templateItemItemList.forEach(temp => {
       let reg = []
 
       // reg.push(this.v.isBase)
       if (temp.mandatory) reg.push(this.v.isUnBlank)
-      if (['5', '10'].indexOf(temp.type.toString()) > -1) reg.push(this.v.isNumber)
-      if (temp.type.toString() === '10') reg.push(this.v.max(100), this.v.min(0))
-      if (temp.type.toString() === '11') reg.push(this.v.isPoint)
+      if (temp.type.toString() === '11') {
+        reg.push(this.v.isPoint)
+      } else {
+        if (temp.maxValue) reg.push(this.v.max(this.parseRegString(temp.maxValue)))
+        if (temp.minValue) reg.push(this.v.min(this.parseRegString(temp.minValue)))
+        if (temp.maxValue || temp.minValue) reg.push(this.v.isNumber)
+      }
 
       if (temp.regExp) reg.push(temp.regExp.split(',').map(val => this.v[val]))
 
-      regs[temp.code] = [temp.reqDate.value, reg, temp.tip || '输入有误，请检查']
+      regs[temp.code] = [temp.reqDate.value, reg, temp.failedMsg]
     })
     this.regList = regs
   }
@@ -208,24 +250,29 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
   submitComment () {
     // console.log('this.commentReq', this.commentReq)
     let errorMsg = this.checkCommentValue()
-    if (errorMsg) return this.alert.open(errorMsg)
-    if (!this.commentReq) return false
+    if (errorMsg) {
+      this.alert.open(errorMsg)
+      return Promise.reject('error')
+    }
+    if (!this.commentReq) return Promise.reject('error')
     if (!this.commentReq.answerId && this.commentReq.itemList.length) { // 表单和混合表单外层没有answerid
       this.commentReq.id = this.commentReq.itemList[0].id
       this.commentReq.answerId = this.commentReq.itemList[0].answerId
     }
     const sendCommentServer = this.isFristComment  ? this.service.postMarkassessanswer.bind(this.service) : this.service.postAuditassessanswer.bind(this.service)
-    return sendCommentServer(this.assessPaper.id, this.assess.assessId, {
+    
+    return Promise.all([this.submit(), sendCommentServer(this.assessPaper.id, this.assess.assessId, {
       assessAnswerId: this.commentReq.answerId,
       assessAnswerItemId: this.commentReq.id,
       comments: this.scoreComment, // isFristComment ? this.commentReq.markedComment : this.commentReq.auditComment,
       score: this.score // isFristComment ? this.commentReq.markedScore : this.commentReq.auditScore
-    }).then(res => {
+    }).then(([res, res1]) => {
       // console.log(res)
+      return res1
     }).catch(res => {
       this.spinner.hide()
       this.alert.open(res)
-    })
+    })])
   }
 
   sendEditComment () {
@@ -431,7 +478,20 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
   }
 
   get isDisable () {
-    return this.globalDisable || this.commentType
+    return this.globalDisable
+  }
+
+  // 每一个元素是否禁用
+  // exEditable 和 exVisible 表示参评的可编辑，可见，
+  // scEditable 和 scVisible 表示初评的可编辑，可见
+  // auEditable 和 auVisible 表示复核的可编辑，可见
+  isItemDisable (templateItem) {
+    return this.globalDisable || !(this.commentType === 1 ? templateItem.scEditable : this.commentType === 2 ? templateItem.auEditable : templateItem.exEditable)
+  }
+
+  // 每一个元素是否可见
+  isItemVisible (templateItem) {
+    return this.commentType === 1 ? templateItem.scVisible : this.commentType === 2 ? templateItem.auVisible : templateItem.exVisible
   }
 
   setTableTrList (tableTrList: Assess.SimpleAssessAnswerItem[]){
@@ -480,9 +540,9 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
   onEditorFocused(quill) {
   }
 
-  onEditorCreated(quill) {
+  onEditorCreated(quill, templateItem) {
     this.editor = quill;
-    if (this.globalDisable || this.commentType) {
+    if (this.isItemDisable(templateItem)) {
       this.editor.disable()
     }
   }

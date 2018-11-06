@@ -21,8 +21,8 @@
                     <th>选择</th>
                     <th>名称</th>
                     <th>编码</th>
-                    <th>最大值</th>
                     <th>最小值</th>
+                    <th>最大值</th>
                     <th>值来源</th>
                     <th>校验提示</th>
                     <th>可见</th>
@@ -42,16 +42,16 @@
                     <!-- <td>{{templateitem.type | dict: service.itemType | async}}</td>
                     <td>{{templateitem.status | dict: service.status | async}}</td> -->
                     <td>
-                        <input style="width: 60px;padding: 0 0 0 5px;" nglFormControl type="number" placeholder="" [(ngModel)]="templateitem.maxValue" (ngModelChange)="seletChanged(templateitem)">
+                        <input style="width: 100px;" nglFormControl type="text" placeholder="" [(ngModel)]="templateitem.minValue" (ngModelChange)="seletChanged(templateitem)">
                     </td>
                     <td>
-                        <input style="width: 60px;padding: 0 0 0 5px;" nglFormControl type="number" placeholder="" [(ngModel)]="templateitem.minValue" (ngModelChange)="seletChanged(templateitem)">
-                    </td>
-                    <td>
-                        <input style="width: 200px;padding: 0 5px;" nglFormControl type="text" placeholder="" [(ngModel)]="templateitem.failedMsg" (ngModelChange)="seletChanged(templateitem)">
+                        <input style="width: 100px;" nglFormControl type="text" placeholder="" [(ngModel)]="templateitem.maxValue" (ngModelChange)="seletChanged(templateitem)">
                     </td>
                     <td>
                         <input style="width: 200px;padding: 0 5px;" nglFormControl type="text" placeholder="" [(ngModel)]="templateitem.valueFrom" (ngModelChange)="seletChanged(templateitem)">
+                    </td>
+                    <td>
+                        <input style="width: 200px;padding: 0 5px;" nglFormControl type="text" placeholder="" [(ngModel)]="templateitem.failedMsg" (ngModelChange)="seletChanged(templateitem)">
                     </td>
                     <td>
                         <fieldset style="margin-top: 0" ngl-form-group-alt [required]="required" [error]="hasError ? error : null" class="slds-m-top--small">

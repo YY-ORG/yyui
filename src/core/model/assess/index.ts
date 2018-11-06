@@ -57,6 +57,17 @@ export namespace Assess {
     point1?: string = ""; //, optional)
     point2?: string = ""; //, optional)
     reqDate: AssessTIItemReq = new AssessTIItemReq
+    failedMsg: string = ''
+    maxValue: string = ''
+    minValue: string = ''
+    scEditable: boolean = true
+    scVisible: boolean = true
+    auEditable: boolean = true
+    auVisible: boolean = true
+    exEditable: boolean = true
+    exVisible: boolean = true
+    templateItemId: string = ''
+    valueFrom: string = ''
   }
 
   export class AssessMenuItem {
@@ -204,8 +215,8 @@ export namespace Assess {
     seqNo: number = 0 //, optional),
     templateItemId: string = '' //, optional),
     failedMsg: string = ''
-    maxValue: number
-    minValue: number
+    maxValue: string
+    minValue: string
     valueFrom: string = ''
     exVisible: boolean = true
     scVisible: boolean = true

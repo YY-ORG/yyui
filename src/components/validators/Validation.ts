@@ -8,8 +8,10 @@ const uuids = {
 };
 
 interface ValidationRegs {
-    [key: string] : [string|number, Array<Function> , string];
+    [key: string] : [string|number|Function, Array<Function> , string];
 }
+
+const curryFormatV = (value: any) => typeof value === 'function' ? value() : value
 
 @Injectable()
 class Validation {
@@ -28,22 +30,25 @@ class Validation {
     isIpaddress= (v:any):boolean => /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/.test(v);  //是否是IP
     isAliCloudInstanceName = (v:any):boolean => /((^([a-zA-Z\u4e00-\u9fa5])+)([a-zA-Z\u4e00-\u9fa5\_\-\.0-9].{1,127}$))/.test(v);   //阿里云主机名称 2-128个字符，以大小写字母或中文开头
     isAliCloudPassword = (v:any):boolean => /(^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z\W_]+$)(?![a-z0-9]+$)(?![a-z\W_]+$)(?![0-9\W_]+$)[a-zA-Z0-9\W_]{8,31}$)/.test(v);
-    isPoint = (v:any):boolean => /\d+?\/\d+/.test(v); //是否是分数
+    isPoint = (v:any):boolean => { //是否是分数
+        let [a, b] = v.split('/')
+        return this.isInteger(a) && this.min(0)(a) && this.isInteger(b) && this.range(1, 100)(b)
+    }
 
     //下面为curry函数
-    min = (min:number):Function => (v:any):boolean => +v >= min;   //数字的最小值
-    max = (max:number):Function => (v:any):boolean => +v <= max;   //数字的最大值
-    range = (min:number, max:number):Function => (v:any):boolean => this.min(min)(v) && this.max(max)(v);    //数字的范围
-    minLength = (min:number):Function => (v:string):boolean => v.length >= min;    //字符的长度最小值
-    maxLength = (max:number):Function => (v:string):boolean => v.length <= max;    //字符串长度的最大值
-    lengthRange = (min:number, max:number):Function => (v:string):boolean => this.minLength(min)(v) && this.maxLength(max)(v);   //字符串长度范围
+    min = (min:number | Function):Function => (v:any):boolean => +v >= curryFormatV(min);   //数字的最小值
+    max = (max:number | Function):Function => (v:any):boolean => +v <= curryFormatV(max);   //数字的最大值
+    range = (min:number | Function, max:number | Function):Function => (v:any):boolean => this.min(min)(v) && this.max(max)(v);    //数字的范围
+    minLength = (min:number | Function):Function => (v:string):boolean => v.length >= curryFormatV(min);    //字符的长度最小值
+    maxLength = (max:number | Function):Function => (v:string):boolean => v.length <= curryFormatV(max);    //字符串长度的最大值
+    lengthRange = (min:number | Function, max:number | Function):Function => (v:string):boolean => this.minLength(min)(v) && this.maxLength(max)(v);   //字符串长度范围
     uuid = (version:"3"|"4"|"5"|"all" = "all"):Function => (v:any):boolean => new RegExp( uuids[version] || uuids.all ).test(v);  //uuid
-    equalTo = (target:any):Function => (v:any):boolean => target === v;  //等于某个数
-    equalToArr = (arr:any[]):Function => (v:any):boolean => arr.indexOf(v) > -1;  //在某个数组里含有
-    notEqualTo = (target:any):Function => (v:any):boolean => target !== v;  //不等于某个数
-    notEqualToArr = (arr:any[]):Function => (v:any):boolean => arr.indexOf(v) === -1;  //不在某个数组里含有
-    startAtValue = (value:string):Function => (v:any):boolean => new RegExp( "^"+value ).test(v);  //开头必须包含某个值
-    notStartAtValue = (value:string):Function => (v:any):boolean => !new RegExp( "^"+value ).test(v);  //开头不能包含某个值
+    equalTo = (target:any):Function => (v:any):boolean => curryFormatV(target) === v;  //等于某个数
+    equalToArr = (arr:any[] | Function):Function => (v:any):boolean => curryFormatV(arr).indexOf(v) > -1;  //在某个数组里含有
+    notEqualTo = (target:any):Function => (v:any):boolean => curryFormatV(target) !== v;  //不等于某个数
+    notEqualToArr = (arr:any[] | Function):Function => (v:any):boolean => curryFormatV(arr).indexOf(v) === -1;  //不在某个数组里含有
+    startAtValue = (value:string | Function):Function => (v:any):boolean => new RegExp( "^"+curryFormatV(value) ).test(v);  //开头必须包含某个值
+    notStartAtValue = (value:string | Function):Function => (v:any):boolean => !new RegExp( "^"+curryFormatV(value) ).test(v);  //开头不能包含某个值
 
     check(key, reg:ValidationRegs){  //对外方法  可以验证单个和验证所有
         console.log(reg, key)
@@ -73,6 +78,7 @@ class Validation {
 
         let [value, regulars, alertText] = reg[key],
             errorMessage = "";
+        if (typeof value === 'function') value = value()
         value = this.isUnBlank(value) ? value : "";
         for(let regular of regulars){
             // console.log(regular, value, regular(value))
