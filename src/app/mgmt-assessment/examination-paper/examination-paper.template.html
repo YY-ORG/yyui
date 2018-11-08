@@ -57,8 +57,8 @@
                     [globalDisable]='isGlobalDisabled'
                     [templateItemItemList]="templateTableList"></examination-assess-component>
               </ng-container>
-              <!-- 表格模板 -->
               <ng-container *ngSwitchCase="3">
+                  <!-- 表格模板 -->
                 <examination-assess-component 
                   code="TABLE" #examinationAssess 
                   [tableAssessList]="templateItemItemList" 

@@ -122,7 +122,6 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
   }
 
   setTemplateItemList () {
-    // console.log(this.templateItemItemList)
     this.templateItemItemList = this.templateItemItemList.filter(item => this.isItemVisible(item))
     this.templateItemItemList.forEach(tem => {
       tem.reqDate = {
@@ -223,10 +222,10 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
     this.regList = regs
   }
 
-  submit () {
+  submit (userId?) {
     switch (this.code) {
       case 'TABLE':
-        return this.service.putAssessanswer(this.assessPaper.id, this.assess.assessId, this.group.id)
+        return this.service.putAssessanswer(this.assessPaper.id, this.assess.assessId, this.group.id, userId)
       case 'FORM_TABLE':
         this.templateItemItemList.forEach(res => {
           if (res.type.toString() === '15') {
@@ -239,7 +238,7 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
           this.alert.open(errorMsg)
           return Promise.reject(errorMsg)
         }
-        return this.service.postSingleAssessanswer(this.assessPaper.id, this.assess.assessId, this.group.id, this.reqData)
+        return this.service.postSingleAssessanswer(this.assessPaper.id, this.assess.assessId, this.group.id, this.reqData, userId)
     }
   }
 
@@ -261,7 +260,7 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
     }
     const sendCommentServer = this.isFristComment  ? this.service.postMarkassessanswer.bind(this.service) : this.service.postAuditassessanswer.bind(this.service)
     
-    return Promise.all([this.submit(), sendCommentServer(this.assessPaper.id, this.assess.assessId, {
+    return Promise.all([this.submit(this.userId), sendCommentServer(this.assessPaper.id, this.assess.assessId, {
       assessAnswerId: this.commentReq.answerId,
       assessAnswerItemId: this.commentReq.id,
       comments: this.scoreComment, // isFristComment ? this.commentReq.markedComment : this.commentReq.auditComment,

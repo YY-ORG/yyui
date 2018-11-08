@@ -57,7 +57,7 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 	complexTemplateList: Assess.ComplexTemplateItem[] = []
 	formTableFormTemplateId: string = ''
 
-	tableItemList= [{ type: '15' }]
+	tableItemList= [{ type: '15', exVisible: true }]
 	currentStep = 0
 
 	ngOnInit() {
@@ -197,12 +197,14 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 		this.currentAssesst = assesst
 		this.spinner.show()
 		this.service.fetchExamination(assesst.assessId).then(res => {
+			console.log(res, 'this.examinationthis.examinationthis.examination')
 			this.examination = res
 			this.templateItemList = this.examination.templateItemList
 			this.templateItemList.forEach(template => {
 				if (template.type == '0') this.curremtTemplateForm = template
 				if (template.type == '2') this.curremtTemplateTable = template
 			})
+
 			this.curremtTemplateForm = this.templateItemList.filter(template => template.type == '0')[0]
 			this.curremtTable = this.templateItemList.filter(template => template.type == '1')[0]
 			this.curremtTemplateTable = this.templateItemList.filter(template => template.type == '2')[0]
@@ -210,7 +212,8 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 			this.templateItemItemList = this.curremtTemplateForm ? this.curremtTemplateForm.templateItemItemList : []
 			this.tableList = this.curremtTable ? this.curremtTable.templateItemItemList : []
 			this.templateTableList = this.curremtTemplateTable ? this.curremtTemplateTable.templateItemItemList : []
-
+			
+			console.log(8888888, this.tableList)
 			if (this.curremtTemplateTable) {
 				this.getTemplateTableList()
 			}

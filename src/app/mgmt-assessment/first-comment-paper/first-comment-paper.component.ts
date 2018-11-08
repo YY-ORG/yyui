@@ -60,7 +60,7 @@ export class FirstCommentPaperComponent extends PageClass implements OnInit {
 	private sub: any;
 	paperid: string;
 	userid: string;
-	tableItemList= [{ type: '15' }]
+	tableItemList= [{ type: '15', scVisible: true, auVisible: true }]
 
 	ngOnInit() {
 		// paperid/:userid

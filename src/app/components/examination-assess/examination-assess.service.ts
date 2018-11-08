@@ -46,17 +46,24 @@ export class ExaminationAssessService {
   // POST /authsec/assesspaper/{_assessPaperId}/assess/{_assessId}/auditassessanswer 
   
   // 考生提交某个卷子某个题(单答案题)的答案
-  postSingleAssessanswer (assessPaperId: string, assessId: string, groupId: string, data: Assess.AssessTemplateReq[] = []): Promise<any>{
+  postSingleAssessanswer (assessPaperId: string, assessId: string, groupId: string, data: Assess.AssessTemplateReq[] = [], userId?: string): Promise<any>{
     const api = this.restApiCfg.getRestApi("assess.single.assessanswer");
     
-    return this.restApi.request(api.method, api.url, { assessPaperId, groupId, assessId }, null, data)
+    return this.restApi.request(api.method, api.url, { assessPaperId, groupId, assessId }, userId ? [{
+      key: '_userId',
+      value: userId
+    }] : null, data)
   }
 
   // 考生提交某个多答案题（提交的时候无须再提交内容）
-  putAssessanswer (assessPaperId: string, assessId: string, groupId: string): Promise<any>{
+  putAssessanswer (assessPaperId: string, assessId: string, groupId: string, userId?: string): Promise<any>{
     const api = this.restApiCfg.getRestApi("put.single.assessanswer");
     
-    return this.restApi.request(api.method, api.url, { assessPaperId, groupId, assessId })
+    return this.restApi.request(api.method, api.url, { assessPaperId, groupId, assessId }, userId ? [{
+      key: '_userId',
+      value: userId
+    }] : null)
+    
   }
 
   // 考生增加某个卷子某个多答案题的答案
