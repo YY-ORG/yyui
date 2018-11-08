@@ -25,8 +25,9 @@ export class FileUploadComponent {
                 formData.append('file', inputEl.files[i]);
             }
             this.service.postfile(formData).subscribe(res => {
-              console.log(this.onFileUpload)
               this.onFileUpload && this.onFileUpload.emit(res.json().resultContent)
+            }, error => {
+              alert('上传失败，请上传小于1GB的文件！')
             })
         }
     }
