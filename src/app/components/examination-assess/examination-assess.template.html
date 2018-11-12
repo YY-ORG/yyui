@@ -1,9 +1,21 @@
 <ng-container *ngFor="let templateItem of templateItemItemList; let c = index;">
     <ng-container [ngSwitch]="templateItem.type">
     <!-- 文本框 -->
-    <div *ngSwitchCase="'0'" class="label-box">
+    <div *ngSwitchCase="0" class="label-box">
         <ngl-form-element label="{{templateItem.label}}："  [error]="v.result[templateItem.code]" class="slds-m-top--small left-lable">
-            <input [(ngModel)]="templateItem.reqDate.value" [disabled]="isItemDisable(templateItem)" nglFormControl type="text" (keyup)="checkValue(templateItem.code, templateItem.reqDate.value)" (blur)="setCalculatedValue()" placeholder="{{templateItem.placeholderTip}}">
+            <input [(ngModel)]="templateItem.reqDate.value" [disabled]="isItemDisable(templateItem)" nglFormControl type="text" (keyup)="checkValue(templateItem.code, templateItem.reqDate.value)" (ngModelChange)="setCalculatedValue()" placeholder="{{templateItem.placeholderTip}}">
+        </ngl-form-element>
+    </div>
+    <!-- 整数框 -->
+    <div *ngSwitchCase="5" class="label-box">
+        <ngl-form-element label="{{templateItem.label}}："  [error]="v.result[templateItem.code]" class="slds-m-top--small left-lable">
+            <input [(ngModel)]="templateItem.reqDate.value" [disabled]="isItemDisable(templateItem)" nglFormControl type="text" (keyup)="checkValue(templateItem.code, templateItem.reqDate.value)" (ngModelChange)="setCalculatedValue()" placeholder="{{templateItem.placeholderTip}}">
+        </ngl-form-element>
+    </div>
+    <!-- 小数框 -->
+    <div *ngSwitchCase="18" class="label-box">
+        <ngl-form-element label="{{templateItem.label}}："  [error]="v.result[templateItem.code]" class="slds-m-top--small left-lable">
+            <input [(ngModel)]="templateItem.reqDate.value" [disabled]="isItemDisable(templateItem)" nglFormControl type="text" (keyup)="checkValue(templateItem.code, templateItem.reqDate.value)" (ngModelChange)="catDecimal(templateItem);setCalculatedValue()" placeholder="{{templateItem.placeholderTip}}">
         </ngl-form-element>
     </div>
     <!-- 下拉框 -->
@@ -30,16 +42,10 @@
     <div *ngSwitchCase="'2'" class="label-box">
         <date-picker #dataPicker class="" formClass="left-lable" placeholder="{{templateItem.label}}：" [initDate]="templateItem.defaultValue" [disabled]='isItemDisable(templateItem)' (dateChanged)="templateItem.reqDate.value = $event.formatted"></date-picker>
     </div>
-    <!-- 数字框 -->
-    <div *ngSwitchCase="'5'" class="label-box">
-        <ngl-form-element label="{{templateItem.label}}："  [error]="v.result[templateItem.code]" class="slds-m-top--small left-lable">
-            <input [(ngModel)]="templateItem.reqDate.value" [disabled]="isItemDisable(templateItem)" nglFormControl type="text" (keyup)="checkValue(templateItem.code, templateItem.reqDate.value)" (blur)="setCalculatedValue()" placeholder="{{templateItem.placeholderTip}}">
-        </ngl-form-element>
-    </div>
-
+    <!-- 密码框 -->
     <div *ngSwitchCase="'6'" class="label-box">
         <ngl-form-element label="{{templateItem.label}}："  [error]="v.result[templateItem.code]" class="slds-m-top--small left-lable">
-            <input [(ngModel)]="templateItem.reqDate.value" [disabled]="isItemDisable(templateItem)" nglFormControl type="text" type="password"  (keyup)="checkValue(templateItem.code, templateItem.reqDate.value)" (blur)="setCalculatedValue()" placeholder="{{templateItem.placeholderTip}}">
+            <input [(ngModel)]="templateItem.reqDate.value" [disabled]="isItemDisable(templateItem)" nglFormControl type="text" type="password"  (keyup)="checkValue(templateItem.code, templateItem.reqDate.value)" (ngModelChange)="setCalculatedValue()" placeholder="{{templateItem.placeholderTip}}">
         </ngl-form-element>
     </div>
     <!-- 分数框 -->
@@ -54,7 +60,7 @@
     <!-- 百分比框 -->
     <div *ngSwitchCase="'10'" class="label-box">
         <ngl-form-element label="{{templateItem.label}}："  [error]="v.result[templateItem.code]" class="slds-m-top--small left-lable">
-            <input [(ngModel)]="templateItem.reqDate.value" [disabled]="isItemDisable(templateItem)" nglFormControl type="text" (keyup)="checkValue(templateItem.code, templateItem.reqDate.value)" (blur)="setCalculatedValue()" placeholder="{{templateItem.placeholderTip}}">
+            <input [(ngModel)]="templateItem.reqDate.value" [disabled]="isItemDisable(templateItem)" nglFormControl type="text" (keyup)="checkValue(templateItem.code, templateItem.reqDate.value)" (ngModelChange)="setCalculatedValue()" placeholder="{{templateItem.placeholderTip}}">
         </ngl-form-element>
         <span class="percent">%</span>
     </div>
@@ -136,13 +142,13 @@
             label="{{templateItem.label}}：" 
             [error]="v.result[templateItem.code]"
             class="slds-m-top--small left-lable">
-            <textarea [(ngModel)]="templateItem.reqDate.value" [disabled]="isItemDisable(templateItem)" (keyup)="checkValue(templateItem.code, templateItem.reqDate.value)"  (blur)="setCalculatedValue()" nglFormControl placeholder="{{templateItem.placeholderTip}}"></textarea>
+            <textarea [(ngModel)]="templateItem.reqDate.value" [disabled]="isItemDisable(templateItem)" (keyup)="checkValue(templateItem.code, templateItem.reqDate.value)"  (ngModelChange)="setCalculatedValue()" nglFormControl placeholder="{{templateItem.placeholderTip}}"></textarea>
         </ngl-form-element>
     </div>
     <!-- 文件上传 -->
     <div *ngSwitchCase="'13'" class="label-box mgt10">
         <label class="slds-form-element__label"><span>{{templateItem.label}}：</span></label>
-        <span *ngIf="templateItem.reqDate.value" style="position: absolute;top: 5px;width: 500px;">已上传文件：{{templateItem.reqDate.value | getFileName | async}} <span *ngIf='isItemDisable(templateItem)' (click)="templateItem.reqDate.value=''" class="file-delete-button icon-close iconfont"></span></span>
+        <span *ngIf="templateItem.reqDate.value" style="position: absolute;top: 5px;width: 500px;">已上传文件：{{templateItem.reqDate.value | getFileName | async}} <span (click)="deleteFile(templateItem.reqDate.value);templateItem.reqDate.value='';" class="file-delete-button icon-close iconfont"></span></span>
         <file-upload  *ngIf="!templateItem.reqDate.value" #fu (change)="fu.upload()" (onFileUpload)="templateItem.reqDate.value = $event" [multiple]="true"></file-upload>
     </div>
     <!-- 富文本编辑器 -->
@@ -160,9 +166,9 @@
     </ng-container>
 </ng-container>
 <article *ngIf="isComment" class="slds-card mgt30 width80">
-  <ngl-form-element label="系统辅助评分:"  class="slds-m-top--small left-lable width50">
+  <!-- <ngl-form-element label="系统辅助评分:"  class="slds-m-top--small left-lable width50">
     <input nglFormControl disabled type="text" placeholder="" [(ngModel)]="commentReq.auxiliaryScore">
-  </ngl-form-element>
+  </ngl-form-element> -->
   <ngl-form-element *ngIf='code === "TABLE"' label="总计评分:"  class="slds-m-top--small left-lable">
       <input [(ngModel)]="isFristComment ? commentReq.markedScore : commentReq.auditScore" disabled nglFormControl type="text" placeholder="">
   </ngl-form-element>
@@ -172,9 +178,9 @@
   <ngl-form-element *ngIf='code !== "TABLE"' [error]="vComment.result['scoreComment']" label="评分意见" [error]="hasError ? error : null" class="slds-m-top--small left-lable">
       <textarea [(ngModel)]="scoreComment"  (ngModelChange)="checkCommentValue('scoreComment')" nglFormControl placeholder=""></textarea>
   </ngl-form-element>
-  <ngl-form-element label="本题计分比例" class="slds-m-top--small left-lable">
+  <!-- <ngl-form-element label="本题计分比例" class="slds-m-top--small left-lable">
     <input nglFormControl disabled type="text" placeholder="" [value]="commentReq.scoringRatio * 100 + '%'">
-  </ngl-form-element>
+  </ngl-form-element> -->
 </article>
 
 <table *ngIf="isComment" class="slds-table mgt30 width80">
@@ -182,13 +188,13 @@
       <th colspan='2'>初评得分</th>
   </tr>
   <tr>
-    <td>原始得分</td>
+    <td>初评得分</td>
     <td>{{commentReq.markedScore}}</td>
   </tr>
-  <tr>
+  <!-- <tr>
     <td>实际得分</td>
     <td>{{commentReq.rmarkedScore}}</td>
-  </tr>
+  </tr> -->
   <tr *ngIf='code !== "TABLE"'>
     <td>互评意见</td>
     <td>{{commentReq.markedComment}}</td>
@@ -199,13 +205,13 @@
       <th colspan='2'>复评得分</th>
   </tr>
   <tr>
-    <td>原始得分</td>
+    <td>复评得分</td>
     <td>{{commentReq.auditScore}}</td>
   </tr>
-  <tr>
+  <!-- <tr>
     <td>实际得分</td>
     <td>{{commentReq.rauditScore}}</td>
-  </tr>
+  </tr> -->
   <tr *ngIf='code !== "TABLE"'>
     <td>互评意见</td>
     <td>{{commentReq.auditComment}}</td>

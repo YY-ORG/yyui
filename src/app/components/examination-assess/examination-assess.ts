@@ -104,8 +104,16 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
     }
   }
 
+  catDecimal (item) {
+    if (!/\.\d\d/.test(item.reqDate.value + '')) return false // 如果不到两位数不处理
+    setTimeout(() => {
+      item.reqDate.value = Math.round(+item.reqDate.value * 100) / 100
+    })
+  }
+
   setCalculatedValue () {
     this.templateItemItemList.forEach(item => {
+      // 计算valueFrom
       if (!item.valueFrom) return
       let v = item.valueFrom
 
@@ -214,9 +222,15 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
         }
        }
 
+       const code = temp.type.toString()
+
       // reg.push(this.v.isBase)
       if (temp.mandatory) reg.push(this.v.isUnBlank)
-      if (temp.type.toString() === '11') {
+      if (code === '5') reg.push(this.v.isInteger)
+      if (code === '18') reg.push(this.v.isNumber)
+
+
+      if (code === '11') {
         reg.push(this.v.isPoint)
       } else {
         if (temp.maxValue) reg.push(addDefault(temp.defaultValue, this.v.max(this.parseRegString(temp.maxValue))))
@@ -342,7 +356,6 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
     }
     
     this.spinner.show()
-    console.log(this.service, 123123123)
 		return service.bind(this.service)(this.assessPaper.id, this.assess.assessId, this.group.id, this.assessanswer.id, this.reqData)
 			.then(res => {
 				this.spinner.hide()
