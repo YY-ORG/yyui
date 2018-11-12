@@ -204,15 +204,24 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
     let regs = {}
     this.templateItemItemList.forEach(temp => {
       let reg = []
+      let addDefault = (defaultValue, fn) => { 
+        if (this.v.isUnBlank(defaultValue)) {
+          return (v:any) => {
+            return this.v.equalTo(defaultValue)(v) || fn(v)
+          }
+        } else {
+          return (v:any) => fn(v)
+        }
+       }
 
       // reg.push(this.v.isBase)
       if (temp.mandatory) reg.push(this.v.isUnBlank)
       if (temp.type.toString() === '11') {
         reg.push(this.v.isPoint)
       } else {
-        if (temp.maxValue) reg.push(this.v.max(this.parseRegString(temp.maxValue)))
-        if (temp.minValue) reg.push(this.v.min(this.parseRegString(temp.minValue)))
-        if (temp.maxValue || temp.minValue) reg.push(this.v.isNumber)
+        if (temp.maxValue) reg.push(addDefault(temp.defaultValue, this.v.max(this.parseRegString(temp.maxValue))))
+        if (temp.minValue) reg.push(addDefault(temp.defaultValue, this.v.min(this.parseRegString(temp.minValue))))
+        if (temp.maxValue || temp.minValue) reg.push(addDefault(temp.defaultValue, this.v.isNumber))
       }
 
       if (temp.regExp) reg.push(temp.regExp.split(',').map(val => this.v[val]))
