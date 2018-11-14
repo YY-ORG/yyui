@@ -127,6 +127,7 @@ export class FirstCommentPaperComponent extends PageClass implements OnInit {
 			// 	console.log('表格')
 			// }
 			// console.log(this.templateItemItemList, this.templateItemList, res, 9090)
+			console.log('commentReq', res)
 			this.commentReq = res
 		})
 	}
@@ -181,7 +182,7 @@ export class FirstCommentPaperComponent extends PageClass implements OnInit {
 			return this.goToStep(++this.currentStep)
 		}
 
-		this.examinationAssess.submitComment().then(res => {
+		Promise.all([this.examinationAssess.submit(this.userid), this.examinationAssess.submitComment()]).then(res => {
 			this.goToStep(++this.currentStep)
 		})
 	}

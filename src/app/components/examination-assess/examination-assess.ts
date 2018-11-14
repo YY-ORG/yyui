@@ -104,6 +104,10 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
     }
   }
 
+  get isTable () {
+    return this.templateItemItemList.length === 1 && this.templateItemItemList[0].type === '15'
+  }
+
   catDecimal (item) {
     if (!/\.\d\d/.test(item.reqDate.value + '')) return false // 如果不到两位数不处理
     setTimeout(() => {
@@ -282,13 +286,13 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
       this.commentReq.answerId = this.commentReq.itemList[0].answerId
     }
     const sendCommentServer = this.isFristComment  ? this.service.postMarkassessanswer.bind(this.service) : this.service.postAuditassessanswer.bind(this.service)
-    
-    return Promise.all([this.submit(this.userId), sendCommentServer(this.assessPaper.id, this.assess.assessId, {
+
+    return Promise.all([sendCommentServer(this.assessPaper.id, this.assess.assessId, {
       assessAnswerId: this.commentReq.answerId,
       assessAnswerItemId: this.commentReq.id,
       comments: this.scoreComment, // isFristComment ? this.commentReq.markedComment : this.commentReq.auditComment,
       score: this.score // isFristComment ? this.commentReq.markedScore : this.commentReq.auditScore
-    }).then(([res, res1]) => {
+    }).then(([res1]) => {
       // console.log(res)
       return res1
     }).catch(res => {
@@ -297,13 +301,6 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
     })])
   }
 
-  sendEditComment () {
-    this.examinationAssessEdit.submitComment().then(res => {
-      this.editModalOpen = false
-      this.getFormValue()
-      // this.setComment() // 评分设置
-    })
-  }
 
   get reqData (): Assess.AssessTemplateReq[] {
     return [{
@@ -340,7 +337,7 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
       })
   }
 
-  submitEditFrom () {
+  submitEditFrom (userId?) {
 		let errorMsg = this.checkValue()
     if (errorMsg) {
       this.alert.open(errorMsg)
@@ -356,7 +353,7 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
     }
     
     this.spinner.show()
-		return service.bind(this.service)(this.assessPaper.id, this.assess.assessId, this.group.id, this.assessanswer.id, this.reqData)
+		return service.bind(this.service)(this.assessPaper.id, this.assess.assessId, this.group.id, this.assessanswer.id, this.reqData, userId)
 			.then(res => {
 				this.spinner.hide()
 			}).catch(res => {
@@ -376,6 +373,14 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
     this.examinationAssessEdit.submitEditFrom().then(res => {
       this.getFormValue(true)
       this.editModalOpen = false
+    })
+  }
+
+  sendEditComment () {
+    Promise.all([this.examinationAssessEdit.submitEditFrom(this.userId), this.examinationAssessEdit.submitComment()]).then(res => {
+      this.editModalOpen = false
+      this.getFormValue()
+      // this.setComment() // 评分设置
     })
   }
 
@@ -566,10 +571,6 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
     if (this.isItemDisable(templateItem)) {
       this.editor.disable()
     }
-  }
-
-  get isTable () {
-    return this.code === 'TABLE'
   }
 
   onContentChanged({ quill, html, text }) {

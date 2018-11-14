@@ -131,7 +131,7 @@
           </div>
           <template ngl-modal-footer>
               <button class="slds-button slds-button--neutral" (click)="editModalOpen = false">{{ isDisable ? '关闭' : '取消'}}</button>
-              <button *ngIf="!isDisable" class="slds-button slds-button--brand" (click)="submitModelEditFrom()">确定</button>
+              <button *ngIf="!commentType" class="slds-button slds-button--brand" (click)="submitModelEditFrom()">确定</button>
               <button *ngIf="commentType" class="slds-button slds-button--brand" (click)="sendEditComment()">提交评分</button>
           </template>
         </ngl-modal>
@@ -148,7 +148,11 @@
     <!-- 文件上传 -->
     <div *ngSwitchCase="'13'" class="label-box mgt10">
         <label class="slds-form-element__label"><span>{{templateItem.label}}：</span></label>
-        <span *ngIf="templateItem.reqDate.value" style="position: absolute;top: 5px;width: 500px;">已上传文件：{{templateItem.reqDate.value | getFileName | async}} <span (click)="deleteFile(templateItem.reqDate.value);templateItem.reqDate.value='';" class="file-delete-button icon-close iconfont"></span></span>
+        <span *ngIf="templateItem.reqDate.value" style="position: absolute;top: 5px;width: 500px;">已上传文件：{{templateItem.reqDate.value | getFileName | async}} <span (click)="deleteFile(templateItem.reqDate.value);templateItem.reqDate.value='';" class="file-delete-button icon-close iconfont"></span>
+        </span>
+        <!-- <span *ngIf="templateItem.reqDate.value && (templateItem.reqDate.value | getFileInfo | async)">
+            <img *ngIf="(templateItem.reqDate.value | getFileInfo | async)[0].contentType.indexOf('image/') > -1" src="http://61.178.80.84:10000/filesys/authsec/file/{{(templateItem.reqDate.value | getFileInfo | async)[0].id}}/view" alt="">
+        </span> -->
         <file-upload  *ngIf="!templateItem.reqDate.value" #fu (change)="fu.upload()" (onFileUpload)="templateItem.reqDate.value = $event" [multiple]="true"></file-upload>
     </div>
     <!-- 富文本编辑器 -->
@@ -169,13 +173,13 @@
   <!-- <ngl-form-element label="系统辅助评分:"  class="slds-m-top--small left-lable width50">
     <input nglFormControl disabled type="text" placeholder="" [(ngModel)]="commentReq.auxiliaryScore">
   </ngl-form-element> -->
-  <ngl-form-element *ngIf='code === "TABLE"' label="总计评分:"  class="slds-m-top--small left-lable">
+  <ngl-form-element *ngIf='isTable' label="总计评分:"  class="slds-m-top--small left-lable">
       <input [(ngModel)]="isFristComment ? commentReq.markedScore : commentReq.auditScore" disabled nglFormControl type="text" placeholder="">
   </ngl-form-element>
-  <ngl-form-element *ngIf='code !== "TABLE"' [error]="vComment.result['score']" label="评分:"  class="slds-m-top--small left-lable">
+  <ngl-form-element *ngIf='!isTable' [error]="vComment.result['score']" label="评分:"  class="slds-m-top--small left-lable">
       <input [(ngModel)]="score"  (ngModelChange)="checkCommentValue('score')" nglFormControl type="text" placeholder="">
   </ngl-form-element>
-  <ngl-form-element *ngIf='code !== "TABLE"' [error]="vComment.result['scoreComment']" label="评分意见" [error]="hasError ? error : null" class="slds-m-top--small left-lable">
+  <ngl-form-element *ngIf='!isTable' [error]="vComment.result['scoreComment']" label="评分意见" [error]="hasError ? error : null" class="slds-m-top--small left-lable">
       <textarea [(ngModel)]="scoreComment"  (ngModelChange)="checkCommentValue('scoreComment')" nglFormControl placeholder=""></textarea>
   </ngl-form-element>
   <!-- <ngl-form-element label="本题计分比例" class="slds-m-top--small left-lable">
@@ -195,10 +199,10 @@
     <td>实际得分</td>
     <td>{{commentReq.rmarkedScore}}</td>
   </tr> -->
-  <tr *ngIf='code !== "TABLE"'>
+  <!-- <tr *ngIf='code !== "TABLE"'>
     <td>互评意见</td>
     <td>{{commentReq.markedComment}}</td>
-  </tr>
+  </tr> -->
 </table>
 <table *ngIf="isComment" class="slds-table mgt30 width80">
   <tr>
@@ -212,10 +216,10 @@
     <td>实际得分</td>
     <td>{{commentReq.rauditScore}}</td>
   </tr> -->
-  <tr *ngIf='code !== "TABLE"'>
+  <!-- <tr *ngIf='code !== "TABLE"'>
     <td>互评意见</td>
     <td>{{commentReq.auditComment}}</td>
-  </tr>
+  </tr> -->
 </table>
 <div *ngIf='userId' class="comment">
     <div *ngIf='templateItemItemList.length === 1 && templateItemItemList[0].type === "15";else inputComment' class="table-comment">

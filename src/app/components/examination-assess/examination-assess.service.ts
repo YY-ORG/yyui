@@ -82,17 +82,23 @@ export class ExaminationAssessService {
   }
 
   // 考生增加某个卷子某个多答案题的答案
-  updateAssessanswer (assessPaperId: string, assessId: string, groupId: string, answerItemId: string, data: Assess.AssessTemplateReq[] = []): Promise<any>{
+  updateAssessanswer (assessPaperId: string, assessId: string, groupId: string, answerItemId: string, data: Assess.AssessTemplateReq[] = [], userId?: string): Promise<any>{
     const api = this.restApiCfg.getRestApi("update.assessanswer.answer");
     
-    return this.restApi.request(api.method, api.url, { assessPaperId, groupId, assessId, answerItemId }, null, data)
+    return this.restApi.request(api.method, api.url, { assessPaperId, groupId, assessId, answerItemId }, userId ? [{
+      key: '_userId',
+      value: userId
+    }] : null, data)
   }
 
   // 考生增加某个卷子某个题的元素项答案
-  updateAssessanswerSubanswer (assessPaperId: string, assessId: string, groupId: string, answerItemId: string, data: Assess.AssessTemplateReq[] = []): Promise<any>{
+  updateAssessanswerSubanswer (assessPaperId: string, assessId: string, groupId: string, answerItemId: string, data: Assess.AssessTemplateReq[] = [], userId?: string): Promise<any>{
     const api = this.restApiCfg.getRestApi("update.assessanswer.subanswer");
     
-    return this.restApi.request(api.method, api.url, { assessPaperId, groupId, assessId, answerItemId }, null, data)
+    return this.restApi.request(api.method, api.url, { assessPaperId, groupId, assessId, answerItemId }, userId ? [{
+      key: '_userId',
+      value: userId
+    }] : null, data)
   }
 
   // 考生删除某个卷子某个多答案题的多个答案 表格
