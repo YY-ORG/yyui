@@ -2,7 +2,7 @@
     <div class="selectiongroup" *ngIf="!inline" has-warning>
         <ngl-form-element label="{{placeholder}}" [error]="invalidDate&&indicateInvalidDate ? '请输入正确的日期格式' : null" class="slds-m-top--small {{formClass}}">
             <input nglFormControl type="text" class="form-control" maxlength="10" [disabled]="disabled" placeholder=""
-                [ngStyle]="{'height': height, 'line-height': height, 'font-size': selectionTxtFontSize, 'padding-right': selectionDayTxt.length>0 ? '60px' : '30px'}"
+                [ngStyle]="{'height': height, 'line-height': height, 'font-size': selectionTxtFontSize}"
                 (keyup)="userDateInput($event)" [value]="selectionDayTxt" />
         </ngl-form-element>
         <span class="selbtngroup {{formClass == 'no-lable' ? 'no-lable' : ''}}" [style.height]="height">

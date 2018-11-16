@@ -9,7 +9,6 @@ import { ModuleComponent } from "./module/module.component"
 import { ContentComponent } from "./content/content.component"
 import { RoleComponent } from "./role/role.component"
 import { AuthorityComponent } from "./authority/authority.component"
-import { TimeComponent } from "./time/time.component"
 
 export const AuthorityRouting: ModuleWithProviders = RouterModule.forChild([
     {
@@ -43,11 +42,7 @@ export const AuthorityRouting: ModuleWithProviders = RouterModule.forChild([
 			{
 	            path: 'authority',
 	            component: AuthorityComponent
-	        },
-			{
-	            path: 'time',
-	            component: TimeComponent
-	        },
+	        }
         ]
     }
 ]);

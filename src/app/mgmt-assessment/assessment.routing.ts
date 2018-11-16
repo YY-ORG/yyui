@@ -30,6 +30,7 @@ import { ExaminationTemplateitemComponent } from './templateitem/templateitem.co
 import { SetScoringComponent } from './set-scoring/set-scoring.component'
 import { SetScoringCategoryComponent } from './set-scoring-category/set-scoring-category.component'
 import { ScoresComponent } from './scores/scores.components'
+import { TimeComponent } from './time/time.component'
 
 export const AssessmentRouting: ModuleWithProviders = RouterModule.forChild([{
   path: '',
@@ -92,6 +93,9 @@ export const AssessmentRouting: ModuleWithProviders = RouterModule.forChild([{
     }, {
       path: 'scores',
       component: ScoresComponent
+    }, {
+      path: 'time',
+      component: TimeComponent
     }
   ]
 }]);

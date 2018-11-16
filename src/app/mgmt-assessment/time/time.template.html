@@ -1,0 +1,68 @@
+<h1 class="content-title">考核时限管理</h1>
+
+<div class="time-box">
+
+    <table class="slds-table mgt30">
+        <tr>
+            <th>考卷名称</th>
+            <th>参评开始时间</th>
+            <th>参评结束时间</th>
+            <th>初评开始时间</th>
+            <th>初评结束时间</th>
+            <th>复核开始时间</th>
+            <th>复核结束时间</th>
+        </tr>
+        <tr *ngFor="let time of timeList; let i = index">
+            <td>{{time.assessPaperName}}</td>
+            <td>
+                <date-picker [options]="myDatePickerOptions"
+                        placeholder="参评开始时间设置："
+                        formClass="no-lable"
+                        [initDate]="getTime(time.exStartTime)" 
+                        (dateChanged)="onTimeChanged($event, time, 'exStartTime', 1)"></date-picker>
+            </td>
+            <td>
+                <date-picker [options]="myDatePickerOptions"
+                        placeholder="参评结束时间设置："
+                        formClass="no-lable"
+                        [initDate]="getTime(time.exEndTime)" 
+                        (dateChanged)="onTimeChanged($event, time, 'exEndTime', 0)"></date-picker>
+            </td>
+            <td>
+                <date-picker [options]="myDatePickerOptions"
+                        placeholder="初评开始时间设置："
+                        formClass="no-lable"
+                        [initDate]="getTime(time.scStartTime)" 
+                        (dateChanged)="onTimeChanged($event, time, 'scStartTime', 1)"></date-picker>
+            </td>
+            <td>
+                <date-picker [options]="myDatePickerOptions"
+                        placeholder="初评结束时间设置："
+                        formClass="no-lable"
+                        [initDate]="getTime(time.scEndTime)" 
+                        (dateChanged)="onTimeChanged($event, time, 'scEndTime', 0)"></date-picker>
+            </td>
+            <td>
+                <date-picker [options]="myDatePickerOptions"
+                        placeholder="复核开始时间设置："
+                        formClass="no-lable"
+                        [initDate]="getTime(time.auStartTime)" 
+                        (dateChanged)="onTimeChanged($event, time, 'auStartTime', 1)"></date-picker>
+            </td>
+            <td>
+                <date-picker [options]="myDatePickerOptions"
+                        placeholder="复核结束时间设置："
+                        formClass="no-lable"
+                        [initDate]="getTime(time.auEndTime)" 
+                        (dateChanged)="onTimeChanged($event, time, 'auEndTime', 0)"></date-picker>
+            </td>
+        </tr>
+    </table>
+    
+
+    <button style="float: right;" type="button" class="mgt30 mgb100" (click)="saveConfig()" nglButton="brand">保存设置</button>
+
+</div>
+
+<alert #alert></alert>
+<confirm (onConfirm)="onConfirm()" #confirm></confirm>

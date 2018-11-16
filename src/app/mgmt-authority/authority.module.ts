@@ -18,7 +18,6 @@ import { ModuleComponent } from "./module/module.component"
 import { ContentComponent } from "./content/content.component"
 import { RoleComponent } from "./role/role.component"
 import { AuthorityComponent } from "./authority/authority.component"
-import { TimeComponent } from "./time/time.component"
 import { OrganizationComponent } from "./organization/organization.component"
 
 //service
@@ -41,8 +40,7 @@ import { OrganizationService } from "./organization/organization.service"
         ContentComponent,
         RoleComponent,
         AuthorityComponent,
-        OrganizationComponent,
-        TimeComponent
+        OrganizationComponent
     ],
     exports: [
     ],

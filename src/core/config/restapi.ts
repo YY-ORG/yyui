@@ -531,6 +531,18 @@ export let RestApis: RestApiModel[] = [
         "url": "assess/authsec/assesspaper/{assessPaperId}/ranking"
     },
     {
+        "desc": "批量更新试题的有效期设置",
+        "method": "POST",
+        "id": "set.assesspaper.time",
+        "url": "assess/authsec/assessespaper/perioditems"
+    },
+    {
+        "desc": "分页检索题库中的试题的有效期设置",
+        "method": "GET",
+        "id": "get.assesspaper.time",
+        "url": "assess/authsec/assessespaper/periodlist"
+    },
+    {
         "desc": "上传文件",
         "method": "POST",
         "id": "upload.file",
