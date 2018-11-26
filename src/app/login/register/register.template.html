@@ -1,7 +1,8 @@
 <div class="register-box-component">
     <h3 class="register-login-title form-title font-green">注册</h3>
     <!-- ngDefaultControl -->
-    <registration #registration [isShowSelect]='false'></registration>
+    <!-- <registration #registration [isShowSelect]='false'></registration> -->
+    <registration #registration ></registration>
     <div class="login-button-box mgt30">
         <button type="button" routerLink="/login/" nglButton="inverse">回退</button>
         <button type="button" nglButton="brand" (click)="submitForm()" class="float-right">提交</button>
