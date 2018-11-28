@@ -51,7 +51,6 @@ class Validation {
     notStartAtValue = (value:string | Function):Function => (v:any):boolean => !new RegExp( "^"+curryFormatV(value) ).test(v);  //开头不能包含某个值
 
     check(key, reg:ValidationRegs){  //对外方法  可以验证单个和验证所有
-        console.log(reg, key)
         let errorMessage;  
         if(key) {
             errorMessage = this.checkSigle(key, reg);

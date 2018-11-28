@@ -12,6 +12,12 @@
             <input [(ngModel)]="templateItem.reqDate.value" [disabled]="isItemDisable(templateItem)" nglFormControl type="text" (keyup)="checkValue(templateItem.code, templateItem.reqDate.value)" (ngModelChange)="setCalculatedValue()" placeholder="{{templateItem.placeholderTip}}">
         </ngl-form-element>
     </div>
+    <!-- 期刊框 -->
+    <div *ngSwitchCase="19" class="label-box">
+        <ngl-form-element label="{{templateItem.label}}："  [error]="v.result[templateItem.code]" class="slds-m-top--small left-lable">
+            <input [(ngModel)]="templateItem.reqDate.value" [disabled]="isItemDisable(templateItem)" nglFormControl type="text" (keyup)="checkValue(templateItem.code, templateItem.reqDate.value)" (ngModelChange)="setCalculatedValue()" placeholder="{{templateItem.placeholderTip}}">
+        </ngl-form-element>
+    </div>
     <!-- 小数框 -->
     <div *ngSwitchCase="18" class="label-box">
         <ngl-form-element label="{{templateItem.label}}："  [error]="v.result[templateItem.code]" class="slds-m-top--small left-lable">

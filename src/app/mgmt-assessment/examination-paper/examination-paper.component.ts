@@ -109,6 +109,7 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 	}
 
 	get isGlobalDisabled () {
+		console.log(!this.currentAssesst.exEditable, this.paperStatus != 0 , this.currentDisable)
 		return !this.currentAssesst.exEditable || ((this.paperStatus != 0 || this.currentDisable) ? true : false)
 	}
 
@@ -197,7 +198,6 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 		this.currentAssesst = assesst
 		this.spinner.show()
 		this.service.fetchExamination(assesst.assessId).then(res => {
-			console.log(res, 'this.examinationthis.examinationthis.examination')
 			this.examination = res
 			this.templateItemList = this.examination.templateItemList
 			this.templateItemList.forEach(template => {
@@ -213,7 +213,6 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 			this.tableList = this.curremtTable ? this.curremtTable.templateItemItemList : []
 			this.templateTableList = this.curremtTemplateTable ? this.curremtTemplateTable.templateItemItemList : []
 			
-			console.log(8888888, this.tableList)
 			if (this.curremtTemplateTable) {
 				this.getTemplateTableList()
 			}
