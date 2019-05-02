@@ -154,7 +154,9 @@
     <!-- 文件上传 -->
     <div *ngSwitchCase="'13'" class="label-box mgt10">
         <label class="slds-form-element__label"><span>{{templateItem.label}}：</span></label>
-        <span *ngIf="templateItem.reqDate.value" style="position: absolute;top: 5px;width: 500px;">已上传文件：{{templateItem.reqDate.value | getFileName | async}} <span (click)="deleteFile(templateItem.reqDate.value);templateItem.reqDate.value='';" class="file-delete-button icon-close iconfont"></span>
+        <span *ngIf="templateItem.reqDate.value" style="position: absolute;top: 5px;width: 500px;">已上传文件：<a href="http://61.178.80.84:10000/filesys/authsec/file/{{((templateItem.reqDate.value | getFileInfo | async) || [])[0]?.id}}/view">{{templateItem.reqDate.value | getFileName | async}}</a>
+            <span (click)="deleteFile(templateItem.reqDate.value);templateItem.reqDate.value='';" class="file-delete-button icon-close iconfont"></span>
+            
         </span>
         <!-- <span *ngIf="templateItem.reqDate.value && (templateItem.reqDate.value | getFileInfo | async)">
             <img *ngIf="(templateItem.reqDate.value | getFileInfo | async)[0].contentType.indexOf('image/') > -1" src="http://61.178.80.84:10000/filesys/authsec/file/{{(templateItem.reqDate.value | getFileInfo | async)[0].id}}/view" alt="">

@@ -4,17 +4,17 @@
       <tr>
         <th>考题组</th>
         <th>考题总数</th>
-        <th>已评总数</th>
+        <th>{{isFirstComment ? "已评总数" : "复评总数"}}</th>
         <th>未评总数</th>
-        <th>{{isFirstComment ? "初评总数" : "复评总数"}}</th>
+        <!-- <th>{{isFirstComment ? "初评总数" : "复评总数"}}</th> -->
         <th>操作</th>
       </tr>
       <tr *ngFor="let groupAnswer of groupAnswerItemList; let i = index">
         <td>{{groupAnswer.groupName}}</td>
         <td>{{groupAnswer.totalCount}}</td>
-        <td>{{groupAnswer.doneCount}}</td>
-        <td>{{groupAnswer.unstartedCount}}</td>
         <td>{{isFirstComment ? groupAnswer.markedCount : groupAnswer.auditedCount}}</td>
+        <td>{{groupAnswer.totalCount - (isFirstComment ? groupAnswer.markedCount : groupAnswer.auditedCount)}}</td>
+        <!-- <td>{{isFirstComment ? groupAnswer.markedCount : groupAnswer.auditedCount}}</td> -->
         <td  *ngIf="paperStatus != 0"><font class="color-red" (click)="continueAnswer(groupAnswer)">查看试卷</font></td>
       </tr>
     </table>
