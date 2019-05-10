@@ -42,7 +42,8 @@ export class FirstCommentComponent extends PageClass implements OnInit {
 
 	getUnmarkList () {
 		this.spinner.show()
-		this.service.fetchUnmarklist(this.currentPage, 10).then((res) => {
+		const server = this.isFirstComment ? this.service.fetchUnmarklist : this.service.fetchUnauditlist
+		server.bind(this.service)(this.currentPage, 10).then((res) => {
 			this.spinner.hide()
 			let [pageList, unmarklist] = res
 			this.currentPage = pageList.totalPage === pageList.currentPage ? pageList.totalPage - 1 : pageList.currentPage
