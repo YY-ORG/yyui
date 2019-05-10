@@ -175,9 +175,10 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
 
   checkCommentValue(key ? : string) {
     this.isEdit = true
-    const scoringThreshold = this.commentReq ? this.commentReq.scoringThreshold : 100
+    const scoringThreshold = this.commentReq && this.commentReq.scoringThreshold ? this.commentReq.scoringThreshold : 10e10
+  
     let regs: ValidationRegs = {
-      score: [this.score, [this.vComment.isUnBlank, this.vComment.min(0), this.vComment.max(scoringThreshold)], `分值范围在0-${scoringThreshold}之间`],
+      score: [this.score, [this.vComment.isUnBlank, this.vComment.min(0), this.vComment.max(scoringThreshold)], scoringThreshold === 10e10 ? `分值需大于等于0` : `分值范围在0-${scoringThreshold}之间`],
       scoreComment: [this.scoreComment, [this.vComment.isUnBlank], "请输入评分意见"]
     }
     // console.log(this.vComment)
