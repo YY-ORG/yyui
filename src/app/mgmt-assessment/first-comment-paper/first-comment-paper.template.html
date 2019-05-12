@@ -19,7 +19,8 @@
       </tr>
     </table>
     <pagination *ngIf="maxPage>1" [maxSize]="maxPage" [currentPage]="currentPage + 1" (pageChanged)="pageChanged($event)"></pagination>
-    <button *ngIf="paperStatus == 1" class="slds-button slds-button--brand mgt30" (click)="submiteComment()">{{ isFirstComment ? "提交初评" : "提交复评"}}</button>
+    <button *ngIf="isFirstComment && paperStatus == 1" class="slds-button slds-button--brand mgt30" (click)="submiteComment()">提交初评</button>
+    <button *ngIf="!isFirstComment && paperStatus == 2" class="slds-button slds-button--brand mgt30" (click)="submiteComment()">提交复评</button>
   </div>
 
 <p class="mgt20"></p> 

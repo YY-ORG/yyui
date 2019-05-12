@@ -174,6 +174,7 @@ export class FirstCommentPaperComponent extends PageClass implements OnInit {
 	goToIndex () {
 		this.selectGroup = null
 		this.assesslist = []
+		this.getAssessanswerlist()
 		this.getAssesslist()
 	}
 
