@@ -163,12 +163,18 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 	}
 
 	nextSteap (index: number) {
+		this.spinner.show()
 		this.examinationAssess.submit()
 			.then(res => {
+				this.spinner.hide()
+
 				if (this.assesslist.length === index) {
 					this.goToIndex()
 				} 
 				this.goToStep(index)
+			})
+			.catch(e => {
+				this.spinner.hide()
 			})
 		// if (this.examination.type == '3') {
 		// 	return this.goToStep(index)

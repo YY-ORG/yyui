@@ -111,7 +111,7 @@ export class ScoresComponent extends PageClass implements OnInit {
 	getTotalScore (detail: any) {
 		let totalScore = 0
 		detail.itemList.forEach(a => {
-			totalScore += a.totalScore
+			totalScore += +a.realScore
 		})
 		return totalScore
 	}
