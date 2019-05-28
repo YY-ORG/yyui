@@ -100,7 +100,7 @@ export class ScoresComponent extends PageClass implements OnInit {
 			this.spinner.hide()
 			this.detailList = res
 			res.forEach(a => {
-				this.totalScores += this.getTotalScore(a)
+				this.totalScores += a.realTotalScore
 			})
 		}).catch(res => {
       this.spinner.hide()

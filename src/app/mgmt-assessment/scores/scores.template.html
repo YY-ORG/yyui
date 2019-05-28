@@ -50,7 +50,7 @@
     <div #detailBox body class="width85 mgb30button detail-box" style="margin:0 auto">
         <h1 class="detail-title">2016年度 {{currentRanking.orgName}} <b>{{currentRanking.userName}}</b>({{currentRanking.title | dict: service.professionalTitle | async }}) 考核详情 <a href="javascript:" (click)='printDetail()'>打印</a></h1>
         <div class="detail-list" *ngFor='let detail of detailList; let i = index'>
-            <h2 class="detail-title2">{{i + 1}}、{{detail.categoryName}}</h2>
+            <h2 class="detail-title2">{{i + 1}}、{{detail.categoryName}} (本组满分值:{{detail.scoringThreshold || "不封顶"}} &nbsp; 总分计分比率:{{detail.scoringRatio * 100}}%)</h2>
             <table class="slds-table mgt30">
                 <tr>
                     <th>考核内容</th>
@@ -69,8 +69,10 @@
                     <td>{{item.comment}}</td>
                 </tr>
                 <tr>
-                    <td style='background: #f4f6f9;' colspan="3">基本分合计</td>
-                    <td colspan="3">{{getTotalScore(detail)}}</td>
+                    <td style='background: #f4f6f9;' colspan="1">基本分合计</td>
+                    <td colspan="2">{{getTotalScore(detail)}}</td>
+                    <td style='background: #f4f6f9;' colspan="1">最终计分</td>
+                    <td colspan="2">{{detail.realTotalScore}}</td>
                 </tr>
             </table>
         </div> 
@@ -85,7 +87,7 @@
                     <th>评定等次</th>
                 </tr>
                 <tr>
-                    <td *ngFor='let detail of detailList'>{{getTotalScore(detail)}}</td>
+                    <td *ngFor='let detail of detailList'>{{detail.realTotalScore}}</td>
                     <td>{{totalScores}}</td>
                     <td>{{currentRanking.totalRank}}</td>
                     <td>{{currentRanking.orgRank}}</td>

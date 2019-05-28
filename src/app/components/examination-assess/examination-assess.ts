@@ -151,6 +151,7 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
       }
     })
     this.templateItemItemList = this.orderBy.transform(this.templateItemItemList, 'seqNo')
+    console.log('templateItemItemList', this.templateItemItemList)
 
     this.getSelectList()
     this.getRegList()
@@ -468,7 +469,7 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
     if (!formVluesList) {
       return false
     }
-    
+    console.log('formVluesList.detailList', this.templateItemItemList, formVluesList.detailList)
     this.templateItemItemList.forEach(item => {
       formVluesList.detailList.forEach(detail => {
         if(item.reqDate.code === detail.itemCode) {
@@ -489,7 +490,8 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
       switch (item.type.toString()) {
         case '2':
           setTimeout(() => {
-            this.dataPicker.setInitDate(item.reqDate.value as string)
+            // this.dataPicker.setInitDate(item.reqDate.value as string)
+            item.defaultValue = item.reqDate.value as string
           })
           break;
         case '11':

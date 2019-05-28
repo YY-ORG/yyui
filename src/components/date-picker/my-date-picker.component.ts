@@ -236,6 +236,10 @@ export class MyDatePicker implements OnChanges ,OnInit {
             this.options = changes['options'].currentValue;
         }
 
+        if (changes.hasOwnProperty('initDate')) {
+            this.setInitDate()
+        }
+
         this.weekDays.length = 0;
         this.parseOptions();
     }
