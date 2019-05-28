@@ -29,7 +29,7 @@ export class SpinnerComponent implements OnInit {
 	}
 
 	hide() {
-		this.counter--
+		if (this.counter) this.counter--
 		if(!this.counter) {
 			this.isShow = false
 		}
