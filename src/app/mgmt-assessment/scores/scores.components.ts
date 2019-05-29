@@ -102,6 +102,7 @@ export class ScoresComponent extends PageClass implements OnInit {
 			res.forEach(a => {
 				this.totalScores += a.realTotalScore
 			})
+			this.totalScores = Math.round(this.totalScores * 100) / 100
 		}).catch(res => {
       this.spinner.hide()
       this.alert.open(res)
