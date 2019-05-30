@@ -54,6 +54,10 @@ export class ScoresComponent extends PageClass implements OnInit {
 		this.fetchPaperList()
 	}
 
+	private fixnum (value: number | string) {
+		return Math.round(+value * 100) / 100
+	}
+
 	private fetchPaperList () {
 		this.service.fetAssesspaperlist().then(res => {
 			this.pageList = res[1]
@@ -67,6 +71,10 @@ export class ScoresComponent extends PageClass implements OnInit {
 	}
 
 	private fetchRankingList () {
+		if (!this.assessPaperId) {
+			this.alert.open('请选择您要查询的试卷');
+			return
+		}
 		this.spinner.show()
 		this.service.fetchRanking(this.assessPaperId, this.orgId, this.title, this.currentPage, 10).then((res) => {
 			this.spinner.hide()
@@ -99,10 +107,11 @@ export class ScoresComponent extends PageClass implements OnInit {
 		this.service.fetchRankingDetail(this.assessPaperId, this.currentRanking.userId).then(res => {
 			this.spinner.hide()
 			this.detailList = res
+			this.totalScores = 0
 			res.forEach(a => {
-				this.totalScores += a.realTotalScore
+				this.totalScores += +a.realTotalScore
 			})
-			this.totalScores = Math.round(this.totalScores * 100) / 100
+			this.totalScores = this.fixnum(this.totalScores)
 		}).catch(res => {
       this.spinner.hide()
       this.alert.open(res)
@@ -114,7 +123,7 @@ export class ScoresComponent extends PageClass implements OnInit {
 		detail.itemList.forEach(a => {
 			totalScore += +a.realScore
 		})
-		return totalScore
+		return this.fixnum(totalScore)
 	}
 
 	printDetail () {
