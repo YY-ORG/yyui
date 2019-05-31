@@ -48,7 +48,7 @@
 
 <ngl-modal class="detail-modal" size="large" header="考核详情" [(open)]="scoresDetail">
     <div #detailBox body class="width85 mgb30button detail-box" style="margin:0 auto">
-        <h1 class="detail-title">2016年度 {{currentRanking.orgName}} <b>{{currentRanking.userName}}</b>({{currentRanking.title | dict: service.professionalTitle | async }}) 考核详情 <a href="javascript:" (click)='printDetail()'>打印</a></h1>
+        <h1 class="detail-title">{{detail.annualTitle}} {{currentRanking.orgName}} <b>{{currentRanking.userName}}</b>({{currentRanking.title | dict: service.professionalTitle | async }}) 考核详情 <a href="javascript:" (click)='printDetail()'>打印</a></h1>
         <div class="detail-list" *ngFor='let detail of detailList; let i = index'>
             <h2 class="detail-title2">{{i + 1}}、{{detail.categoryName}} (本组满分值:{{detail.scoringThreshold || "不封顶"}} &nbsp; 总分计分比率:{{detail.scoringRatio * 100}}%)</h2>
             <table class="slds-table mgt30">
@@ -88,7 +88,7 @@
                 </tr>
                 <tr>
                     <td *ngFor='let detail of detailList'>{{detail.realTotalScore}}</td>
-                    <td>{{totalScores}}</td>
+                    <td>{{detail.totalScore}}</td>
                     <td>{{currentRanking.totalRank}}</td>
                     <td>{{currentRanking.orgRank}}</td>
                     <td>{{currentRanking.rankLevel}}</td>

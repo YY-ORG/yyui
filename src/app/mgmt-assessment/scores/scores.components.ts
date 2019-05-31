@@ -45,8 +45,9 @@ export class ScoresComponent extends PageClass implements OnInit {
 	organizationList: Adminui.OrganizationItem[] = []
 	rankingList: any[] = []
 	currentRanking: any = {}
+	detail: any = {}
 	detailList: any[] = []
-	totalScores: number = 0
+	// totalScores: number = 0
 
 	scoresDetail: boolean = false
 	ngOnInit() {
@@ -106,12 +107,13 @@ export class ScoresComponent extends PageClass implements OnInit {
 		this.spinner.show()
 		this.service.fetchRankingDetail(this.assessPaperId, this.currentRanking.userId).then(res => {
 			this.spinner.hide()
-			this.detailList = res
-			this.totalScores = 0
-			res.forEach(a => {
-				this.totalScores += +a.realTotalScore
-			})
-			this.totalScores = this.fixnum(this.totalScores)
+			this.detail = res
+			this.detailList = res.detailList
+			// this.totalScores = 0
+			// res.forEach(a => {
+			// 	this.totalScores += +a.realTotalScore
+			// })
+			// this.totalScores = this.fixnum(this.totalScores)
 		}).catch(res => {
       this.spinner.hide()
       this.alert.open(res)
