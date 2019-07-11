@@ -219,6 +219,7 @@ export class MyDatePicker implements OnChanges ,OnInit {
     }
 
     ngOnChanges(changes: SimpleChanges):void {
+        console.log(changes, 'changes')
         if (changes.hasOwnProperty('selDate')) {
             this.selectionDayTxt = changes['selDate'].currentValue;
             this.selectedDate = this.parseSelectedDate(this.selectionDayTxt);

@@ -135,6 +135,7 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
 
   setTemplateItemList () {
     this.templateItemItemList = this.templateItemItemList.filter(item => this.isItemVisible(item))
+ 
     this.templateItemItemList.forEach(tem => {
       tem.reqDate = {
         code: tem.code,
@@ -469,7 +470,6 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
     if (!formVluesList) {
       return false
     }
-    console.log('formVluesList.detailList', this.templateItemItemList, formVluesList.detailList)
     this.templateItemItemList.forEach(item => {
       formVluesList.detailList.forEach(detail => {
         if(item.reqDate.code === detail.itemCode) {
@@ -488,11 +488,12 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
   parserReqDate () {
     this.templateItemItemList.forEach(item => {
       switch (item.type.toString()) {
+        // 日期特殊处理
         case '2':
-          setTimeout(() => {
+          // setTimeout(() => {
             // this.dataPicker.setInitDate(item.reqDate.value as string)
             item.defaultValue = item.reqDate.value as string
-          })
+          // })
           break;
         case '11':
           let arr = item.reqDate.value.toString().split('/')
