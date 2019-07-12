@@ -85,7 +85,7 @@ export class SetScoringCategoryComponent extends PageClass implements OnInit {
   }
 
   checkRatio (value: number, scoring: Assess.ApAcScoringItem) {
-    scoring.ratioError = this.v.isUnBlank(value) && this.v.isNumber(value) && this.v.min(10e-10)(value) && this.v.max(100)(value) ? '' : '计分比填写不正确'
+    scoring.ratioError = this.v.isUnBlank(value) && this.v.isNumber(value) && this.v.min(0)(value) && this.v.max(100)(value) ? '' : '计分比填写不正确'
   }
 
   checkThreshold (value: number, scoring: Assess.ApAcScoringItem) {
