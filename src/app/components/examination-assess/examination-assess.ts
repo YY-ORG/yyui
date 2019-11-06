@@ -241,10 +241,13 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
       if (code === '19') {
         reg.push(this.v.isInteger)
         reg.push((v: string) => {
-          if (v.length !== 6) return false
-          const year = v.slice(0 ,4)
-          const month = v.slice(4, 6)
-          return 1990 <= +year && +year <= 2100 && 1 <= +month && +month <= 12
+          if (v.length === 6 || v.length === 8) {
+            const year = v.slice(0 ,4)
+            const month = v.slice(4, 6)
+            const day = v.slice(6, 8)
+            return 1990 <= +year && +year <= 2100 && 1 <= +month && +month <= 12 && (day === '' || (1 <= +day && +day <= 31) )
+          }
+          return false
         })
       }
 
