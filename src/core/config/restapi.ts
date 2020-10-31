@@ -81,6 +81,18 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/organizations"
     },
     {
+        "desc": "用户中心-组织管理，获取所有机构- 查询",
+        "method": "GET",
+        "id": "query.organization",
+        "url": "usermgmt/authsec/organizations"
+    },
+    {
+        "desc": "用户中心-账户管理，通过用户名模糊查询账户",
+        "method": "GET",
+        "id": "query.users",
+        "url": "usermgmt/authsec/users/search"
+    },
+    {
         "desc": "用户中心-组织管理，状态更新",
         "method": "PUT",
         "id": "update.organization",
@@ -253,6 +265,12 @@ export let RestApis: RestApiModel[] = [
         "method": "PUT",
         "id": "put.assessanswer",
         "url": "assess/authsec/assesspaper/{assessPaperId}/paperanswer"
+    },
+    {
+        "desc": "复制考卷",
+        "method": "GET",
+        "id": "copy.assesspaper",
+        "url": "assess/authsec/assesspaper/copy"
     },
     {
         "desc": "考生增加某个卷子某个多答案题的答案",

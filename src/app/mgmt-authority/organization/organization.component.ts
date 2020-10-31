@@ -1,4 +1,4 @@
-import { Component,  OnInit, ViewChild } from '@angular/core';
+import { Component,  OnInit, ViewChild, Input } from '@angular/core';
 
 import { INglDatatableSort, INglDatatableRowClick } from 'ng-lightning/ng-lightning';
 import { SpinnerComponent } from '../../../components'
@@ -37,6 +37,8 @@ export class OrganizationComponent extends PageClass implements OnInit {
 	currentOrganization: Adminui.OrganizationProfile = new Adminui.OrganizationProfile
 	newOrganization: Adminui.OrganizationProfile = new Adminui.OrganizationProfile
 
+	@Input() queryName: string = ''
+
 	ngOnInit() { 
 		this.getOrganizationList()
 		// this.getAllOrganization()
@@ -48,7 +50,7 @@ export class OrganizationComponent extends PageClass implements OnInit {
 	// 	})
 	// }
 
-	getOrganizationList () {
+	getOrganizationList (name?: string) {
 		this.spinner.show()
 		this.service.fetchAllOrganizations(this.currentPage, this.pageSize).then(res => {
 			let [pageInfo, userItem] = res
@@ -59,7 +61,19 @@ export class OrganizationComponent extends PageClass implements OnInit {
 			this.organizationList = userItem
 		})
 	}
-	
+
+	queryOrganization(name: string) {
+		this.spinner.show()
+		this.service.queryOrganization(this.currentPage, this.pageSize, name).then(res => {
+			let [pageInfo, userItem] = res
+			this.currentPage = pageInfo.currentPage
+			this.maxSize = pageInfo.totalPage
+
+			this.spinner.hide()
+			this.organizationList = userItem
+		})
+	}
+
 	openOrganizationDetail(organization: Adminui.OrganizationProfile) {
 		this.currentOrganization = organization
 		this.organizationDetail = true

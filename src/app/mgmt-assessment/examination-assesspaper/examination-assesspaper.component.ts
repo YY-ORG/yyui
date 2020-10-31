@@ -29,18 +29,22 @@ export class ExaminationAssesspaperComponent extends PageClass implements OnInit
 	willDeleteUser;
 	editModalOpen: boolean = false;
 	addModalOpen: boolean = false;
+	copyModalOpen: boolean = false;
 	editCategory: boolean = false;
 	assesspaperList: Assess.SimpleAssessPaperItem[] = []
-	currentAssesspaper: Assess.SimpleAssessPaperItem = new Assess.SimpleAssessPaperItem
+	currentAssesspaper: Assess.SimpleAssessPaperItem = new Assess.SimpleAssessPaperItem;
+	currentCopyAssesspaper: Assess.SimpleAssessPaperItem = new Assess.SimpleAssessPaperItem;
 	assessPaperProfileReq: Assess.AssessPaperProfileReq = new Assess.AssessPaperProfileReq;
 	currentCategoryitem: Assess.SimpleAssessCategoryItem[] = []
 	categoryList: Assess.SimpleAssessCategoryItem[] = []
+	copyYearList: number[] = Array(10).fill(new Date().getFullYear()).map((item, i) => item + i)
 	categoryReq: string[] = []
 	
 	currentPage: number = 0
 	maxPage: number = 1
 	cgcurrentPage: number = 0
 	cgmaxPage: number = 1
+	currntCopyYear: number
 	
 	ngOnInit() {
 		this.getPaperList()
@@ -154,6 +158,23 @@ export class ExaminationAssesspaperComponent extends PageClass implements OnInit
 
 	get currentCategory () {
 		return this.currentCategoryitem.map(c => c.name).join(' ,')
+	}
+
+	copyCategory(){
+		if (!this.currntCopyYear) return this.alert.open('请选择要复制的年度')
+		this.copyModalOpen = false
+		// this.currentAssesspaper = paper
+		
+		this.spinner.show()
+		return this.service.copyAssesspaper(this.currentCopyAssesspaper.id, this.currntCopyYear).then(res => {
+			this.spinner.hide()
+			console.log(123123, res)
+
+			this.getPaperList()
+		}).catch(res => {
+      this.spinner.hide()
+      this.alert.open(res)
+    })
 	}
 
 	assignCategory(paper: Assess.SimpleAssessPaperItem){

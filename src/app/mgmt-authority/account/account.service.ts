@@ -52,6 +52,28 @@ export class AccountService {
             return res.resultContent
         })
     }
+    
+    queryUsers (page: number, size: number, userName?: string, orgId?: string): Promise<[Common.PageInfo, Adminui.UserProfile[]]> { 
+        const api = this.restApiCfg.getRestApi("query.users");
+
+        let pro = this.restApi.request(api.method, api.url, null, [{
+            key: 'page',
+            value: page
+        }, {
+            key: 'size',
+            value: size
+        }, {
+            key: 'userName',
+            value: userName
+        }, {
+            key: 'orgId',
+            value: orgId
+        }])
+
+        return pro.then((res: any) => {
+            return [res.pageInfo, res.resultContent]
+        }) as Promise<[Common.PageInfo, Adminui.UserProfile[]]>
+    }
 
     deleteAccount (user_id: string): Promise<string> {
         const api = this.restApiCfg.getRestApi('user.delete')

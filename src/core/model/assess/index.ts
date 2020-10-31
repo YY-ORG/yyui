@@ -98,6 +98,7 @@ export namespace Assess {
     name: string //, optional),
     orgId: string //, optional),
     status: string //, optional)
+    annual: number
   }
 
   export class AssessTemplateReq {

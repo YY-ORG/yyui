@@ -55,7 +55,19 @@ export class ExaminationAssesspaperService {
     
     return this.restApi.request(api.method, api.url, {id}, null, data)
   }
-
+  
+  copyAssesspaper (_sourceId: string, _destAnnual: number): Promise<any> {
+    const api = this.restApiCfg.getRestApi("copy.assesspaper");
+    
+    return this.restApi.request(api.method, api.url, null, [{
+      key: '_sourceId',
+      value: _sourceId
+    }, {
+      key: '_destAnnual',
+      value: _destAnnual
+    }])
+  }
+  
   getCategory (id: string): Promise<Assess.SimpleAssessCategoryItem[]> {
     const api = this.restApiCfg.getRestApi("assesspaper.category");
     

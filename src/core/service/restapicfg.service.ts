@@ -29,7 +29,7 @@ export class RestApiCfg {
         ip = ip || this.baseIp;
         for (let restItem of this.restApiList) {
             if (restItem.id.toLowerCase() === apiId.toLowerCase()) {
-                url = `http://${ip}:${port}/${restItem.url}`;
+                url = `http://${ip}:${port}/api/${restItem.url}`;
                 break;
             }
         }
@@ -42,7 +42,7 @@ export class RestApiCfg {
         ip = ip || this.baseIp;
         for (let restItem of this.restApiList) {
             if (restItem.id.toLowerCase() === apiId.toLowerCase()) {
-                restApi.url = `http://${ip}:${port}/${restItem.url}`;
+                restApi.url = `http://${ip}:${port}/api/${restItem.url}`;
                 restApi.method = restItem.method;
                 restApi.desc = restItem.desc;
                 restApi.id = restItem.id;

@@ -1,5 +1,12 @@
 <h1 class="content-title">部门管理<button class="slds-button slds-button--green float-right" (click)="addNewOrganization()">新增部门</button></h1>
 
+<div class="scores-query">
+    <ngl-form-element label="部门名称：" class="slds-m-top--small left-lable">
+        <input nglFormControl type="text" placeholder="" [(ngModel)]="queryName">
+    </ngl-form-element>
+    <button class="slds-button slds-button--brand" (click)="queryOrganization(queryName)">搜索</button>
+</div>
+
 <table class="slds-table mgt30">
     <tr>
         <th style="width: 70px">序号</th>

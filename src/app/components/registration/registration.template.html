@@ -9,7 +9,7 @@
         <input nglFormControl type="password" placeholder="" [(ngModel)]="checkPassword" (keyup)="checkValue('checkPassword')">
     </ngl-form-element>
     <ngl-form-element *ngIf="isCanEditPassword" label="密码:" [error]="v.result.password" class="slds-m-top--small left-lable">
-        <input nglFormControl type="password" placeholder="" [(ngModel)]="editpasswordvalue" (ngModelChange)="editpassword()" (keyup)="checkValue('editpassword')">
+        <input nglFormControl type="password" placeholder="" [(ngModel)]="editpasswordvalue" (ngModelChange)="editpassword()" (keyup)="checkValue('password')">
     </ngl-form-element>
     <ngl-form-element label="用户邮箱:" [error]="v.result.email" class="slds-m-top--small left-lable">
         <input nglFormControl type="text" placeholder="" [(ngModel)]="userProfile.email" (keyup)="checkValue('email')">

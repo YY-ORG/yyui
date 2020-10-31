@@ -1,4 +1,4 @@
-import { Component,  OnInit, ViewChild } from '@angular/core';
+import { Component,  OnInit, ViewChild, Input } from '@angular/core';
 
 import { INglDatatableSort, INglDatatableRowClick } from 'ng-lightning/ng-lightning';
 import { SpinnerComponent } from '../../../components'
@@ -7,6 +7,7 @@ import { PageClass } from '../../../class/page/page.class'
 import { RegistrationComponent } from '../../components/registration/registration'
 
 import { AccountService } from './account.service'
+import { RegistrationService } from '../../components/registration/registration.service'
 
 import { Adminui, Common } from '../../../core';
 
@@ -18,12 +19,16 @@ import { Adminui, Common } from '../../../core';
 export class AccountComponent extends PageClass implements OnInit {
 	constructor(
 		private service: AccountService,
+		private regService: RegistrationService,
 	) {
 		super()
 	}
 	
 	@ViewChild(RegistrationComponent) public registration: RegistrationComponent;
 	@ViewChild('editregistration') public editregistration: RegistrationComponent;
+
+	@Input() queryUserName: string = ''
+	@Input() queryOrgId: string = ''
 	
 	willDeleteUser;
 	editModalOpen: boolean = false;
@@ -33,6 +38,7 @@ export class AccountComponent extends PageClass implements OnInit {
 	maxSize = 1
 	userList: Adminui.UserProfile[] = []
 	allRoles: Adminui.RoleItem[] = []
+	organizationList: Adminui.OrganizationItem[] = []
 
 	currentUser: Adminui.UserProfile = new Adminui.UserProfile
 
@@ -50,12 +56,31 @@ export class AccountComponent extends PageClass implements OnInit {
 		// 		})
 		// }
 		this.getAccountList()
+		this.getOrganizationList()
 		this.getAllRoles()
 	}
 
 	getAllRoles () {
 		this.service.fetchAllRoles().then(res => {
 			this.allRoles = res
+		})
+	}
+
+	getOrganizationList () {
+			this.regService.fetchOrganizations().then(res => {
+				this.organizationList = res;
+			})
+	}
+
+
+	queryRoles (queryUserName?: string, queryOrgId?: string) {
+		this.service.queryUsers(0, this.pageSize, queryUserName, queryOrgId).then(res => {
+			let [pageInfo, userItem] = res
+			this.currentPage = pageInfo.currentPage
+			this.maxSize = pageInfo.totalPage
+
+			this.spinner.hide()
+			this.userList = userItem
 		})
 	}
 

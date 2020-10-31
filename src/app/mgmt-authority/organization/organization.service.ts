@@ -61,6 +61,25 @@ export class OrganizationService {
             return [res.pageInfo, res.resultContent]
         }) as Promise<[Common.PageInfo, Adminui.OrganizationItem[]]>
     }
+    
+    queryOrganization (page: number, size: number, name?: string): Promise<[Common.PageInfo, Adminui.OrganizationItem[]]> { 
+        const api = this.restApiCfg.getRestApi("query.organization");
+
+        let pro = this.restApi.request(api.method, api.url, null, [{
+            key: 'page',
+            value: page
+        }, {
+            key: 'size',
+            value: size
+        }, ...(name ? [{
+            key: 'name',
+            value: name
+        }] : [])])
+
+        return pro.then((res: any) => {
+            return [res.pageInfo, res.resultContent]
+        }) as Promise<[Common.PageInfo, Adminui.OrganizationItem[]]>
+    }
 
     deleteOrganization (organization_id: string): Promise<string> {
         const api = this.restApiCfg.getRestApi('delete.organization')

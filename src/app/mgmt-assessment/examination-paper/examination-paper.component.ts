@@ -68,7 +68,7 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 		this.spinner.show()
 		this.service.fetchAssesspaperlist().then(res => {
 			this.spinner.hide()
-			this.assesspaperlist = res
+			this.assesspaperlist = res.sort((a,b) => b.annual - a.annual)
 			setTimeout(() => {
 				(document.querySelector('.slds-tabs--default__link') as HTMLElement).click()
 				if (res.length) {
@@ -119,6 +119,17 @@ export class ExaminationPaperComponent extends PageClass implements OnInit {
 		setTimeout(() => {
 			this.assesslist = this.selectGroup.assessItemList
 			this.cdr.detectChanges()
+		
+			const $ul = document.querySelector('.steps-indicator') as HTMLElement
+			$ul.addEventListener('click', (env) => {
+				// 点击的位置，除以，每个单元的宽度
+				const index = Math.floor(((env as any).clientX - 258) / ($ul.offsetWidth / this.wizard.model.wizardSteps.length))
+				console.log(($ul.offsetWidth / this.wizard.model.wizardSteps.length), (env as any).offsetX, env)
+				console.log(123123123, index, this.assesslist, this.assesslist[index], this.wizard)
+				this.getItem(this.assesslist[index])
+				this.goToStep(index)
+			}, true)
+
 			this.getItem(this.assesslist[0])
 			this.goToStep(0)
 		})
