@@ -6,6 +6,8 @@
         <th>考题总数</th>
         <th>{{isFirstComment ? "已评总数" : "复评总数"}}</th>
         <th>未评总数</th>
+        <th>初评得分</th>
+        <th>复评得分</th>
         <!-- <th>{{isFirstComment ? "初评总数" : "复评总数"}}</th> -->
         <th>操作</th>
       </tr>
@@ -14,8 +16,11 @@
         <td>{{groupAnswer.totalCount}}</td>
         <td>{{isFirstComment ? groupAnswer.markedCount : groupAnswer.auditedCount}}</td>
         <td>{{groupAnswer.totalCount - (isFirstComment ? groupAnswer.markedCount : groupAnswer.auditedCount)}}</td>
+        <td>{{groupAnswer.markedScore === undefined ? '--' : groupAnswer.markedScore}}</td>
+        <td>{{groupAnswer.auditScore === undefined ? '--' : groupAnswer.markedScore}}</td>
         <!-- <td>{{isFirstComment ? groupAnswer.markedCount : groupAnswer.auditedCount}}</td> -->
-        <td  *ngIf="paperStatus != 0"><font class="color-red" (click)="continueAnswer(groupAnswer)">查看试卷</font></td>
+        <td  *ngIf="(isFirstComment && paperStatus != 3)"><font class="color-red" (click)="continueAnswer(groupAnswer)">查看试卷</font></td>
+        <!-- <td  *ngIf="(isFirstComment && paperStatus != 3) || paperStatus != 0"><font class="color-red" (click)="continueAnswer(groupAnswer)">查看试卷</font></td> -->
       </tr>
     </table>
     <pagination *ngIf="maxPage>1" [maxSize]="maxPage" [currentPage]="currentPage + 1" (pageChanged)="pageChanged($event)"></pagination>
@@ -24,10 +29,13 @@
   </div>
 
 <p class="mgt20"></p> 
-<wizard *ngIf="!!assesslist?.length" class="first-comment-paper">
+<wizard *ngIf="!!assesslist?.length" navigationMode='free' class="first-comment-paper">
   <wizard-step stepTitle="{{assess.assessName}}" class="step-box" *ngFor="let assess of assesslist | orderBy: 'seqNo'; let a = index;" #wizard>
       <ng-container *ngIf='currentStep === a' [ngSwitch]="examination?.type">
 
+          <!-- globalDisable -->
+          <!-- 只有状态为“已提交/待初评”的，初评人员才能初评，但是能查看“未提交”的 也能查看已初评还未复评的，但是一旦复评完就不能查看了 -->
+          <!-- 复评人员，能查看所有状态的卷子，但是只能评分“已初评/待复评”状态的卷子。 -->
           <ng-container *ngSwitchCase="0">
               <!-- 表单模板 -->
               <examination-assess-component 
@@ -41,6 +49,7 @@
                 [commentReq]='commentReq'
                 [group]='selectGroup'
                 [userId]='userid'
+                [globalDisable]='isFirstComment ? paperStatus !== 1 : paperStatus !== 2'
                 [templateItemItemList]="templateItemItemList"></examination-assess-component>
               <!-- 表格表单混合模板 -->
           </ng-container>
@@ -58,6 +67,7 @@
                 [commentReq]='commentReq'
                 [group]='selectGroup'
                 [userId]='userid'
+                [globalDisable]='isFirstComment ? paperStatus !== 1 : paperStatus !== 2'
                 [templateItemItemList]="templateTableList"></examination-assess-component>
           <!-- 表格模板 -->
         </ng-container>
@@ -75,6 +85,7 @@
               [assess]='currentAssesst'
               [group]='selectGroup'
               [userId]='userid'
+              [globalDisable]='isFirstComment ? paperStatus !== 1 : paperStatus !== 2'
               [templateItemItemList]="tableItemList"></examination-assess-component>
           </ng-container>
       </ng-container>
@@ -83,10 +94,10 @@
       <button type="button" nglButton="inverse" *ngIf="a + 1 !== assesslist.length" (click)="confirmGoToStep(a + 1)" class="mgr30">下一题</button>
       <button type="button" nglButton="inverse" *ngIf="a + 1 === assesslist.length" (click)="goToIndex()" class="mgr30">返回首页</button>
       
-      <button type="button" nglButton="brand" (click)="setComment()">保存评分</button>
+      <button *ngIf="!(isFirstComment ? paperStatus !== 1 : paperStatus !== 2)" type="button" nglButton="brand" (click)="setComment()">保存评分</button>
     </div>
   </wizard-step>
 </wizard>
 <alert #alert></alert>
-<confirm (onConfirm)="onConfirm()" #confirm></confirm>
+<confirm (onConfirm)="onConfirm()" (onCancel)="onCancel()" #confirm></confirm>
 <spinner #spinner></spinner>

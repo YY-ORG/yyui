@@ -30,6 +30,10 @@ export class FirstCommentComponent extends PageClass implements OnInit {
 	maxPage: number = 1
 	isFirstComment : boolean = false
 
+	queryName: string = ''
+	queryYear: string = ''
+	queryStatus: string = ''
+
 	ngOnInit() {
 		this.isFirstComment = this.router.url.indexOf('first-comment') > -1
 		this.getUnmarkList()
@@ -40,10 +44,11 @@ export class FirstCommentComponent extends PageClass implements OnInit {
 
 	}
 
-	getUnmarkList () {
+	getUnmarkList (queryName?: string, queryYear?: string, queryStatus?: string) {
+		console.log(queryName, queryYear, queryStatus)
 		this.spinner.show()
 		const server = this.isFirstComment ? this.service.fetchUnmarklist : this.service.fetchUnauditlist
-		server.bind(this.service)(this.currentPage, 10).then((res) => {
+		server.bind(this.service)(this.currentPage, 10, queryName, queryYear, queryStatus).then((res) => {
 			this.spinner.hide()
 			let [pageList, unmarklist] = res
 			this.currentPage = pageList.totalPage === pageList.currentPage ? pageList.totalPage - 1 : pageList.currentPage
@@ -54,7 +59,27 @@ export class FirstCommentComponent extends PageClass implements OnInit {
       this.alert.open(res)
     })
 	}
-	
+
+	rollbackSubmit (unmark: Assess.AssessPaperExamineeMapItem) {
+		this.service.rollbackSubmit(unmark.assessPaperId, unmark.id).then((res) => {
+			this.spinner.hide()
+			this.getUnmarkList()
+		}).catch(res => {
+      this.spinner.hide()
+      this.alert.open(res)
+    })
+	}
+
+	rollbackMark (unmark: Assess.AssessPaperExamineeMapItem) {
+		this.service.rollbackMark(unmark.assessPaperId, unmark.id).then((res) => {
+			this.spinner.hide()
+			this.getUnmarkList()
+		}).catch(res => {
+      this.spinner.hide()
+      this.alert.open(res)
+    })
+	}
+
 	deleteUser(d) {
 		this.willDeleteUser = d;
 		this.confirm.open("确定要删除此用户吗？")

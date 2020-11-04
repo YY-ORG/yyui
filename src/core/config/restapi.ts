@@ -273,6 +273,18 @@ export let RestApis: RestApiModel[] = [
         "url": "assess/authsec/assesspaper/copy"
     },
     {
+        "desc": "打回某个用户某个卷子的初评记录",
+        "method": "PUT",
+        "id": "rollback.mark",
+        "url": "assess/authsec/assesspaper/{assessPaperId}/rollbackmark/{aspExamineeMapId}"
+    },
+    {
+        "desc": "打回某个用户某个卷子的初评记录",
+        "method": "PUT",
+        "id": "rollback.submit",
+        "url": "assess/authsec/assesspaper/{assessPaperId}/rollbacksubmit/{aspExamineeMapId}"
+    },
+    {
         "desc": "考生增加某个卷子某个多答案题的答案",
         "method": "POST",
         "id": "assessanswer.answeritem",

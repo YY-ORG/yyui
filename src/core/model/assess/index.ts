@@ -336,6 +336,7 @@ export namespace Assess {
     unstartedCount: number //, optional)
   }
   export class AssessPaperExamineeMapItem {
+    id: string
     assessPaperId: string //, optional),
     assessPaperName: string //, optional),
     auditScore: number //, optional),

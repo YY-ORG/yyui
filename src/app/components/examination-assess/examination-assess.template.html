@@ -85,6 +85,7 @@
           <tr>
               <th *ngFor="let table of tableList | orderBy: 'seqNo'">{{table.label}}</th>
               <th style="width: 200px">操作</th>
+              <th *ngIf='isTable && commentType'  style="width: 150px">评分</th>
           </tr>
           <tr *ngFor="let tableTr of tableTrList; let i = index">
               <td *ngFor="let table of tableList | orderBy: 'seqNo'">{{ tableTr[table.code]?.itemValue | async }}</td>
@@ -138,7 +139,7 @@
           <template ngl-modal-footer>
               <button class="slds-button slds-button--neutral" (click)="editModalOpen = false">{{ isDisable ? '关闭' : '取消'}}</button>
               <button *ngIf="!commentType" class="slds-button slds-button--brand" (click)="submitModelEditFrom()">确定</button>
-              <button *ngIf="commentType" class="slds-button slds-button--brand" (click)="sendEditComment()">提交评分</button>
+              <button *ngIf="!globalDisable && commentType" class="slds-button slds-button--brand" (click)="sendEditComment()">提交评分</button>
           </template>
         </ngl-modal>
     </div>
@@ -177,7 +178,7 @@
     
     </ng-container>
 </ng-container>
-<article *ngIf="isComment" class="slds-card mgt30 width80">
+<article *ngIf="isComment && !globalDisable" class="slds-card mgt30 width80">
   <!-- <ngl-form-element label="系统辅助评分:"  class="slds-m-top--small left-lable width50">
     <input nglFormControl disabled type="text" placeholder="" [(ngModel)]="commentReq.auxiliaryScore">
   </ngl-form-element> -->

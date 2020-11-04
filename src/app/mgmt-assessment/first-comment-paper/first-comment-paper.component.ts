@@ -150,6 +150,16 @@ export class FirstCommentPaperComponent extends PageClass implements OnInit {
 		setTimeout(() => {
 			this.assesslist = this.selectGroup.assessItemList
 			this.cdr.detectChanges()
+
+			const $ul = document.querySelector('.steps-indicator') as HTMLElement
+			$ul.addEventListener('click', (env) => {
+				console.count()
+				// 点击的位置，除以，每个单元的宽度
+				const index = Math.floor(((env as any).clientX - 258) / ($ul.offsetWidth / this.wizard.model.wizardSteps.length))
+				// this.getItem(this.assesslist[index])
+				this.confirmGoToStep(index)
+			}, true)
+
 			this.getItem(this.assesslist[0])
 			this.goToStep(0)
 		})
@@ -163,6 +173,7 @@ export class FirstCommentPaperComponent extends PageClass implements OnInit {
 		this.complexTemplateList = []
 		let preFinalize = {
 			emit: () => {
+				console.log(6, index)
 				this.getItem(this.assesslist[index])
 			}
 		}
@@ -178,13 +189,13 @@ export class FirstCommentPaperComponent extends PageClass implements OnInit {
 		this.getAssesslist()
 	}
 
-	setComment () {
+	setComment (index = ++this.currentStep) {
 		if (this.tableList.length) {
-			return this.goToStep(++this.currentStep)
+			return this.goToStep(index)
 		}
 
 		Promise.all([this.examinationAssess.submit(this.userid), this.examinationAssess.submitComment()]).then(res => {
-			this.goToStep(++this.currentStep)
+			this.goToStep(index)
 		})
 	}
 
@@ -195,7 +206,7 @@ export class FirstCommentPaperComponent extends PageClass implements OnInit {
 		this.confirm.open('是否保存本题评分？')
 		this.onConfirm = () => {
 			this.confirm.close()
-			this.setComment()
+			this.setComment(index)
 		}
 		this.onCancel = () => {
 			this.goToStep(index)

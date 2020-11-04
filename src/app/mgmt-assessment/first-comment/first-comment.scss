@@ -27,3 +27,17 @@
 	text-align: right;
 	margin-top: 50px;
 }
+.scores-query {
+	overflow: hidden;
+	.slds-m-top--small {
+		width: 300px;
+		float: left;
+		margin-right: 30px;
+	}
+	.slds-form-element__label {
+		width: 40px;
+	}
+	.slds-button {
+		margin-top: 1rem;
+	}
+}
