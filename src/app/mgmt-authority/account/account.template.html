@@ -6,12 +6,12 @@
         <input nglFormControl type="text" placeholder="" [(ngModel)]="queryUserName">
     </ngl-form-element>
     <ngl-form-element label="所属部门:" class="slds-m-top--small left-lable">
-        <select nglFormControl [(ngModel)]="orgId" class="slds-select">
+        <select nglFormControl [(ngModel)]="queryOrgId" class="slds-select">
             <option value="">全部</option>
             <option *ngFor="let organization of organizationList" [value]="organization.id">{{organization.organizitionName}}</option>
         </select>
     </ngl-form-element>
-    <button class="slds-button slds-button--brand" (click)="queryRoles(queryUserName, orgId)">搜索</button>
+    <button class="slds-button slds-button--brand" (click)="queryRoles(queryUserName, queryOrgId)">搜索</button>
 </div>
 
 <table class="slds-table mgt30">

@@ -50,9 +50,9 @@ export class OrganizationComponent extends PageClass implements OnInit {
 	// 	})
 	// }
 
-	getOrganizationList (name?: string) {
+	getOrganizationList (name: string = this.queryName, currentPage: number = this.currentPage) {
 		this.spinner.show()
-		this.service.fetchAllOrganizations(this.currentPage, this.pageSize).then(res => {
+		this.service.queryOrganization(currentPage, this.pageSize, name).then(res => {
 			let [pageInfo, userItem] = res
 			this.currentPage = pageInfo.currentPage
 			this.maxSize = pageInfo.totalPage
@@ -62,7 +62,7 @@ export class OrganizationComponent extends PageClass implements OnInit {
 		})
 	}
 
-	queryOrganization(name: string) {
+	queryOrganization(name: string = this.queryName) {
 		this.spinner.show()
 		this.service.queryOrganization(this.currentPage, this.pageSize, name).then(res => {
 			let [pageInfo, userItem] = res

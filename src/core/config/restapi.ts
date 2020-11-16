@@ -607,5 +607,11 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "id": "get.files",
         "url": "zuul/filesys/authsec/files"
+    },
+    {
+        "desc": "检索题库中的试题的年度列表",
+        "method": "GET",
+        "id": "get.annuallist",
+        "url": "assess/authsec/assessespaper/annuallist"
     }
 ]

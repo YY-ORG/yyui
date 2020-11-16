@@ -84,9 +84,9 @@ export class AccountComponent extends PageClass implements OnInit {
 		})
 	}
 
-	getAccountList () {
+	getAccountList (currentPage: number = this.currentPage, pageSize: number = this.pageSize, queryUserName: string = this.queryUserName, queryOrgId: string = this.queryOrgId) {
 		this.spinner.show()
-		this.service.queryAccountList(null, this.currentPage, this.pageSize).then(res => {
+		this.service.queryUsers(currentPage, pageSize, queryUserName, queryOrgId).then(res => {
 			let [pageInfo, userItem] = res
 			this.currentPage = pageInfo.currentPage
 			this.maxSize = pageInfo.totalPage

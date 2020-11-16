@@ -68,15 +68,18 @@ export class FristCommentService {
     }) as Promise<any>
   }
 
+  fetchAnnuallist(): Promise<any> {
+    const api = this.restApiCfg.getRestApi("get.annuallist");
+    
+    return this.restApi.request(api.method, api.url, null, null) as Promise<any>
+  }
 
   rollbackSubmit(assessPaperId, aspExamineeMapId): Promise<any> {
     const api = this.restApiCfg.getRestApi("rollback.submit");
     
     return this.restApi.request(api.method, api.url, {
       assessPaperId, aspExamineeMapId
-    }, null).then((res: any) => {
-        return [res.pageInfo, res.resultContent]
-    }) as Promise<any>
+    }, null) as Promise<any>
   }
 
   professionalTitle = this.dict.get({ 

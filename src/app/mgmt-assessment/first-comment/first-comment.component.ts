@@ -25,6 +25,7 @@ export class FirstCommentComponent extends PageClass implements OnInit {
 	willDeleteUser;
 	editModalOpen: boolean = false;
 	unmarklist: Assess.AssessPaperExamineeMapItem[] = []
+	annullist: any[] = []
 
 	currentPage: number = 0
 	maxPage: number = 1
@@ -37,6 +38,7 @@ export class FirstCommentComponent extends PageClass implements OnInit {
 	ngOnInit() {
 		this.isFirstComment = this.router.url.indexOf('first-comment') > -1
 		this.getUnmarkList()
+		this.getAnnuallist()
 	}
 
 	gotoPaper (unmarklist: Assess.AssessPaperExamineeMapItem) {
@@ -44,11 +46,16 @@ export class FirstCommentComponent extends PageClass implements OnInit {
 
 	}
 
-	getUnmarkList (queryName?: string, queryYear?: string, queryStatus?: string) {
-		console.log(queryName, queryYear, queryStatus)
+	getAnnuallist () {
+		this.service.fetchAnnuallist().then(res => {
+			this.annullist = res
+		})
+	}
+
+	getUnmarkList (queryName: string = this.queryName, queryYear: string = this.queryYear, queryStatus: string = this.queryStatus, currentPage: number = this.currentPage) {
 		this.spinner.show()
 		const server = this.isFirstComment ? this.service.fetchUnmarklist : this.service.fetchUnauditlist
-		server.bind(this.service)(this.currentPage, 10, queryName, queryYear, queryStatus).then((res) => {
+		server.bind(this.service)(currentPage, 10, queryName, queryYear, queryStatus).then((res) => {
 			this.spinner.hide()
 			let [pageList, unmarklist] = res
 			this.currentPage = pageList.totalPage === pageList.currentPage ? pageList.totalPage - 1 : pageList.currentPage
@@ -61,6 +68,7 @@ export class FirstCommentComponent extends PageClass implements OnInit {
 	}
 
 	rollbackSubmit (unmark: Assess.AssessPaperExamineeMapItem) {
+		this.spinner.show()
 		this.service.rollbackSubmit(unmark.assessPaperId, unmark.id).then((res) => {
 			this.spinner.hide()
 			this.getUnmarkList()
@@ -71,6 +79,7 @@ export class FirstCommentComponent extends PageClass implements OnInit {
 	}
 
 	rollbackMark (unmark: Assess.AssessPaperExamineeMapItem) {
+		this.spinner.show()
 		this.service.rollbackMark(unmark.assessPaperId, unmark.id).then((res) => {
 			this.spinner.hide()
 			this.getUnmarkList()
