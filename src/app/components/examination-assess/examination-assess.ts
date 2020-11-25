@@ -486,6 +486,7 @@ export class ExaminationAssessComponent extends PageClass implements OnInit, OnC
 
   setCommentReq (formVluesList: any) { // 设置评论
     this.commentReq = formVluesList
+    console.log(3333, 'this.commentReq', this.commentReq)
   }
 
   parserReqDate () {

@@ -189,13 +189,18 @@ export class FirstCommentPaperComponent extends PageClass implements OnInit {
 		this.getAssesslist()
 	}
 
-	setComment (index = ++this.currentStep) {
+	setComment (index = this.currentStep + 1) {
+		console.log(33333, this.tableList)
 		if (this.tableList.length) {
 			return this.goToStep(index)
 		}
 
+		this.spinner.show()
 		Promise.all([this.examinationAssess.submit(this.userid), this.examinationAssess.submitComment()]).then(res => {
+			this.spinner.hide()
 			this.goToStep(index)
+		}).catch(e => {
+			this.spinner.hide()
 		})
 	}
 

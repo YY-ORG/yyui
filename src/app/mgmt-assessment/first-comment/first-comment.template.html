@@ -47,8 +47,8 @@
             <td>{{unmark.status | dict: service.status | async}}</td>
             <td>
                 <my-button button="radius" (onClick)="gotoPaper(unmark)" color="primary" className="mgr10" icon="icon-edit1">查看</my-button>
-                <my-button *ngIf='unmark.status !== 2 && unmark.status !== 0' button="radius" (onClick)="gotoPaper(unmark)" color="red" className="mgr10" icon="icon-edit1">评分</my-button>
-                <my-button *ngIf='unmark.status === 1 || (!isFirstComment && unmark.status === 2)' button="radius" (onClick)="isFirstComment ? rollbackSubmit(unmark) : rollbackMark(unmark)" color="red" className="mgr10" icon="icon-edit1">打回</my-button>
+                <my-button *ngIf='(isFirstComment && unmark.status === 1) || (!isFirstComment && unmark.status === 2)' button="radius" (onClick)="gotoPaper(unmark)" color="red" className="mgr10" icon="icon-edit1">评分</my-button>
+                <my-button *ngIf='(isFirstComment && unmark.status === 1) || (!isFirstComment && unmark.status === 2)' button="radius" (onClick)="isFirstComment ? rollbackSubmit(unmark) : rollbackMark(unmark)" color="red" className="mgr10" icon="icon-edit1">打回</my-button>
             </td>
         </tr>
     </table>

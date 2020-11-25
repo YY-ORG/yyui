@@ -9,7 +9,7 @@
         <th>初评得分</th>
         <th>复评得分</th>
         <!-- <th>{{isFirstComment ? "初评总数" : "复评总数"}}</th> -->
-        <th>操作</th>
+        <th *ngIf="(isFirstComment && paperStatus != 3) || (!isFirstComment)">操作</th>
       </tr>
       <tr *ngFor="let groupAnswer of groupAnswerItemList; let i = index">
         <td>{{groupAnswer.groupName}}</td>
@@ -17,9 +17,9 @@
         <td>{{isFirstComment ? groupAnswer.markedCount : groupAnswer.auditedCount}}</td>
         <td>{{groupAnswer.totalCount - (isFirstComment ? groupAnswer.markedCount : groupAnswer.auditedCount)}}</td>
         <td>{{groupAnswer.markedScore === undefined ? '--' : groupAnswer.markedScore}}</td>
-        <td>{{groupAnswer.auditScore === undefined ? '--' : groupAnswer.markedScore}}</td>
+        <td>{{groupAnswer.auditScore === undefined ? '--' : groupAnswer.auditScore}}</td>
         <!-- <td>{{isFirstComment ? groupAnswer.markedCount : groupAnswer.auditedCount}}</td> -->
-        <td  *ngIf="(isFirstComment && paperStatus != 3)"><font class="color-red" (click)="continueAnswer(groupAnswer)">查看试卷</font></td>
+        <td  *ngIf="(isFirstComment && paperStatus != 3) || (!isFirstComment)"><font class="color-red" (click)="continueAnswer(groupAnswer)">查看试卷</font></td>
         <!-- <td  *ngIf="(isFirstComment && paperStatus != 3) || paperStatus != 0"><font class="color-red" (click)="continueAnswer(groupAnswer)">查看试卷</font></td> -->
       </tr>
     </table>

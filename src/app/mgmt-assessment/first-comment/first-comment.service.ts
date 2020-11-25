@@ -63,9 +63,7 @@ export class FristCommentService {
     
     return this.restApi.request(api.method, api.url, {
       assessPaperId, aspExamineeMapId
-    }, null).then((res: any) => {
-        return [res.pageInfo, res.resultContent]
-    }) as Promise<any>
+    }, null) as Promise<any>
   }
 
   fetchAnnuallist(): Promise<any> {

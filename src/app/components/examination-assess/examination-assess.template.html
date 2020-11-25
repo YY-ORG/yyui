@@ -85,7 +85,7 @@
           <tr>
               <th *ngFor="let table of tableList | orderBy: 'seqNo'">{{table.label}}</th>
               <th style="width: 200px">操作</th>
-              <th *ngIf='isTable && commentType'  style="width: 150px">评分</th>
+              <th *ngIf='commentType'  style="width: 150px">评分</th>
           </tr>
           <tr *ngFor="let tableTr of tableTrList; let i = index">
               <td *ngFor="let table of tableList | orderBy: 'seqNo'">{{ tableTr[table.code]?.itemValue | async }}</td>
@@ -93,11 +93,12 @@
                   <my-button button="radius" (onClick)="editModalAssessAnwser(tableTr)" color="primary" className="mgr10" icon="icon-edit1">编辑</my-button>
                   <my-button button="radius" (onClick)="deleteTableList(tableTr)" color="red" className="mgr10" icon="icon-edit1">删除</my-button>
               </td>
-              <td *ngIf='globalDisable || (commentType && !isTable)'>
-                <my-button button="radius" (onClick)="editModalAssessAnwser(tableTr)" color="primary" className="mgr10" icon="icon-edit1">查看</my-button>
+              <td *ngIf='commentType'>
+                <my-button *ngIf='globalDisable || !isTable' button="radius" (onClick)="editModalAssessAnwser(tableTr)" color="primary" className="mgr10" icon="icon-edit1">查看</my-button>
+                <my-button *ngIf='isTable' button="radius" (onClick)="commentAssess(tableTr)" color="primary" className="mgr10" icon="icon-edit1">评分</my-button>
               </td>
-              <td *ngIf='isTable && commentType'>
-                <my-button button="radius" (onClick)="commentAssess(tableTr)" color="primary" className="mgr10" icon="icon-edit1">评分</my-button>
+              <td  *ngIf='commentType'>
+                {{ isFristComment ? commentReq?.itemList[i].markedScore :  commentReq?.itemList[i].auditScore }}
               </td>
           </tr>
         </table>
